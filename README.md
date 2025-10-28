@@ -10,47 +10,79 @@
 
 ## Overview
 
-Iconics is a centralized, semantically-tagged icon library designed for easy discovery and reuse across multiple projects. Instead of hunting through folders of numbered files, search by meaning and context.
+Iconics is a globally-accessible, semantically-tagged icon library designed for instant use across all projects. Use professional icons instead of emojis everywhere - GitHub, documentation, websites, and more.
 
 ### Key Features
 
-- **Semantic Naming:** Icons tagged with meaningful names (lock, shield, network)
-- **Rich Metadata:** Tags, categories, descriptions for powerful search
-- **CLI Management:** Search, export, and organize from the command line
-- **Project Tracking:** Automatic tracking of which projects use which icons
-- **Symlink Organization:** Efficient storage with categorized views
-- **Cross-Project Reuse:** Export icons to any project with semantic names
+- **Global CLI Access:** `icon use lock shield` from anywhere, instantly
+- **Smart Project Detection:** Auto-detects project root and exports to correct location
+- **Ready-to-Paste Markdown:** Generates markdown snippets automatically
+- **Context-Aware Suggestions:** `icon suggest authentication` recommends appropriate icons
+- **Semantic Search:** Find icons by meaning, not filename
+- **1,200+ Icons Available:** 128 cataloged and ready, 1,087 more to discover
+- **No More Emojis:** Professional, semantic icons for all your projects
 
 ---
 
-## Quick Start
+## Quick Start (Global Access)
 
-### Search for Icons
+### Install Globally
 
 ```bash
 cd /home/zack/dev/iconics
-python3 icon-manager.py search security
+./install.sh
+```
+
+Now use the `icon` command from **anywhere**:
+
+### 1. Find Icons
+
+```bash
+icon search security
+# or get suggestions
+icon suggest authentication
+```
+
+### 2. Use Instantly (Exports + Generates Markdown)
+
+```bash
+icon use lock shield
 ```
 
 **Output:**
 ```
-Found 2 icon(s) matching 'security':
-  lock                  #Lock  [security]  Tags: security, padlock, locked
-  shield                #Shield_16x16  [security]  Tags: security, shield, protection, guard
+Exporting to: /home/user/dev/your-project
+✓ Exported lock.png
+✓ Exported shield.png
+
+Markdown snippets:
+  ![lock](.github/assets/icons/lock.png)
+  ![shield](.github/assets/icons/shield.png)
 ```
 
-### Export to Your Project
+**Copy and paste the markdown directly into your README!**
 
-```bash
-python3 icon-manager.py export ~/dev/my-project lock shield network
-```
-
-Icons are copied to `my-project/.github/assets/icons/` with semantic names, ready to use:
+### 3. That's It!
 
 ```markdown
-## ![Shield](.github/assets/icons/shield.png) Security Features
+## ![lock](.github/assets/icons/lock.png) Security Features
 
+### ![shield](.github/assets/icons/shield.png) Encrypted Communication
 Your content here...
+```
+
+**See [QUICK_START.md](QUICK_START.md) for the complete guide.**
+
+---
+
+## Classic Usage (Python Manager)
+
+You can also use the Python manager directly:
+
+```bash
+cd /home/zack/dev/iconics
+python3 icon-manager.py search security
+python3 icon-manager.py export ~/dev/my-project lock shield
 ```
 
 ---
@@ -93,7 +125,38 @@ iconics/
 
 ---
 
-## CLI Commands
+## Global CLI Commands
+
+The `icon` command provides instant access from anywhere. All commands work from any directory and auto-detect your project.
+
+### Quick Commands
+
+```bash
+icon search <query>              # Search for icons
+icon use <name> [name2...]       # Export + generate markdown
+icon suggest <context>           # Get context-aware suggestions
+icon md <name>                   # Generate markdown snippet
+icon cat <category>              # Export whole category
+icon i <name>                    # Show icon information
+icon recent [N]                  # Show recent additions
+```
+
+**Example Workflow:**
+```bash
+icon suggest security
+# → lock, key, shield, certificate, login
+
+icon use lock shield
+# → Exports icons and generates ready-to-paste markdown
+```
+
+**Full command reference:** `icon help` or see [QUICK_START.md](QUICK_START.md)
+
+---
+
+## Python Manager Commands
+
+You can also use the Python manager directly for advanced operations:
 
 ### Search
 
@@ -458,6 +521,11 @@ Network security research project
 - ✅ Detailed icon information command
 - ✅ Recent icons tracking
 - ✅ Batch export by category
+- ✅ **Global CLI access system**
+- ✅ **Smart project detection**
+- ✅ **Auto-generated markdown snippets**
+- ✅ **Context-aware icon suggestions**
+- ✅ **One-command export and use**
 
 ### Phase 3 (Future)
 - [ ] Web interface for visual browsing
@@ -543,6 +611,7 @@ Suitable for personal and open-source projects.
 
 ## Links
 
+- **Quick Start Guide:** [QUICK_START.md](QUICK_START.md) - Fast workflows and examples
 - **Repository:** https://github.com/johnzfitch/iconics
 - **Issues:** https://github.com/johnzfitch/iconics/issues
 - **Example Usage:** [eero-reverse-engineering](https://github.com/johnzfitch/eero-reverse-engineering)

@@ -1,0 +1,280 @@
+#!/usr/bin/env bash
+# Iconics Quick Access Tool
+# Global wrapper for fast icon operations from anywhere
+
+ICONICS_DIR="/home/zack/dev/iconics"
+MANAGER="$ICONICS_DIR/icon-manager.py"
+
+# Color codes for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+
+usage() {
+    cat << EOF
+Iconics - Semantic Icon Library Quick Access
+
+USAGE:
+    icon <command> [options]
+
+QUICK COMMANDS:
+    search <query>              Search for icons by tag/name
+    use <name> [name2...]       Export icon(s) to current project and show markdown
+    suggest <context>           Get icon suggestions for a context/topic
+    md <name>                   Generate markdown snippet for icon
+    here <name> [name2...]      Export icon(s) to current directory
+    cat <category>              Export all icons from category to current project
+
+MANAGEMENT:
+    info <name>                 Show detailed icon information
+    recent [N]                  Show recently cataloged icons
+    stats                       Show library statistics
+    validate                    Validate catalog integrity
+    list <category>             List all icons in category
+
+CATALOGING:
+    add <id> <name> ...         Add new icon to catalog
+    import <csv>                Bulk import from CSV
+    generate <csv> [limit]      Auto-generate CSV from filenames
+
+EXAMPLES:
+    icon search security        # Find security-related icons
+    icon use lock shield        # Export lock and shield to current project
+    icon suggest authentication # Get icon suggestions for auth features
+    icon md network             # Get markdown snippet for network icon
+    icon here warning info      # Export warning and info to current directory
+    icon cat security           # Export all security icons to project
+
+For full manager options: python3 $MANAGER --help
+EOF
+}
+
+# Detect current project root (git root or directory with README.md)
+detect_project() {
+    # Try git root first
+    local git_root=$(git rev-parse --show-toplevel 2>/dev/null)
+    if [[ -n "$git_root" ]]; then
+        echo "$git_root"
+        return 0
+    fi
+
+    # Look for README.md in current or parent directories
+    local dir="$PWD"
+    while [[ "$dir" != "/" ]]; do
+        if [[ -f "$dir/README.md" ]] || [[ -f "$dir/readme.md" ]]; then
+            echo "$dir"
+            return 0
+        fi
+        dir=$(dirname "$dir")
+    done
+
+    # Fall back to current directory
+    echo "$PWD"
+}
+
+# Generate markdown snippet for icon
+generate_markdown() {
+    local name="$1"
+    local project=$(detect_project)
+    local rel_path=".github/assets/icons/${name}.png"
+
+    # If we're in a subdirectory, adjust path
+    if [[ "$PWD" != "$project" ]]; then
+        local depth=$(echo "$PWD" | sed "s|$project||" | tr '/' '\n' | grep -c '^')
+        local prefix=$(printf '../%.0s' $(seq 1 $depth))
+        rel_path="${prefix}${rel_path}"
+    fi
+
+    echo "![${name}](${rel_path})"
+}
+
+# Suggest icons based on context
+suggest_icons() {
+    local context="$1"
+
+    echo -e "${BLUE}Icon suggestions for '${context}':${NC}\n"
+
+    # Define context mappings
+    case "$context" in
+        auth|authentication|login|signin)
+            echo "  lock, key, shield, certificate, login"
+            ;;
+        security|secure|protection)
+            echo "  shield, lock, key, protection, certificate, keychain"
+            ;;
+        network|connection|api|server)
+            echo "  network, cloud, globe, wifi, connect, server"
+            ;;
+        data|database|storage)
+            echo "  database, folder, save-file, cloud, documents"
+            ;;
+        error|warning|alert)
+            echo "  warning, error, alert, caution, danger"
+            ;;
+        success|complete|done)
+            echo "  checkbox, checkmark, success, done"
+            ;;
+        info|information|help)
+            echo "  info, help, question, about"
+            ;;
+        settings|config|options)
+            echo "  settings, options, control-panel, toolbox, gear"
+            ;;
+        navigation|menu|ui)
+            echo "  home, menu, arrow-right, arrow-left, close"
+            ;;
+        files|documents|docs)
+            echo "  folder, document, pdf, file, documents"
+            ;;
+        code|development|programming)
+            echo "  console, script, database, code, terminal"
+            ;;
+        search|find|lookup)
+            echo "  search, find, magnifying-glass, lookup"
+            ;;
+        user|account|profile)
+            echo "  login, logout, user, account, profile"
+            ;;
+        *)
+            # Fall back to search
+            python3 "$MANAGER" search "$context" 2>/dev/null | grep -v "Found" | head -10
+            ;;
+    esac
+
+    echo ""
+    echo -e "${YELLOW}Use: icon use <name> to export and get markdown${NC}"
+}
+
+# Main command dispatcher
+case "${1:-help}" in
+    search|s)
+        shift
+        python3 "$MANAGER" search "$@"
+        ;;
+
+    use|u)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify icon name(s)${NC}"
+            exit 1
+        fi
+
+        project=$(detect_project)
+        echo -e "${BLUE}Exporting to: $project${NC}"
+        python3 "$MANAGER" export "$project" "$@"
+
+        echo ""
+        echo -e "${GREEN}Markdown snippets:${NC}"
+        for icon in "$@"; do
+            echo "  $(generate_markdown "$icon")"
+        done
+        ;;
+
+    suggest|sug)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify context (e.g., authentication, network, security)${NC}"
+            exit 1
+        fi
+        suggest_icons "$*"
+        ;;
+
+    md|markdown)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify icon name${NC}"
+            exit 1
+        fi
+        for icon in "$@"; do
+            generate_markdown "$icon"
+        done
+        ;;
+
+    here|h)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify icon name(s)${NC}"
+            exit 1
+        fi
+
+        # Export to current directory
+        python3 "$MANAGER" export "$PWD" "$@"
+        ;;
+
+    cat|category)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify category${NC}"
+            exit 1
+        fi
+
+        project=$(detect_project)
+        echo -e "${BLUE}Exporting category '$1' to: $project${NC}"
+        python3 "$MANAGER" export-category "$project" "$1"
+        ;;
+
+    info|i)
+        shift
+        python3 "$MANAGER" info "$@"
+        ;;
+
+    recent|r)
+        shift
+        if [[ $# -eq 0 ]]; then
+            python3 "$MANAGER" recent
+        else
+            python3 "$MANAGER" recent --limit "$1"
+        fi
+        ;;
+
+    stats|st)
+        python3 "$MANAGER" stats
+        ;;
+
+    validate|v)
+        python3 "$MANAGER" validate
+        ;;
+
+    list|l)
+        shift
+        python3 "$MANAGER" list "$@"
+        ;;
+
+    add)
+        shift
+        python3 "$MANAGER" add "$@"
+        ;;
+
+    import|imp)
+        shift
+        python3 "$MANAGER" import-csv "$@"
+        ;;
+
+    generate|gen)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify output CSV file${NC}"
+            exit 1
+        fi
+        output="$1"
+        shift
+        if [[ $# -gt 0 ]]; then
+            python3 "$MANAGER" generate-csv "$output" --limit "$1"
+        else
+            python3 "$MANAGER" generate-csv "$output"
+        fi
+        ;;
+
+    help|--help|-h|"")
+        usage
+        ;;
+
+    *)
+        echo -e "${RED}Unknown command: $1${NC}"
+        echo ""
+        usage
+        exit 1
+        ;;
+esac
