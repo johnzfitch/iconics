@@ -4,7 +4,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Icons](https://img.shields.io/badge/icons-1700%2B-brightgreen.svg)
-![Cataloged](https://img.shields.io/badge/cataloged-125-orange.svg)
+![Cataloged](https://img.shields.io/badge/cataloged-128-orange.svg)
 
 ---
 
@@ -58,7 +58,7 @@ Your content here...
 ## Library Stats
 
 - **Total Icons:** 1,700+ PNG files
-- **Cataloged:** 125 icons (7% coverage)
+- **Cataloged:** 128 icons (7.5% coverage)
 - **Categories:** 7 (files, network, security, tools, ui, emoji, development)
 - **Projects Using:** 1 (eero-reverse-engineering)
 
@@ -183,6 +183,78 @@ Calculator,calculator,"math,numbers,compute",tools,Calculator icon
 
 **Template:** See `icon-import-template.csv` for a ready-to-use template
 
+### Auto-Generate CSV from Filenames
+
+Let the tool suggest names and tags based on icon filenames:
+
+```bash
+python3 icon-manager.py generate-csv suggested-icons.csv --limit 50
+```
+
+**What it does:**
+- Scans uncataloged icons in `raw/` directory
+- Parses filenames to suggest semantic names
+- Auto-generates tags from filename words
+- Guesses categories based on keywords
+- Creates ready-to-edit CSV file
+
+**Benefits:**
+- **10x faster** than manual tagging from scratch
+- Smart suggestions from descriptive filenames
+- Batch review and edit in spreadsheet
+- Skip icons with numeric/unclear names
+
+**Workflow:**
+```bash
+# 1. Generate suggestions for 100 icons
+python3 icon-manager.py generate-csv batch1.csv --limit 100
+
+# 2. Edit batch1.csv in Excel/Google Sheets
+#    - Review suggestions
+#    - Improve tags
+#    - Fix categories
+
+# 3. Import the reviewed batch
+python3 icon-manager.py import-csv batch1.csv
+```
+
+### Template System (Icon Families)
+
+Create reusable templates for icon families to save time:
+
+**Create a template:**
+```bash
+python3 icon-manager.py create-template arrow \
+  --tags navigation direction pointer movement \
+  --category ui
+```
+
+**Apply template to multiple icons:**
+```csv
+# arrow-icons.csv
+id,semantic,extra_tags,description
+Up,arrow-up,upward vertical,Upward arrow
+Down,arrow-down,downward vertical,Downward arrow
+Left,arrow-left,leftward horizontal,Left arrow
+Right,arrow-right,rightward horizontal,Right arrow
+```
+
+```bash
+python3 icon-manager.py apply-template arrow arrow-icons.csv
+```
+
+**Benefits:**
+- Define common tags once for icon families
+- Apply consistently across all variants
+- Add variant-specific tags as needed
+- Perfect for: arrows, social media icons, file types, status indicators
+
+**Example templates:**
+- **arrow:** navigation, direction, pointer
+- **social:** social-media, sharing, platform
+- **file-type:** file, document, format
+- **status:** indicator, state, condition
+
 ### View Statistics
 
 Show library statistics:
@@ -304,8 +376,10 @@ Network security research project
 - ✅ Initial 9 icons cataloged
 
 ### Phase 2 ✅ (Complete)
-- ✅ Bulk tagging tool for rapid cataloging
-- ✅ Expand catalog to 121 icons
+- ✅ Bulk CSV import (3-4x faster)
+- ✅ Auto-generate CSV from filenames (10x faster)
+- ✅ Template system for icon families
+- ✅ Expand catalog to 128 icons
 - [ ] Web interface for visual browsing
 - [ ] Thumbnail generation
 - [ ] Auto-detection of similar icons
@@ -378,6 +452,9 @@ Suitable for personal and open-source projects.
 | `export <path> <icons...>` | Copy icons to project |
 | `add <id> <name> --tags... --category...` | Catalog new icon |
 | `import-csv <file>` | Bulk import from CSV (3-4x faster) |
+| `generate-csv <output> --limit N` | Auto-generate CSV from filenames (10x faster) |
+| `create-template <name> --tags... --category` | Create reusable template |
+| `apply-template <name> <csv>` | Apply template to icon family |
 | `stats` | Show library statistics |
 
 ---

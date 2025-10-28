@@ -264,6 +264,179 @@ class IconManager:
             print(f"✗ Errors/Skipped: {error_count}")
         print(f"Total cataloged icons: {len(self.catalog['icons'])}")
 
+    def suggest_from_filename(self, filename: str) -> dict:
+        """Generate semantic name and tags from filename
+
+        Args:
+            filename: Icon filename (without extension)
+
+        Returns:
+            dict with suggested semantic, tags, category
+        """
+        import re
+
+        # Clean filename: lowercase, replace separators with spaces
+        name = filename.replace('_', ' ').replace('-', ' ')
+        name = re.sub(r'\s+', ' ', name).strip().lower()
+
+        # Generate semantic name (lowercase with hyphens)
+        semantic = name.replace(' ', '-')
+
+        # Generate tags from words
+        words = name.split()
+        tags = list(set(words))  # Remove duplicates
+
+        # Guess category based on common keywords
+        category_keywords = {
+            'files': ['file', 'document', 'folder', 'pdf', 'doc', 'text', 'page', 'book', 'paper'],
+            'network': ['network', 'wifi', 'cloud', 'internet', 'connection', 'globe', 'web', 'server', 'router'],
+            'security': ['lock', 'key', 'shield', 'security', 'secure', 'certificate', 'password', 'protection'],
+            'tools': ['tool', 'wrench', 'gear', 'settings', 'config', 'hammer', 'screwdriver', 'toolbox'],
+            'ui': ['button', 'icon', 'arrow', 'close', 'open', 'menu', 'navigation', 'pointer', 'cursor'],
+            'development': ['code', 'bug', 'database', 'api', 'console', 'terminal', 'git', 'debug', 'test'],
+            'emoji': ['smile', 'happy', 'sad', 'face', 'emotion', 'laugh', 'cry']
+        }
+
+        # Find matching category
+        category = 'ui'  # Default
+        max_matches = 0
+        for cat, keywords in category_keywords.items():
+            matches = sum(1 for word in words if any(kw in word for kw in keywords))
+            if matches > max_matches:
+                max_matches = matches
+                category = cat
+
+        return {
+            'semantic': semantic,
+            'tags': tags,
+            'category': category
+        }
+
+    def generate_csv_from_filenames(self, output_file: str, limit: int = None):
+        """Generate CSV file with suggestions from icon filenames
+
+        Args:
+            output_file: Path to output CSV file
+            limit: Maximum number of icons to process (None = all)
+        """
+        print(f"Scanning {RAW_DIR} for uncataloged icons...")
+
+        # Get all PNG files in raw directory
+        all_icons = [f.stem for f in RAW_DIR.glob("*.png")]
+
+        # Filter out already cataloged icons
+        cataloged_ids = {icon['id'] for icon in self.catalog['icons']}
+        uncataloged = [icon for icon in all_icons if icon not in cataloged_ids]
+
+        if not uncataloged:
+            print("✓ All icons are already cataloged!")
+            return
+
+        print(f"Found {len(uncataloged)} uncataloged icons")
+
+        if limit:
+            uncataloged = uncataloged[:limit]
+            print(f"Limiting to {limit} icons for CSV generation")
+
+        # Generate suggestions
+        suggestions = []
+        for icon_id in uncataloged:
+            suggestion = self.suggest_from_filename(icon_id)
+            suggestions.append({
+                'id': icon_id,
+                'semantic': suggestion['semantic'],
+                'tags': ','.join(suggestion['tags'][:5]),  # Limit to 5 tags
+                'category': suggestion['category'],
+                'description': f"{suggestion['semantic'].replace('-', ' ').title()} icon"
+            })
+
+        # Write to CSV
+        output_path = Path(output_file)
+        with open(output_path, 'w', newline='', encoding='utf-8') as f:
+            fieldnames = ['id', 'semantic', 'tags', 'category', 'description']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(suggestions)
+
+        print(f"\n✓ Generated {len(suggestions)} icon suggestions")
+        print(f"✓ Saved to: {output_path}")
+        print(f"\nNext steps:")
+        print(f"1. Review and edit {output_path} in a spreadsheet")
+        print(f"2. Improve tags and descriptions as needed")
+        print(f"3. Import with: python3 icon-manager.py import-csv {output_path}")
+
+    def create_template(self, template_name: str, tags: List[str], category: str):
+        """Create a reusable template for icon families
+
+        Args:
+            template_name: Name of the template (e.g., 'arrow', 'social-media')
+            tags: Common tags to apply
+            category: Category for this icon family
+        """
+        # Load or create templates file
+        templates_file = ICON_DIR / "icon-templates.json"
+        if templates_file.exists():
+            with open(templates_file, 'r') as f:
+                templates = json.load(f)
+        else:
+            templates = {}
+
+        templates[template_name] = {
+            'tags': tags,
+            'category': category
+        }
+
+        with open(templates_file, 'w') as f:
+            json.dump(templates, f, indent=2)
+
+        print(f"✓ Created template '{template_name}'")
+        print(f"  Category: {category}")
+        print(f"  Tags: {', '.join(tags)}")
+
+    def apply_template(self, template_name: str, icon_specs: List[dict]):
+        """Apply a template to multiple icons
+
+        Args:
+            template_name: Name of the template to apply
+            icon_specs: List of dicts with 'id', 'semantic', and optional extra 'tags'
+        """
+        templates_file = ICON_DIR / "icon-templates.json"
+        if not templates_file.exists():
+            print(f"✗ No templates found. Create one with 'create-template' first")
+            return
+
+        with open(templates_file, 'r') as f:
+            templates = json.load(f)
+
+        if template_name not in templates:
+            print(f"✗ Template '{template_name}' not found")
+            print(f"Available templates: {', '.join(templates.keys())}")
+            return
+
+        template = templates[template_name]
+        success_count = 0
+
+        print(f"Applying template '{template_name}' to {len(icon_specs)} icons...")
+
+        for spec in icon_specs:
+            icon_id = spec['id']
+            semantic = spec['semantic']
+            extra_tags = spec.get('extra_tags', [])
+            description = spec.get('description', f"{semantic.replace('-', ' ').title()} icon")
+
+            # Combine template tags with any extra tags
+            all_tags = template['tags'] + extra_tags
+
+            # Check if already exists
+            if self.find_icon_by_id(icon_id):
+                print(f"  ⚠ '{icon_id}' already exists, skipping")
+                continue
+
+            self.add_icon(icon_id, semantic, all_tags, template['category'], description)
+            success_count += 1
+
+        print(f"\n✓ Applied template to {success_count} icons")
+
 def main():
     parser = argparse.ArgumentParser(description="Icon library management system")
     subparsers = parser.add_subparsers(dest="command", help="Commands")
@@ -296,6 +469,21 @@ def main():
     import_parser = subparsers.add_parser("import-csv", help="Bulk import icons from CSV file")
     import_parser.add_argument("csv_file", help="Path to CSV file (id,semantic,tags,category,description)")
 
+    # Generate CSV command
+    generate_parser = subparsers.add_parser("generate-csv", help="Auto-generate CSV from uncataloged icon filenames")
+    generate_parser.add_argument("output_file", help="Path to output CSV file")
+    generate_parser.add_argument("--limit", type=int, help="Maximum number of icons to process (default: all)")
+
+    # Template commands
+    template_create_parser = subparsers.add_parser("create-template", help="Create reusable template for icon families")
+    template_create_parser.add_argument("name", help="Template name (e.g., arrow, social)")
+    template_create_parser.add_argument("--tags", nargs="+", required=True, help="Common tags for this template")
+    template_create_parser.add_argument("--category", required=True, choices=["files", "network", "security", "tools", "ui", "emoji", "development"])
+
+    template_apply_parser = subparsers.add_parser("apply-template", help="Apply template to multiple icons via CSV")
+    template_apply_parser.add_argument("template", help="Template name to apply")
+    template_apply_parser.add_argument("csv_file", help="CSV file with id,semantic,extra_tags,description columns")
+
     args = parser.parse_args()
     manager = IconManager()
 
@@ -324,6 +512,31 @@ def main():
 
     elif args.command == "import-csv":
         manager.bulk_import(args.csv_file)
+
+    elif args.command == "generate-csv":
+        manager.generate_csv_from_filenames(args.output_file, args.limit)
+
+    elif args.command == "create-template":
+        manager.create_template(args.name, args.tags, args.category)
+
+    elif args.command == "apply-template":
+        # Load CSV and apply template
+        icon_specs = []
+        with open(args.csv_file, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                spec = {
+                    'id': row['id'],
+                    'semantic': row['semantic'],
+                }
+                if 'extra_tags' in row and row['extra_tags']:
+                    spec['extra_tags'] = [t.strip() for t in row['extra_tags'].split(',')]
+                else:
+                    spec['extra_tags'] = []
+                if 'description' in row:
+                    spec['description'] = row['description']
+                icon_specs.append(spec)
+        manager.apply_template(args.template, icon_specs)
 
     else:
         parser.print_help()

@@ -1868,6 +1868,51 @@
       "category": "development",
       "description": "Chart icon for data visualization",
       "usedIn": []
+    },
+    {
+      "id": "Arrow",
+      "filename": "raw/Arrow.png",
+      "semanticName": "arrow",
+      "tags": [
+        "navigation",
+        "direction",
+        "pointer",
+        "movement",
+        "generic"
+      ],
+      "category": "ui",
+      "description": "Generic arrow icon",
+      "usedIn": []
+    },
+    {
+      "id": "Up",
+      "filename": "raw/Up.png",
+      "semanticName": "arrow-up",
+      "tags": [
+        "navigation",
+        "direction",
+        "pointer",
+        "movement",
+        "upward vertical"
+      ],
+      "category": "ui",
+      "description": "Upward arrow icon",
+      "usedIn": []
+    },
+    {
+      "id": "Down",
+      "filename": "raw/Down.png",
+      "semanticName": "arrow-down",
+      "tags": [
+        "navigation",
+        "direction",
+        "pointer",
+        "movement",
+        "downward vertical"
+      ],
+      "category": "ui",
+      "description": "Downward arrow icon",
+      "usedIn": []
     }
   ],
   "categories": [
