@@ -11,6 +11,7 @@ import os
 import shutil
 import argparse
 import csv
+from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -18,6 +19,8 @@ ICON_DIR = Path("/home/zack/dev/iconics")
 CATALOG_FILE = ICON_DIR / "icon-catalog.json"
 RAW_DIR = ICON_DIR / "raw"
 CATALOG_DIR = ICON_DIR / "catalog"
+HISTORY_FILE = ICON_DIR / ".icon-history.json"
+ANALYTICS_FILE = ICON_DIR / ".icon-analytics.json"
 
 class IconManager:
     def __init__(self):
@@ -163,7 +166,96 @@ class IconManager:
 
         if exported:
             self.save_catalog()
+            self.track_usage(project_path, exported)
             print(f"\n✓ Exported {len(exported)} icons to {icon_dir}")
+
+    def track_usage(self, project_path: str, icon_names: List[str]):
+        """Track icon usage for history and analytics"""
+        project = Path(project_path).resolve()
+        project_name = project.name
+        timestamp = datetime.now().isoformat()
+
+        # Update history (per-project)
+        history = {}
+        if HISTORY_FILE.exists():
+            with open(HISTORY_FILE, 'r') as f:
+                history = json.load(f)
+
+        history[project_name] = {
+            "path": str(project),
+            "icons": icon_names,
+            "timestamp": timestamp
+        }
+
+        with open(HISTORY_FILE, 'w') as f:
+            json.dump(history, f, indent=2)
+
+        # Update analytics (global)
+        analytics = {}
+        if ANALYTICS_FILE.exists():
+            with open(ANALYTICS_FILE, 'r') as f:
+                analytics = json.load(f)
+
+        for icon_name in icon_names:
+            if icon_name not in analytics:
+                analytics[icon_name] = {"count": 0, "projects": []}
+            analytics[icon_name]["count"] += 1
+            if project_name not in analytics[icon_name]["projects"]:
+                analytics[icon_name]["projects"].append(project_name)
+
+        with open(ANALYTICS_FILE, 'w') as f:
+            json.dump(analytics, f, indent=2)
+
+    def get_project_history(self, project_path: str) -> Optional[Dict]:
+        """Get icon usage history for a specific project"""
+        if not HISTORY_FILE.exists():
+            return None
+
+        project_name = Path(project_path).resolve().name
+
+        with open(HISTORY_FILE, 'r') as f:
+            history = json.load(f)
+
+        return history.get(project_name)
+
+    def get_popular_icons(self, limit: int = 10) -> List[tuple]:
+        """Get most popular icons globally"""
+        if not ANALYTICS_FILE.exists():
+            return []
+
+        with open(ANALYTICS_FILE, 'r') as f:
+            analytics = json.load(f)
+
+        # Sort by usage count
+        sorted_icons = sorted(analytics.items(), key=lambda x: x[1]["count"], reverse=True)
+        return sorted_icons[:limit]
+
+    def show_history(self, project_path: str):
+        """Show icon usage history for project"""
+        history = self.get_project_history(project_path)
+
+        if not history:
+            print(f"No history found for project")
+            return
+
+        print(f"\n=== Icon Usage History ===")
+        print(f"Project: {Path(project_path).name}")
+        print(f"Last used: {history['timestamp']}")
+        print(f"Icons: {', '.join(history['icons'])}")
+
+    def show_popular(self, limit: int = 10):
+        """Show most popular icons"""
+        popular = self.get_popular_icons(limit)
+
+        if not popular:
+            print("No usage data yet")
+            return
+
+        print(f"\n=== Most Popular Icons (Top {limit}) ===\n")
+        for i, (icon_name, data) in enumerate(popular, 1):
+            count = data["count"]
+            projects = len(data["projects"])
+            print(f"{i:2}. {icon_name:20} - {count} uses across {projects} project(s)")
 
     def stats(self):
         """Show catalog statistics with enhanced category breakdowns"""
@@ -667,6 +759,14 @@ def main():
     export_cat_parser.add_argument("project_path", help="Path to project directory")
     export_cat_parser.add_argument("category", choices=["files", "network", "security", "tools", "ui", "emoji", "development"])
 
+    # History command
+    history_parser = subparsers.add_parser("history", help="Show icon usage history for project")
+    history_parser.add_argument("project_path", help="Path to project directory")
+
+    # Popular command
+    popular_parser = subparsers.add_parser("popular", help="Show most popular icons")
+    popular_parser.add_argument("--limit", type=int, default=10, help="Number of popular icons to show (default: 10)")
+
     args = parser.parse_args()
     manager = IconManager()
 
@@ -732,6 +832,12 @@ def main():
 
     elif args.command == "export-category":
         manager.export_category(args.project_path, args.category)
+
+    elif args.command == "history":
+        manager.show_history(args.project_path)
+
+    elif args.command == "popular":
+        manager.show_popular(args.limit)
 
     else:
         parser.print_help()
