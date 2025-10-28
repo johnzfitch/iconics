@@ -23,9 +23,15 @@ QUICK COMMANDS:
     search <query>              Search for icons by tag/name
     use <name> [name2...]       Export icon(s) to current project and show markdown
     suggest <context>           Get icon suggestions for a context/topic
+    quick <context>             Quick mode: suggest + export top 3 + markdown
     md <name>                   Generate markdown snippet for icon
     here <name> [name2...]      Export icon(s) to current directory
     cat <category>              Export all icons from category to current project
+
+HISTORY & ANALYTICS:
+    history                     Show recently used icons for current project
+    again                       Re-export last used icons
+    popular [N]                 Show most popular icons (default: 10)
 
 MANAGEMENT:
     info <name>                 Show detailed icon information
@@ -147,6 +153,23 @@ suggest_icons() {
     echo -e "${YELLOW}Use: icon use <name> to export and get markdown${NC}"
 }
 
+# Check and update .gitignore for icon assets
+ensure_gitignore() {
+    local project="$1"
+    local gitignore="$project/.gitignore"
+
+    # Only update if project has git
+    if [[ ! -d "$project/.git" ]]; then
+        return
+    fi
+
+    # Check if .github/assets/ is in gitignore (should NOT be)
+    if [[ -f "$gitignore" ]] && grep -q "^\.github/assets" "$gitignore" 2>/dev/null; then
+        echo -e "${YELLOW}⚠️  Warning: .github/assets/ is in .gitignore${NC}"
+        echo -e "${YELLOW}   Icons should be tracked in git. Remove from .gitignore if this is wrong.${NC}"
+    fi
+}
+
 # Main command dispatcher
 case "${1:-help}" in
     search|s)
@@ -162,6 +185,7 @@ case "${1:-help}" in
         fi
 
         project=$(detect_project)
+        ensure_gitignore "$project"
         echo -e "${BLUE}Exporting to: $project${NC}"
         python3 "$MANAGER" export "$project" "$@"
 
@@ -264,6 +288,113 @@ case "${1:-help}" in
             python3 "$MANAGER" generate-csv "$output" --limit "$1"
         else
             python3 "$MANAGER" generate-csv "$output"
+        fi
+        ;;
+
+    history)
+        project=$(detect_project)
+        python3 "$MANAGER" history "$project"
+        ;;
+
+    again)
+        project=$(detect_project)
+        history_file="$ICONICS_DIR/.icon-history.json"
+
+        if [[ ! -f "$history_file" ]]; then
+            echo -e "${RED}No history found${NC}"
+            exit 1
+        fi
+
+        # Get last used icons for this project
+        project_name=$(basename "$project")
+        icons=$(python3 -c "import json; h = json.load(open('$history_file')); print(' '.join(h.get('$project_name', {}).get('icons', [])))" 2>/dev/null)
+
+        if [[ -z "$icons" ]]; then
+            echo -e "${RED}No history found for this project${NC}"
+            exit 1
+        fi
+
+        echo -e "${BLUE}Re-exporting last used icons: $icons${NC}"
+        python3 "$MANAGER" export "$project" $icons
+
+        echo ""
+        echo -e "${GREEN}Markdown snippets:${NC}"
+        for icon in $icons; do
+            echo "  $(generate_markdown "$icon")"
+        done
+        ;;
+
+    quick|q)
+        shift
+        if [[ $# -eq 0 ]]; then
+            echo -e "${RED}Error: Specify context (e.g., authentication, network, security)${NC}"
+            exit 1
+        fi
+        context="$*"
+
+        echo -e "${BLUE}Quick mode for '$context'${NC}"
+        echo ""
+
+        # Get suggestions
+        suggest_icons "$context"
+
+        # Extract top 3 icon names from suggestions
+        case "$context" in
+            auth|authentication|login|signin)
+                icons="lock key shield"
+                ;;
+            security|secure|protection)
+                icons="shield lock key"
+                ;;
+            network|connection|api|server)
+                icons="network cloud globe"
+                ;;
+            data|database|storage)
+                icons="database folder cloud"
+                ;;
+            error|warning|alert)
+                icons="warning error alert"
+                ;;
+            success|complete|done)
+                icons="checkbox checkmark success"
+                ;;
+            info|information|help)
+                icons="info help question"
+                ;;
+            settings|config|options)
+                icons="settings options toolbox"
+                ;;
+            *)
+                # Fallback to search
+                icons=$(python3 "$MANAGER" search "$context" 2>/dev/null | grep -oP '^\s+\K\w+' | head -3 | tr '\n' ' ')
+                ;;
+        esac
+
+        if [[ -z "$icons" ]]; then
+            echo -e "${RED}No icons found for context${NC}"
+            exit 1
+        fi
+
+        echo ""
+        echo -e "${GREEN}Exporting top 3: $icons${NC}"
+        echo ""
+
+        project=$(detect_project)
+        python3 "$MANAGER" export "$project" $icons
+
+        echo ""
+        echo -e "${GREEN}Markdown snippets:${NC}"
+        for icon in $icons; do
+            echo "  $(generate_markdown "$icon")"
+        done
+        ;;
+
+    popular|pop)
+        shift
+        if [[ $# -eq 0 ]]; then
+            python3 "$MANAGER" popular
+        else
+            python3 "$MANAGER" popular --limit "$1"
         fi
         ;;
 

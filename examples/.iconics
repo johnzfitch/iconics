@@ -1,0 +1,18 @@
+# Iconics Project Preferences
+# Place this file in your project root to customize icon behavior
+
+# Preferred icons for this project type
+preferred:
+  - lock
+  - shield
+  - database
+  - network
+
+# Project type (affects quick mode suggestions)
+type: security  # Options: security, api, ui, docs, tools
+
+# Auto-suggest contexts
+contexts:
+  - authentication
+  - network
+  - data

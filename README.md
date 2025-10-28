@@ -3,8 +3,9 @@
 **A semantic icon library with intelligent tagging and discovery**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Icons](https://img.shields.io/badge/icons-1700%2B-brightgreen.svg)
-![Cataloged](https://img.shields.io/badge/cataloged-128-orange.svg)
+![Icons](https://img.shields.io/badge/icons-1756-brightgreen.svg)
+![Cataloged](https://img.shields.io/badge/cataloged-1206-orange.svg)
+![Coverage](https://img.shields.io/badge/coverage-68.7%25-yellow.svg)
 
 **📖 [Quick Start](QUICK_START.md) | 🤖 [For AI Assistants](CLAUDE.md)**
 
@@ -26,16 +27,23 @@ Iconics is a globally-accessible, semantically-tagged icon library designed for 
 
 ---
 
-## Quick Start (Global Access)
+## Quick Start
 
-### Install Globally
+### No Installation Required!
+
+Use the icon command directly:
 
 ```bash
-cd /home/zack/dev/iconics
-./install.sh
+/home/zack/dev/iconics/icon search security
+/home/zack/dev/iconics/icon use lock shield
 ```
 
-Now use the `icon` command from **anywhere**:
+**Optional:** Add an alias for convenience:
+```bash
+alias icon='/home/zack/dev/iconics/icon'
+```
+
+See [SETUP.md](SETUP.md) for shell completion and other optional features.
 
 ### 1. Find Icons
 
@@ -91,19 +99,19 @@ python3 icon-manager.py export ~/dev/my-project lock shield
 
 ## Library Stats
 
-- **Total Icons:** 1,700+ PNG files
-- **Cataloged:** 128 icons (7.5% coverage)
+- **Total Icons:** 1,756 PNG files
+- **Cataloged:** 1,206 icons (68.7% coverage) ⚡ **+1,078 newly cataloged!**
 - **Categories:** 7 (files, network, security, tools, ui, emoji, development)
-- **Projects Using:** 1 (eero-reverse-engineering)
+- **Projects Using:** Multiple (tracked via usage analytics)
 
 ### Category Breakdown
-- **UI Elements:** 62 icons (arrows, buttons, media controls, labels)
-- **Files:** 17 icons (documents, folders, media types)
-- **Security:** 11 icons (locks, keys, certificates, visibility)
-- **Development:** 10 icons (console, scripts, errors, login)
-- **Tools:** 10 icons (settings, print, power, battery)
-- **Network:** 8 icons (wifi, cloud, globe, connections)
-- **Emoji:** 3 icons (happy, sad, smile)
+- **UI Elements:** 1,038 icons (arrows, buttons, controls, indicators, media, numbers)
+- **Files:** 67 icons (documents, folders, blueprints, file types, bookmarks)
+- **Tools:** 40 icons (hardware, utilities, design tools, devices)
+- **Security:** 28 icons (locks, keys, shields, certificates, safes)
+- **Development:** 15 icons (console, database, code, terminal, git)
+- **Network:** 14 icons (wifi, cloud, globe, connections, streaming)
+- **Emoji:** 4 icons (expressions, symbols, yin-yang)
 
 ---
 
@@ -613,6 +621,7 @@ Suitable for personal and open-source projects.
 
 ## Links
 
+- **Setup Guide:** [SETUP.md](SETUP.md) - Installation, aliases, shell completion
 - **Quick Start Guide:** [QUICK_START.md](QUICK_START.md) - Fast workflows and examples
 - **For AI Assistants:** [CLAUDE.md](CLAUDE.md) - Complete guide for Claude agents
 - **Repository:** https://github.com/johnzfitch/iconics

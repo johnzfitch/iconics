@@ -32,3 +32,12 @@ Thumbs.db
 # Icon cache/thumbnails (if generated in future)
 thumbnails/
 .cache/
+
+# History and analytics (local tracking)
+.icon-history.json
+.icon-analytics.json
+
+# CSV batch files (temporary)
+batch*.csv
+*_improved.csv
+improve_csv.py
