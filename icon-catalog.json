@@ -128,6 +128,981 @@
       "category": "development",
       "description": "Database icon",
       "usedIn": []
+    },
+    {
+      "id": "Arrow up",
+      "filename": "raw/Arrow up.png",
+      "semanticName": "arrow-up",
+      "tags": [
+        "arrow",
+        "up",
+        "navigation",
+        "direction",
+        "movement"
+      ],
+      "category": "ui",
+      "description": "Upward pointing arrow for navigation",
+      "usedIn": []
+    },
+    {
+      "id": "Arrow down",
+      "filename": "raw/Arrow down.png",
+      "semanticName": "arrow-down",
+      "tags": [
+        "arrow",
+        "down",
+        "navigation",
+        "direction",
+        "movement"
+      ],
+      "category": "ui",
+      "description": "Downward pointing arrow for navigation",
+      "usedIn": []
+    },
+    {
+      "id": "Arrow left",
+      "filename": "raw/Arrow left.png",
+      "semanticName": "arrow-left",
+      "tags": [
+        "arrow",
+        "left",
+        "back",
+        "navigation",
+        "previous"
+      ],
+      "category": "ui",
+      "description": "Left pointing arrow for back navigation",
+      "usedIn": []
+    },
+    {
+      "id": "Arrow right",
+      "filename": "raw/Arrow right.png",
+      "semanticName": "arrow-right",
+      "tags": [
+        "arrow",
+        "right",
+        "forward",
+        "navigation",
+        "next"
+      ],
+      "category": "ui",
+      "description": "Right pointing arrow for forward navigation",
+      "usedIn": []
+    },
+    {
+      "id": "Close",
+      "filename": "raw/Close.png",
+      "semanticName": "close",
+      "tags": [
+        "close",
+        "exit",
+        "dismiss",
+        "cancel",
+        "x"
+      ],
+      "category": "ui",
+      "description": "Close or dismiss button icon",
+      "usedIn": []
+    },
+    {
+      "id": "Delete",
+      "filename": "raw/Delete.png",
+      "semanticName": "delete",
+      "tags": [
+        "delete",
+        "remove",
+        "trash",
+        "discard",
+        "destroy"
+      ],
+      "category": "ui",
+      "description": "Delete or remove item icon",
+      "usedIn": []
+    },
+    {
+      "id": "Check boxes",
+      "filename": "raw/Check boxes.png",
+      "semanticName": "checkbox",
+      "tags": [
+        "checkbox",
+        "check",
+        "select",
+        "tick",
+        "mark"
+      ],
+      "category": "ui",
+      "description": "Checkbox for selection or completion",
+      "usedIn": []
+    },
+    {
+      "id": "home_20",
+      "filename": "raw/home_20.png",
+      "semanticName": "home",
+      "tags": [
+        "home",
+        "main",
+        "start",
+        "landing",
+        "house"
+      ],
+      "category": "ui",
+      "description": "Home page or main screen icon",
+      "usedIn": []
+    },
+    {
+      "id": "Back",
+      "filename": "raw/Back.png",
+      "semanticName": "back",
+      "tags": [
+        "back",
+        "previous",
+        "navigate",
+        "return",
+        "history"
+      ],
+      "category": "ui",
+      "description": "Go back or return to previous page",
+      "usedIn": []
+    },
+    {
+      "id": "Forward",
+      "filename": "raw/Forward.png",
+      "semanticName": "forward",
+      "tags": [
+        "forward",
+        "next",
+        "navigate",
+        "advance",
+        "proceed"
+      ],
+      "category": "ui",
+      "description": "Go forward or advance to next page",
+      "usedIn": []
+    },
+    {
+      "id": "Add",
+      "filename": "raw/Add.png",
+      "semanticName": "add",
+      "tags": [
+        "add",
+        "plus",
+        "create",
+        "new",
+        "insert"
+      ],
+      "category": "ui",
+      "description": "Add or create new item",
+      "usedIn": []
+    },
+    {
+      "id": "Exit",
+      "filename": "raw/Exit.png",
+      "semanticName": "exit",
+      "tags": [
+        "exit",
+        "quit",
+        "logout",
+        "leave",
+        "close"
+      ],
+      "category": "ui",
+      "description": "Exit or logout from application",
+      "usedIn": []
+    },
+    {
+      "id": "Accept",
+      "filename": "raw/Accept.png",
+      "semanticName": "accept",
+      "tags": [
+        "accept",
+        "confirm",
+        "ok",
+        "approve",
+        "yes"
+      ],
+      "category": "ui",
+      "description": "Accept or confirm action",
+      "usedIn": []
+    },
+    {
+      "id": "Cancel",
+      "filename": "raw/Cancel.png",
+      "semanticName": "cancel",
+      "tags": [
+        "cancel",
+        "dismiss",
+        "abort",
+        "reject",
+        "no"
+      ],
+      "category": "ui",
+      "description": "Cancel or reject action",
+      "usedIn": []
+    },
+    {
+      "id": "Copy",
+      "filename": "raw/Copy.png",
+      "semanticName": "copy",
+      "tags": [
+        "copy",
+        "duplicate",
+        "clipboard",
+        "paste",
+        "clone"
+      ],
+      "category": "ui",
+      "description": "Copy item to clipboard",
+      "usedIn": []
+    },
+    {
+      "id": "Crate Download",
+      "filename": "raw/Crate Download.png",
+      "semanticName": "download",
+      "tags": [
+        "download",
+        "save",
+        "retrieve",
+        "import",
+        "fetch"
+      ],
+      "category": "ui",
+      "description": "Download or save file",
+      "usedIn": []
+    },
+    {
+      "id": "Crate Upload",
+      "filename": "raw/Crate Upload.png",
+      "semanticName": "upload",
+      "tags": [
+        "upload",
+        "send",
+        "push",
+        "export",
+        "transmit"
+      ],
+      "category": "ui",
+      "description": "Upload or send file",
+      "usedIn": []
+    },
+    {
+      "id": "Bookmark",
+      "filename": "raw/Bookmark.png",
+      "semanticName": "bookmark",
+      "tags": [
+        "bookmark",
+        "favorite",
+        "save",
+        "mark",
+        "flag"
+      ],
+      "category": "ui",
+      "description": "Bookmark or save for later",
+      "usedIn": []
+    },
+    {
+      "id": "Refresh",
+      "filename": "raw/Refresh.png",
+      "semanticName": "refresh",
+      "tags": [
+        "refresh",
+        "reload",
+        "sync",
+        "update",
+        "renew"
+      ],
+      "category": "ui",
+      "description": "Refresh or reload content",
+      "usedIn": []
+    },
+    {
+      "id": "Heart",
+      "filename": "raw/Heart.png",
+      "semanticName": "heart",
+      "tags": [
+        "heart",
+        "like",
+        "favorite",
+        "love",
+        "save"
+      ],
+      "category": "ui",
+      "description": "Heart icon for favorites or likes",
+      "usedIn": []
+    },
+    {
+      "id": "Red star",
+      "filename": "raw/Red star.png",
+      "semanticName": "star",
+      "tags": [
+        "star",
+        "favorite",
+        "rating",
+        "bookmark",
+        "highlight"
+      ],
+      "category": "ui",
+      "description": "Star icon for ratings or favorites",
+      "usedIn": []
+    },
+    {
+      "id": "Filter",
+      "filename": "raw/Filter.png",
+      "semanticName": "filter",
+      "tags": [
+        "filter",
+        "search",
+        "refine",
+        "sort",
+        "narrow"
+      ],
+      "category": "ui",
+      "description": "Filter or refine results",
+      "usedIn": []
+    },
+    {
+      "id": "User",
+      "filename": "raw/User.png",
+      "semanticName": "user",
+      "tags": [
+        "user",
+        "person",
+        "profile",
+        "account",
+        "individual"
+      ],
+      "category": "ui",
+      "description": "Single user or person icon",
+      "usedIn": []
+    },
+    {
+      "id": "User group",
+      "filename": "raw/User group.png",
+      "semanticName": "user-group",
+      "tags": [
+        "users",
+        "team",
+        "group",
+        "people",
+        "multiple"
+      ],
+      "category": "ui",
+      "description": "User group or team icon",
+      "usedIn": []
+    },
+    {
+      "id": "People",
+      "filename": "raw/People.png",
+      "semanticName": "people",
+      "tags": [
+        "people",
+        "users",
+        "community",
+        "crowd",
+        "multiple"
+      ],
+      "category": "ui",
+      "description": "Multiple people or community icon",
+      "usedIn": []
+    },
+    {
+      "id": "E-mail",
+      "filename": "raw/E-mail.png",
+      "semanticName": "email",
+      "tags": [
+        "email",
+        "mail",
+        "message",
+        "communication",
+        "send"
+      ],
+      "category": "ui",
+      "description": "Email or electronic mail icon",
+      "usedIn": []
+    },
+    {
+      "id": "Message",
+      "filename": "raw/Message.png",
+      "semanticName": "message",
+      "tags": [
+        "message",
+        "chat",
+        "text",
+        "communication",
+        "talk"
+      ],
+      "category": "ui",
+      "description": "Message or chat icon",
+      "usedIn": []
+    },
+    {
+      "id": "Bell",
+      "filename": "raw/Bell.png",
+      "semanticName": "notification",
+      "tags": [
+        "notification",
+        "bell",
+        "alert",
+        "reminder",
+        "notice"
+      ],
+      "category": "ui",
+      "description": "Notification or alert bell icon",
+      "usedIn": []
+    },
+    {
+      "id": "Envelope",
+      "filename": "raw/Envelope.png",
+      "semanticName": "envelope",
+      "tags": [
+        "envelope",
+        "mail",
+        "letter",
+        "message",
+        "postal"
+      ],
+      "category": "ui",
+      "description": "Envelope for mail or messaging",
+      "usedIn": []
+    },
+    {
+      "id": "Bubble chat",
+      "filename": "raw/Bubble chat.png",
+      "semanticName": "chat",
+      "tags": [
+        "chat",
+        "bubble",
+        "conversation",
+        "talk",
+        "messaging"
+      ],
+      "category": "ui",
+      "description": "Chat bubble for conversations",
+      "usedIn": []
+    },
+    {
+      "id": "Document",
+      "filename": "raw/Document.png",
+      "semanticName": "document",
+      "tags": [
+        "document",
+        "file",
+        "text",
+        "paper",
+        "page"
+      ],
+      "category": "files",
+      "description": "Generic document or text file icon",
+      "usedIn": []
+    },
+    {
+      "id": "Documents",
+      "filename": "raw/Documents.png",
+      "semanticName": "documents",
+      "tags": [
+        "documents",
+        "files",
+        "multiple",
+        "papers",
+        "pages"
+      ],
+      "category": "files",
+      "description": "Multiple documents or files",
+      "usedIn": []
+    },
+    {
+      "id": "pdf",
+      "filename": "raw/pdf.png",
+      "semanticName": "pdf",
+      "tags": [
+        "pdf",
+        "document",
+        "portable",
+        "format",
+        "file"
+      ],
+      "category": "files",
+      "description": "PDF document file icon",
+      "usedIn": []
+    },
+    {
+      "id": "New document",
+      "filename": "raw/New document.png",
+      "semanticName": "new-document",
+      "tags": [
+        "new",
+        "document",
+        "create",
+        "file",
+        "add"
+      ],
+      "category": "files",
+      "description": "Create new document icon",
+      "usedIn": []
+    },
+    {
+      "id": "Open file",
+      "filename": "raw/Open file.png",
+      "semanticName": "open-file",
+      "tags": [
+        "open",
+        "file",
+        "load",
+        "access",
+        "browse"
+      ],
+      "category": "files",
+      "description": "Open or load file icon",
+      "usedIn": []
+    },
+    {
+      "id": "Save file",
+      "filename": "raw/Save file.png",
+      "semanticName": "save-file",
+      "tags": [
+        "save",
+        "file",
+        "store",
+        "write",
+        "persist"
+      ],
+      "category": "files",
+      "description": "Save or store file icon",
+      "usedIn": []
+    },
+    {
+      "id": "photo",
+      "filename": "raw/photo.png",
+      "semanticName": "photo",
+      "tags": [
+        "photo",
+        "image",
+        "picture",
+        "jpeg",
+        "png"
+      ],
+      "category": "files",
+      "description": "Photo or image file icon",
+      "usedIn": []
+    },
+    {
+      "id": "New video",
+      "filename": "raw/New video.png",
+      "semanticName": "video",
+      "tags": [
+        "video",
+        "movie",
+        "film",
+        "media",
+        "mp4"
+      ],
+      "category": "files",
+      "description": "Video file icon",
+      "usedIn": []
+    },
+    {
+      "id": "Closed folder",
+      "filename": "raw/Closed folder.png",
+      "semanticName": "closed-folder",
+      "tags": [
+        "folder",
+        "closed",
+        "directory",
+        "collapsed",
+        "hidden"
+      ],
+      "category": "files",
+      "description": "Closed or collapsed folder icon",
+      "usedIn": []
+    },
+    {
+      "id": "Add folder",
+      "filename": "raw/Add folder.png",
+      "semanticName": "add-folder",
+      "tags": [
+        "folder",
+        "add",
+        "create",
+        "new",
+        "directory"
+      ],
+      "category": "files",
+      "description": "Add or create new folder",
+      "usedIn": []
+    },
+    {
+      "id": "Downloads folder",
+      "filename": "raw/Downloads folder.png",
+      "semanticName": "downloads-folder",
+      "tags": [
+        "downloads",
+        "folder",
+        "files",
+        "received",
+        "saves"
+      ],
+      "category": "files",
+      "description": "Downloads folder icon",
+      "usedIn": []
+    },
+    {
+      "id": "Folder music",
+      "filename": "raw/Folder music.png",
+      "semanticName": "music-folder",
+      "tags": [
+        "music",
+        "folder",
+        "audio",
+        "songs",
+        "mp3"
+      ],
+      "category": "files",
+      "description": "Music or audio files folder",
+      "usedIn": []
+    },
+    {
+      "id": "Folder pictures",
+      "filename": "raw/Folder pictures.png",
+      "semanticName": "pictures-folder",
+      "tags": [
+        "pictures",
+        "folder",
+        "images",
+        "photos",
+        "gallery"
+      ],
+      "category": "files",
+      "description": "Pictures or images folder",
+      "usedIn": []
+    },
+    {
+      "id": "Folder movies",
+      "filename": "raw/Folder movies.png",
+      "semanticName": "movies-folder",
+      "tags": [
+        "movies",
+        "folder",
+        "videos",
+        "films",
+        "media"
+      ],
+      "category": "files",
+      "description": "Movies or videos folder",
+      "usedIn": []
+    },
+    {
+      "id": "Console",
+      "filename": "raw/Console.png",
+      "semanticName": "console",
+      "tags": [
+        "console",
+        "terminal",
+        "command",
+        "shell",
+        "cli"
+      ],
+      "category": "development",
+      "description": "Console or terminal window icon",
+      "usedIn": []
+    },
+    {
+      "id": "Application",
+      "filename": "raw/Application.png",
+      "semanticName": "application",
+      "tags": [
+        "application",
+        "app",
+        "software",
+        "program",
+        "executable"
+      ],
+      "category": "development",
+      "description": "Application or software program icon",
+      "usedIn": []
+    },
+    {
+      "id": "Script",
+      "filename": "raw/Script.png",
+      "semanticName": "script",
+      "tags": [
+        "script",
+        "code",
+        "automation",
+        "program",
+        "batch"
+      ],
+      "category": "development",
+      "description": "Script or automation file icon",
+      "usedIn": []
+    },
+    {
+      "id": "Plugins",
+      "filename": "raw/Plugins.png",
+      "semanticName": "plugin",
+      "tags": [
+        "plugin",
+        "extension",
+        "module",
+        "addon",
+        "component"
+      ],
+      "category": "development",
+      "description": "Plugin or extension module icon",
+      "usedIn": []
+    },
+    {
+      "id": "Run application",
+      "filename": "raw/Run application.png",
+      "semanticName": "run",
+      "tags": [
+        "run",
+        "execute",
+        "start",
+        "launch",
+        "play"
+      ],
+      "category": "development",
+      "description": "Run or execute application",
+      "usedIn": []
+    },
+    {
+      "id": "Error",
+      "filename": "raw/Error.png",
+      "semanticName": "error",
+      "tags": [
+        "error",
+        "exception",
+        "failure",
+        "bug",
+        "crash"
+      ],
+      "category": "development",
+      "description": "Error or exception indicator icon",
+      "usedIn": []
+    },
+    {
+      "id": "Login",
+      "filename": "raw/Login.png",
+      "semanticName": "login",
+      "tags": [
+        "login",
+        "signin",
+        "authenticate",
+        "access",
+        "enter"
+      ],
+      "category": "development",
+      "description": "Login or sign in icon",
+      "usedIn": []
+    },
+    {
+      "id": "Log out",
+      "filename": "raw/Log out.png",
+      "semanticName": "logout",
+      "tags": [
+        "logout",
+        "signout",
+        "disconnect",
+        "exit",
+        "leave"
+      ],
+      "category": "development",
+      "description": "Logout or sign out icon",
+      "usedIn": []
+    },
+    {
+      "id": "Update",
+      "filename": "raw/Update.png",
+      "semanticName": "update",
+      "tags": [
+        "update",
+        "upgrade",
+        "patch",
+        "refresh",
+        "sync"
+      ],
+      "category": "development",
+      "description": "Update or upgrade software icon",
+      "usedIn": []
+    },
+    {
+      "id": "Settings",
+      "filename": "raw/Settings.png",
+      "semanticName": "settings",
+      "tags": [
+        "settings",
+        "configuration",
+        "preferences",
+        "options",
+        "controls"
+      ],
+      "category": "tools",
+      "description": "Settings or configuration icon",
+      "usedIn": []
+    },
+    {
+      "id": "Options",
+      "filename": "raw/Options.png",
+      "semanticName": "options",
+      "tags": [
+        "options",
+        "choices",
+        "menu",
+        "preferences",
+        "settings"
+      ],
+      "category": "tools",
+      "description": "Options or choices menu icon",
+      "usedIn": []
+    },
+    {
+      "id": "Control panel",
+      "filename": "raw/Control panel.png",
+      "semanticName": "control-panel",
+      "tags": [
+        "control",
+        "panel",
+        "admin",
+        "system",
+        "management"
+      ],
+      "category": "tools",
+      "description": "Control panel or admin interface icon",
+      "usedIn": []
+    },
+    {
+      "id": "Key",
+      "filename": "raw/Key.png",
+      "semanticName": "key",
+      "tags": [
+        "key",
+        "password",
+        "access",
+        "unlock",
+        "security"
+      ],
+      "category": "security",
+      "description": "Key for access or security",
+      "usedIn": []
+    },
+    {
+      "id": "Certificate",
+      "filename": "raw/Certificate.png",
+      "semanticName": "certificate",
+      "tags": [
+        "certificate",
+        "credential",
+        "authentication",
+        "security",
+        "ssl"
+      ],
+      "category": "security",
+      "description": "Certificate or credential icon",
+      "usedIn": []
+    },
+    {
+      "id": "Keychain",
+      "filename": "raw/Keychain.png",
+      "semanticName": "keychain",
+      "tags": [
+        "keychain",
+        "credentials",
+        "vault",
+        "passwords",
+        "storage"
+      ],
+      "category": "security",
+      "description": "Keychain or credential storage icon",
+      "usedIn": []
+    },
+    {
+      "id": "Protection",
+      "filename": "raw/Protection.png",
+      "semanticName": "protection",
+      "tags": [
+        "protection",
+        "security",
+        "guard",
+        "shield",
+        "defense"
+      ],
+      "category": "security",
+      "description": "Protection or security icon",
+      "usedIn": []
+    },
+    {
+      "id": "Unlock",
+      "filename": "raw/Unlock.png",
+      "semanticName": "unlock",
+      "tags": [
+        "unlock",
+        "open",
+        "access",
+        "unlocked",
+        "available"
+      ],
+      "category": "security",
+      "description": "Unlock or open access icon",
+      "usedIn": []
+    },
+    {
+      "id": "Open lock",
+      "filename": "raw/Open lock.png",
+      "semanticName": "open-lock",
+      "tags": [
+        "lock",
+        "open",
+        "unlocked",
+        "accessible",
+        "available"
+      ],
+      "category": "security",
+      "description": "Open or unlocked padlock icon",
+      "usedIn": []
+    },
+    {
+      "id": "Eye",
+      "filename": "raw/Eye.png",
+      "semanticName": "eye",
+      "tags": [
+        "eye",
+        "view",
+        "visible",
+        "show",
+        "watch"
+      ],
+      "category": "security",
+      "description": "Eye icon for visibility or viewing",
+      "usedIn": []
+    },
+    {
+      "id": "Hide",
+      "filename": "raw/Hide.png",
+      "semanticName": "hide",
+      "tags": [
+        "hide",
+        "invisible",
+        "hidden",
+        "conceal",
+        "private"
+      ],
+      "category": "security",
+      "description": "Hide or conceal content icon",
+      "usedIn": []
+    },
+    {
+      "id": "Show",
+      "filename": "raw/Show.png",
+      "semanticName": "show",
+      "tags": [
+        "show",
+        "visible",
+        "reveal",
+        "display",
+        "unhide"
+      ],
+      "category": "security",
+      "description": "Show or reveal content icon",
+      "usedIn": []
     }
   ],
   "categories": [
