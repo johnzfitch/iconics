@@ -1,0 +1,249 @@
+#!/usr/bin/env python3
+"""
+Iconics Manager - Semantic icon library management system
+Manages the Iconics icon library for use across GitHub projects
+
+Repository: https://github.com/johnzfitch/iconics
+"""
+
+import json
+import os
+import shutil
+import argparse
+from pathlib import Path
+from typing import List, Dict, Optional
+
+ICON_DIR = Path("/home/zack/dev/iconics")
+CATALOG_FILE = ICON_DIR / "icon-catalog.json"
+RAW_DIR = ICON_DIR / "raw"
+CATALOG_DIR = ICON_DIR / "catalog"
+
+class IconManager:
+    def __init__(self):
+        self.catalog = self.load_catalog()
+
+    def load_catalog(self) -> Dict:
+        """Load icon catalog from JSON file"""
+        if CATALOG_FILE.exists():
+            with open(CATALOG_FILE, 'r') as f:
+                return json.load(f)
+        return {
+            "version": "1.0",
+            "icons": [],
+            "categories": ["files", "network", "security", "tools", "ui", "emoji", "development"]
+        }
+
+    def save_catalog(self):
+        """Save catalog to JSON file"""
+        with open(CATALOG_FILE, 'w') as f:
+            json.dump(self.catalog, f, indent=2)
+        print(f"✓ Catalog saved to {CATALOG_FILE}")
+
+    def find_icon_by_id(self, icon_id: str) -> Optional[Dict]:
+        """Find icon in catalog by numeric ID"""
+        for icon in self.catalog["icons"]:
+            if icon["id"] == icon_id:
+                return icon
+        return None
+
+    def find_icons_by_tag(self, tag: str) -> List[Dict]:
+        """Find all icons matching a tag"""
+        tag_lower = tag.lower()
+        return [icon for icon in self.catalog["icons"]
+                if tag_lower in [t.lower() for t in icon.get("tags", [])]]
+
+    def find_icons_by_semantic(self, name: str) -> List[Dict]:
+        """Find icons by semantic name"""
+        name_lower = name.lower()
+        return [icon for icon in self.catalog["icons"]
+                if name_lower in icon.get("semanticName", "").lower()]
+
+    def search(self, query: str) -> List[Dict]:
+        """Search icons by tag or semantic name"""
+        results = []
+        results.extend(self.find_icons_by_tag(query))
+        results.extend(self.find_icons_by_semantic(query))
+        # Remove duplicates
+        seen = set()
+        unique_results = []
+        for icon in results:
+            if icon["id"] not in seen:
+                seen.add(icon["id"])
+                unique_results.append(icon)
+        return unique_results
+
+    def add_icon(self, icon_id: str, semantic_name: str, tags: List[str],
+                 category: str, description: str = ""):
+        """Add or update icon in catalog"""
+        existing = self.find_icon_by_id(icon_id)
+
+        icon_data = {
+            "id": icon_id,
+            "filename": f"raw/{icon_id}.png",
+            "semanticName": semantic_name,
+            "tags": tags,
+            "category": category,
+            "description": description,
+            "usedIn": existing.get("usedIn", []) if existing else []
+        }
+
+        if existing:
+            # Update existing
+            idx = self.catalog["icons"].index(existing)
+            self.catalog["icons"][idx] = icon_data
+            print(f"✓ Updated icon {icon_id} ({semantic_name})")
+        else:
+            # Add new
+            self.catalog["icons"].append(icon_data)
+            print(f"✓ Added icon {icon_id} ({semantic_name})")
+
+        # Create symlink in catalog directory
+        self.create_symlink(icon_id, semantic_name, category)
+        self.save_catalog()
+
+    def create_symlink(self, icon_id: str, semantic_name: str, category: str):
+        """Create symlink in catalog/category/ directory"""
+        category_dir = CATALOG_DIR / category
+        category_dir.mkdir(parents=True, exist_ok=True)
+
+        source = RAW_DIR / f"{icon_id}.png"
+        target = category_dir / f"{semantic_name}.png"
+
+        if target.exists() or target.is_symlink():
+            target.unlink()
+
+        if source.exists():
+            target.symlink_to(f"../../raw/{icon_id}.png")
+            print(f"  → Created symlink: catalog/{category}/{semantic_name}.png")
+
+    def list_category(self, category: str):
+        """List all icons in a category"""
+        icons = [icon for icon in self.catalog["icons"]
+                 if icon.get("category") == category]
+
+        if not icons:
+            print(f"No icons found in category '{category}'")
+            return
+
+        print(f"\n{category.upper()} ({len(icons)} icons):")
+        print("-" * 60)
+        for icon in sorted(icons, key=lambda x: x["semanticName"]):
+            tags_str = ", ".join(icon.get("tags", []))
+            print(f"  {icon['semanticName']:20} (#{icon['id']})  Tags: {tags_str}")
+
+    def export_to_project(self, project_path: str, icon_names: List[str]):
+        """Export icons to a project's .github/assets/icons/ directory"""
+        project = Path(project_path)
+        icon_dir = project / ".github" / "assets" / "icons"
+        icon_dir.mkdir(parents=True, exist_ok=True)
+
+        exported = []
+        for name in icon_names:
+            # Find icon by semantic name
+            icons = self.find_icons_by_semantic(name)
+            if not icons:
+                print(f"✗ Icon '{name}' not found in catalog")
+                continue
+
+            icon = icons[0]  # Take first match
+            source = ICON_DIR / icon["filename"]
+            target = icon_dir / f"{icon['semanticName']}.png"
+
+            if source.exists():
+                shutil.copy2(source, target)
+                exported.append(icon['semanticName'])
+
+                # Track usage
+                project_name = project.name
+                if project_name not in icon.get("usedIn", []):
+                    icon.setdefault("usedIn", []).append(project_name)
+
+                print(f"✓ Exported {icon['semanticName']}.png")
+
+        if exported:
+            self.save_catalog()
+            print(f"\n✓ Exported {len(exported)} icons to {icon_dir}")
+
+    def stats(self):
+        """Show catalog statistics"""
+        total = len(self.catalog["icons"])
+        by_category = {}
+        for icon in self.catalog["icons"]:
+            cat = icon.get("category", "uncategorized")
+            by_category[cat] = by_category.get(cat, 0) + 1
+
+        print("\n=== Icon Library Statistics ===")
+        print(f"Total cataloged icons: {total}")
+        print(f"\nBy category:")
+        for cat, count in sorted(by_category.items()):
+            print(f"  {cat:15} {count:3} icons")
+
+        # Most used icons
+        used_icons = [(icon, len(icon.get("usedIn", [])))
+                      for icon in self.catalog["icons"]
+                      if icon.get("usedIn")]
+        if used_icons:
+            print(f"\nMost used icons:")
+            for icon, count in sorted(used_icons, key=lambda x: x[1], reverse=True)[:5]:
+                projects = ", ".join(icon["usedIn"])
+                print(f"  {icon['semanticName']:15} used in {count} project(s): {projects}")
+
+def main():
+    parser = argparse.ArgumentParser(description="Icon library management system")
+    subparsers = parser.add_subparsers(dest="command", help="Commands")
+
+    # Add command
+    add_parser = subparsers.add_parser("add", help="Add icon to catalog")
+    add_parser.add_argument("icon_id", help="Numeric icon ID (e.g., 100)")
+    add_parser.add_argument("semantic_name", help="Semantic name (e.g., document)")
+    add_parser.add_argument("--tags", nargs="+", required=True, help="Tags (e.g., file text document)")
+    add_parser.add_argument("--category", required=True, choices=["files", "network", "security", "tools", "ui", "emoji", "development"])
+    add_parser.add_argument("--description", default="", help="Description")
+
+    # Search command
+    search_parser = subparsers.add_parser("search", help="Search icons")
+    search_parser.add_argument("query", help="Search query (tag or semantic name)")
+
+    # List command
+    list_parser = subparsers.add_parser("list", help="List icons in category")
+    list_parser.add_argument("category", choices=["files", "network", "security", "tools", "ui", "emoji", "development"])
+
+    # Export command
+    export_parser = subparsers.add_parser("export", help="Export icons to project")
+    export_parser.add_argument("project_path", help="Path to project directory")
+    export_parser.add_argument("icons", nargs="+", help="Icon semantic names to export")
+
+    # Stats command
+    subparsers.add_parser("stats", help="Show catalog statistics")
+
+    args = parser.parse_args()
+    manager = IconManager()
+
+    if args.command == "add":
+        manager.add_icon(args.icon_id, args.semantic_name, args.tags,
+                        args.category, args.description)
+
+    elif args.command == "search":
+        results = manager.search(args.query)
+        if results:
+            print(f"\nFound {len(results)} icon(s) matching '{args.query}':")
+            for icon in results:
+                tags = ", ".join(icon.get("tags", []))
+                print(f"  {icon['semanticName']:20} #{icon['id']:4}  [{icon['category']}]  Tags: {tags}")
+        else:
+            print(f"No icons found matching '{args.query}'")
+
+    elif args.command == "list":
+        manager.list_category(args.category)
+
+    elif args.command == "export":
+        manager.export_to_project(args.project_path, args.icons)
+
+    elif args.command == "stats":
+        manager.stats()
+
+    else:
+        parser.print_help()
+
+if __name__ == "__main__":
+    main()

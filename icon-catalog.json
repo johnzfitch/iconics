@@ -1,0 +1,142 @@
+{
+  "version": "1.0",
+  "icons": [
+    {
+      "id": "Lock",
+      "filename": "raw/Lock.png",
+      "semanticName": "lock",
+      "tags": [
+        "security",
+        "padlock",
+        "locked"
+      ],
+      "category": "security",
+      "description": "Padlock icon for security",
+      "usedIn": []
+    },
+    {
+      "id": "Shield_16x16",
+      "filename": "raw/Shield_16x16.png",
+      "semanticName": "shield",
+      "tags": [
+        "security",
+        "shield",
+        "protection",
+        "guard"
+      ],
+      "category": "security",
+      "description": "Shield icon for security/protection",
+      "usedIn": []
+    },
+    {
+      "id": "Info",
+      "filename": "raw/Info.png",
+      "semanticName": "info",
+      "tags": [
+        "information",
+        "help",
+        "question",
+        "about"
+      ],
+      "category": "ui",
+      "description": "Information icon",
+      "usedIn": []
+    },
+    {
+      "id": "Network_connection",
+      "filename": "raw/Network_connection.png",
+      "semanticName": "network",
+      "tags": [
+        "network",
+        "connection",
+        "tower",
+        "wifi",
+        "ethernet"
+      ],
+      "category": "network",
+      "description": "Network connection icon",
+      "usedIn": []
+    },
+    {
+      "id": "Search",
+      "filename": "raw/Search.png",
+      "semanticName": "search",
+      "tags": [
+        "search",
+        "find",
+        "magnifying-glass",
+        "lookup"
+      ],
+      "category": "tools",
+      "description": "Search/find icon",
+      "usedIn": []
+    },
+    {
+      "id": "Folder",
+      "filename": "raw/Folder.png",
+      "semanticName": "folder",
+      "tags": [
+        "folder",
+        "directory",
+        "files",
+        "organize"
+      ],
+      "category": "files",
+      "description": "Folder icon",
+      "usedIn": []
+    },
+    {
+      "id": "Toolbox",
+      "filename": "raw/Toolbox.png",
+      "semanticName": "toolbox",
+      "tags": [
+        "tools",
+        "toolbox",
+        "utilities",
+        "settings"
+      ],
+      "category": "tools",
+      "description": "Toolbox icon",
+      "usedIn": []
+    },
+    {
+      "id": "Warning",
+      "filename": "raw/Warning.png",
+      "semanticName": "warning",
+      "tags": [
+        "warning",
+        "alert",
+        "caution",
+        "danger",
+        "exclamation"
+      ],
+      "category": "ui",
+      "description": "Warning/alert icon",
+      "usedIn": []
+    },
+    {
+      "id": "Database",
+      "filename": "raw/Database.png",
+      "semanticName": "database",
+      "tags": [
+        "database",
+        "data",
+        "storage",
+        "server",
+        "api"
+      ],
+      "category": "development",
+      "description": "Database icon",
+      "usedIn": []
+    }
+  ],
+  "categories": [
+    "files",
+    "network",
+    "security",
+    "tools",
+    "ui",
+    "emoji",
+    "development"
+  ]
+}
