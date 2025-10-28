@@ -1103,6 +1103,711 @@
       "category": "security",
       "description": "Show or reveal content icon",
       "usedIn": []
+    },
+    {
+      "id": "Cloud",
+      "filename": "raw/Cloud.png",
+      "semanticName": "cloud",
+      "tags": [
+        "cloud",
+        "storage",
+        "online",
+        "remote",
+        "sync"
+      ],
+      "category": "network",
+      "description": "Cloud storage or online service icon",
+      "usedIn": []
+    },
+    {
+      "id": "Globe",
+      "filename": "raw/Globe.png",
+      "semanticName": "globe",
+      "tags": [
+        "globe",
+        "world",
+        "internet",
+        "web",
+        "global"
+      ],
+      "category": "network",
+      "description": "Globe for internet or global access",
+      "usedIn": []
+    },
+    {
+      "id": "Wireless",
+      "filename": "raw/Wireless.png",
+      "semanticName": "wifi",
+      "tags": [
+        "wifi",
+        "wireless",
+        "network",
+        "connection",
+        "signal"
+      ],
+      "category": "network",
+      "description": "WiFi or wireless network icon",
+      "usedIn": []
+    },
+    {
+      "id": "Network radar",
+      "filename": "raw/Network radar.png",
+      "semanticName": "network-radar",
+      "tags": [
+        "network",
+        "radar",
+        "scan",
+        "discover",
+        "detect"
+      ],
+      "category": "network",
+      "description": "Network radar or scan icon",
+      "usedIn": []
+    },
+    {
+      "id": "Global network",
+      "filename": "raw/Global network.png",
+      "semanticName": "global-network",
+      "tags": [
+        "global",
+        "network",
+        "worldwide",
+        "connections",
+        "internet"
+      ],
+      "category": "network",
+      "description": "Global network or internet connections",
+      "usedIn": []
+    },
+    {
+      "id": "Play",
+      "filename": "raw/Play.png",
+      "semanticName": "play",
+      "tags": [
+        "play",
+        "start",
+        "media",
+        "video",
+        "audio"
+      ],
+      "category": "ui",
+      "description": "Play media or start playback",
+      "usedIn": []
+    },
+    {
+      "id": "Pause",
+      "filename": "raw/Pause.png",
+      "semanticName": "pause",
+      "tags": [
+        "pause",
+        "stop",
+        "media",
+        "hold",
+        "wait"
+      ],
+      "category": "ui",
+      "description": "Pause media playback",
+      "usedIn": []
+    },
+    {
+      "id": "PLayer STop",
+      "filename": "raw/PLayer STop.png",
+      "semanticName": "stop",
+      "tags": [
+        "stop",
+        "end",
+        "media",
+        "halt",
+        "terminate"
+      ],
+      "category": "ui",
+      "description": "Stop media playback",
+      "usedIn": []
+    },
+    {
+      "id": "Sound",
+      "filename": "raw/Sound.png",
+      "semanticName": "sound",
+      "tags": [
+        "sound",
+        "audio",
+        "volume",
+        "speaker",
+        "music"
+      ],
+      "category": "ui",
+      "description": "Sound or audio volume icon",
+      "usedIn": []
+    },
+    {
+      "id": "Mute",
+      "filename": "raw/Mute.png",
+      "semanticName": "mute",
+      "tags": [
+        "mute",
+        "silent",
+        "volume",
+        "off",
+        "quiet"
+      ],
+      "category": "ui",
+      "description": "Mute or silence audio",
+      "usedIn": []
+    },
+    {
+      "id": "Camera",
+      "filename": "raw/Camera.png",
+      "semanticName": "camera",
+      "tags": [
+        "camera",
+        "photo",
+        "picture",
+        "capture",
+        "image"
+      ],
+      "category": "ui",
+      "description": "Camera or photo capture icon",
+      "usedIn": []
+    },
+    {
+      "id": "Fast-forward",
+      "filename": "raw/Fast-forward.png",
+      "semanticName": "fast-forward",
+      "tags": [
+        "fast",
+        "forward",
+        "skip",
+        "next",
+        "ahead"
+      ],
+      "category": "ui",
+      "description": "Fast forward or skip ahead",
+      "usedIn": []
+    },
+    {
+      "id": "Calendar",
+      "filename": "raw/Calendar.png",
+      "semanticName": "calendar",
+      "tags": [
+        "calendar",
+        "date",
+        "schedule",
+        "events",
+        "planner"
+      ],
+      "category": "ui",
+      "description": "Calendar for dates and scheduling",
+      "usedIn": []
+    },
+    {
+      "id": "Clock",
+      "filename": "raw/Clock.png",
+      "semanticName": "clock",
+      "tags": [
+        "clock",
+        "time",
+        "hour",
+        "minute",
+        "watch"
+      ],
+      "category": "ui",
+      "description": "Clock or time icon",
+      "usedIn": []
+    },
+    {
+      "id": "Alarm clock",
+      "filename": "raw/Alarm clock.png",
+      "semanticName": "alarm-clock",
+      "tags": [
+        "alarm",
+        "clock",
+        "reminder",
+        "alert",
+        "wake"
+      ],
+      "category": "ui",
+      "description": "Alarm clock or reminder icon",
+      "usedIn": []
+    },
+    {
+      "id": "Stopwatch",
+      "filename": "raw/Stopwatch.png",
+      "semanticName": "stopwatch",
+      "tags": [
+        "stopwatch",
+        "timer",
+        "countdown",
+        "measure",
+        "duration"
+      ],
+      "category": "ui",
+      "description": "Stopwatch or timer icon",
+      "usedIn": []
+    },
+    {
+      "id": "Schedule",
+      "filename": "raw/Schedule.png",
+      "semanticName": "schedule",
+      "tags": [
+        "schedule",
+        "planning",
+        "timeline",
+        "agenda",
+        "events"
+      ],
+      "category": "ui",
+      "description": "Schedule or timeline icon",
+      "usedIn": []
+    },
+    {
+      "id": "Basket",
+      "filename": "raw/Basket.png",
+      "semanticName": "cart",
+      "tags": [
+        "cart",
+        "basket",
+        "shopping",
+        "buy",
+        "purchase"
+      ],
+      "category": "ui",
+      "description": "Shopping cart or basket icon",
+      "usedIn": []
+    },
+    {
+      "id": "Credit card",
+      "filename": "raw/Credit card.png",
+      "semanticName": "credit-card",
+      "tags": [
+        "credit",
+        "card",
+        "payment",
+        "purchase",
+        "transaction"
+      ],
+      "category": "ui",
+      "description": "Credit card or payment method icon",
+      "usedIn": []
+    },
+    {
+      "id": "Money",
+      "filename": "raw/Money.png",
+      "semanticName": "money",
+      "tags": [
+        "money",
+        "cash",
+        "currency",
+        "payment",
+        "dollar"
+      ],
+      "category": "ui",
+      "description": "Money or currency icon",
+      "usedIn": []
+    },
+    {
+      "id": "Cash register",
+      "filename": "raw/Cash register.png",
+      "semanticName": "cash-register",
+      "tags": [
+        "register",
+        "checkout",
+        "pos",
+        "payment",
+        "sales"
+      ],
+      "category": "ui",
+      "description": "Cash register or point of sale",
+      "usedIn": []
+    },
+    {
+      "id": "Buy",
+      "filename": "raw/Buy.png",
+      "semanticName": "buy",
+      "tags": [
+        "buy",
+        "purchase",
+        "shop",
+        "order",
+        "checkout"
+      ],
+      "category": "ui",
+      "description": "Buy or purchase action icon",
+      "usedIn": []
+    },
+    {
+      "id": "Dollar",
+      "filename": "raw/Dollar.png",
+      "semanticName": "dollar",
+      "tags": [
+        "dollar",
+        "currency",
+        "money",
+        "usd",
+        "price"
+      ],
+      "category": "ui",
+      "description": "Dollar currency symbol icon",
+      "usedIn": []
+    },
+    {
+      "id": "Print",
+      "filename": "raw/Print.png",
+      "semanticName": "print",
+      "tags": [
+        "print",
+        "printer",
+        "output",
+        "paper",
+        "document"
+      ],
+      "category": "tools",
+      "description": "Print or printer icon",
+      "usedIn": []
+    },
+    {
+      "id": "Export",
+      "filename": "raw/Export.png",
+      "semanticName": "export",
+      "tags": [
+        "export",
+        "save",
+        "send",
+        "output",
+        "share"
+      ],
+      "category": "tools",
+      "description": "Export or send out data",
+      "usedIn": []
+    },
+    {
+      "id": "Import",
+      "filename": "raw/Import.png",
+      "semanticName": "import",
+      "tags": [
+        "import",
+        "load",
+        "receive",
+        "input",
+        "fetch"
+      ],
+      "category": "tools",
+      "description": "Import or bring in data",
+      "usedIn": []
+    },
+    {
+      "id": "Blue tag",
+      "filename": "raw/Blue tag.png",
+      "semanticName": "tag",
+      "tags": [
+        "tag",
+        "label",
+        "mark",
+        "category",
+        "classify"
+      ],
+      "category": "ui",
+      "description": "Tag or label for categorization",
+      "usedIn": []
+    },
+    {
+      "id": "Label",
+      "filename": "raw/Label.png",
+      "semanticName": "label",
+      "tags": [
+        "label",
+        "tag",
+        "name",
+        "identifier",
+        "badge"
+      ],
+      "category": "ui",
+      "description": "Label or name identifier",
+      "usedIn": []
+    },
+    {
+      "id": "Help",
+      "filename": "raw/Help.png",
+      "semanticName": "help",
+      "tags": [
+        "help",
+        "support",
+        "question",
+        "assistance",
+        "guide"
+      ],
+      "category": "ui",
+      "description": "Help or support icon",
+      "usedIn": []
+    },
+    {
+      "id": "About",
+      "filename": "raw/About.png",
+      "semanticName": "about",
+      "tags": [
+        "about",
+        "information",
+        "details",
+        "version",
+        "info"
+      ],
+      "category": "ui",
+      "description": "About or information icon",
+      "usedIn": []
+    },
+    {
+      "id": "Zoom in",
+      "filename": "raw/Zoom in.png",
+      "semanticName": "zoom-in",
+      "tags": [
+        "zoom",
+        "magnify",
+        "enlarge",
+        "expand",
+        "increase"
+      ],
+      "category": "ui",
+      "description": "Zoom in or magnify icon",
+      "usedIn": []
+    },
+    {
+      "id": "Zoom out",
+      "filename": "raw/Zoom out.png",
+      "semanticName": "zoom-out",
+      "tags": [
+        "zoom",
+        "shrink",
+        "reduce",
+        "minimize",
+        "decrease"
+      ],
+      "category": "ui",
+      "description": "Zoom out or reduce size icon",
+      "usedIn": []
+    },
+    {
+      "id": "Trash",
+      "filename": "raw/Trash.png",
+      "semanticName": "trash",
+      "tags": [
+        "trash",
+        "delete",
+        "remove",
+        "discard",
+        "bin"
+      ],
+      "category": "ui",
+      "description": "Trash can or delete icon",
+      "usedIn": []
+    },
+    {
+      "id": "Full recycle bin",
+      "filename": "raw/Full recycle bin.png",
+      "semanticName": "recycle",
+      "tags": [
+        "recycle",
+        "bin",
+        "trash",
+        "restore",
+        "waste"
+      ],
+      "category": "ui",
+      "description": "Recycle bin icon",
+      "usedIn": []
+    },
+    {
+      "id": "Edit",
+      "filename": "raw/Edit.png",
+      "semanticName": "edit",
+      "tags": [
+        "edit",
+        "modify",
+        "change",
+        "update",
+        "write"
+      ],
+      "category": "ui",
+      "description": "Edit or modify icon",
+      "usedIn": []
+    },
+    {
+      "id": "Attach",
+      "filename": "raw/Attach.png",
+      "semanticName": "attach",
+      "tags": [
+        "attach",
+        "clip",
+        "link",
+        "connect",
+        "file"
+      ],
+      "category": "ui",
+      "description": "Attach file or link icon",
+      "usedIn": []
+    },
+    {
+      "id": "Clipboard",
+      "filename": "raw/Clipboard.png",
+      "semanticName": "clipboard",
+      "tags": [
+        "clipboard",
+        "paste",
+        "copy",
+        "buffer",
+        "temporary"
+      ],
+      "category": "ui",
+      "description": "Clipboard for copy and paste",
+      "usedIn": []
+    },
+    {
+      "id": "Connect",
+      "filename": "raw/Connect.png",
+      "semanticName": "connect",
+      "tags": [
+        "connect",
+        "link",
+        "join",
+        "attach",
+        "network"
+      ],
+      "category": "network",
+      "description": "Connect or link networks",
+      "usedIn": []
+    },
+    {
+      "id": "Disconnect",
+      "filename": "raw/Disconnect.png",
+      "semanticName": "disconnect",
+      "tags": [
+        "disconnect",
+        "unlink",
+        "separate",
+        "offline",
+        "network"
+      ],
+      "category": "network",
+      "description": "Disconnect or unlink networks",
+      "usedIn": []
+    },
+    {
+      "id": "Happy",
+      "filename": "raw/Happy.png",
+      "semanticName": "happy",
+      "tags": [
+        "happy",
+        "smile",
+        "joy",
+        "emoji",
+        "emotion"
+      ],
+      "category": "emoji",
+      "description": "Happy or smiling face emoji",
+      "usedIn": []
+    },
+    {
+      "id": "Sad",
+      "filename": "raw/Sad.png",
+      "semanticName": "sad",
+      "tags": [
+        "sad",
+        "unhappy",
+        "emotion",
+        "emoji",
+        "frown"
+      ],
+      "category": "emoji",
+      "description": "Sad or unhappy face emoji",
+      "usedIn": []
+    },
+    {
+      "id": "Smile",
+      "filename": "raw/Smile.png",
+      "semanticName": "smile",
+      "tags": [
+        "smile",
+        "grin",
+        "happy",
+        "emoji",
+        "emotion"
+      ],
+      "category": "emoji",
+      "description": "Smiling face emoji",
+      "usedIn": []
+    },
+    {
+      "id": "Tick",
+      "filename": "raw/Tick.png",
+      "semanticName": "tick",
+      "tags": [
+        "tick",
+        "check",
+        "checkmark",
+        "correct",
+        "done"
+      ],
+      "category": "ui",
+      "description": "Tick or checkmark for completion",
+      "usedIn": []
+    },
+    {
+      "id": "Book",
+      "filename": "raw/Book.png",
+      "semanticName": "book",
+      "tags": [
+        "book",
+        "library",
+        "guide",
+        "manual",
+        "documentation"
+      ],
+      "category": "files",
+      "description": "Book or manual icon",
+      "usedIn": []
+    },
+    {
+      "id": "Books",
+      "filename": "raw/Books.png",
+      "semanticName": "books",
+      "tags": [
+        "books",
+        "library",
+        "documentation",
+        "resources",
+        "guides"
+      ],
+      "category": "files",
+      "description": "Books or library collection icon",
+      "usedIn": []
+    },
+    {
+      "id": "Battery",
+      "filename": "raw/Battery.png",
+      "semanticName": "battery",
+      "tags": [
+        "battery",
+        "power",
+        "charge",
+        "energy",
+        "level"
+      ],
+      "category": "tools",
+      "description": "Battery or power level icon",
+      "usedIn": []
+    },
+    {
+      "id": "Power",
+      "filename": "raw/Power.png",
+      "semanticName": "power",
+      "tags": [
+        "power",
+        "on",
+        "off",
+        "button",
+        "start"
+      ],
+      "category": "tools",
+      "description": "Power button or toggle icon",
+      "usedIn": []
     }
   ],
   "categories": [
