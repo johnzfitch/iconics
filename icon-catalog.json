@@ -1942,7 +1942,13 @@
       "id": "100",
       "filename": "raw/100.png",
       "semanticName": "100",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "100 icon",
       "usedIn": []
@@ -1951,7 +1957,13 @@
       "id": "101",
       "filename": "raw/101.png",
       "semanticName": "101",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "101 icon",
       "usedIn": []
@@ -1960,7 +1972,13 @@
       "id": "102",
       "filename": "raw/102.png",
       "semanticName": "102",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "102 icon",
       "usedIn": []
@@ -1969,7 +1987,13 @@
       "id": "103",
       "filename": "raw/103.png",
       "semanticName": "103",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "103 icon",
       "usedIn": []
@@ -1978,7 +2002,13 @@
       "id": "104",
       "filename": "raw/104.png",
       "semanticName": "104",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "104 icon",
       "usedIn": []
@@ -1987,7 +2017,13 @@
       "id": "105",
       "filename": "raw/105.png",
       "semanticName": "105",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "105 icon",
       "usedIn": []
@@ -1996,7 +2032,13 @@
       "id": "106",
       "filename": "raw/106.png",
       "semanticName": "106",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "106 icon",
       "usedIn": []
@@ -2005,7 +2047,13 @@
       "id": "107",
       "filename": "raw/107.png",
       "semanticName": "107",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "107 icon",
       "usedIn": []
@@ -2014,7 +2062,13 @@
       "id": "108",
       "filename": "raw/108.png",
       "semanticName": "108",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "108 icon",
       "usedIn": []
@@ -2023,7 +2077,13 @@
       "id": "109",
       "filename": "raw/109.png",
       "semanticName": "109",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "109 icon",
       "usedIn": []
@@ -2032,7 +2092,13 @@
       "id": "10",
       "filename": "raw/10.png",
       "semanticName": "10",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "10 icon",
       "usedIn": []
@@ -2041,7 +2107,13 @@
       "id": "110",
       "filename": "raw/110.png",
       "semanticName": "110",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "110 icon",
       "usedIn": []
@@ -2050,7 +2122,13 @@
       "id": "111",
       "filename": "raw/111.png",
       "semanticName": "111",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "111 icon",
       "usedIn": []
@@ -2059,7 +2137,13 @@
       "id": "112",
       "filename": "raw/112.png",
       "semanticName": "112",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "112 icon",
       "usedIn": []
@@ -2068,7 +2152,13 @@
       "id": "113",
       "filename": "raw/113.png",
       "semanticName": "113",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "113 icon",
       "usedIn": []
@@ -2077,7 +2167,13 @@
       "id": "114",
       "filename": "raw/114.png",
       "semanticName": "114",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "114 icon",
       "usedIn": []
@@ -2086,7 +2182,13 @@
       "id": "115",
       "filename": "raw/115.png",
       "semanticName": "115",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "115 icon",
       "usedIn": []
@@ -2095,7 +2197,13 @@
       "id": "116",
       "filename": "raw/116.png",
       "semanticName": "116",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "116 icon",
       "usedIn": []
@@ -2104,7 +2212,13 @@
       "id": "117",
       "filename": "raw/117.png",
       "semanticName": "117",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "117 icon",
       "usedIn": []
@@ -2113,7 +2227,13 @@
       "id": "118",
       "filename": "raw/118.png",
       "semanticName": "118",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "118 icon",
       "usedIn": []
@@ -2122,7 +2242,13 @@
       "id": "119",
       "filename": "raw/119.png",
       "semanticName": "119",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "119 icon",
       "usedIn": []
@@ -2131,7 +2257,13 @@
       "id": "11",
       "filename": "raw/11.png",
       "semanticName": "11",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "11 icon",
       "usedIn": []
@@ -2140,7 +2272,13 @@
       "id": "120",
       "filename": "raw/120.png",
       "semanticName": "120",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "120 icon",
       "usedIn": []
@@ -2149,7 +2287,13 @@
       "id": "121",
       "filename": "raw/121.png",
       "semanticName": "121",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "121 icon",
       "usedIn": []
@@ -2158,7 +2302,13 @@
       "id": "122",
       "filename": "raw/122.png",
       "semanticName": "122",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "122 icon",
       "usedIn": []
@@ -2167,7 +2317,13 @@
       "id": "123",
       "filename": "raw/123.png",
       "semanticName": "123",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "123 icon",
       "usedIn": []
@@ -2176,7 +2332,13 @@
       "id": "124",
       "filename": "raw/124.png",
       "semanticName": "124",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "124 icon",
       "usedIn": []
@@ -2185,7 +2347,13 @@
       "id": "125",
       "filename": "raw/125.png",
       "semanticName": "125",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "125 icon",
       "usedIn": []
@@ -2194,7 +2362,13 @@
       "id": "126",
       "filename": "raw/126.png",
       "semanticName": "126",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "126 icon",
       "usedIn": []
@@ -2203,7 +2377,13 @@
       "id": "127",
       "filename": "raw/127.png",
       "semanticName": "127",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "127 icon",
       "usedIn": []
@@ -2212,7 +2392,13 @@
       "id": "128",
       "filename": "raw/128.png",
       "semanticName": "128",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "128 icon",
       "usedIn": []
@@ -2221,7 +2407,13 @@
       "id": "129",
       "filename": "raw/129.png",
       "semanticName": "129",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "129 icon",
       "usedIn": []
@@ -2230,7 +2422,13 @@
       "id": "12",
       "filename": "raw/12.png",
       "semanticName": "12",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "12 icon",
       "usedIn": []
@@ -2239,7 +2437,13 @@
       "id": "130",
       "filename": "raw/130.png",
       "semanticName": "130",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "130 icon",
       "usedIn": []
@@ -2248,7 +2452,13 @@
       "id": "131",
       "filename": "raw/131.png",
       "semanticName": "131",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "131 icon",
       "usedIn": []
@@ -2257,7 +2467,13 @@
       "id": "132",
       "filename": "raw/132.png",
       "semanticName": "132",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "132 icon",
       "usedIn": []
@@ -2266,7 +2482,13 @@
       "id": "133",
       "filename": "raw/133.png",
       "semanticName": "133",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "133 icon",
       "usedIn": []
@@ -2275,7 +2497,13 @@
       "id": "134",
       "filename": "raw/134.png",
       "semanticName": "134",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "134 icon",
       "usedIn": []
@@ -2284,7 +2512,13 @@
       "id": "135",
       "filename": "raw/135.png",
       "semanticName": "135",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "135 icon",
       "usedIn": []
@@ -2293,7 +2527,13 @@
       "id": "136",
       "filename": "raw/136.png",
       "semanticName": "136",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "136 icon",
       "usedIn": []
@@ -2302,7 +2542,13 @@
       "id": "137",
       "filename": "raw/137.png",
       "semanticName": "137",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "137 icon",
       "usedIn": []
@@ -2311,7 +2557,13 @@
       "id": "138",
       "filename": "raw/138.png",
       "semanticName": "138",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "138 icon",
       "usedIn": []
@@ -2320,7 +2572,13 @@
       "id": "139",
       "filename": "raw/139.png",
       "semanticName": "139",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "139 icon",
       "usedIn": []
@@ -2329,7 +2587,13 @@
       "id": "13",
       "filename": "raw/13.png",
       "semanticName": "13",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "13 icon",
       "usedIn": []
@@ -2338,7 +2602,13 @@
       "id": "140",
       "filename": "raw/140.png",
       "semanticName": "140",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "140 icon",
       "usedIn": []
@@ -2347,7 +2617,13 @@
       "id": "141",
       "filename": "raw/141.png",
       "semanticName": "141",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "141 icon",
       "usedIn": []
@@ -2356,7 +2632,13 @@
       "id": "142",
       "filename": "raw/142.png",
       "semanticName": "142",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "142 icon",
       "usedIn": []
@@ -2365,7 +2647,13 @@
       "id": "143",
       "filename": "raw/143.png",
       "semanticName": "143",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "143 icon",
       "usedIn": []
@@ -2374,7 +2662,13 @@
       "id": "144",
       "filename": "raw/144.png",
       "semanticName": "144",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "144 icon",
       "usedIn": []
@@ -2383,7 +2677,13 @@
       "id": "145",
       "filename": "raw/145.png",
       "semanticName": "145",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "145 icon",
       "usedIn": []
@@ -2392,7 +2692,13 @@
       "id": "146",
       "filename": "raw/146.png",
       "semanticName": "146",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "146 icon",
       "usedIn": []
@@ -2401,7 +2707,13 @@
       "id": "147",
       "filename": "raw/147.png",
       "semanticName": "147",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "147 icon",
       "usedIn": []
@@ -2410,7 +2722,13 @@
       "id": "148",
       "filename": "raw/148.png",
       "semanticName": "148",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "148 icon",
       "usedIn": []
@@ -2419,7 +2737,13 @@
       "id": "149",
       "filename": "raw/149.png",
       "semanticName": "149",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "149 icon",
       "usedIn": []
@@ -2428,7 +2752,13 @@
       "id": "14",
       "filename": "raw/14.png",
       "semanticName": "14",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "14 icon",
       "usedIn": []
@@ -2437,7 +2767,13 @@
       "id": "150",
       "filename": "raw/150.png",
       "semanticName": "150",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "150 icon",
       "usedIn": []
@@ -2446,7 +2782,13 @@
       "id": "151",
       "filename": "raw/151.png",
       "semanticName": "151",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "151 icon",
       "usedIn": []
@@ -2455,7 +2797,13 @@
       "id": "152",
       "filename": "raw/152.png",
       "semanticName": "152",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "152 icon",
       "usedIn": []
@@ -2464,7 +2812,13 @@
       "id": "153",
       "filename": "raw/153.png",
       "semanticName": "153",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "153 icon",
       "usedIn": []
@@ -2473,7 +2827,13 @@
       "id": "154",
       "filename": "raw/154.png",
       "semanticName": "154",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "154 icon",
       "usedIn": []
@@ -2482,7 +2842,13 @@
       "id": "15",
       "filename": "raw/15.png",
       "semanticName": "15",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "15 icon",
       "usedIn": []
@@ -2491,7 +2857,13 @@
       "id": "16",
       "filename": "raw/16.png",
       "semanticName": "16",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "16 icon",
       "usedIn": []
@@ -2500,7 +2872,13 @@
       "id": "17",
       "filename": "raw/17.png",
       "semanticName": "17",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "17 icon",
       "usedIn": []
@@ -2509,7 +2887,13 @@
       "id": "18",
       "filename": "raw/18.png",
       "semanticName": "18",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "18 icon",
       "usedIn": []
@@ -2518,7 +2902,13 @@
       "id": "19",
       "filename": "raw/19.png",
       "semanticName": "19",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "19 icon",
       "usedIn": []
@@ -2527,7 +2917,13 @@
       "id": "1",
       "filename": "raw/1.png",
       "semanticName": "1",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "1 icon",
       "usedIn": []
@@ -2536,7 +2932,13 @@
       "id": "20",
       "filename": "raw/20.png",
       "semanticName": "20",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "20 icon",
       "usedIn": []
@@ -2545,7 +2947,13 @@
       "id": "21",
       "filename": "raw/21.png",
       "semanticName": "21",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "21 icon",
       "usedIn": []
@@ -2554,7 +2962,13 @@
       "id": "22",
       "filename": "raw/22.png",
       "semanticName": "22",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "22 icon",
       "usedIn": []
@@ -2563,7 +2977,13 @@
       "id": "23",
       "filename": "raw/23.png",
       "semanticName": "23",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "23 icon",
       "usedIn": []
@@ -2572,7 +2992,13 @@
       "id": "24",
       "filename": "raw/24.png",
       "semanticName": "24",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "24 icon",
       "usedIn": []
@@ -2581,7 +3007,13 @@
       "id": "25",
       "filename": "raw/25.png",
       "semanticName": "25",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "25 icon",
       "usedIn": []
@@ -2590,7 +3022,13 @@
       "id": "26",
       "filename": "raw/26.png",
       "semanticName": "26",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "26 icon",
       "usedIn": []
@@ -2599,7 +3037,13 @@
       "id": "27",
       "filename": "raw/27.png",
       "semanticName": "27",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "27 icon",
       "usedIn": []
@@ -2608,7 +3052,13 @@
       "id": "28",
       "filename": "raw/28.png",
       "semanticName": "28",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "28 icon",
       "usedIn": []
@@ -2617,7 +3067,13 @@
       "id": "29",
       "filename": "raw/29.png",
       "semanticName": "29",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "29 icon",
       "usedIn": []
@@ -2626,7 +3082,13 @@
       "id": "2",
       "filename": "raw/2.png",
       "semanticName": "2",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "2 icon",
       "usedIn": []
@@ -2635,7 +3097,13 @@
       "id": "30",
       "filename": "raw/30.png",
       "semanticName": "30",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "30 icon",
       "usedIn": []
@@ -2644,7 +3112,13 @@
       "id": "31",
       "filename": "raw/31.png",
       "semanticName": "31",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "31 icon",
       "usedIn": []
@@ -2653,7 +3127,13 @@
       "id": "32",
       "filename": "raw/32.png",
       "semanticName": "32",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "32 icon",
       "usedIn": []
@@ -2662,7 +3142,13 @@
       "id": "33",
       "filename": "raw/33.png",
       "semanticName": "33",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "33 icon",
       "usedIn": []
@@ -2671,7 +3157,13 @@
       "id": "34",
       "filename": "raw/34.png",
       "semanticName": "34",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "34 icon",
       "usedIn": []
@@ -2680,7 +3172,13 @@
       "id": "35",
       "filename": "raw/35.png",
       "semanticName": "35",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "35 icon",
       "usedIn": []
@@ -2689,7 +3187,13 @@
       "id": "36",
       "filename": "raw/36.png",
       "semanticName": "36",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "36 icon",
       "usedIn": []
@@ -2698,7 +3202,13 @@
       "id": "37",
       "filename": "raw/37.png",
       "semanticName": "37",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "37 icon",
       "usedIn": []
@@ -2707,7 +3217,13 @@
       "id": "38",
       "filename": "raw/38.png",
       "semanticName": "38",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "38 icon",
       "usedIn": []
@@ -2716,7 +3232,13 @@
       "id": "39",
       "filename": "raw/39.png",
       "semanticName": "39",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "39 icon",
       "usedIn": []
@@ -2771,7 +3293,13 @@
       "id": "3",
       "filename": "raw/3.png",
       "semanticName": "3",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "3 icon",
       "usedIn": []
@@ -2780,7 +3308,13 @@
       "id": "40",
       "filename": "raw/40.png",
       "semanticName": "40",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "40 icon",
       "usedIn": []
@@ -2789,7 +3323,13 @@
       "id": "41",
       "filename": "raw/41.png",
       "semanticName": "41",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "41 icon",
       "usedIn": []
@@ -2798,7 +3338,11 @@
       "id": "42a",
       "filename": "raw/42a.png",
       "semanticName": "42a",
-      "tags": [],
+      "tags": [
+        "ui",
+        "42a",
+        "icon"
+      ],
       "category": "ui",
       "description": "42a icon",
       "usedIn": []
@@ -2807,7 +3351,13 @@
       "id": "42",
       "filename": "raw/42.png",
       "semanticName": "42",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "42 icon",
       "usedIn": []
@@ -2816,7 +3366,13 @@
       "id": "43",
       "filename": "raw/43.png",
       "semanticName": "43",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "43 icon",
       "usedIn": []
@@ -2825,7 +3381,13 @@
       "id": "44",
       "filename": "raw/44.png",
       "semanticName": "44",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "44 icon",
       "usedIn": []
@@ -2834,7 +3396,13 @@
       "id": "45",
       "filename": "raw/45.png",
       "semanticName": "45",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "45 icon",
       "usedIn": []
@@ -2843,7 +3411,13 @@
       "id": "46",
       "filename": "raw/46.png",
       "semanticName": "46",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "46 icon",
       "usedIn": []
@@ -2852,7 +3426,13 @@
       "id": "47",
       "filename": "raw/47.png",
       "semanticName": "47",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "47 icon",
       "usedIn": []
@@ -2861,7 +3441,13 @@
       "id": "48",
       "filename": "raw/48.png",
       "semanticName": "48",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "48 icon",
       "usedIn": []
@@ -2870,7 +3456,13 @@
       "id": "49",
       "filename": "raw/49.png",
       "semanticName": "49",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "49 icon",
       "usedIn": []
@@ -2891,7 +3483,13 @@
       "id": "4",
       "filename": "raw/4.png",
       "semanticName": "4",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "4 icon",
       "usedIn": []
@@ -2900,7 +3498,13 @@
       "id": "50",
       "filename": "raw/50.png",
       "semanticName": "50",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "50 icon",
       "usedIn": []
@@ -2909,7 +3513,13 @@
       "id": "51",
       "filename": "raw/51.png",
       "semanticName": "51",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "51 icon",
       "usedIn": []
@@ -2918,7 +3528,13 @@
       "id": "52",
       "filename": "raw/52.png",
       "semanticName": "52",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "52 icon",
       "usedIn": []
@@ -2927,7 +3543,13 @@
       "id": "53",
       "filename": "raw/53.png",
       "semanticName": "53",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "53 icon",
       "usedIn": []
@@ -2936,7 +3558,13 @@
       "id": "54",
       "filename": "raw/54.png",
       "semanticName": "54",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "54 icon",
       "usedIn": []
@@ -2945,7 +3573,13 @@
       "id": "55",
       "filename": "raw/55.png",
       "semanticName": "55",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "55 icon",
       "usedIn": []
@@ -2954,7 +3588,13 @@
       "id": "56",
       "filename": "raw/56.png",
       "semanticName": "56",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "56 icon",
       "usedIn": []
@@ -2963,7 +3603,13 @@
       "id": "57",
       "filename": "raw/57.png",
       "semanticName": "57",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "57 icon",
       "usedIn": []
@@ -2972,7 +3618,13 @@
       "id": "58",
       "filename": "raw/58.png",
       "semanticName": "58",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "58 icon",
       "usedIn": []
@@ -2981,7 +3633,13 @@
       "id": "59",
       "filename": "raw/59.png",
       "semanticName": "59",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "59 icon",
       "usedIn": []
@@ -2990,7 +3648,13 @@
       "id": "5",
       "filename": "raw/5.png",
       "semanticName": "5",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "5 icon",
       "usedIn": []
@@ -2999,7 +3663,13 @@
       "id": "60",
       "filename": "raw/60.png",
       "semanticName": "60",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "60 icon",
       "usedIn": []
@@ -3008,7 +3678,13 @@
       "id": "61",
       "filename": "raw/61.png",
       "semanticName": "61",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "61 icon",
       "usedIn": []
@@ -3017,7 +3693,13 @@
       "id": "62",
       "filename": "raw/62.png",
       "semanticName": "62",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "62 icon",
       "usedIn": []
@@ -3026,7 +3708,13 @@
       "id": "63",
       "filename": "raw/63.png",
       "semanticName": "63",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "63 icon",
       "usedIn": []
@@ -3035,7 +3723,13 @@
       "id": "64",
       "filename": "raw/64.png",
       "semanticName": "64",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "64 icon",
       "usedIn": []
@@ -3044,7 +3738,13 @@
       "id": "65",
       "filename": "raw/65.png",
       "semanticName": "65",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "65 icon",
       "usedIn": []
@@ -3053,7 +3753,13 @@
       "id": "66",
       "filename": "raw/66.png",
       "semanticName": "66",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "66 icon",
       "usedIn": []
@@ -3062,7 +3768,13 @@
       "id": "67",
       "filename": "raw/67.png",
       "semanticName": "67",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "67 icon",
       "usedIn": []
@@ -3071,7 +3783,13 @@
       "id": "68",
       "filename": "raw/68.png",
       "semanticName": "68",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "68 icon",
       "usedIn": []
@@ -3080,7 +3798,13 @@
       "id": "69",
       "filename": "raw/69.png",
       "semanticName": "69",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "69 icon",
       "usedIn": []
@@ -3089,7 +3813,13 @@
       "id": "6",
       "filename": "raw/6.png",
       "semanticName": "6",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "6 icon",
       "usedIn": []
@@ -3098,7 +3828,13 @@
       "id": "70",
       "filename": "raw/70.png",
       "semanticName": "70",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "70 icon",
       "usedIn": []
@@ -3107,7 +3843,13 @@
       "id": "71",
       "filename": "raw/71.png",
       "semanticName": "71",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "71 icon",
       "usedIn": []
@@ -3116,7 +3858,13 @@
       "id": "72",
       "filename": "raw/72.png",
       "semanticName": "72",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "72 icon",
       "usedIn": []
@@ -3125,7 +3873,13 @@
       "id": "73",
       "filename": "raw/73.png",
       "semanticName": "73",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "73 icon",
       "usedIn": []
@@ -3134,7 +3888,13 @@
       "id": "74",
       "filename": "raw/74.png",
       "semanticName": "74",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "74 icon",
       "usedIn": []
@@ -3143,7 +3903,13 @@
       "id": "75",
       "filename": "raw/75.png",
       "semanticName": "75",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "75 icon",
       "usedIn": []
@@ -3152,7 +3918,13 @@
       "id": "76",
       "filename": "raw/76.png",
       "semanticName": "76",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "76 icon",
       "usedIn": []
@@ -3161,7 +3933,13 @@
       "id": "77",
       "filename": "raw/77.png",
       "semanticName": "77",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "77 icon",
       "usedIn": []
@@ -3170,7 +3948,13 @@
       "id": "78",
       "filename": "raw/78.png",
       "semanticName": "78",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "78 icon",
       "usedIn": []
@@ -3179,7 +3963,13 @@
       "id": "79",
       "filename": "raw/79.png",
       "semanticName": "79",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "79 icon",
       "usedIn": []
@@ -3188,7 +3978,13 @@
       "id": "7",
       "filename": "raw/7.png",
       "semanticName": "7",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "7 icon",
       "usedIn": []
@@ -3197,7 +3993,13 @@
       "id": "80",
       "filename": "raw/80.png",
       "semanticName": "80",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "80 icon",
       "usedIn": []
@@ -3206,7 +4008,13 @@
       "id": "81",
       "filename": "raw/81.png",
       "semanticName": "81",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "81 icon",
       "usedIn": []
@@ -3215,7 +4023,13 @@
       "id": "82",
       "filename": "raw/82.png",
       "semanticName": "82",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "82 icon",
       "usedIn": []
@@ -3224,7 +4038,13 @@
       "id": "83",
       "filename": "raw/83.png",
       "semanticName": "83",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "83 icon",
       "usedIn": []
@@ -3233,7 +4053,13 @@
       "id": "84",
       "filename": "raw/84.png",
       "semanticName": "84",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "84 icon",
       "usedIn": []
@@ -3242,7 +4068,13 @@
       "id": "85",
       "filename": "raw/85.png",
       "semanticName": "85",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "85 icon",
       "usedIn": []
@@ -3251,7 +4083,13 @@
       "id": "86",
       "filename": "raw/86.png",
       "semanticName": "86",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "86 icon",
       "usedIn": []
@@ -3260,7 +4098,13 @@
       "id": "87",
       "filename": "raw/87.png",
       "semanticName": "87",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "87 icon",
       "usedIn": []
@@ -3269,7 +4113,13 @@
       "id": "88",
       "filename": "raw/88.png",
       "semanticName": "88",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "88 icon",
       "usedIn": []
@@ -3278,7 +4128,13 @@
       "id": "89",
       "filename": "raw/89.png",
       "semanticName": "89",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "89 icon",
       "usedIn": []
@@ -3287,7 +4143,13 @@
       "id": "8",
       "filename": "raw/8.png",
       "semanticName": "8",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "8 icon",
       "usedIn": []
@@ -3296,7 +4158,13 @@
       "id": "90",
       "filename": "raw/90.png",
       "semanticName": "90",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "90 icon",
       "usedIn": []
@@ -3305,7 +4173,13 @@
       "id": "91",
       "filename": "raw/91.png",
       "semanticName": "91",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "91 icon",
       "usedIn": []
@@ -3314,7 +4188,13 @@
       "id": "92",
       "filename": "raw/92.png",
       "semanticName": "92",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "92 icon",
       "usedIn": []
@@ -3323,7 +4203,13 @@
       "id": "93",
       "filename": "raw/93.png",
       "semanticName": "93",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "93 icon",
       "usedIn": []
@@ -3332,7 +4218,13 @@
       "id": "94",
       "filename": "raw/94.png",
       "semanticName": "94",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "94 icon",
       "usedIn": []
@@ -3341,7 +4233,13 @@
       "id": "95",
       "filename": "raw/95.png",
       "semanticName": "95",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "95 icon",
       "usedIn": []
@@ -3350,7 +4248,13 @@
       "id": "96",
       "filename": "raw/96.png",
       "semanticName": "96",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "96 icon",
       "usedIn": []
@@ -3359,7 +4263,13 @@
       "id": "97",
       "filename": "raw/97.png",
       "semanticName": "97",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "97 icon",
       "usedIn": []
@@ -3368,7 +4278,13 @@
       "id": "98",
       "filename": "raw/98.png",
       "semanticName": "98",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "98 icon",
       "usedIn": []
@@ -3377,7 +4293,13 @@
       "id": "99",
       "filename": "raw/99.png",
       "semanticName": "99",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "99 icon",
       "usedIn": []
@@ -3386,7 +4308,13 @@
       "id": "9",
       "filename": "raw/9.png",
       "semanticName": "9",
-      "tags": [],
+      "tags": [
+        "ui",
+        "numbered",
+        "icon",
+        "generic",
+        "ui-element"
+      ],
       "category": "ui",
       "description": "9 icon",
       "usedIn": []
@@ -3408,7 +4336,11 @@
       "id": "Abort",
       "filename": "raw/Abort.png",
       "semanticName": "abort",
-      "tags": [],
+      "tags": [
+        "ui",
+        "abort",
+        "icon"
+      ],
       "category": "ui",
       "description": "Abort icon",
       "usedIn": []
@@ -3453,7 +4385,11 @@
       "id": "addthis",
       "filename": "raw/addthis.png",
       "semanticName": "addthis",
-      "tags": [],
+      "tags": [
+        "ui",
+        "addthis",
+        "icon"
+      ],
       "category": "ui",
       "description": "Addthis icon",
       "usedIn": []
@@ -3462,7 +4398,11 @@
       "id": "Aimp",
       "filename": "raw/Aimp.png",
       "semanticName": "aimp",
-      "tags": [],
+      "tags": [
+        "ui",
+        "aimp",
+        "icon"
+      ],
       "category": "ui",
       "description": "Aimp icon",
       "usedIn": []
@@ -3486,7 +4426,11 @@
       "id": "alert",
       "filename": "raw/alert.png",
       "semanticName": "alert",
-      "tags": [],
+      "tags": [
+        "ui",
+        "alert",
+        "icon"
+      ],
       "category": "ui",
       "description": "Alert icon",
       "usedIn": []
@@ -3495,7 +4439,11 @@
       "id": "Alert",
       "filename": "raw/Alert.png",
       "semanticName": "alert",
-      "tags": [],
+      "tags": [
+        "ui",
+        "alert",
+        "icon"
+      ],
       "category": "ui",
       "description": "Alert icon",
       "usedIn": []
@@ -3504,7 +4452,11 @@
       "id": "Alien",
       "filename": "raw/Alien.png",
       "semanticName": "alien",
-      "tags": [],
+      "tags": [
+        "ui",
+        "alien",
+        "icon"
+      ],
       "category": "ui",
       "description": "Alien icon",
       "usedIn": []
@@ -3549,7 +4501,11 @@
       "id": "all",
       "filename": "raw/all.png",
       "semanticName": "all",
-      "tags": [],
+      "tags": [
+        "ui",
+        "all",
+        "icon"
+      ],
       "category": "ui",
       "description": "All icon",
       "usedIn": []
@@ -3558,7 +4514,11 @@
       "id": "anchor",
       "filename": "raw/anchor.png",
       "semanticName": "anchor",
-      "tags": [],
+      "tags": [
+        "ui",
+        "anchor",
+        "icon"
+      ],
       "category": "ui",
       "description": "Anchor icon",
       "usedIn": []
@@ -3567,7 +4527,11 @@
       "id": "Anchor",
       "filename": "raw/Anchor.png",
       "semanticName": "anchor",
-      "tags": [],
+      "tags": [
+        "ui",
+        "anchor",
+        "icon"
+      ],
       "category": "ui",
       "description": "Anchor icon",
       "usedIn": []
@@ -3576,7 +4540,11 @@
       "id": "Angle",
       "filename": "raw/Angle.png",
       "semanticName": "angle",
-      "tags": [],
+      "tags": [
+        "ui",
+        "angle",
+        "icon"
+      ],
       "category": "ui",
       "description": "Angle icon",
       "usedIn": []
@@ -3585,7 +4553,11 @@
       "id": "Apply",
       "filename": "raw/Apply.png",
       "semanticName": "apply",
-      "tags": [],
+      "tags": [
+        "ui",
+        "apply",
+        "icon"
+      ],
       "category": "ui",
       "description": "Apply icon",
       "usedIn": []
@@ -3594,7 +4566,11 @@
       "id": "app",
       "filename": "raw/app.png",
       "semanticName": "app",
-      "tags": [],
+      "tags": [
+        "ui",
+        "app",
+        "icon"
+      ],
       "category": "ui",
       "description": "App icon",
       "usedIn": []
@@ -3603,7 +4579,11 @@
       "id": "Apps",
       "filename": "raw/Apps.png",
       "semanticName": "apps",
-      "tags": [],
+      "tags": [
+        "ui",
+        "apps",
+        "icon"
+      ],
       "category": "ui",
       "description": "Apps icon",
       "usedIn": []
@@ -3612,7 +4592,11 @@
       "id": "Arc",
       "filename": "raw/Arc.png",
       "semanticName": "arc",
-      "tags": [],
+      "tags": [
+        "ui",
+        "arc",
+        "icon"
+      ],
       "category": "ui",
       "description": "Arc icon",
       "usedIn": []
@@ -3621,7 +4605,11 @@
       "id": "Atomic",
       "filename": "raw/Atomic.png",
       "semanticName": "atomic",
-      "tags": [],
+      "tags": [
+        "ui",
+        "atomic",
+        "icon"
+      ],
       "category": "ui",
       "description": "Atomic icon",
       "usedIn": []
@@ -3645,7 +4633,11 @@
       "id": "bell",
       "filename": "raw/bell.png",
       "semanticName": "bell",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bell",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bell icon",
       "usedIn": []
@@ -3654,7 +4646,11 @@
       "id": "Best",
       "filename": "raw/Best.png",
       "semanticName": "best",
-      "tags": [],
+      "tags": [
+        "ui",
+        "best",
+        "icon"
+      ],
       "category": "ui",
       "description": "Best icon",
       "usedIn": []
@@ -3663,7 +4659,11 @@
       "id": "Billboard",
       "filename": "raw/Billboard.png",
       "semanticName": "billboard",
-      "tags": [],
+      "tags": [
+        "ui",
+        "billboard",
+        "icon"
+      ],
       "category": "ui",
       "description": "Billboard icon",
       "usedIn": []
@@ -3672,7 +4672,11 @@
       "id": "Binoculars",
       "filename": "raw/Binoculars.png",
       "semanticName": "binoculars",
-      "tags": [],
+      "tags": [
+        "ui",
+        "binoculars",
+        "icon"
+      ],
       "category": "ui",
       "description": "Binoculars icon",
       "usedIn": []
@@ -3710,7 +4714,14 @@
       "id": "block",
       "filename": "raw/block.png",
       "semanticName": "block",
-      "tags": [],
+      "tags": [
+        "security",
+        "blocked",
+        "stop",
+        "deny",
+        "forbidden",
+        "restrict"
+      ],
       "category": "security",
       "description": "Block - Security icon",
       "usedIn": []
@@ -3719,7 +4730,11 @@
       "id": "Blog",
       "filename": "raw/Blog.png",
       "semanticName": "blog",
-      "tags": [],
+      "tags": [
+        "ui",
+        "blog",
+        "icon"
+      ],
       "category": "ui",
       "description": "Blog icon",
       "usedIn": []
@@ -3759,7 +4774,14 @@
       "id": "blueprint2",
       "filename": "raw/blueprint2.png",
       "semanticName": "blueprint2",
-      "tags": [],
+      "tags": [
+        "files",
+        "blueprint",
+        "design",
+        "plan",
+        "document",
+        "technical-drawing"
+      ],
       "category": "files",
       "description": "Blueprint2 - File icon",
       "usedIn": []
@@ -3768,7 +4790,14 @@
       "id": "blueprint3",
       "filename": "raw/blueprint3.png",
       "semanticName": "blueprint3",
-      "tags": [],
+      "tags": [
+        "files",
+        "blueprint",
+        "design",
+        "plan",
+        "document",
+        "technical-drawing"
+      ],
       "category": "files",
       "description": "Blueprint3 - File icon",
       "usedIn": []
@@ -3777,7 +4806,14 @@
       "id": "blueprint4",
       "filename": "raw/blueprint4.png",
       "semanticName": "blueprint4",
-      "tags": [],
+      "tags": [
+        "files",
+        "blueprint",
+        "design",
+        "plan",
+        "document",
+        "technical-drawing"
+      ],
       "category": "files",
       "description": "Blueprint4 - File icon",
       "usedIn": []
@@ -3786,7 +4822,14 @@
       "id": "blueprint5",
       "filename": "raw/blueprint5.png",
       "semanticName": "blueprint5",
-      "tags": [],
+      "tags": [
+        "files",
+        "blueprint",
+        "design",
+        "plan",
+        "document",
+        "technical-drawing"
+      ],
       "category": "files",
       "description": "Blueprint5 - File icon",
       "usedIn": []
@@ -3795,7 +4838,14 @@
       "id": "blueprint",
       "filename": "raw/blueprint.png",
       "semanticName": "blueprint",
-      "tags": [],
+      "tags": [
+        "files",
+        "blueprint",
+        "design",
+        "plan",
+        "document",
+        "technical-drawing"
+      ],
       "category": "files",
       "description": "Blueprint - File icon",
       "usedIn": []
@@ -3804,7 +4854,14 @@
       "id": "Bluetooth",
       "filename": "raw/Bluetooth.png",
       "semanticName": "bluetooth",
-      "tags": [],
+      "tags": [
+        "network",
+        "wireless",
+        "connection",
+        "device",
+        "pairing",
+        "connectivity"
+      ],
       "category": "network",
       "description": "Bluetooth - Network icon",
       "usedIn": []
@@ -3813,7 +4870,11 @@
       "id": "Bomb",
       "filename": "raw/Bomb.png",
       "semanticName": "bomb",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bomb",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bomb icon",
       "usedIn": []
@@ -3849,7 +4910,11 @@
       "id": "books",
       "filename": "raw/books.png",
       "semanticName": "books",
-      "tags": [],
+      "tags": [
+        "files",
+        "books",
+        "icon"
+      ],
       "category": "files",
       "description": "Books - File icon",
       "usedIn": []
@@ -3858,7 +4923,11 @@
       "id": "Boss",
       "filename": "raw/Boss.png",
       "semanticName": "boss",
-      "tags": [],
+      "tags": [
+        "ui",
+        "boss",
+        "icon"
+      ],
       "category": "ui",
       "description": "Boss icon",
       "usedIn": []
@@ -3880,7 +4949,11 @@
       "id": "Bottom",
       "filename": "raw/Bottom.png",
       "semanticName": "bottom",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bottom",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bottom icon",
       "usedIn": []
@@ -3889,7 +4962,11 @@
       "id": "Boy",
       "filename": "raw/Boy.png",
       "semanticName": "boy",
-      "tags": [],
+      "tags": [
+        "ui",
+        "boy",
+        "icon"
+      ],
       "category": "ui",
       "description": "Boy icon",
       "usedIn": []
@@ -3898,7 +4975,11 @@
       "id": "Bridge",
       "filename": "raw/Bridge.png",
       "semanticName": "bridge",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bridge",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bridge icon",
       "usedIn": []
@@ -3931,7 +5012,11 @@
       "id": "Briefcase",
       "filename": "raw/Briefcase.png",
       "semanticName": "briefcase",
-      "tags": [],
+      "tags": [
+        "files",
+        "briefcase",
+        "icon"
+      ],
       "category": "files",
       "description": "Briefcase - File icon",
       "usedIn": []
@@ -3940,7 +5025,11 @@
       "id": "Brightness",
       "filename": "raw/Brightness.png",
       "semanticName": "brightness",
-      "tags": [],
+      "tags": [
+        "ui",
+        "brightness",
+        "icon"
+      ],
       "category": "ui",
       "description": "Brightness icon",
       "usedIn": []
@@ -3949,7 +5038,11 @@
       "id": "broom",
       "filename": "raw/broom.png",
       "semanticName": "broom",
-      "tags": [],
+      "tags": [
+        "ui",
+        "broom",
+        "icon"
+      ],
       "category": "ui",
       "description": "Broom icon",
       "usedIn": []
@@ -3958,7 +5051,11 @@
       "id": "Buddy",
       "filename": "raw/Buddy.png",
       "semanticName": "buddy",
-      "tags": [],
+      "tags": [
+        "ui",
+        "buddy",
+        "icon"
+      ],
       "category": "ui",
       "description": "Buddy icon",
       "usedIn": []
@@ -3967,7 +5064,11 @@
       "id": "Bullseye",
       "filename": "raw/Bullseye.png",
       "semanticName": "bullseye",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bullseye",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bullseye icon",
       "usedIn": []
@@ -3976,7 +5077,11 @@
       "id": "Cable",
       "filename": "raw/Cable.png",
       "semanticName": "cable",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cable",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cable icon",
       "usedIn": []
@@ -4033,7 +5138,11 @@
       "id": "Caption",
       "filename": "raw/Caption.png",
       "semanticName": "caption",
-      "tags": [],
+      "tags": [
+        "ui",
+        "caption",
+        "icon"
+      ],
       "category": "ui",
       "description": "Caption icon",
       "usedIn": []
@@ -4092,7 +5201,11 @@
       "id": "Chalkboard2",
       "filename": "raw/Chalkboard2.png",
       "semanticName": "chalkboard2",
-      "tags": [],
+      "tags": [
+        "ui",
+        "chalkboard2",
+        "icon"
+      ],
       "category": "ui",
       "description": "Chalkboard2 icon",
       "usedIn": []
@@ -4101,7 +5214,11 @@
       "id": "Chalkboard",
       "filename": "raw/Chalkboard.png",
       "semanticName": "chalkboard",
-      "tags": [],
+      "tags": [
+        "ui",
+        "chalkboard",
+        "icon"
+      ],
       "category": "ui",
       "description": "Chalkboard icon",
       "usedIn": []
@@ -4125,7 +5242,11 @@
       "id": "Chrome11",
       "filename": "raw/Chrome11.png",
       "semanticName": "chrome11",
-      "tags": [],
+      "tags": [
+        "ui",
+        "chrome11",
+        "icon"
+      ],
       "category": "ui",
       "description": "Chrome11 icon",
       "usedIn": []
@@ -4134,7 +5255,11 @@
       "id": "Circle",
       "filename": "raw/Circle.png",
       "semanticName": "circle",
-      "tags": [],
+      "tags": [
+        "ui",
+        "circle",
+        "icon"
+      ],
       "category": "ui",
       "description": "Circle icon",
       "usedIn": []
@@ -4143,7 +5268,11 @@
       "id": "Circulation",
       "filename": "raw/Circulation.png",
       "semanticName": "circulation",
-      "tags": [],
+      "tags": [
+        "ui",
+        "circulation",
+        "icon"
+      ],
       "category": "ui",
       "description": "Circulation icon",
       "usedIn": []
@@ -4152,7 +5281,11 @@
       "id": "City",
       "filename": "raw/City.png",
       "semanticName": "city",
-      "tags": [],
+      "tags": [
+        "ui",
+        "city",
+        "icon"
+      ],
       "category": "ui",
       "description": "City icon",
       "usedIn": []
@@ -4161,7 +5294,11 @@
       "id": "Clear",
       "filename": "raw/Clear.png",
       "semanticName": "clear",
-      "tags": [],
+      "tags": [
+        "ui",
+        "clear",
+        "icon"
+      ],
       "category": "ui",
       "description": "Clear icon",
       "usedIn": []
@@ -4206,7 +5343,11 @@
       "id": "clipboard",
       "filename": "raw/clipboard.png",
       "semanticName": "clipboard",
-      "tags": [],
+      "tags": [
+        "ui",
+        "clipboard",
+        "icon"
+      ],
       "category": "ui",
       "description": "Clipboard icon",
       "usedIn": []
@@ -4227,7 +5368,14 @@
       "id": "clock",
       "filename": "raw/clock.png",
       "semanticName": "clock",
-      "tags": [],
+      "tags": [
+        "security",
+        "time",
+        "schedule",
+        "timer",
+        "watch",
+        "duration"
+      ],
       "category": "security",
       "description": "Clock - Security icon",
       "usedIn": []
@@ -4260,7 +5408,11 @@
       "id": "CMYK",
       "filename": "raw/CMYK.png",
       "semanticName": "cmyk",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cmyk",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cmyk icon",
       "usedIn": []
@@ -4269,7 +5421,11 @@
       "id": "Coffe",
       "filename": "raw/Coffe.png",
       "semanticName": "coffe",
-      "tags": [],
+      "tags": [
+        "ui",
+        "coffe",
+        "icon"
+      ],
       "category": "ui",
       "description": "Coffe icon",
       "usedIn": []
@@ -4334,7 +5490,11 @@
       "id": "Community",
       "filename": "raw/Community.png",
       "semanticName": "community",
-      "tags": [],
+      "tags": [
+        "ui",
+        "community",
+        "icon"
+      ],
       "category": "ui",
       "description": "Community icon",
       "usedIn": []
@@ -4343,7 +5503,11 @@
       "id": "Company",
       "filename": "raw/Company.png",
       "semanticName": "company",
-      "tags": [],
+      "tags": [
+        "ui",
+        "company",
+        "icon"
+      ],
       "category": "ui",
       "description": "Company icon",
       "usedIn": []
@@ -4352,7 +5516,11 @@
       "id": "Component",
       "filename": "raw/Component.png",
       "semanticName": "component",
-      "tags": [],
+      "tags": [
+        "ui",
+        "component",
+        "icon"
+      ],
       "category": "ui",
       "description": "Component icon",
       "usedIn": []
@@ -4361,7 +5529,11 @@
       "id": "Conference",
       "filename": "raw/Conference.png",
       "semanticName": "conference",
-      "tags": [],
+      "tags": [
+        "ui",
+        "conference",
+        "icon"
+      ],
       "category": "ui",
       "description": "Conference icon",
       "usedIn": []
@@ -4667,7 +5839,11 @@
       "id": "8ball",
       "filename": "raw/8ball.png",
       "semanticName": "8ball",
-      "tags": [],
+      "tags": [
+        "ui",
+        "8ball",
+        "icon"
+      ],
       "category": "ui",
       "description": "8ball - UI icon",
       "usedIn": []
@@ -4676,7 +5852,11 @@
       "id": "Accounting",
       "filename": "raw/Accounting.png",
       "semanticName": "accounting",
-      "tags": [],
+      "tags": [
+        "ui",
+        "accounting",
+        "icon"
+      ],
       "category": "ui",
       "description": "Accounting - UI icon",
       "usedIn": []
@@ -4786,7 +5966,11 @@
       "id": "bamboo",
       "filename": "raw/bamboo.png",
       "semanticName": "bamboo",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bamboo",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bamboo - UI icon",
       "usedIn": []
@@ -4807,7 +5991,11 @@
       "id": "basketball",
       "filename": "raw/basketball.png",
       "semanticName": "basketball",
-      "tags": [],
+      "tags": [
+        "ui",
+        "basketball",
+        "icon"
+      ],
       "category": "ui",
       "description": "Basketball - UI icon",
       "usedIn": []
@@ -4816,7 +6004,11 @@
       "id": "Basketball",
       "filename": "raw/Basketball.png",
       "semanticName": "basketball",
-      "tags": [],
+      "tags": [
+        "ui",
+        "basketball",
+        "icon"
+      ],
       "category": "ui",
       "description": "Basketball - UI icon",
       "usedIn": []
@@ -4825,7 +6017,11 @@
       "id": "basket",
       "filename": "raw/basket.png",
       "semanticName": "basket",
-      "tags": [],
+      "tags": [
+        "ui",
+        "basket",
+        "icon"
+      ],
       "category": "ui",
       "description": "Basket - UI icon",
       "usedIn": []
@@ -4834,7 +6030,11 @@
       "id": "Bee",
       "filename": "raw/Bee.png",
       "semanticName": "bee",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bee",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bee - UI icon",
       "usedIn": []
@@ -4843,7 +6043,11 @@
       "id": "Billing",
       "filename": "raw/Billing.png",
       "semanticName": "billing",
-      "tags": [],
+      "tags": [
+        "ui",
+        "billing",
+        "icon"
+      ],
       "category": "ui",
       "description": "Billing - UI icon",
       "usedIn": []
@@ -5003,7 +6207,11 @@
       "id": "Bricks",
       "filename": "raw/Bricks.png",
       "semanticName": "bricks",
-      "tags": [],
+      "tags": [
+        "ui",
+        "bricks",
+        "icon"
+      ],
       "category": "ui",
       "description": "Bricks - UI icon",
       "usedIn": []
@@ -5012,7 +6220,14 @@
       "id": "Brushes",
       "filename": "raw/Brushes.png",
       "semanticName": "brushes",
-      "tags": [],
+      "tags": [
+        "tools",
+        "art",
+        "paint",
+        "drawing",
+        "tool",
+        "creative"
+      ],
       "category": "tools",
       "description": "Brushes - Tool icon",
       "usedIn": []
@@ -5021,7 +6236,14 @@
       "id": "Brush",
       "filename": "raw/Brush.png",
       "semanticName": "brush",
-      "tags": [],
+      "tags": [
+        "tools",
+        "art",
+        "paint",
+        "drawing",
+        "tool",
+        "creative"
+      ],
       "category": "tools",
       "description": "Brush - Tool icon",
       "usedIn": []
@@ -5071,7 +6293,11 @@
       "id": "burn",
       "filename": "raw/burn.png",
       "semanticName": "burn",
-      "tags": [],
+      "tags": [
+        "ui",
+        "burn",
+        "icon"
+      ],
       "category": "ui",
       "description": "Burn - UI icon",
       "usedIn": []
@@ -5080,7 +6306,11 @@
       "id": "Burn",
       "filename": "raw/Burn.png",
       "semanticName": "burn",
-      "tags": [],
+      "tags": [
+        "ui",
+        "burn",
+        "icon"
+      ],
       "category": "ui",
       "description": "Burn - UI icon",
       "usedIn": []
@@ -5101,7 +6331,11 @@
       "id": "Call",
       "filename": "raw/Call.png",
       "semanticName": "call",
-      "tags": [],
+      "tags": [
+        "ui",
+        "call",
+        "icon"
+      ],
       "category": "ui",
       "description": "Call - UI icon",
       "usedIn": []
@@ -5110,7 +6344,11 @@
       "id": "camera",
       "filename": "raw/camera.png",
       "semanticName": "camera",
-      "tags": [],
+      "tags": [
+        "ui",
+        "camera",
+        "icon"
+      ],
       "category": "ui",
       "description": "Camera - UI icon",
       "usedIn": []
@@ -5230,7 +6468,11 @@
       "id": "Cash",
       "filename": "raw/Cash.png",
       "semanticName": "cash",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cash",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cash - UI icon",
       "usedIn": []
@@ -5266,7 +6508,11 @@
       "id": "Cat",
       "filename": "raw/Cat.png",
       "semanticName": "cat",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cat",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cat - UI icon",
       "usedIn": []
@@ -5299,7 +6545,11 @@
       "id": "cd",
       "filename": "raw/cd.png",
       "semanticName": "cd",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cd",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cd - UI icon",
       "usedIn": []
@@ -5308,7 +6558,11 @@
       "id": "CD",
       "filename": "raw/CD.png",
       "semanticName": "cd",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cd",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cd - UI icon",
       "usedIn": []
@@ -5317,7 +6571,11 @@
       "id": "chat",
       "filename": "raw/chat.png",
       "semanticName": "chat",
-      "tags": [],
+      "tags": [
+        "ui",
+        "chat",
+        "icon"
+      ],
       "category": "ui",
       "description": "Chat - UI icon",
       "usedIn": []
@@ -5651,7 +6909,11 @@
       "id": "Coffee",
       "filename": "raw/Coffee.png",
       "semanticName": "coffee",
-      "tags": [],
+      "tags": [
+        "ui",
+        "coffee",
+        "icon"
+      ],
       "category": "ui",
       "description": "Coffee - UI icon",
       "usedIn": []
@@ -5672,7 +6934,11 @@
       "id": "Coin",
       "filename": "raw/Coin.png",
       "semanticName": "coin",
-      "tags": [],
+      "tags": [
+        "ui",
+        "coin",
+        "icon"
+      ],
       "category": "ui",
       "description": "Coin - UI icon",
       "usedIn": []
@@ -5681,7 +6947,11 @@
       "id": "Coins",
       "filename": "raw/Coins.png",
       "semanticName": "coins",
-      "tags": [],
+      "tags": [
+        "ui",
+        "coins",
+        "icon"
+      ],
       "category": "ui",
       "description": "Coins - UI icon",
       "usedIn": []
@@ -5690,7 +6960,11 @@
       "id": "coke",
       "filename": "raw/coke.png",
       "semanticName": "coke",
-      "tags": [],
+      "tags": [
+        "ui",
+        "coke",
+        "icon"
+      ],
       "category": "ui",
       "description": "Coke - UI icon",
       "usedIn": []
@@ -5821,7 +7095,11 @@
       "id": "Computer",
       "filename": "raw/Computer.png",
       "semanticName": "computer",
-      "tags": [],
+      "tags": [
+        "ui",
+        "computer",
+        "icon"
+      ],
       "category": "ui",
       "description": "Computer - UI icon",
       "usedIn": []
@@ -5830,7 +7108,11 @@
       "id": "Construction",
       "filename": "raw/Construction.png",
       "semanticName": "construction",
-      "tags": [],
+      "tags": [
+        "ui",
+        "construction",
+        "icon"
+      ],
       "category": "ui",
       "description": "Construction - UI icon",
       "usedIn": []
@@ -5839,7 +7121,11 @@
       "id": "Contact",
       "filename": "raw/Contact.png",
       "semanticName": "contact",
-      "tags": [],
+      "tags": [
+        "ui",
+        "contact",
+        "icon"
+      ],
       "category": "ui",
       "description": "Contact - UI icon",
       "usedIn": []
@@ -5848,7 +7134,11 @@
       "id": "Contacts2",
       "filename": "raw/Contacts2.png",
       "semanticName": "contacts2",
-      "tags": [],
+      "tags": [
+        "ui",
+        "contacts2",
+        "icon"
+      ],
       "category": "ui",
       "description": "Contacts2 - UI icon",
       "usedIn": []
@@ -5857,7 +7147,11 @@
       "id": "contacts",
       "filename": "raw/contacts.png",
       "semanticName": "contacts",
-      "tags": [],
+      "tags": [
+        "ui",
+        "contacts",
+        "icon"
+      ],
       "category": "ui",
       "description": "Contacts - UI icon",
       "usedIn": []
@@ -5866,7 +7160,11 @@
       "id": "container",
       "filename": "raw/container.png",
       "semanticName": "container",
-      "tags": [],
+      "tags": [
+        "ui",
+        "container",
+        "icon"
+      ],
       "category": "ui",
       "description": "Container - UI icon",
       "usedIn": []
@@ -5875,7 +7173,11 @@
       "id": "Contrast",
       "filename": "raw/Contrast.png",
       "semanticName": "contrast",
-      "tags": [],
+      "tags": [
+        "ui",
+        "contrast",
+        "icon"
+      ],
       "category": "ui",
       "description": "Contrast - UI icon",
       "usedIn": []
@@ -5884,7 +7186,11 @@
       "id": "corckboard",
       "filename": "raw/corckboard.png",
       "semanticName": "corckboard",
-      "tags": [],
+      "tags": [
+        "ui",
+        "corckboard",
+        "icon"
+      ],
       "category": "ui",
       "description": "Corckboard - UI icon",
       "usedIn": []
@@ -5893,7 +7199,11 @@
       "id": "cork",
       "filename": "raw/cork.png",
       "semanticName": "cork",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cork",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cork - UI icon",
       "usedIn": []
@@ -5902,7 +7212,11 @@
       "id": "Crate",
       "filename": "raw/Crate.png",
       "semanticName": "crate",
-      "tags": [],
+      "tags": [
+        "ui",
+        "crate",
+        "icon"
+      ],
       "category": "ui",
       "description": "Crate - UI icon",
       "usedIn": []
@@ -5911,7 +7225,11 @@
       "id": "Create",
       "filename": "raw/Create.png",
       "semanticName": "create",
-      "tags": [],
+      "tags": [
+        "ui",
+        "create",
+        "icon"
+      ],
       "category": "ui",
       "description": "Create - UI icon",
       "usedIn": []
@@ -5983,7 +7301,11 @@
       "id": "Credit",
       "filename": "raw/Credit.png",
       "semanticName": "credit",
-      "tags": [],
+      "tags": [
+        "ui",
+        "credit",
+        "icon"
+      ],
       "category": "ui",
       "description": "Credit - UI icon",
       "usedIn": []
@@ -6016,7 +7338,11 @@
       "id": "Curve",
       "filename": "raw/Curve.png",
       "semanticName": "curve",
-      "tags": [],
+      "tags": [
+        "ui",
+        "curve",
+        "icon"
+      ],
       "category": "ui",
       "description": "Curve - UI icon",
       "usedIn": []
@@ -6037,7 +7363,11 @@
       "id": "Cut",
       "filename": "raw/Cut.png",
       "semanticName": "cut",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cut",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cut - UI icon",
       "usedIn": []
@@ -6115,7 +7445,11 @@
       "id": "Cycle",
       "filename": "raw/Cycle.png",
       "semanticName": "cycle",
-      "tags": [],
+      "tags": [
+        "ui",
+        "cycle",
+        "icon"
+      ],
       "category": "ui",
       "description": "Cycle - UI icon",
       "usedIn": []
@@ -6124,7 +7458,11 @@
       "id": "Danger",
       "filename": "raw/Danger.png",
       "semanticName": "danger",
-      "tags": [],
+      "tags": [
+        "ui",
+        "danger",
+        "icon"
+      ],
       "category": "ui",
       "description": "Danger - UI icon",
       "usedIn": []
@@ -6146,7 +7484,11 @@
       "id": "date",
       "filename": "raw/date.png",
       "semanticName": "date",
-      "tags": [],
+      "tags": [
+        "ui",
+        "date",
+        "icon"
+      ],
       "category": "ui",
       "description": "Date - UI icon",
       "usedIn": []
@@ -6155,7 +7497,11 @@
       "id": "Date",
       "filename": "raw/Date.png",
       "semanticName": "date",
-      "tags": [],
+      "tags": [
+        "ui",
+        "date",
+        "icon"
+      ],
       "category": "ui",
       "description": "Date - UI icon",
       "usedIn": []
@@ -6164,7 +7510,11 @@
       "id": "Day",
       "filename": "raw/Day.png",
       "semanticName": "day",
-      "tags": [],
+      "tags": [
+        "ui",
+        "day",
+        "icon"
+      ],
       "category": "ui",
       "description": "Day - UI icon",
       "usedIn": []
@@ -6221,7 +7571,11 @@
       "id": "Delivery",
       "filename": "raw/Delivery.png",
       "semanticName": "delivery",
-      "tags": [],
+      "tags": [
+        "ui",
+        "delivery",
+        "icon"
+      ],
       "category": "ui",
       "description": "Delivery - UI icon",
       "usedIn": []
@@ -6243,7 +7597,13 @@
       "id": "Designer",
       "filename": "raw/Designer.png",
       "semanticName": "designer",
-      "tags": [],
+      "tags": [
+        "tools",
+        "creative",
+        "design",
+        "professional",
+        "artist"
+      ],
       "category": "tools",
       "description": "Designer - Tool icon",
       "usedIn": []
@@ -6252,7 +7612,11 @@
       "id": "Desktop",
       "filename": "raw/Desktop.png",
       "semanticName": "desktop",
-      "tags": [],
+      "tags": [
+        "ui",
+        "desktop",
+        "icon"
+      ],
       "category": "ui",
       "description": "Desktop - UI icon",
       "usedIn": []
@@ -6261,7 +7625,11 @@
       "id": "deviantart",
       "filename": "raw/deviantart.png",
       "semanticName": "deviantart",
-      "tags": [],
+      "tags": [
+        "ui",
+        "deviantart",
+        "icon"
+      ],
       "category": "ui",
       "description": "Deviantart - UI icon",
       "usedIn": []
@@ -6270,7 +7638,11 @@
       "id": "Diagram",
       "filename": "raw/Diagram.png",
       "semanticName": "diagram",
-      "tags": [],
+      "tags": [
+        "ui",
+        "diagram",
+        "icon"
+      ],
       "category": "ui",
       "description": "Diagram - UI icon",
       "usedIn": []
@@ -6279,7 +7651,11 @@
       "id": "Dial",
       "filename": "raw/Dial.png",
       "semanticName": "dial",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dial",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dial - UI icon",
       "usedIn": []
@@ -6288,7 +7664,11 @@
       "id": "Diary",
       "filename": "raw/Diary.png",
       "semanticName": "diary",
-      "tags": [],
+      "tags": [
+        "ui",
+        "diary",
+        "icon"
+      ],
       "category": "ui",
       "description": "Diary - UI icon",
       "usedIn": []
@@ -6297,7 +7677,11 @@
       "id": "Dice",
       "filename": "raw/Dice.png",
       "semanticName": "dice",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dice",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dice - UI icon",
       "usedIn": []
@@ -6306,7 +7690,11 @@
       "id": "dictionary",
       "filename": "raw/dictionary.png",
       "semanticName": "dictionary",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dictionary",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dictionary - UI icon",
       "usedIn": []
@@ -6315,7 +7703,11 @@
       "id": "digg",
       "filename": "raw/digg.png",
       "semanticName": "digg",
-      "tags": [],
+      "tags": [
+        "ui",
+        "digg",
+        "icon"
+      ],
       "category": "ui",
       "description": "Digg - UI icon",
       "usedIn": []
@@ -6324,7 +7716,11 @@
       "id": "Disaster",
       "filename": "raw/Disaster.png",
       "semanticName": "disaster",
-      "tags": [],
+      "tags": [
+        "ui",
+        "disaster",
+        "icon"
+      ],
       "category": "ui",
       "description": "Disaster - UI icon",
       "usedIn": []
@@ -6358,7 +7754,11 @@
       "id": "Discussion",
       "filename": "raw/Discussion.png",
       "semanticName": "discussion",
-      "tags": [],
+      "tags": [
+        "ui",
+        "discussion",
+        "icon"
+      ],
       "category": "ui",
       "description": "Discussion - UI icon",
       "usedIn": []
@@ -6395,7 +7795,11 @@
       "id": "Disquette",
       "filename": "raw/Disquette.png",
       "semanticName": "disquette",
-      "tags": [],
+      "tags": [
+        "ui",
+        "disquette",
+        "icon"
+      ],
       "category": "ui",
       "description": "Disquette - UI icon",
       "usedIn": []
@@ -6404,7 +7808,11 @@
       "id": "doc",
       "filename": "raw/doc.png",
       "semanticName": "doc",
-      "tags": [],
+      "tags": [
+        "ui",
+        "doc",
+        "icon"
+      ],
       "category": "ui",
       "description": "Doc - UI icon",
       "usedIn": []
@@ -6413,7 +7821,11 @@
       "id": "Doc",
       "filename": "raw/Doc.png",
       "semanticName": "doc",
-      "tags": [],
+      "tags": [
+        "ui",
+        "doc",
+        "icon"
+      ],
       "category": "ui",
       "description": "Doc - UI icon",
       "usedIn": []
@@ -6446,7 +7858,11 @@
       "id": "Dog",
       "filename": "raw/Dog.png",
       "semanticName": "dog",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dog",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dog - UI icon",
       "usedIn": []
@@ -6467,7 +7883,11 @@
       "id": "Door",
       "filename": "raw/Door.png",
       "semanticName": "door",
-      "tags": [],
+      "tags": [
+        "ui",
+        "door",
+        "icon"
+      ],
       "category": "ui",
       "description": "Door - UI icon",
       "usedIn": []
@@ -6500,7 +7920,11 @@
       "id": "download",
       "filename": "raw/download.png",
       "semanticName": "download",
-      "tags": [],
+      "tags": [
+        "ui",
+        "download",
+        "icon"
+      ],
       "category": "ui",
       "description": "Download - UI icon",
       "usedIn": []
@@ -6509,7 +7933,11 @@
       "id": "Download",
       "filename": "raw/Download.png",
       "semanticName": "download",
-      "tags": [],
+      "tags": [
+        "ui",
+        "download",
+        "icon"
+      ],
       "category": "ui",
       "description": "Download - UI icon",
       "usedIn": []
@@ -6518,7 +7946,11 @@
       "id": "Dreamweaver",
       "filename": "raw/Dreamweaver.png",
       "semanticName": "dreamweaver",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dreamweaver",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dreamweaver - UI icon",
       "usedIn": []
@@ -6527,7 +7959,11 @@
       "id": "dribbble",
       "filename": "raw/dribbble.png",
       "semanticName": "dribbble",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dribbble",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dribbble - UI icon",
       "usedIn": []
@@ -6536,7 +7972,11 @@
       "id": "Dribble",
       "filename": "raw/Dribble.png",
       "semanticName": "dribble",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dribble",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dribble - UI icon",
       "usedIn": []
@@ -6545,7 +7985,11 @@
       "id": "Dropper",
       "filename": "raw/Dropper.png",
       "semanticName": "dropper",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dropper",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dropper - UI icon",
       "usedIn": []
@@ -6554,7 +7998,11 @@
       "id": "Drugstore",
       "filename": "raw/Drugstore.png",
       "semanticName": "drugstore",
-      "tags": [],
+      "tags": [
+        "ui",
+        "drugstore",
+        "icon"
+      ],
       "category": "ui",
       "description": "Drugstore - UI icon",
       "usedIn": []
@@ -6575,7 +8023,11 @@
       "id": "dvd",
       "filename": "raw/dvd.png",
       "semanticName": "dvd",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dvd",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dvd - UI icon",
       "usedIn": []
@@ -6584,7 +8036,11 @@
       "id": "DVD",
       "filename": "raw/DVD.png",
       "semanticName": "dvd",
-      "tags": [],
+      "tags": [
+        "ui",
+        "dvd",
+        "icon"
+      ],
       "category": "ui",
       "description": "Dvd - UI icon",
       "usedIn": []
@@ -6593,7 +8049,11 @@
       "id": "earth",
       "filename": "raw/earth.png",
       "semanticName": "earth",
-      "tags": [],
+      "tags": [
+        "ui",
+        "earth",
+        "icon"
+      ],
       "category": "ui",
       "description": "Earth - UI icon",
       "usedIn": []
@@ -6602,7 +8062,11 @@
       "id": "Earth",
       "filename": "raw/Earth.png",
       "semanticName": "earth",
-      "tags": [],
+      "tags": [
+        "ui",
+        "earth",
+        "icon"
+      ],
       "category": "ui",
       "description": "Earth - UI icon",
       "usedIn": []
@@ -6623,7 +8087,11 @@
       "id": "edit",
       "filename": "raw/edit.png",
       "semanticName": "edit",
-      "tags": [],
+      "tags": [
+        "ui",
+        "edit",
+        "icon"
+      ],
       "category": "ui",
       "description": "Edit - UI icon",
       "usedIn": []
@@ -6644,7 +8112,11 @@
       "id": "Eject",
       "filename": "raw/Eject.png",
       "semanticName": "eject",
-      "tags": [],
+      "tags": [
+        "ui",
+        "eject",
+        "icon"
+      ],
       "category": "ui",
       "description": "Eject - UI icon",
       "usedIn": []
@@ -6690,7 +8162,11 @@
       "id": "Ellipse",
       "filename": "raw/Ellipse.png",
       "semanticName": "ellipse",
-      "tags": [],
+      "tags": [
+        "ui",
+        "ellipse",
+        "icon"
+      ],
       "category": "ui",
       "description": "Ellipse - UI icon",
       "usedIn": []
@@ -6773,7 +8249,11 @@
       "id": "Enstein",
       "filename": "raw/Enstein.png",
       "semanticName": "enstein",
-      "tags": [],
+      "tags": [
+        "ui",
+        "enstein",
+        "icon"
+      ],
       "category": "ui",
       "description": "Enstein - UI icon",
       "usedIn": []
@@ -6782,7 +8262,11 @@
       "id": "Equipment",
       "filename": "raw/Equipment.png",
       "semanticName": "equipment",
-      "tags": [],
+      "tags": [
+        "ui",
+        "equipment",
+        "icon"
+      ],
       "category": "ui",
       "description": "Equipment - UI icon",
       "usedIn": []
@@ -6791,7 +8275,11 @@
       "id": "Erase",
       "filename": "raw/Erase.png",
       "semanticName": "erase",
-      "tags": [],
+      "tags": [
+        "ui",
+        "erase",
+        "icon"
+      ],
       "category": "ui",
       "description": "Erase - UI icon",
       "usedIn": []
@@ -6800,7 +8288,11 @@
       "id": "Eraser",
       "filename": "raw/Eraser.png",
       "semanticName": "eraser",
-      "tags": [],
+      "tags": [
+        "ui",
+        "eraser",
+        "icon"
+      ],
       "category": "ui",
       "description": "Eraser - UI icon",
       "usedIn": []
@@ -6809,7 +8301,11 @@
       "id": "Euro",
       "filename": "raw/Euro.png",
       "semanticName": "euro",
-      "tags": [],
+      "tags": [
+        "ui",
+        "euro",
+        "icon"
+      ],
       "category": "ui",
       "description": "Euro - UI icon",
       "usedIn": []
@@ -6842,7 +8338,11 @@
       "id": "Event",
       "filename": "raw/Event.png",
       "semanticName": "event",
-      "tags": [],
+      "tags": [
+        "ui",
+        "event",
+        "icon"
+      ],
       "category": "ui",
       "description": "Event - UI icon",
       "usedIn": []
@@ -6851,7 +8351,11 @@
       "id": "Events",
       "filename": "raw/Events.png",
       "semanticName": "events",
-      "tags": [],
+      "tags": [
+        "ui",
+        "events",
+        "icon"
+      ],
       "category": "ui",
       "description": "Events - UI icon",
       "usedIn": []
@@ -6872,7 +8376,11 @@
       "id": "evernote",
       "filename": "raw/evernote.png",
       "semanticName": "evernote",
-      "tags": [],
+      "tags": [
+        "ui",
+        "evernote",
+        "icon"
+      ],
       "category": "ui",
       "description": "Evernote - UI icon",
       "usedIn": []
@@ -6881,7 +8389,11 @@
       "id": "Execute",
       "filename": "raw/Execute.png",
       "semanticName": "execute",
-      "tags": [],
+      "tags": [
+        "ui",
+        "execute",
+        "icon"
+      ],
       "category": "ui",
       "description": "Execute - UI icon",
       "usedIn": []
@@ -6902,7 +8414,11 @@
       "id": "Expand",
       "filename": "raw/Expand.png",
       "semanticName": "expand",
-      "tags": [],
+      "tags": [
+        "ui",
+        "expand",
+        "icon"
+      ],
       "category": "ui",
       "description": "Expand - UI icon",
       "usedIn": []
@@ -6948,7 +8464,11 @@
       "id": "Fall",
       "filename": "raw/Fall.png",
       "semanticName": "fall",
-      "tags": [],
+      "tags": [
+        "ui",
+        "fall",
+        "icon"
+      ],
       "category": "ui",
       "description": "Fall - UI icon",
       "usedIn": []
@@ -6957,7 +8477,11 @@
       "id": "Farmer",
       "filename": "raw/Farmer.png",
       "semanticName": "farmer",
-      "tags": [],
+      "tags": [
+        "ui",
+        "farmer",
+        "icon"
+      ],
       "category": "ui",
       "description": "Farmer - UI icon",
       "usedIn": []
@@ -6966,7 +8490,11 @@
       "id": "Fast",
       "filename": "raw/Fast.png",
       "semanticName": "fast",
-      "tags": [],
+      "tags": [
+        "ui",
+        "fast",
+        "icon"
+      ],
       "category": "ui",
       "description": "Fast - UI icon",
       "usedIn": []
@@ -6975,7 +8503,11 @@
       "id": "Favourites",
       "filename": "raw/Favourites.png",
       "semanticName": "favourites",
-      "tags": [],
+      "tags": [
+        "ui",
+        "favourites",
+        "icon"
+      ],
       "category": "ui",
       "description": "Favourites - UI icon",
       "usedIn": []
@@ -6984,7 +8516,11 @@
       "id": "Fax",
       "filename": "raw/Fax.png",
       "semanticName": "fax",
-      "tags": [],
+      "tags": [
+        "ui",
+        "fax",
+        "icon"
+      ],
       "category": "ui",
       "description": "Fax - UI icon",
       "usedIn": []
@@ -6993,7 +8529,11 @@
       "id": "Feather",
       "filename": "raw/Feather.png",
       "semanticName": "feather",
-      "tags": [],
+      "tags": [
+        "ui",
+        "feather",
+        "icon"
+      ],
       "category": "ui",
       "description": "Feather - UI icon",
       "usedIn": []
@@ -7002,7 +8542,11 @@
       "id": "Female",
       "filename": "raw/Female.png",
       "semanticName": "female",
-      "tags": [],
+      "tags": [
+        "ui",
+        "female",
+        "icon"
+      ],
       "category": "ui",
       "description": "Female - UI icon",
       "usedIn": []
@@ -7035,7 +8579,11 @@
       "id": "FilleZilla",
       "filename": "raw/FilleZilla.png",
       "semanticName": "fillezilla",
-      "tags": [],
+      "tags": [
+        "ui",
+        "fillezilla",
+        "icon"
+      ],
       "category": "ui",
       "description": "Fillezilla - UI icon",
       "usedIn": []
@@ -7044,7 +8592,11 @@
       "id": "Fill",
       "filename": "raw/Fill.png",
       "semanticName": "fill",
-      "tags": [],
+      "tags": [
+        "ui",
+        "fill",
+        "icon"
+      ],
       "category": "ui",
       "description": "Fill - UI icon",
       "usedIn": []
@@ -7053,7 +8605,11 @@
       "id": "Filmclapper",
       "filename": "raw/Filmclapper.png",
       "semanticName": "filmclapper",
-      "tags": [],
+      "tags": [
+        "ui",
+        "filmclapper",
+        "icon"
+      ],
       "category": "ui",
       "description": "Filmclapper - UI icon",
       "usedIn": []
@@ -7062,7 +8618,11 @@
       "id": "Film",
       "filename": "raw/Film.png",
       "semanticName": "film",
-      "tags": [],
+      "tags": [
+        "ui",
+        "film",
+        "icon"
+      ],
       "category": "ui",
       "description": "Film - UI icon",
       "usedIn": []
@@ -7071,7 +8631,11 @@
       "id": "Filmroll",
       "filename": "raw/Filmroll.png",
       "semanticName": "filmroll",
-      "tags": [],
+      "tags": [
+        "ui",
+        "filmroll",
+        "icon"
+      ],
       "category": "ui",
       "description": "Filmroll - UI icon",
       "usedIn": []
@@ -7080,7 +8644,11 @@
       "id": "Finance",
       "filename": "raw/Finance.png",
       "semanticName": "finance",
-      "tags": [],
+      "tags": [
+        "ui",
+        "finance",
+        "icon"
+      ],
       "category": "ui",
       "description": "Finance - UI icon",
       "usedIn": []
@@ -7089,7 +8657,11 @@
       "id": "Find",
       "filename": "raw/Find.png",
       "semanticName": "find",
-      "tags": [],
+      "tags": [
+        "ui",
+        "find",
+        "icon"
+      ],
       "category": "ui",
       "description": "Find - UI icon",
       "usedIn": []
@@ -7110,7 +8682,11 @@
       "id": "Fire",
       "filename": "raw/Fire.png",
       "semanticName": "fire",
-      "tags": [],
+      "tags": [
+        "ui",
+        "fire",
+        "icon"
+      ],
       "category": "ui",
       "description": "Fire - UI icon",
       "usedIn": []
@@ -7119,7 +8695,11 @@
       "id": "First",
       "filename": "raw/First.png",
       "semanticName": "first",
-      "tags": [],
+      "tags": [
+        "ui",
+        "first",
+        "icon"
+      ],
       "category": "ui",
       "description": "First - UI icon",
       "usedIn": []
@@ -7140,7 +8720,11 @@
       "id": "flag",
       "filename": "raw/flag.png",
       "semanticName": "flag",
-      "tags": [],
+      "tags": [
+        "ui",
+        "flag",
+        "icon"
+      ],
       "category": "ui",
       "description": "Flag - UI icon",
       "usedIn": []
@@ -7149,7 +8733,11 @@
       "id": "Flag",
       "filename": "raw/Flag.png",
       "semanticName": "flag",
-      "tags": [],
+      "tags": [
+        "ui",
+        "flag",
+        "icon"
+      ],
       "category": "ui",
       "description": "Flag - UI icon",
       "usedIn": []
@@ -7170,7 +8758,11 @@
       "id": "Flask",
       "filename": "raw/Flask.png",
       "semanticName": "flask",
-      "tags": [],
+      "tags": [
+        "ui",
+        "flask",
+        "icon"
+      ],
       "category": "ui",
       "description": "Flask - UI icon",
       "usedIn": []
@@ -7203,7 +8795,11 @@
       "id": "Flip",
       "filename": "raw/Flip.png",
       "semanticName": "flip",
-      "tags": [],
+      "tags": [
+        "ui",
+        "flip",
+        "icon"
+      ],
       "category": "ui",
       "description": "Flip - UI icon",
       "usedIn": []
@@ -7224,7 +8820,11 @@
       "id": "float",
       "filename": "raw/float.png",
       "semanticName": "float",
-      "tags": [],
+      "tags": [
+        "ui",
+        "float",
+        "icon"
+      ],
       "category": "ui",
       "description": "Float - UI icon",
       "usedIn": []
@@ -7245,7 +8845,11 @@
       "id": "flower",
       "filename": "raw/flower.png",
       "semanticName": "flower",
-      "tags": [],
+      "tags": [
+        "ui",
+        "flower",
+        "icon"
+      ],
       "category": "ui",
       "description": "Flower - UI icon",
       "usedIn": []
@@ -7254,7 +8858,11 @@
       "id": "Flower",
       "filename": "raw/Flower.png",
       "semanticName": "flower",
-      "tags": [],
+      "tags": [
+        "ui",
+        "flower",
+        "icon"
+      ],
       "category": "ui",
       "description": "Flower - UI icon",
       "usedIn": []
@@ -7311,7 +8919,11 @@
       "id": "Forbidden",
       "filename": "raw/Forbidden.png",
       "semanticName": "forbidden",
-      "tags": [],
+      "tags": [
+        "ui",
+        "forbidden",
+        "icon"
+      ],
       "category": "ui",
       "description": "Forbidden - UI icon",
       "usedIn": []
@@ -7320,7 +8932,11 @@
       "id": "Form",
       "filename": "raw/Form.png",
       "semanticName": "form",
-      "tags": [],
+      "tags": [
+        "ui",
+        "form",
+        "icon"
+      ],
       "category": "ui",
       "description": "Form - UI icon",
       "usedIn": []
@@ -7329,7 +8945,11 @@
       "id": "Frames",
       "filename": "raw/Frames.png",
       "semanticName": "frames",
-      "tags": [],
+      "tags": [
+        "ui",
+        "frames",
+        "icon"
+      ],
       "category": "ui",
       "description": "Frames - UI icon",
       "usedIn": []
@@ -7362,7 +8982,11 @@
       "id": "Free",
       "filename": "raw/Free.png",
       "semanticName": "free",
-      "tags": [],
+      "tags": [
+        "ui",
+        "free",
+        "icon"
+      ],
       "category": "ui",
       "description": "Free - UI icon",
       "usedIn": []
@@ -7371,7 +8995,11 @@
       "id": "Friends",
       "filename": "raw/Friends.png",
       "semanticName": "friends",
-      "tags": [],
+      "tags": [
+        "ui",
+        "friends",
+        "icon"
+      ],
       "category": "ui",
       "description": "Friends - UI icon",
       "usedIn": []
@@ -7405,7 +9033,11 @@
       "id": "Funnel",
       "filename": "raw/Funnel.png",
       "semanticName": "funnel",
-      "tags": [],
+      "tags": [
+        "ui",
+        "funnel",
+        "icon"
+      ],
       "category": "ui",
       "description": "Funnel - UI icon",
       "usedIn": []
@@ -7414,7 +9046,11 @@
       "id": "Funny",
       "filename": "raw/Funny.png",
       "semanticName": "funny",
-      "tags": [],
+      "tags": [
+        "ui",
+        "funny",
+        "icon"
+      ],
       "category": "ui",
       "description": "Funny - UI icon",
       "usedIn": []
@@ -7435,7 +9071,11 @@
       "id": "Gauge",
       "filename": "raw/Gauge.png",
       "semanticName": "gauge",
-      "tags": [],
+      "tags": [
+        "ui",
+        "gauge",
+        "icon"
+      ],
       "category": "ui",
       "description": "Gauge - UI icon",
       "usedIn": []
@@ -7444,7 +9084,11 @@
       "id": "Gear",
       "filename": "raw/Gear.png",
       "semanticName": "gear",
-      "tags": [],
+      "tags": [
+        "ui",
+        "gear",
+        "icon"
+      ],
       "category": "ui",
       "description": "Gear - UI icon",
       "usedIn": []
@@ -7453,7 +9097,11 @@
       "id": "Genealogy",
       "filename": "raw/Genealogy.png",
       "semanticName": "genealogy",
-      "tags": [],
+      "tags": [
+        "ui",
+        "genealogy",
+        "icon"
+      ],
       "category": "ui",
       "description": "Genealogy - UI icon",
       "usedIn": []
@@ -7462,7 +9110,11 @@
       "id": "Gift",
       "filename": "raw/Gift.png",
       "semanticName": "gift",
-      "tags": [],
+      "tags": [
+        "ui",
+        "gift",
+        "icon"
+      ],
       "category": "ui",
       "description": "Gift - UI icon",
       "usedIn": []
@@ -7471,7 +9123,11 @@
       "id": "Girl",
       "filename": "raw/Girl.png",
       "semanticName": "girl",
-      "tags": [],
+      "tags": [
+        "ui",
+        "girl",
+        "icon"
+      ],
       "category": "ui",
       "description": "Girl - UI icon",
       "usedIn": []
@@ -7480,7 +9136,11 @@
       "id": "Glasses",
       "filename": "raw/Glasses.png",
       "semanticName": "glasses",
-      "tags": [],
+      "tags": [
+        "ui",
+        "glasses",
+        "icon"
+      ],
       "category": "ui",
       "description": "Glasses - UI icon",
       "usedIn": []
@@ -7501,7 +9161,11 @@
       "id": "gMail",
       "filename": "raw/gMail.png",
       "semanticName": "gmail",
-      "tags": [],
+      "tags": [
+        "ui",
+        "gmail",
+        "icon"
+      ],
       "category": "ui",
       "description": "Gmail - UI icon",
       "usedIn": []
@@ -7522,7 +9186,11 @@
       "id": "goblet",
       "filename": "raw/goblet.png",
       "semanticName": "goblet",
-      "tags": [],
+      "tags": [
+        "ui",
+        "goblet",
+        "icon"
+      ],
       "category": "ui",
       "description": "Goblet - UI icon",
       "usedIn": []
@@ -7569,7 +9237,11 @@
       "id": "Go",
       "filename": "raw/Go.png",
       "semanticName": "go",
-      "tags": [],
+      "tags": [
+        "ui",
+        "go",
+        "icon"
+      ],
       "category": "ui",
       "description": "Go - UI icon",
       "usedIn": []
@@ -7590,7 +9262,11 @@
       "id": "Goverment",
       "filename": "raw/Goverment.png",
       "semanticName": "goverment",
-      "tags": [],
+      "tags": [
+        "ui",
+        "goverment",
+        "icon"
+      ],
       "category": "ui",
       "description": "Goverment - UI icon",
       "usedIn": []
@@ -7599,7 +9275,11 @@
       "id": "Gpadient",
       "filename": "raw/Gpadient.png",
       "semanticName": "gpadient",
-      "tags": [],
+      "tags": [
+        "ui",
+        "gpadient",
+        "icon"
+      ],
       "category": "ui",
       "description": "Gpadient - UI icon",
       "usedIn": []
@@ -7608,7 +9288,11 @@
       "id": "GPS",
       "filename": "raw/GPS.png",
       "semanticName": "gps",
-      "tags": [],
+      "tags": [
+        "ui",
+        "gps",
+        "icon"
+      ],
       "category": "ui",
       "description": "Gps - UI icon",
       "usedIn": []
@@ -7705,7 +9389,11 @@
       "id": "Grid",
       "filename": "raw/Grid.png",
       "semanticName": "grid",
-      "tags": [],
+      "tags": [
+        "ui",
+        "grid",
+        "icon"
+      ],
       "category": "ui",
       "description": "Grid - UI icon",
       "usedIn": []
@@ -7742,7 +9430,14 @@
       "id": "Hammer",
       "filename": "raw/Hammer.png",
       "semanticName": "hammer",
-      "tags": [],
+      "tags": [
+        "tools",
+        "tool",
+        "construction",
+        "build",
+        "fix",
+        "repair"
+      ],
       "category": "tools",
       "description": "Hammer - Tool icon",
       "usedIn": []
@@ -7751,7 +9446,11 @@
       "id": "Handshake",
       "filename": "raw/Handshake.png",
       "semanticName": "handshake",
-      "tags": [],
+      "tags": [
+        "ui",
+        "handshake",
+        "icon"
+      ],
       "category": "ui",
       "description": "Handshake - UI icon",
       "usedIn": []
@@ -7760,7 +9459,11 @@
       "id": "Hangar",
       "filename": "raw/Hangar.png",
       "semanticName": "hangar",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hangar",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hangar - UI icon",
       "usedIn": []
@@ -7837,7 +9540,11 @@
       "id": "hat",
       "filename": "raw/hat.png",
       "semanticName": "hat",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hat",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hat - UI icon",
       "usedIn": []
@@ -7846,7 +9553,11 @@
       "id": "heart",
       "filename": "raw/heart.png",
       "semanticName": "heart",
-      "tags": [],
+      "tags": [
+        "ui",
+        "heart",
+        "icon"
+      ],
       "category": "ui",
       "description": "Heart - UI icon",
       "usedIn": []
@@ -7928,7 +9639,11 @@
       "id": "help",
       "filename": "raw/help.png",
       "semanticName": "help",
-      "tags": [],
+      "tags": [
+        "ui",
+        "help",
+        "icon"
+      ],
       "category": "ui",
       "description": "Help - UI icon",
       "usedIn": []
@@ -7949,7 +9664,11 @@
       "id": "Hexagon",
       "filename": "raw/Hexagon.png",
       "semanticName": "hexagon",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hexagon",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hexagon - UI icon",
       "usedIn": []
@@ -7958,7 +9677,11 @@
       "id": "Hierarchy",
       "filename": "raw/Hierarchy.png",
       "semanticName": "hierarchy",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hierarchy",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hierarchy - UI icon",
       "usedIn": []
@@ -7967,7 +9690,11 @@
       "id": "Hint",
       "filename": "raw/Hint.png",
       "semanticName": "hint",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hint",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hint - UI icon",
       "usedIn": []
@@ -7976,7 +9703,11 @@
       "id": "Hints",
       "filename": "raw/Hints.png",
       "semanticName": "hints",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hints",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hints - UI icon",
       "usedIn": []
@@ -7985,7 +9716,11 @@
       "id": "History",
       "filename": "raw/History.png",
       "semanticName": "history",
-      "tags": [],
+      "tags": [
+        "ui",
+        "history",
+        "icon"
+      ],
       "category": "ui",
       "description": "History - UI icon",
       "usedIn": []
@@ -7994,7 +9729,11 @@
       "id": "Holidays",
       "filename": "raw/Holidays.png",
       "semanticName": "holidays",
-      "tags": [],
+      "tags": [
+        "ui",
+        "holidays",
+        "icon"
+      ],
       "category": "ui",
       "description": "Holidays - UI icon",
       "usedIn": []
@@ -8051,7 +9790,11 @@
       "id": "Homepage",
       "filename": "raw/Homepage.png",
       "semanticName": "homepage",
-      "tags": [],
+      "tags": [
+        "files",
+        "homepage",
+        "icon"
+      ],
       "category": "files",
       "description": "Homepage - File icon",
       "usedIn": []
@@ -8060,7 +9803,11 @@
       "id": "home",
       "filename": "raw/home.png",
       "semanticName": "home",
-      "tags": [],
+      "tags": [
+        "ui",
+        "home",
+        "icon"
+      ],
       "category": "ui",
       "description": "Home - UI icon",
       "usedIn": []
@@ -8069,7 +9816,11 @@
       "id": "Home",
       "filename": "raw/Home.png",
       "semanticName": "home",
-      "tags": [],
+      "tags": [
+        "ui",
+        "home",
+        "icon"
+      ],
       "category": "ui",
       "description": "Home - UI icon",
       "usedIn": []
@@ -8078,7 +9829,11 @@
       "id": "Hourglass",
       "filename": "raw/Hourglass.png",
       "semanticName": "hourglass",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hourglass",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hourglass - UI icon",
       "usedIn": []
@@ -8087,7 +9842,11 @@
       "id": "House",
       "filename": "raw/House.png",
       "semanticName": "house",
-      "tags": [],
+      "tags": [
+        "ui",
+        "house",
+        "icon"
+      ],
       "category": "ui",
       "description": "House - UI icon",
       "usedIn": []
@@ -8185,7 +9944,11 @@
       "id": "HSL",
       "filename": "raw/HSL.png",
       "semanticName": "hsl",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hsl",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hsl - UI icon",
       "usedIn": []
@@ -8194,7 +9957,11 @@
       "id": "HSV",
       "filename": "raw/HSV.png",
       "semanticName": "hsv",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hsv",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hsv - UI icon",
       "usedIn": []
@@ -8203,7 +9970,11 @@
       "id": "Hungup",
       "filename": "raw/Hungup.png",
       "semanticName": "hungup",
-      "tags": [],
+      "tags": [
+        "ui",
+        "hungup",
+        "icon"
+      ],
       "category": "ui",
       "description": "Hungup - UI icon",
       "usedIn": []
@@ -8224,7 +9995,11 @@
       "id": "Ico",
       "filename": "raw/Ico.png",
       "semanticName": "ico",
-      "tags": [],
+      "tags": [
+        "ui",
+        "ico",
+        "icon"
+      ],
       "category": "ui",
       "description": "Ico - UI icon",
       "usedIn": []
@@ -8328,7 +10103,11 @@
       "id": "Income",
       "filename": "raw/Income.png",
       "semanticName": "income",
-      "tags": [],
+      "tags": [
+        "ui",
+        "income",
+        "icon"
+      ],
       "category": "ui",
       "description": "Income - UI icon",
       "usedIn": []
@@ -8349,7 +10128,11 @@
       "id": "Index",
       "filename": "raw/Index.png",
       "semanticName": "index",
-      "tags": [],
+      "tags": [
+        "ui",
+        "index",
+        "icon"
+      ],
       "category": "ui",
       "description": "Index - UI icon",
       "usedIn": []
@@ -8358,7 +10141,11 @@
       "id": "Industry",
       "filename": "raw/Industry.png",
       "semanticName": "industry",
-      "tags": [],
+      "tags": [
+        "ui",
+        "industry",
+        "icon"
+      ],
       "category": "ui",
       "description": "Industry - UI icon",
       "usedIn": []
@@ -8519,7 +10306,14 @@
       "id": "InternetExplorer9",
       "filename": "raw/InternetExplorer9.png",
       "semanticName": "internetexplorer9",
-      "tags": [],
+      "tags": [
+        "network",
+        "browser",
+        "web",
+        "internet",
+        "microsoft",
+        "ie"
+      ],
       "category": "network",
       "description": "Internetexplorer9 - Network icon",
       "usedIn": []
@@ -8638,7 +10432,11 @@
       "id": "iPod",
       "filename": "raw/iPod.png",
       "semanticName": "ipod",
-      "tags": [],
+      "tags": [
+        "ui",
+        "ipod",
+        "icon"
+      ],
       "category": "ui",
       "description": "Ipod - UI icon",
       "usedIn": []
@@ -8659,7 +10457,11 @@
       "id": "iTrip",
       "filename": "raw/iTrip.png",
       "semanticName": "itrip",
-      "tags": [],
+      "tags": [
+        "ui",
+        "itrip",
+        "icon"
+      ],
       "category": "ui",
       "description": "Itrip - UI icon",
       "usedIn": []
@@ -8784,7 +10586,11 @@
       "id": "Kaspersky",
       "filename": "raw/Kaspersky.png",
       "semanticName": "kaspersky",
-      "tags": [],
+      "tags": [
+        "ui",
+        "kaspersky",
+        "icon"
+      ],
       "category": "ui",
       "description": "Kaspersky - UI icon",
       "usedIn": []
@@ -8831,7 +10637,11 @@
       "id": "KMPlayer",
       "filename": "raw/KMPlayer.png",
       "semanticName": "kmplayer",
-      "tags": [],
+      "tags": [
+        "ui",
+        "kmplayer",
+        "icon"
+      ],
       "category": "ui",
       "description": "Kmplayer - UI icon",
       "usedIn": []
@@ -8840,7 +10650,11 @@
       "id": "Knife",
       "filename": "raw/Knife.png",
       "semanticName": "knife",
-      "tags": [],
+      "tags": [
+        "ui",
+        "knife",
+        "icon"
+      ],
       "category": "ui",
       "description": "Knife - UI icon",
       "usedIn": []
@@ -8864,7 +10678,11 @@
       "id": "lamp",
       "filename": "raw/lamp.png",
       "semanticName": "lamp",
-      "tags": [],
+      "tags": [
+        "ui",
+        "lamp",
+        "icon"
+      ],
       "category": "ui",
       "description": "Lamp - UI icon",
       "usedIn": []
@@ -8873,7 +10691,11 @@
       "id": "Laptop",
       "filename": "raw/Laptop.png",
       "semanticName": "laptop",
-      "tags": [],
+      "tags": [
+        "ui",
+        "laptop",
+        "icon"
+      ],
       "category": "ui",
       "description": "Laptop - UI icon",
       "usedIn": []
@@ -8894,7 +10716,11 @@
       "id": "Last",
       "filename": "raw/Last.png",
       "semanticName": "last",
-      "tags": [],
+      "tags": [
+        "ui",
+        "last",
+        "icon"
+      ],
       "category": "ui",
       "description": "Last - UI icon",
       "usedIn": []
@@ -8915,7 +10741,11 @@
       "id": "Layers",
       "filename": "raw/Layers.png",
       "semanticName": "layers",
-      "tags": [],
+      "tags": [
+        "ui",
+        "layers",
+        "icon"
+      ],
       "category": "ui",
       "description": "Layers - UI icon",
       "usedIn": []
@@ -8924,7 +10754,11 @@
       "id": "Leaf",
       "filename": "raw/Leaf.png",
       "semanticName": "leaf",
-      "tags": [],
+      "tags": [
+        "ui",
+        "leaf",
+        "icon"
+      ],
       "category": "ui",
       "description": "Leaf - UI icon",
       "usedIn": []
@@ -8933,7 +10767,11 @@
       "id": "Left",
       "filename": "raw/Left.png",
       "semanticName": "left",
-      "tags": [],
+      "tags": [
+        "ui",
+        "left",
+        "icon"
+      ],
       "category": "ui",
       "description": "Left - UI icon",
       "usedIn": []
@@ -8966,7 +10804,11 @@
       "id": "Letter",
       "filename": "raw/Letter.png",
       "semanticName": "letter",
-      "tags": [],
+      "tags": [
+        "ui",
+        "letter",
+        "icon"
+      ],
       "category": "ui",
       "description": "Letter - UI icon",
       "usedIn": []
@@ -8987,7 +10829,11 @@
       "id": "Lightbulb",
       "filename": "raw/Lightbulb.png",
       "semanticName": "lightbulb",
-      "tags": [],
+      "tags": [
+        "ui",
+        "lightbulb",
+        "icon"
+      ],
       "category": "ui",
       "description": "Lightbulb - UI icon",
       "usedIn": []
@@ -8996,7 +10842,11 @@
       "id": "Lightning",
       "filename": "raw/Lightning.png",
       "semanticName": "lightning",
-      "tags": [],
+      "tags": [
+        "ui",
+        "lightning",
+        "icon"
+      ],
       "category": "ui",
       "description": "Lightning - UI icon",
       "usedIn": []
@@ -9005,7 +10855,11 @@
       "id": "Line",
       "filename": "raw/Line.png",
       "semanticName": "line",
-      "tags": [],
+      "tags": [
+        "ui",
+        "line",
+        "icon"
+      ],
       "category": "ui",
       "description": "Line - UI icon",
       "usedIn": []
@@ -9014,7 +10868,11 @@
       "id": "Liner",
       "filename": "raw/Liner.png",
       "semanticName": "liner",
-      "tags": [],
+      "tags": [
+        "ui",
+        "liner",
+        "icon"
+      ],
       "category": "ui",
       "description": "Liner - UI icon",
       "usedIn": []
@@ -9023,7 +10881,11 @@
       "id": "linkedin",
       "filename": "raw/linkedin.png",
       "semanticName": "linkedin",
-      "tags": [],
+      "tags": [
+        "ui",
+        "linkedin",
+        "icon"
+      ],
       "category": "ui",
       "description": "Linkedin - UI icon",
       "usedIn": []
@@ -9032,7 +10894,11 @@
       "id": "Linux",
       "filename": "raw/Linux.png",
       "semanticName": "linux",
-      "tags": [],
+      "tags": [
+        "ui",
+        "linux",
+        "icon"
+      ],
       "category": "ui",
       "description": "Linux - UI icon",
       "usedIn": []
@@ -9041,7 +10907,11 @@
       "id": "List",
       "filename": "raw/List.png",
       "semanticName": "list",
-      "tags": [],
+      "tags": [
+        "ui",
+        "list",
+        "icon"
+      ],
       "category": "ui",
       "description": "List - UI icon",
       "usedIn": []
@@ -9050,7 +10920,11 @@
       "id": "Lists",
       "filename": "raw/Lists.png",
       "semanticName": "lists",
-      "tags": [],
+      "tags": [
+        "ui",
+        "lists",
+        "icon"
+      ],
       "category": "ui",
       "description": "Lists - UI icon",
       "usedIn": []
@@ -9059,7 +10933,11 @@
       "id": "Load",
       "filename": "raw/Load.png",
       "semanticName": "load",
-      "tags": [],
+      "tags": [
+        "ui",
+        "load",
+        "icon"
+      ],
       "category": "ui",
       "description": "Load - UI icon",
       "usedIn": []
@@ -9095,7 +10973,14 @@
       "id": "lock",
       "filename": "raw/lock.png",
       "semanticName": "lock",
-      "tags": [],
+      "tags": [
+        "security",
+        "security",
+        "locked",
+        "secure",
+        "protected",
+        "private"
+      ],
       "category": "security",
       "description": "Lock - Security icon",
       "usedIn": []
@@ -9116,7 +11001,11 @@
       "id": "logo",
       "filename": "raw/logo.png",
       "semanticName": "logo",
-      "tags": [],
+      "tags": [
+        "ui",
+        "logo",
+        "icon"
+      ],
       "category": "ui",
       "description": "Logo - UI icon",
       "usedIn": []
@@ -9125,7 +11014,11 @@
       "id": "Loudspeaker",
       "filename": "raw/Loudspeaker.png",
       "semanticName": "loudspeaker",
-      "tags": [],
+      "tags": [
+        "ui",
+        "loudspeaker",
+        "icon"
+      ],
       "category": "ui",
       "description": "Loudspeaker - UI icon",
       "usedIn": []
@@ -9188,7 +11081,11 @@
       "id": "magic",
       "filename": "raw/magic.png",
       "semanticName": "magic",
-      "tags": [],
+      "tags": [
+        "ui",
+        "magic",
+        "icon"
+      ],
       "category": "ui",
       "description": "Magic - UI icon",
       "usedIn": []
@@ -9209,7 +11106,11 @@
       "id": "Magnet",
       "filename": "raw/Magnet.png",
       "semanticName": "magnet",
-      "tags": [],
+      "tags": [
+        "ui",
+        "magnet",
+        "icon"
+      ],
       "category": "ui",
       "description": "Magnet - UI icon",
       "usedIn": []
@@ -9218,7 +11119,11 @@
       "id": "Mail2",
       "filename": "raw/Mail2.png",
       "semanticName": "mail2",
-      "tags": [],
+      "tags": [
+        "ui",
+        "mail2",
+        "icon"
+      ],
       "category": "ui",
       "description": "Mail2 - UI icon",
       "usedIn": []
@@ -9227,7 +11132,11 @@
       "id": "MailFront",
       "filename": "raw/MailFront.png",
       "semanticName": "mailfront",
-      "tags": [],
+      "tags": [
+        "ui",
+        "mailfront",
+        "icon"
+      ],
       "category": "ui",
       "description": "Mailfront - UI icon",
       "usedIn": []
@@ -9236,7 +11145,11 @@
       "id": "Mail",
       "filename": "raw/Mail.png",
       "semanticName": "mail",
-      "tags": [],
+      "tags": [
+        "ui",
+        "mail",
+        "icon"
+      ],
       "category": "ui",
       "description": "Mail - UI icon",
       "usedIn": []
@@ -9245,7 +11158,11 @@
       "id": "Male",
       "filename": "raw/Male.png",
       "semanticName": "male",
-      "tags": [],
+      "tags": [
+        "ui",
+        "male",
+        "icon"
+      ],
       "category": "ui",
       "description": "Male - UI icon",
       "usedIn": []
@@ -9266,7 +11183,11 @@
       "id": "map",
       "filename": "raw/map.png",
       "semanticName": "map",
-      "tags": [],
+      "tags": [
+        "ui",
+        "map",
+        "icon"
+      ],
       "category": "ui",
       "description": "Map - UI icon",
       "usedIn": []
@@ -9275,7 +11196,11 @@
       "id": "Map",
       "filename": "raw/Map.png",
       "semanticName": "map",
-      "tags": [],
+      "tags": [
+        "ui",
+        "map",
+        "icon"
+      ],
       "category": "ui",
       "description": "Map - UI icon",
       "usedIn": []
@@ -9320,7 +11245,11 @@
       "id": "Measure",
       "filename": "raw/Measure.png",
       "semanticName": "measure",
-      "tags": [],
+      "tags": [
+        "ui",
+        "measure",
+        "icon"
+      ],
       "category": "ui",
       "description": "Measure - UI icon",
       "usedIn": []
@@ -9377,7 +11306,11 @@
       "id": "Microsoft",
       "filename": "raw/Microsoft.png",
       "semanticName": "microsoft",
-      "tags": [],
+      "tags": [
+        "ui",
+        "microsoft",
+        "icon"
+      ],
       "category": "ui",
       "description": "Microsoft - UI icon",
       "usedIn": []
@@ -9410,7 +11343,11 @@
       "id": "Modify",
       "filename": "raw/Modify.png",
       "semanticName": "modify",
-      "tags": [],
+      "tags": [
+        "ui",
+        "modify",
+        "icon"
+      ],
       "category": "ui",
       "description": "Modify - UI icon",
       "usedIn": []
@@ -9443,7 +11380,11 @@
       "id": "moleskine",
       "filename": "raw/moleskine.png",
       "semanticName": "moleskine",
-      "tags": [],
+      "tags": [
+        "ui",
+        "moleskine",
+        "icon"
+      ],
       "category": "ui",
       "description": "Moleskine - UI icon",
       "usedIn": []
@@ -9517,7 +11458,11 @@
       "id": "Moon",
       "filename": "raw/Moon.png",
       "semanticName": "moon",
-      "tags": [],
+      "tags": [
+        "ui",
+        "moon",
+        "icon"
+      ],
       "category": "ui",
       "description": "Moon - UI icon",
       "usedIn": []
@@ -9526,7 +11471,11 @@
       "id": "Mouse",
       "filename": "raw/Mouse.png",
       "semanticName": "mouse",
-      "tags": [],
+      "tags": [
+        "ui",
+        "mouse",
+        "icon"
+      ],
       "category": "ui",
       "description": "Mouse - UI icon",
       "usedIn": []
@@ -9547,7 +11496,11 @@
       "id": "Move",
       "filename": "raw/Move.png",
       "semanticName": "move",
-      "tags": [],
+      "tags": [
+        "ui",
+        "move",
+        "icon"
+      ],
       "category": "ui",
       "description": "Move - UI icon",
       "usedIn": []
@@ -9556,7 +11509,11 @@
       "id": "movie",
       "filename": "raw/movie.png",
       "semanticName": "movie",
-      "tags": [],
+      "tags": [
+        "ui",
+        "movie",
+        "icon"
+      ],
       "category": "ui",
       "description": "Movie - UI icon",
       "usedIn": []
@@ -9565,7 +11522,11 @@
       "id": "Movie",
       "filename": "raw/Movie.png",
       "semanticName": "movie",
-      "tags": [],
+      "tags": [
+        "ui",
+        "movie",
+        "icon"
+      ],
       "category": "ui",
       "description": "Movie - UI icon",
       "usedIn": []
@@ -9574,7 +11535,11 @@
       "id": "Movies",
       "filename": "raw/Movies.png",
       "semanticName": "movies",
-      "tags": [],
+      "tags": [
+        "ui",
+        "movies",
+        "icon"
+      ],
       "category": "ui",
       "description": "Movies - UI icon",
       "usedIn": []
@@ -9583,7 +11548,11 @@
       "id": "Mumble",
       "filename": "raw/Mumble.png",
       "semanticName": "mumble",
-      "tags": [],
+      "tags": [
+        "ui",
+        "mumble",
+        "icon"
+      ],
       "category": "ui",
       "description": "Mumble - UI icon",
       "usedIn": []
@@ -9592,7 +11561,11 @@
       "id": "Museum",
       "filename": "raw/Museum.png",
       "semanticName": "museum",
-      "tags": [],
+      "tags": [
+        "ui",
+        "museum",
+        "icon"
+      ],
       "category": "ui",
       "description": "Museum - UI icon",
       "usedIn": []
@@ -9691,7 +11664,11 @@
       "id": "Music",
       "filename": "raw/Music.png",
       "semanticName": "music",
-      "tags": [],
+      "tags": [
+        "ui",
+        "music",
+        "icon"
+      ],
       "category": "ui",
       "description": "Music - UI icon",
       "usedIn": []
