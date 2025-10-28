@@ -6,6 +6,8 @@
 ![Icons](https://img.shields.io/badge/icons-1700%2B-brightgreen.svg)
 ![Cataloged](https://img.shields.io/badge/cataloged-128-orange.svg)
 
+**📖 [Quick Start](QUICK_START.md) | 🤖 [For AI Assistants](CLAUDE.md)**
+
 ---
 
 ## Overview
@@ -612,6 +614,7 @@ Suitable for personal and open-source projects.
 ## Links
 
 - **Quick Start Guide:** [QUICK_START.md](QUICK_START.md) - Fast workflows and examples
+- **For AI Assistants:** [CLAUDE.md](CLAUDE.md) - Complete guide for Claude agents
 - **Repository:** https://github.com/johnzfitch/iconics
 - **Issues:** https://github.com/johnzfitch/iconics/issues
 - **Example Usage:** [eero-reverse-engineering](https://github.com/johnzfitch/eero-reverse-engineering)
