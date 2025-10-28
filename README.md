@@ -4,7 +4,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Icons](https://img.shields.io/badge/icons-1700%2B-brightgreen.svg)
-![Cataloged](https://img.shields.io/badge/cataloged-121-orange.svg)
+![Cataloged](https://img.shields.io/badge/cataloged-125-orange.svg)
 
 ---
 
@@ -58,7 +58,7 @@ Your content here...
 ## Library Stats
 
 - **Total Icons:** 1,700+ PNG files
-- **Cataloged:** 121 icons (7% coverage)
+- **Cataloged:** 125 icons (7% coverage)
 - **Categories:** 7 (files, network, security, tools, ui, emoji, development)
 - **Projects Using:** 1 (eero-reverse-engineering)
 
@@ -158,6 +158,30 @@ python3 icon-manager.py add "Key" "key" \
   --category security \
   --description "Key icon for authentication"
 ```
+
+### Bulk Import from CSV
+
+Import multiple icons at once from a CSV file:
+
+```bash
+python3 icon-manager.py import-csv icons-to-import.csv
+```
+
+**CSV Format:**
+```csv
+id,semantic,tags,category,description
+Phone,phone,"telephone,call,mobile,contact",ui,Phone icon for calls
+Printer,printer,"print,document,office",tools,Printer icon
+Calculator,calculator,"math,numbers,compute",tools,Calculator icon
+```
+
+**Benefits:**
+- **3-4x faster** than individual commands
+- Easy to prepare in spreadsheet software (Excel, Google Sheets)
+- Batch review before import
+- Automatic duplicate detection
+
+**Template:** See `icon-import-template.csv` for a ready-to-use template
 
 ### View Statistics
 
@@ -353,6 +377,7 @@ Suitable for personal and open-source projects.
 | `list <category>` | Show category contents |
 | `export <path> <icons...>` | Copy icons to project |
 | `add <id> <name> --tags... --category...` | Catalog new icon |
+| `import-csv <file>` | Bulk import from CSV (3-4x faster) |
 | `stats` | Show library statistics |
 
 ---

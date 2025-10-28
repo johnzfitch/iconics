@@ -1808,6 +1808,66 @@
       "category": "tools",
       "description": "Power button or toggle icon",
       "usedIn": []
+    },
+    {
+      "id": "Phone",
+      "filename": "raw/Phone.png",
+      "semanticName": "phone",
+      "tags": [
+        "telephone",
+        "call",
+        "mobile",
+        "contact",
+        "communication"
+      ],
+      "category": "ui",
+      "description": "Phone icon for calls and communication",
+      "usedIn": []
+    },
+    {
+      "id": "Printer",
+      "filename": "raw/Printer.png",
+      "semanticName": "printer",
+      "tags": [
+        "print",
+        "document",
+        "paper",
+        "office",
+        "hardware"
+      ],
+      "category": "tools",
+      "description": "Printer icon for printing documents",
+      "usedIn": []
+    },
+    {
+      "id": "Calculator",
+      "filename": "raw/Calculator.png",
+      "semanticName": "calculator",
+      "tags": [
+        "math",
+        "numbers",
+        "calculate",
+        "compute",
+        "tools"
+      ],
+      "category": "tools",
+      "description": "Calculator icon for calculations",
+      "usedIn": []
+    },
+    {
+      "id": "Chart",
+      "filename": "raw/Chart.png",
+      "semanticName": "chart",
+      "tags": [
+        "graph",
+        "statistics",
+        "data",
+        "analytics",
+        "business"
+      ],
+      "category": "development",
+      "description": "Chart icon for data visualization",
+      "usedIn": []
     }
   ],
   "categories": [

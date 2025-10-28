@@ -1,0 +1,75 @@
+Collection name: PixeloPhilia Icons
+Author: omercetin
+Author homepage: http://omercetin.deviantart.com/
+Services: 
+License: CC Attribution-Noncommercial-No Derivative Works 3.0
+License URL: http://creativecommons.org/licenses/by-nc-nd/3.0/
+License description: 
+Commercial usage: Not allowed
+Readme: 
+8ball: 8 Ball
+alert: Alert
+app: App
+apple-green: Apple Green
+apple-red: Apple Red
+basketball: Basketball
+bell: Bell
+block: Block
+burger: Burger
+burn: Burn
+cd-copy: CD Copy
+cd: CD
+chat: Chat
+clipboard: Clipboard
+clock: Clock
+coke: Coke
+color-palette: Color Palette
+credit-card: Credit Card
+date: Date
+doc: Doc
+download: Download
+dvd-copy: DVD Copy
+dvd: DVD
+earth: Earth
+edit: Edit
+flag: Flag
+flower: Flower
+help: Help
+id-card: ID Card
+lamp: Lamp
+lock: Lock
+movie: Movie
+music-1: Music 1
+music-2: Music 2
+music-3: Music 3
+note-2: Note 2
+note: Note
+pack-1: Pack 1
+pack-2: Pack 2
+pdf: PDF
+pen: Pen
+pencil-2: Pencil 2
+photo: Photo
+poo: Poo
+print: Print
+recycle: Recycle
+ruler: Ruler
+search: Search
+security: Security
+settings: Settings
+skull: Skull
+soccer-ball: Soccer Ball
+t-shirt: T-Shirt
+tennis-ball: Tennis Ball
+text: Text
+toilet-paper: Toilet Paper
+toy-2 copy: Toy 2 Copy
+toy: Toy
+tree: Tree
+twitter: Twitter
+unlock: Unlock
+upload: Upload
+user-1: User 1
+user-2: User 2
+wireless: Wireless
+xls: XLS
