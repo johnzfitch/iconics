@@ -166,28 +166,60 @@ class IconManager:
             print(f"\n✓ Exported {len(exported)} icons to {icon_dir}")
 
     def stats(self):
-        """Show catalog statistics"""
+        """Show catalog statistics with enhanced category breakdowns"""
         total = len(self.catalog["icons"])
         by_category = {}
+        category_icons = {}
+
         for icon in self.catalog["icons"]:
             cat = icon.get("category", "uncategorized")
             by_category[cat] = by_category.get(cat, 0) + 1
+            category_icons.setdefault(cat, []).append(icon)
+
+        # Count total icons in raw directory
+        raw_total = len(list(RAW_DIR.glob("*.png"))) if RAW_DIR.exists() else 0
+        uncataloged = raw_total - total
+        coverage_pct = (total / raw_total * 100) if raw_total > 0 else 0
 
         print("\n=== Icon Library Statistics ===")
-        print(f"Total cataloged icons: {total}")
-        print(f"\nBy category:")
-        for cat, count in sorted(by_category.items()):
-            print(f"  {cat:15} {count:3} icons")
+        print(f"Total icons in library: {raw_total:,}")
+        print(f"Cataloged: {total} ({coverage_pct:.1f}%)")
+        print(f"Uncataloged: {uncataloged:,}")
+
+        print(f"\n=== Category Breakdown ===")
+        for cat in sorted(by_category.keys()):
+            count = by_category[cat]
+            icons = category_icons[cat]
+
+            # Show category with count
+            print(f"\n{cat.upper()} ({count} icons):")
+
+            # Show sample icons (first 10)
+            samples = icons[:10]
+            for icon in samples:
+                print(f"  • {icon['semanticName']}")
+
+            if count > 10:
+                print(f"  ... and {count - 10} more")
 
         # Most used icons
         used_icons = [(icon, len(icon.get("usedIn", [])))
                       for icon in self.catalog["icons"]
                       if icon.get("usedIn")]
         if used_icons:
-            print(f"\nMost used icons:")
+            print(f"\n=== Most Used Icons ===")
             for icon, count in sorted(used_icons, key=lambda x: x[1], reverse=True)[:5]:
                 projects = ", ".join(icon["usedIn"])
                 print(f"  {icon['semanticName']:15} used in {count} project(s): {projects}")
+
+        # Project usage
+        projects_using = set()
+        for icon in self.catalog["icons"]:
+            projects_using.update(icon.get("usedIn", []))
+
+        if projects_using:
+            print(f"\n=== Project Usage ===")
+            print(f"Icons used in {len(projects_using)} project(s): {', '.join(sorted(projects_using))}")
 
     def bulk_import(self, csv_file: str):
         """Import icons from CSV file
@@ -437,6 +469,141 @@ class IconManager:
 
         print(f"\n✓ Applied template to {success_count} icons")
 
+    def validate(self):
+        """Validate catalog integrity - check for missing files, broken symlinks, etc."""
+        print("\n=== Validating Icon Catalog ===\n")
+
+        issues = []
+        warnings = []
+
+        # Check if required directories exist
+        if not RAW_DIR.exists():
+            issues.append(f"✗ RAW directory missing: {RAW_DIR}")
+        if not CATALOG_DIR.exists():
+            issues.append(f"✗ CATALOG directory missing: {CATALOG_DIR}")
+
+        # Check each icon in catalog
+        for icon in self.catalog["icons"]:
+            icon_id = icon['id']
+            semantic = icon['semanticName']
+            filename = icon.get('filename', f"raw/{icon_id}.png")
+
+            # Check if source file exists
+            source_path = ICON_DIR / filename
+            if not source_path.exists():
+                issues.append(f"✗ Missing source file for '{semantic}' (#{icon_id}): {filename}")
+
+            # Check if symlink exists in catalog
+            category = icon.get('category', 'uncategorized')
+            symlink_path = CATALOG_DIR / category / f"{semantic}.png"
+            if not symlink_path.exists():
+                warnings.append(f"⚠ Missing catalog symlink for '{semantic}' at: {symlink_path}")
+            elif not symlink_path.is_symlink():
+                warnings.append(f"⚠ Not a symlink: {symlink_path}")
+
+        # Check for orphaned symlinks (symlinks pointing to non-existent files)
+        if CATALOG_DIR.exists():
+            for category_dir in CATALOG_DIR.iterdir():
+                if category_dir.is_dir():
+                    for symlink in category_dir.glob("*.png"):
+                        if symlink.is_symlink():
+                            target = symlink.resolve()
+                            if not target.exists():
+                                issues.append(f"✗ Broken symlink: {symlink} → {target}")
+
+        # Report results
+        if not issues and not warnings:
+            print("✓ Catalog validation passed! No issues found.")
+        else:
+            if issues:
+                print(f"Found {len(issues)} issue(s):")
+                for issue in issues:
+                    print(f"  {issue}")
+            if warnings:
+                print(f"\nFound {len(warnings)} warning(s):")
+                for warning in warnings:
+                    print(f"  {warning}")
+
+        print(f"\nSummary:")
+        print(f"  Total icons in catalog: {len(self.catalog['icons'])}")
+        print(f"  Issues: {len(issues)}")
+        print(f"  Warnings: {len(warnings)}")
+
+    def info(self, semantic_name: str):
+        """Show detailed information about a specific icon"""
+        icons = self.find_icons_by_semantic(semantic_name)
+
+        if not icons:
+            print(f"✗ Icon '{semantic_name}' not found")
+            return
+
+        icon = icons[0]
+
+        print(f"\n=== Icon Information ===")
+        print(f"Semantic Name: {icon['semanticName']}")
+        print(f"Icon ID: #{icon['id']}")
+        print(f"Filename: {icon.get('filename', 'N/A')}")
+        print(f"Category: {icon.get('category', 'uncategorized')}")
+        print(f"Description: {icon.get('description', 'No description')}")
+
+        tags = icon.get('tags', [])
+        print(f"Tags: {', '.join(tags) if tags else 'none'}")
+
+        used_in = icon.get('usedIn', [])
+        if used_in:
+            print(f"Used in projects: {', '.join(used_in)}")
+        else:
+            print(f"Used in projects: none")
+
+        # Check if files exist
+        source_path = ICON_DIR / icon.get('filename', f"raw/{icon['id']}.png")
+        symlink_path = CATALOG_DIR / icon.get('category', 'uncategorized') / f"{icon['semanticName']}.png"
+
+        print(f"\nFile Status:")
+        print(f"  Source: {'✓ exists' if source_path.exists() else '✗ missing'} ({source_path})")
+        print(f"  Symlink: {'✓ exists' if symlink_path.exists() else '✗ missing'} ({symlink_path})")
+
+    def recent(self, limit: int = 20):
+        """Show recently cataloged icons (last N additions)"""
+        icons = self.catalog["icons"]
+
+        if not icons:
+            print("No icons in catalog")
+            return
+
+        # Icons are appended to the list, so last ones are most recent
+        recent_icons = icons[-limit:] if len(icons) > limit else icons
+        recent_icons.reverse()  # Show newest first
+
+        print(f"\n=== Recently Cataloged Icons (last {len(recent_icons)}) ===\n")
+
+        for icon in recent_icons:
+            tags = ", ".join(icon.get('tags', [])[:5])  # Show first 5 tags
+            if len(icon.get('tags', [])) > 5:
+                tags += ", ..."
+            print(f"  {icon['semanticName']:20} #{icon['id']:4}  [{icon['category']:12}]  {tags}")
+
+    def export_category(self, project_path: str, category: str):
+        """Export all icons from a specific category to a project"""
+        if category not in self.catalog["categories"]:
+            print(f"✗ Invalid category: {category}")
+            print(f"Available categories: {', '.join(self.catalog['categories'])}")
+            return
+
+        # Find all icons in this category
+        category_icons = [icon for icon in self.catalog["icons"]
+                         if icon.get("category") == category]
+
+        if not category_icons:
+            print(f"No icons found in category '{category}'")
+            return
+
+        print(f"Found {len(category_icons)} icons in '{category}' category")
+
+        # Export them
+        icon_names = [icon['semanticName'] for icon in category_icons]
+        self.export_to_project(project_path, icon_names)
+
 def main():
     parser = argparse.ArgumentParser(description="Icon library management system")
     subparsers = parser.add_subparsers(dest="command", help="Commands")
@@ -483,6 +650,22 @@ def main():
     template_apply_parser = subparsers.add_parser("apply-template", help="Apply template to multiple icons via CSV")
     template_apply_parser.add_argument("template", help="Template name to apply")
     template_apply_parser.add_argument("csv_file", help="CSV file with id,semantic,extra_tags,description columns")
+
+    # Validate command
+    subparsers.add_parser("validate", help="Validate catalog integrity (check for missing files, broken symlinks)")
+
+    # Info command
+    info_parser = subparsers.add_parser("info", help="Show detailed information about a specific icon")
+    info_parser.add_argument("semantic_name", help="Semantic name of the icon")
+
+    # Recent command
+    recent_parser = subparsers.add_parser("recent", help="Show recently cataloged icons")
+    recent_parser.add_argument("--limit", type=int, default=20, help="Number of recent icons to show (default: 20)")
+
+    # Export-category command
+    export_cat_parser = subparsers.add_parser("export-category", help="Export all icons from a category to a project")
+    export_cat_parser.add_argument("project_path", help="Path to project directory")
+    export_cat_parser.add_argument("category", choices=["files", "network", "security", "tools", "ui", "emoji", "development"])
 
     args = parser.parse_args()
     manager = IconManager()
@@ -537,6 +720,18 @@ def main():
                     spec['description'] = row['description']
                 icon_specs.append(spec)
         manager.apply_template(args.template, icon_specs)
+
+    elif args.command == "validate":
+        manager.validate()
+
+    elif args.command == "info":
+        manager.info(args.semantic_name)
+
+    elif args.command == "recent":
+        manager.recent(args.limit)
+
+    elif args.command == "export-category":
+        manager.export_category(args.project_path, args.category)
 
     else:
         parser.print_help()

@@ -12,7 +12,9 @@
       ],
       "category": "security",
       "description": "Padlock icon for security",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Shield_16x16",
@@ -982,7 +984,9 @@
       ],
       "category": "security",
       "description": "Key for access or security",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Certificate",
@@ -997,7 +1001,9 @@
       ],
       "category": "security",
       "description": "Certificate or credential icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Keychain",
@@ -1012,7 +1018,9 @@
       ],
       "category": "security",
       "description": "Keychain or credential storage icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Protection",
@@ -1027,7 +1035,9 @@
       ],
       "category": "security",
       "description": "Protection or security icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Unlock",
@@ -1042,7 +1052,9 @@
       ],
       "category": "security",
       "description": "Unlock or open access icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Open lock",
@@ -1057,7 +1069,9 @@
       ],
       "category": "security",
       "description": "Open or unlocked padlock icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Eye",
@@ -1072,7 +1086,9 @@
       ],
       "category": "security",
       "description": "Eye icon for visibility or viewing",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Hide",
@@ -1087,7 +1103,9 @@
       ],
       "category": "security",
       "description": "Hide or conceal content icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Show",
@@ -1102,7 +1120,9 @@
       ],
       "category": "security",
       "description": "Show or reveal content icon",
-      "usedIn": []
+      "usedIn": [
+        "test-export"
+      ]
     },
     {
       "id": "Cloud",

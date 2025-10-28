@@ -257,11 +257,84 @@ python3 icon-manager.py apply-template arrow arrow-icons.csv
 
 ### View Statistics
 
-Show library statistics:
+Show enhanced library statistics with category breakdowns:
 
 ```bash
 python3 icon-manager.py stats
 ```
+
+**Shows:**
+- Total library coverage (cataloged vs uncataloged)
+- Detailed breakdown by category with samples
+- Most used icons across projects
+- Project usage summary
+
+### Validate Catalog
+
+Check catalog integrity for issues:
+
+```bash
+python3 icon-manager.py validate
+```
+
+**Checks:**
+- Missing source files in `raw/` directory
+- Broken symlinks in `catalog/` directories
+- Orphaned symlinks pointing to non-existent files
+- Directory structure integrity
+
+### Icon Information
+
+Show detailed information about a specific icon:
+
+```bash
+python3 icon-manager.py info <semantic-name>
+```
+
+**Example:**
+```bash
+python3 icon-manager.py info lock
+```
+
+**Output includes:**
+- Semantic name and icon ID
+- Filename and file paths
+- Category and description
+- All tags
+- Projects using this icon
+- File existence status
+
+### Recent Icons
+
+View recently cataloged icons:
+
+```bash
+python3 icon-manager.py recent --limit <N>
+```
+
+**Examples:**
+```bash
+python3 icon-manager.py recent           # Show last 20 icons
+python3 icon-manager.py recent --limit 50  # Show last 50 icons
+```
+
+### Export Category
+
+Export all icons from a specific category at once:
+
+```bash
+python3 icon-manager.py export-category <project-path> <category>
+```
+
+**Example:**
+```bash
+python3 icon-manager.py export-category ~/dev/my-app security
+```
+
+**Benefits:**
+- Export entire category in one command
+- Perfect for themed projects (security docs, UI kits, etc.)
+- Faster than individual exports for multiple icons
 
 ---
 
@@ -380,11 +453,16 @@ Network security research project
 - ✅ Auto-generate CSV from filenames (10x faster)
 - ✅ Template system for icon families
 - ✅ Expand catalog to 128 icons
+- ✅ Enhanced statistics with category breakdowns
+- ✅ Catalog validation and integrity checking
+- ✅ Detailed icon information command
+- ✅ Recent icons tracking
+- ✅ Batch export by category
+
+### Phase 3 (Future)
 - [ ] Web interface for visual browsing
 - [ ] Thumbnail generation
 - [ ] Auto-detection of similar icons
-
-### Phase 3 (Future)
 - [ ] SVG support
 - [ ] Multiple sizes (16x16, 24x24, 32x32, 48x48)
 - [ ] Icon variations (color schemes, outlined vs filled)
@@ -450,12 +528,16 @@ Suitable for personal and open-source projects.
 | `search <query>` | Find icons by tag/name |
 | `list <category>` | Show category contents |
 | `export <path> <icons...>` | Copy icons to project |
+| `export-category <path> <category>` | Export all icons from a category |
 | `add <id> <name> --tags... --category...` | Catalog new icon |
 | `import-csv <file>` | Bulk import from CSV (3-4x faster) |
 | `generate-csv <output> --limit N` | Auto-generate CSV from filenames (10x faster) |
 | `create-template <name> --tags... --category` | Create reusable template |
 | `apply-template <name> <csv>` | Apply template to icon family |
-| `stats` | Show library statistics |
+| `stats` | Show enhanced library statistics |
+| `validate` | Check catalog integrity |
+| `info <semantic-name>` | Show detailed icon information |
+| `recent --limit N` | Show recently cataloged icons |
 
 ---
 
