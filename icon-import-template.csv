@@ -1,0 +1,6 @@
+id,semantic,tags,category,description
+Wrench,wrench,"tools,maintenance,repair,settings,configuration",tools,Wrench icon for tools and maintenance
+Gear,gear,"settings,configuration,options,preferences,tools",tools,Gear icon for settings and configuration
+Camera,camera,"photo,picture,image,media,photography",ui,Camera icon for photography and media
+Cloud,cloud,"network,internet,storage,sync,upload",network,Cloud icon for cloud storage and services
+Document,document,"file,text,paper,page,files",files,Document icon for text files

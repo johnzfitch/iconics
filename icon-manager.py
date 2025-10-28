@@ -10,6 +10,7 @@ import json
 import os
 import shutil
 import argparse
+import csv
 from pathlib import Path
 from typing import List, Dict, Optional
 
@@ -188,6 +189,81 @@ class IconManager:
                 projects = ", ".join(icon["usedIn"])
                 print(f"  {icon['semanticName']:15} used in {count} project(s): {projects}")
 
+    def bulk_import(self, csv_file: str):
+        """Import icons from CSV file
+
+        CSV Format: id,semantic,tags,category,description
+        Example: Lock,lock,"security,padlock,locked",security,Padlock icon for security
+
+        Args:
+            csv_file: Path to CSV file
+        """
+        csv_path = Path(csv_file)
+        if not csv_path.exists():
+            print(f"✗ Error: CSV file not found: {csv_file}")
+            return
+
+        success_count = 0
+        error_count = 0
+
+        with open(csv_path, 'r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+
+            # Validate headers
+            required_headers = {'id', 'semantic', 'tags', 'category'}
+            if not required_headers.issubset(reader.fieldnames):
+                print(f"✗ Error: CSV must have headers: id, semantic, tags, category, description")
+                print(f"  Found: {', '.join(reader.fieldnames)}")
+                return
+
+            print(f"Importing icons from {csv_file}...")
+
+            for row_num, row in enumerate(reader, start=2):  # Start at 2 (header is row 1)
+                try:
+                    # Parse tags (handle comma-separated or space-separated)
+                    tags_str = row['tags'].strip()
+                    if ',' in tags_str:
+                        tags = [t.strip() for t in tags_str.split(',') if t.strip()]
+                    else:
+                        tags = [t.strip() for t in tags_str.split() if t.strip()]
+
+                    # Validate category
+                    category = row['category'].strip()
+                    if category not in self.catalog["categories"]:
+                        print(f"  ✗ Row {row_num}: Invalid category '{category}', skipping")
+                        error_count += 1
+                        continue
+
+                    # Add icon
+                    icon_id = row['id'].strip()
+                    semantic = row['semantic'].strip()
+                    description = row.get('description', '').strip()
+
+                    if not icon_id or not semantic:
+                        print(f"  ✗ Row {row_num}: Missing id or semantic name, skipping")
+                        error_count += 1
+                        continue
+
+                    # Check if already exists
+                    existing = self.find_icon_by_id(icon_id)
+                    if existing:
+                        print(f"  ⚠ Row {row_num}: Icon '{icon_id}' already exists, skipping")
+                        continue
+
+                    self.add_icon(icon_id, semantic, tags, category, description)
+                    success_count += 1
+
+                except Exception as e:
+                    print(f"  ✗ Row {row_num}: Error processing row: {e}")
+                    error_count += 1
+
+        # Final summary (catalog already saved by add_icon calls)
+        print(f"\n=== Import Summary ===")
+        print(f"✓ Successfully imported: {success_count} icons")
+        if error_count > 0:
+            print(f"✗ Errors/Skipped: {error_count}")
+        print(f"Total cataloged icons: {len(self.catalog['icons'])}")
+
 def main():
     parser = argparse.ArgumentParser(description="Icon library management system")
     subparsers = parser.add_subparsers(dest="command", help="Commands")
@@ -216,6 +292,10 @@ def main():
     # Stats command
     subparsers.add_parser("stats", help="Show catalog statistics")
 
+    # Import CSV command
+    import_parser = subparsers.add_parser("import-csv", help="Bulk import icons from CSV file")
+    import_parser.add_argument("csv_file", help="Path to CSV file (id,semantic,tags,category,description)")
+
     args = parser.parse_args()
     manager = IconManager()
 
@@ -241,6 +321,9 @@ def main():
 
     elif args.command == "stats":
         manager.stats()
+
+    elif args.command == "import-csv":
+        manager.bulk_import(args.csv_file)
 
     else:
         parser.print_help()

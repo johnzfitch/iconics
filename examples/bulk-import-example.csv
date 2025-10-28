@@ -1,0 +1,6 @@
+id,semantic,tags,category,description
+Phone,phone,"telephone,call,mobile,contact,communication",ui,Phone icon for calls and communication
+Printer,printer,"print,document,paper,office,hardware",tools,Printer icon for printing documents
+Calculator,calculator,"math,numbers,calculate,compute,tools",tools,Calculator icon for calculations
+Globe,globe,"world,earth,international,global,network",network,Globe icon for worldwide/global concepts
+Chart,chart,"graph,statistics,data,analytics,business",development,Chart icon for data visualization
