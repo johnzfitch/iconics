@@ -114,7 +114,9 @@
       ],
       "category": "ui",
       "description": "Warning/alert icon",
-      "usedIn": []
+      "usedIn": [
+        "eero"
+      ]
     },
     {
       "id": "Database",
@@ -879,7 +881,9 @@
       ],
       "category": "development",
       "description": "Error or exception indicator icon",
-      "usedIn": []
+      "usedIn": [
+        "eero"
+      ]
     },
     {
       "id": "Login",
