@@ -85,6 +85,47 @@ Your content here...
 
 ---
 
+## Configuration
+
+### Location Flexibility
+
+Iconics automatically detects its installation location. The scripts work from anywhere without hardcoded paths.
+
+**Environment Variable (Optional):**
+```bash
+export ICONICS_DIR=~/iconics
+```
+
+Add this to your `~/.bashrc` or `~/.zshrc` if you've cloned iconics to a non-standard location.
+
+**How Path Resolution Works:**
+1. Checks `ICONICS_DIR` environment variable
+2. Falls back to script's directory location
+3. Uses `~/iconics` as default for documentation examples
+
+**Benefits:**
+- ✅ Works across different systems and users
+- ✅ No hardcoded paths in any scripts
+- ✅ Can be cloned anywhere on your system
+- ✅ Multiple users can have their own installations
+
+### Setup for Multiple Machines
+
+**Clone the repository:**
+```bash
+cd ~
+git clone https://github.com/johnzfitch/iconics.git
+```
+
+**Add alias (recommended):**
+```bash
+alias icon='~/iconics/icon'
+```
+
+See [SETUP.md](SETUP.md) for shell completion and other optional features.
+
+---
+
 ## Classic Usage (Python Manager)
 
 You can also use the Python manager directly:
