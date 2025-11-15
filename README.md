@@ -1,4 +1,4 @@
-# Iconics
+LOL OP# Iconics
 
 **A semantic icon library with intelligent tagging and discovery**
 
@@ -34,13 +34,13 @@ Iconics is a globally-accessible, semantically-tagged icon library designed for 
 Use the icon command directly:
 
 ```bash
-/home/zack/dev/iconics/icon search security
-/home/zack/dev/iconics/icon use lock shield
+~/iconics/icon search security
+~/iconics/icon use lock shield
 ```
 
-**Optional:** Add an alias for convenience:
+**Reccomended:** Add an alias for convenience:
 ```bash
-alias icon='/home/zack/dev/iconics/icon'
+alias icon='~/iconics/icon'
 ```
 
 See [SETUP.md](SETUP.md) for shell completion and other optional features.
@@ -61,7 +61,7 @@ icon use lock shield
 
 **Output:**
 ```
-Exporting to: /home/user/dev/your-project
+Exporting to: ~/your-project
 ✓ Exported lock.png
 ✓ Exported shield.png
 
@@ -90,7 +90,7 @@ Your content here...
 You can also use the Python manager directly:
 
 ```bash
-cd /home/zack/dev/iconics
+cd ~/iconics
 python3 icon-manager.py search security
 python3 icon-manager.py export ~/dev/my-project lock shield
 ```
