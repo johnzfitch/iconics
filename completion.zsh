@@ -1,7 +1,7 @@
 #compdef icon
 # Zsh completion for icon command
-# Source this file: source /home/zack/dev/iconics/completion.zsh
-# Or add to ~/.zshrc: source /home/zack/dev/iconics/completion.zsh
+# Source this file: source ~/iconics/completion.zsh
+# Or add to ~/.zshrc: source ~/iconics/completion.zsh
 
 _icon() {
     local -a commands categories contexts icon_names
@@ -46,7 +46,16 @@ _icon() {
 
     # Get icon names from catalog
     _get_icon_names() {
-        local iconics_dir="/home/zack/dev/iconics"
+        # Determine iconics directory
+        local iconics_dir="${ICONICS_DIR}"
+        if [[ -z "$iconics_dir" ]]; then
+            # Try to find from script location if icon command is in PATH
+            iconics_dir="$(dirname "$(command -v icon 2>/dev/null)" 2>/dev/null)"
+        fi
+        if [[ -z "$iconics_dir" ]] || [[ ! -d "$iconics_dir" ]]; then
+            iconics_dir="$HOME/iconics"
+        fi
+        
         if [[ -f "$iconics_dir/icon-catalog.json" ]]; then
             icon_names=(${(f)"$(python3 -c "import json; catalog = json.load(open('$iconics_dir/icon-catalog.json')); print('\n'.join([icon['semanticName'] for icon in catalog['icons']]))" 2>/dev/null)"})
         fi

@@ -5,6 +5,18 @@ Quick script to improve icon metadata in bulk for batch2.csv
 
 import csv
 import re
+import os
+from pathlib import Path
+
+# Determine icon directory from environment or script location
+def get_icon_dir() -> Path:
+    """Get the icon library directory from environment or script location"""
+    env_dir = os.environ.get('ICONICS_DIR')
+    if env_dir:
+        return Path(env_dir)
+    return Path(__file__).resolve().parent
+
+ICON_DIR = get_icon_dir()
 
 # Category mapping patterns
 category_patterns = {
@@ -67,8 +79,8 @@ def improve_row(row):
     return [icon_id, semantic_clean, tags_clean, category, description]
 
 def main():
-    input_file = '/home/zack/dev/iconics/batch2.csv'
-    output_file = '/home/zack/dev/iconics/batch2_improved.csv'
+    input_file = ICON_DIR / 'batch2.csv'
+    output_file = ICON_DIR / 'batch2_improved.csv'
 
     rows = []
     with open(input_file, 'r', encoding='utf-8') as f:
