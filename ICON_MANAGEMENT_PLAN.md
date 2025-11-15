@@ -1,7 +1,7 @@
 # Icon Library Management System
 
 ## Current Situation
-- **Location:** `/home/zack/dev/icons/`
+- **Location:** `~/iconics/` (or your install location)
 - **Total Icons:** 1,231 PNG files (+ GIF versions)
 - **Problem:** Icons are numerically named (100.png, 101.png, etc.) with no semantic meaning
 - **Goal:** Create searchable, tagged icon library usable across all GitHub projects
@@ -100,7 +100,7 @@ exiftool -Comment="security,lock,padlock" 100.png
 ### 3. Directory Structure Proposal
 
 ```
-/home/zack/dev/icons/
+~/iconics/                         # Or wherever iconics is installed
 ├── raw/                           # Original numbered files
 │   ├── 100.png
 │   ├── 101.png
@@ -186,7 +186,7 @@ exiftool -Comment="security,lock,padlock" 100.png
 
 ### Step 1: Create Basic Catalog
 ```bash
-cd /home/zack/dev/icons
+cd ~/iconics  # or wherever iconics is installed
 
 # Create initial structure
 mkdir -p catalog/{files,network,security,tools,ui}
@@ -218,7 +218,7 @@ Update catalog with icons you've already used:
 
 ### Step 3: Create Symlinks
 ```bash
-cd /home/zack/dev/icons
+cd ~/iconics
 ln -s raw/686.png catalog/security/lock.png
 ln -s raw/893.png catalog/security/shield.png
 ln -s raw/940.png catalog/ui/info.png
@@ -230,9 +230,9 @@ ln -s raw/438.png catalog/network/connection.png
 cd ~/dev/eero
 rm -rf .github/assets/icons
 mkdir -p .github/assets/icons
-cp /home/zack/dev/icons/catalog/security/{lock,shield}.png .github/assets/icons/
-cp /home/zack/dev/icons/catalog/ui/info.png .github/assets/icons/
-cp /home/zack/dev/icons/catalog/network/connection.png .github/assets/icons/
+cp ~/iconics/catalog/security/{lock,shield}.png .github/assets/icons/
+cp ~/iconics/catalog/ui/info.png .github/assets/icons/
+cp ~/iconics/catalog/network/connection.png .github/assets/icons/
 ```
 
 ---

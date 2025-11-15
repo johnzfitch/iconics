@@ -6,8 +6,20 @@
 
 ## Installation
 
+**Option 1: No Installation Required**
 ```bash
-cd /home/zack/dev/iconics
+~/iconics/icon search security
+~/iconics/icon use lock shield
+```
+
+Add an alias for convenience:
+```bash
+alias icon='~/iconics/icon'
+```
+
+**Option 2: If you have an install script**
+```bash
+cd ~/iconics
 ./install.sh
 ```
 
@@ -29,7 +41,7 @@ icon use lock key
 
 **Output:**
 ```
-Exporting to: /home/zack/dev/your-project
+Exporting to: ~/your-project
 ✓ Exported lock.png
 ✓ Exported key.png
 
@@ -161,9 +173,9 @@ The `icon use` command automatically detects your project root:
 
 Markdown snippets adjust paths based on your current directory:
 ```bash
-cd /home/zack/dev/myproject          # → .github/assets/icons/lock.png
-cd /home/zack/dev/myproject/docs     # → ../.github/assets/icons/lock.png
-cd /home/zack/dev/myproject/src/api  # → ../../.github/assets/icons/lock.png
+cd ~/myproject          # → .github/assets/icons/lock.png
+cd ~/myproject/docs     # → ../.github/assets/icons/lock.png
+cd ~/myproject/src/api  # → ../../.github/assets/icons/lock.png
 ```
 
 ### 3. Batch Operations
@@ -355,7 +367,7 @@ Check markdown paths match file locations.
 ### Need to update icon library
 
 ```bash
-cd /home/zack/dev/iconics
+cd ~/iconics
 git pull origin master
 ```
 
@@ -378,7 +390,7 @@ icon use lock shield
 
 ```bash
 # Auto-generate CSV from uncataloged icons
-cd /home/zack/dev/iconics
+cd ~/iconics
 python3 icon-manager.py generate-csv batch.csv --limit 100
 
 # Edit batch.csv in spreadsheet software
@@ -403,7 +415,7 @@ icon validate
 icon help
 
 # Full manager options
-python3 /home/zack/dev/iconics/icon-manager.py --help
+python3 ~/iconics/icon-manager.py --help
 ```
 
 ---

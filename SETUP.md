@@ -5,8 +5,15 @@
 No installation required! Use the icon command directly:
 
 ```bash
-/home/zack/dev/iconics/icon search security
-/home/zack/dev/iconics/icon use lock shield
+~/iconics/icon search security
+~/iconics/icon use lock shield
+```
+
+Or if you've cloned to a different location:
+
+```bash
+/path/to/iconics/icon search security
+/path/to/iconics/icon use lock shield
 ```
 
 ## Optional: Add Alias
@@ -14,7 +21,13 @@ No installation required! Use the icon command directly:
 For convenience, add to your `~/.bashrc` or `~/.zshrc`:
 
 ```bash
-alias icon='/home/zack/dev/iconics/icon'
+alias icon='~/iconics/icon'
+```
+
+Or if cloned elsewhere:
+
+```bash
+alias icon='/path/to/iconics/icon'
 ```
 
 Then reload:
@@ -28,6 +41,16 @@ icon search security
 icon use lock shield
 ```
 
+## Optional: Environment Variable
+
+Set the `ICONICS_DIR` environment variable to help scripts find the icon library:
+
+```bash
+export ICONICS_DIR=~/iconics
+```
+
+Add this to your `~/.bashrc` or `~/.zshrc` to make it permanent.
+
 ## Optional: Shell Completion
 
 ### Bash Completion
@@ -35,7 +58,7 @@ icon use lock shield
 Add to `~/.bashrc`:
 
 ```bash
-source /home/zack/dev/iconics/completion.bash
+source ~/iconics/completion.bash
 ```
 
 ### Zsh Completion
@@ -43,7 +66,7 @@ source /home/zack/dev/iconics/completion.bash
 Add to `~/.zshrc`:
 
 ```bash
-source /home/zack/dev/iconics/completion.zsh
+source ~/iconics/completion.zsh
 ```
 
 Then reload your shell:
@@ -63,16 +86,16 @@ To get icon suggestions when modifying READMEs:
 
 ```bash
 # From your project directory
-cp /home/zack/dev/iconics/examples/pre-commit-hook.sh .git/hooks/pre-commit
+cp ~/iconics/examples/pre-commit-hook.sh .git/hooks/pre-commit
 chmod +x .git/hooks/pre-commit
 ```
 
 ## Optional: Project Preferences
 
-Create a `.iconics` file in your project root to customize behavior:
+Create a `.iconics` file in your project root to customize behavior (if the example file exists):
 
 ```bash
-cp /home/zack/dev/iconics/examples/.iconics /path/to/your/project/
+cp ~/iconics/examples/.iconics /path/to/your/project/
 ```
 
 Edit the file to set preferred icons and contexts for your project type.

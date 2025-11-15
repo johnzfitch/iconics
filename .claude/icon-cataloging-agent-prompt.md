@@ -1,12 +1,12 @@
 # Icon Cataloging Agent Task
 
 ## Mission
-Systematically catalog all uncataloged icons in `/home/zack/dev/iconics/raw/` by adding semantic names, tags, and categories to the icon-catalog.json database.
+Systematically catalog all uncataloged icons in the `raw/` directory by adding semantic names, tags, and categories to the icon-catalog.json database.
 
 ## Context
 - **Repository:** https://github.com/johnzfitch/iconics
 - **Current Status:** 9 icons cataloged out of 1,700+
-- **Tool:** `/home/zack/dev/iconics/icon-manager.py`
+- **Tool:** `icon-manager.py` (located in the iconics directory)
 - **Goal:** Catalog 100+ high-value icons in this session
 
 ## Cataloging Strategy
@@ -50,7 +50,7 @@ Focus on commonly used icons across GitHub projects:
 
 ### Step 1: Identify Uncataloged Icons
 ```bash
-cd /home/zack/dev/iconics
+cd ~/iconics  # or wherever iconics is installed
 
 # Check current catalog
 python3 icon-manager.py stats
