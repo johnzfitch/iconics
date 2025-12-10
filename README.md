@@ -1,4 +1,4 @@
-LOL OP# Iconics
+# Iconics
 
 **A semantic icon library with intelligent tagging and discovery**
 
@@ -7,29 +7,29 @@ LOL OP# Iconics
 ![Cataloged](https://img.shields.io/badge/cataloged-3372-brightgreen.svg)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 
-**📖 [Quick Start](QUICK_START.md) | 🤖 [For AI Assistants](CLAUDE.md)**
+![book](catalog/files/book.png) [Quick Start](QUICK_START.md) | ![script](catalog/development/script.png) [For AI Assistants](CLAUDE.md)
 
 ---
 
-## Overview
+## ![info](catalog/ui/info.png) Overview
 
 Iconics is a globally-accessible, semantically-tagged icon library designed for instant use across all projects. Use professional icons instead of emojis everywhere - GitHub, documentation, websites, and more.
 
-### Key Features
+### ![star](catalog/ui/star.png) Key Features
 
-- **Global CLI Access:** `icon use lock shield` from anywhere, instantly
-- **Smart Project Detection:** Auto-detects project root and exports to correct location
-- **Ready-to-Paste Markdown:** Generates markdown snippets automatically
-- **Context-Aware Suggestions:** `icon suggest authentication` recommends appropriate icons
-- **Semantic Search:** Find icons by meaning, not filename
-- **3,369 Icons - Fully Cataloged:** All icons tagged, categorized, and ready to use (including all sizes from ICO/GIF conversions)
-- **No More Emojis:** Professional, semantic icons for all your projects
+- ![globe](catalog/network/globe.png) **Global CLI Access:** `icon use lock shield` from anywhere, instantly
+- ![target](catalog/ui/target.png) **Smart Project Detection:** Auto-detects project root and exports to correct location
+- ![document](catalog/files/document.png) **Ready-to-Paste Markdown:** Generates markdown snippets automatically
+- ![lightbulb](catalog/ui/lightbulb.png) **Context-Aware Suggestions:** `icon suggest authentication` recommends appropriate icons
+- ![search](catalog/tools/search.png) **Semantic Search:** Find icons by meaning, not filename
+- ![folder](catalog/files/folder.png) **3,369 Icons - Fully Cataloged:** All icons tagged, categorized, and ready to use (including all sizes from ICO/GIF conversions)
+- ![badge-cancel](catalog/ui/badge-cancel.png) **No More Emojis:** Professional, semantic icons for all your projects
 
 ---
 
-## Quick Start
+## ![rocket](catalog/ui/rocket.png) Quick Start
 
-### No Installation Required!
+### ![tick](catalog/ui/tick.png) No Installation Required!
 
 Use the icon command directly:
 
@@ -38,14 +38,14 @@ Use the icon command directly:
 ~/iconics/icon use lock shield
 ```
 
-**Reccomended:** Add an alias for convenience:
+**Recommended:** Add an alias for convenience:
 ```bash
 alias icon='~/iconics/icon'
 ```
 
 See [SETUP.md](SETUP.md) for shell completion and other optional features.
 
-### 1. Find Icons
+### ![search](catalog/tools/search.png) 1. Find Icons
 
 ```bash
 icon search security
@@ -53,7 +53,7 @@ icon search security
 icon suggest authentication
 ```
 
-### 2. Use Instantly (Exports + Generates Markdown)
+### ![play](catalog/ui/play.png) 2. Use Instantly (Exports + Generates Markdown)
 
 ```bash
 icon use lock shield
@@ -72,7 +72,7 @@ Markdown snippets:
 
 **Copy and paste the markdown directly into your README!**
 
-### 3. That's It!
+### ![accept](catalog/ui/accept.png) 3. That's It!
 
 ```markdown
 ## ![lock](.github/assets/icons/lock.png) Security Features
@@ -85,7 +85,7 @@ Your content here...
 
 ---
 
-## Classic Usage (Python Manager)
+## ![console](catalog/development/console.png) Classic Usage (Python Manager)
 
 You can also use the Python manager directly:
 
@@ -97,26 +97,27 @@ python3 icon-manager.py export ~/dev/my-project lock shield
 
 ---
 
-## Library Stats
+## ![statistics](catalog/ui/statistics.png) Library Stats
 
-- **Total Icons:** 3,369 PNG files
-- **Cataloged:** 3,372 icons (100% coverage) ✅ **COMPLETE!**
-- **Categories:** 7 (files, network, security, tools, ui, emoji, development)
-- **Projects Using:** Multiple (tracked via usage analytics)
-- **Archives:** ICO (6.3MB) and GIF (575KB) originals preserved in archives
+- ![folder](catalog/files/folder.png) **Total Icons:** 3,369 PNG files
+- ![tick](catalog/ui/tick.png) **Cataloged:** 3,372 icons (100% coverage) - **COMPLETE!**
+- ![tag](catalog/ui/tag.png) **Categories:** 7 (files, network, security, tools, ui, emoji, development)
+- ![briefcase](catalog/files/briefcase.png) **Projects Using:** Multiple (tracked via usage analytics)
+- ![save](catalog/ui/save.png) **Archives:** ICO (6.3MB) and GIF (575KB) originals preserved in archives
 
-### Category Breakdown
-- **UI Elements:** 2,969 icons (arrows, buttons, controls, indicators, media, numbers, sizes)
-- **Files:** 179 icons (documents, folders, blueprints, file types, bookmarks, archives)
-- **Security:** 76 icons (locks, keys, shields, certificates, safes, clocks, alarms)
-- **Tools:** 60 icons (hardware, utilities, design tools, devices, instruments)
-- **Development:** 39 icons (console, database, code, terminal, git, apps)
-- **Network:** 31 icons (wifi, cloud, globe, connections, streaming, browsers)
-- **Emoji:** 18 icons (expressions, symbols, yin-yang, faces)
+### ![hierarchy](catalog/ui/hierarchy.png) Category Breakdown
+
+- ![control-panel](catalog/tools/control-panel.png) **UI Elements:** 2,969 icons (arrows, buttons, controls, indicators, media, numbers, sizes)
+- ![document](catalog/files/document.png) **Files:** 179 icons (documents, folders, blueprints, file types, bookmarks, archives)
+- ![shield](catalog/security/shield.png) **Security:** 76 icons (locks, keys, shields, certificates, safes, clocks, alarms)
+- ![toolbox](catalog/tools/toolbox.png) **Tools:** 60 icons (hardware, utilities, design tools, devices, instruments)
+- ![database](catalog/development/database.png) **Development:** 39 icons (console, database, code, terminal, git, apps)
+- ![globe](catalog/network/globe.png) **Network:** 31 icons (wifi, cloud, globe, connections, streaming, browsers)
+- ![smile](catalog/emoji/smile.png) **Emoji:** 18 icons (expressions, symbols, yin-yang, faces)
 
 ---
 
-## Directory Structure
+## ![folder](catalog/files/folder.png) Directory Structure
 
 ```
 iconics/
@@ -136,11 +137,11 @@ iconics/
 
 ---
 
-## Global CLI Commands
+## ![console](catalog/development/console.png) Global CLI Commands
 
 The `icon` command provides instant access from anywhere. All commands work from any directory and auto-detect your project.
 
-### Quick Commands
+### ![fast](catalog/ui/fast.png) Quick Commands
 
 ```bash
 icon search <query>              # Search for icons
@@ -165,11 +166,11 @@ icon use lock shield
 
 ---
 
-## Python Manager Commands
+## ![script](catalog/development/script.png) Python Manager Commands
 
 You can also use the Python manager directly for advanced operations:
 
-### Search
+### ![search](catalog/tools/search.png) Search
 
 Find icons by tag or semantic name:
 
@@ -184,7 +185,7 @@ python3 icon-manager.py search lock        # Find lock-related icons
 python3 icon-manager.py search network     # Find network icons
 ```
 
-### List Category
+### ![list](catalog/ui/list.png) List Category
 
 Show all icons in a specific category:
 
@@ -199,7 +200,7 @@ python3 icon-manager.py list <category>
 python3 icon-manager.py list security
 ```
 
-### Export to Project
+### ![export](catalog/tools/export.png) Export to Project
 
 Copy icons to a project with semantic names:
 
@@ -214,7 +215,7 @@ python3 icon-manager.py export ~/dev/my-app lock shield database network
 
 Icons are exported to: `<project>/.github/assets/icons/`
 
-### Add Icon to Catalog
+### ![add](catalog/ui/add.png) Add Icon to Catalog
 
 Catalog a new icon with metadata:
 
@@ -233,7 +234,7 @@ python3 icon-manager.py add "Key" "key" \
   --description "Key icon for authentication"
 ```
 
-### Bulk Import from CSV
+### ![import](catalog/tools/import.png) Bulk Import from CSV
 
 Import multiple icons at once from a CSV file:
 
@@ -250,14 +251,14 @@ Calculator,calculator,"math,numbers,compute",tools,Calculator icon
 ```
 
 **Benefits:**
-- **3-4x faster** than individual commands
-- Easy to prepare in spreadsheet software (Excel, Google Sheets)
-- Batch review before import
-- Automatic duplicate detection
+- ![fast](catalog/ui/fast.png) **3-4x faster** than individual commands
+- ![table](catalog/ui/table.png) Easy to prepare in spreadsheet software (Excel, Google Sheets)
+- ![search](catalog/tools/search.png) Batch review before import
+- ![shield](catalog/security/shield.png) Automatic duplicate detection
 
 **Template:** See `icon-import-template.csv` for a ready-to-use template
 
-### Auto-Generate CSV from Filenames
+### ![lightbulb](catalog/ui/lightbulb.png) Auto-Generate CSV from Filenames
 
 Let the tool suggest names and tags based on icon filenames:
 
@@ -266,17 +267,17 @@ python3 icon-manager.py generate-csv suggested-icons.csv --limit 50
 ```
 
 **What it does:**
-- Scans uncataloged icons in `raw/` directory
-- Parses filenames to suggest semantic names
-- Auto-generates tags from filename words
-- Guesses categories based on keywords
-- Creates ready-to-edit CSV file
+- ![search](catalog/tools/search.png) Scans uncataloged icons in `raw/` directory
+- ![tag](catalog/ui/tag.png) Parses filenames to suggest semantic names
+- ![tag](catalog/ui/tag.png) Auto-generates tags from filename words
+- ![folder](catalog/files/folder.png) Guesses categories based on keywords
+- ![document](catalog/files/document.png) Creates ready-to-edit CSV file
 
 **Benefits:**
-- **10x faster** than manual tagging from scratch
-- Smart suggestions from descriptive filenames
-- Batch review and edit in spreadsheet
-- Skip icons with numeric/unclear names
+- ![fast](catalog/ui/fast.png) **10x faster** than manual tagging from scratch
+- ![lightbulb](catalog/ui/lightbulb.png) Smart suggestions from descriptive filenames
+- ![table](catalog/ui/table.png) Batch review and edit in spreadsheet
+- ![fast](catalog/ui/fast.png) Skip icons with numeric/unclear names
 
 **Workflow:**
 ```bash
@@ -292,7 +293,7 @@ python3 icon-manager.py generate-csv batch1.csv --limit 100
 python3 icon-manager.py import-csv batch1.csv
 ```
 
-### Template System (Icon Families)
+### ![blueprint](catalog/files/blueprint.png) Template System (Icon Families)
 
 Create reusable templates for icon families to save time:
 
@@ -318,10 +319,10 @@ python3 icon-manager.py apply-template arrow arrow-icons.csv
 ```
 
 **Benefits:**
-- Define common tags once for icon families
-- Apply consistently across all variants
-- Add variant-specific tags as needed
-- Perfect for: arrows, social media icons, file types, status indicators
+- ![tick](catalog/ui/tick.png) Define common tags once for icon families
+- ![tick](catalog/ui/tick.png) Apply consistently across all variants
+- ![add](catalog/ui/add.png) Add variant-specific tags as needed
+- ![star](catalog/ui/star.png) Perfect for: arrows, social media icons, file types, status indicators
 
 **Example templates:**
 - **arrow:** navigation, direction, pointer
@@ -329,7 +330,7 @@ python3 icon-manager.py apply-template arrow arrow-icons.csv
 - **file-type:** file, document, format
 - **status:** indicator, state, condition
 
-### View Statistics
+### ![statistics](catalog/ui/statistics.png) View Statistics
 
 Show enhanced library statistics with category breakdowns:
 
@@ -338,12 +339,12 @@ python3 icon-manager.py stats
 ```
 
 **Shows:**
-- Total library coverage (cataloged vs uncataloged)
-- Detailed breakdown by category with samples
-- Most used icons across projects
-- Project usage summary
+- ![folder](catalog/files/folder.png) Total library coverage (cataloged vs uncataloged)
+- ![hierarchy](catalog/ui/hierarchy.png) Detailed breakdown by category with samples
+- ![star](catalog/ui/star.png) Most used icons across projects
+- ![briefcase](catalog/files/briefcase.png) Project usage summary
 
-### Validate Catalog
+### ![shield](catalog/security/shield.png) Validate Catalog
 
 Check catalog integrity for issues:
 
@@ -352,12 +353,12 @@ python3 icon-manager.py validate
 ```
 
 **Checks:**
-- Missing source files in `raw/` directory
-- Broken symlinks in `catalog/` directories
-- Orphaned symlinks pointing to non-existent files
-- Directory structure integrity
+- ![warning](catalog/ui/warning.png) Missing source files in `raw/` directory
+- ![warning](catalog/ui/warning.png) Broken symlinks in `catalog/` directories
+- ![warning](catalog/ui/warning.png) Orphaned symlinks pointing to non-existent files
+- ![tick](catalog/ui/tick.png) Directory structure integrity
 
-### Icon Information
+### ![info](catalog/ui/info.png) Icon Information
 
 Show detailed information about a specific icon:
 
@@ -371,14 +372,14 @@ python3 icon-manager.py info lock
 ```
 
 **Output includes:**
-- Semantic name and icon ID
-- Filename and file paths
-- Category and description
-- All tags
-- Projects using this icon
-- File existence status
+- ![tag](catalog/ui/tag.png) Semantic name and icon ID
+- ![document](catalog/files/document.png) Filename and file paths
+- ![folder](catalog/files/folder.png) Category and description
+- ![tag](catalog/ui/tag.png) All tags
+- ![briefcase](catalog/files/briefcase.png) Projects using this icon
+- ![tick](catalog/ui/tick.png) File existence status
 
-### Recent Icons
+### ![clock](catalog/security/clock.png) Recent Icons
 
 View recently cataloged icons:
 
@@ -392,7 +393,7 @@ python3 icon-manager.py recent           # Show last 20 icons
 python3 icon-manager.py recent --limit 50  # Show last 50 icons
 ```
 
-### Export Category
+### ![export](catalog/tools/export.png) Export Category
 
 Export all icons from a specific category at once:
 
@@ -406,13 +407,13 @@ python3 icon-manager.py export-category ~/dev/my-app security
 ```
 
 **Benefits:**
-- Export entire category in one command
-- Perfect for themed projects (security docs, UI kits, etc.)
-- Faster than individual exports for multiple icons
+- ![fast](catalog/ui/fast.png) Export entire category in one command
+- ![star](catalog/ui/star.png) Perfect for themed projects (security docs, UI kits, etc.)
+- ![fast](catalog/ui/fast.png) Faster than individual exports for multiple icons
 
 ---
 
-## Currently Cataloged Icons
+## ![table](catalog/ui/table.png) Currently Cataloged Icons
 
 | Preview | Name | Category | Tags |
 |---------|------|----------|------|
@@ -420,7 +421,7 @@ python3 icon-manager.py export-category ~/dev/my-app security
 | ![shield](catalog/security/shield.png) | shield | security | security, shield, protection, guard |
 | ![info](catalog/ui/info.png) | info | ui | information, help, question, about |
 | ![warning](catalog/ui/warning.png) | warning | ui | warning, alert, caution, danger, exclamation |
-| ![network](catalog/network/network.png) | network | network | network, connection, tower, wifi, ethernet |
+| ![network](catalog/network/network-connection.png) | network | network | network, connection, tower, wifi, ethernet |
 | ![folder](catalog/files/folder.png) | folder | files | folder, directory, files, organize |
 | ![database](catalog/development/database.png) | database | development | database, data, storage, server, api |
 | ![search](catalog/tools/search.png) | search | tools | search, find, magnifying-glass, lookup |
@@ -428,22 +429,22 @@ python3 icon-manager.py export-category ~/dev/my-app security
 
 ---
 
-## Integration with Projects
+## ![connect](catalog/network/connect.png) Integration with Projects
 
-### 1. Find Icons
+### ![search](catalog/tools/search.png) 1. Find Icons
 
 ```bash
 cd /path/to/iconics
 python3 icon-manager.py search <keyword>
 ```
 
-### 2. Export Icons
+### ![export](catalog/tools/export.png) 2. Export Icons
 
 ```bash
 python3 icon-manager.py export ~/dev/your-project icon1 icon2 icon3
 ```
 
-### 3. Use in README
+### ![document](catalog/files/document.png) 3. Use in README
 
 ```markdown
 # Your Project
@@ -459,47 +460,47 @@ Network architecture details...
 
 ---
 
-## Categories
+## ![tag](catalog/ui/tag.png) Categories
 
-### files
+### ![folder](catalog/files/folder.png) files
 Documents, folders, archives, file types
 
-### network
+### ![globe](catalog/network/globe.png) network
 Connections, wifi, ethernet, cloud, servers
 
-### security
+### ![shield](catalog/security/shield.png) security
 Locks, shields, keys, authentication, encryption
 
-### tools
+### ![toolbox](catalog/tools/toolbox.png) tools
 Wrenches, gears, settings, utilities, maintenance
 
-### ui
+### ![control-panel](catalog/tools/control-panel.png) ui
 Interface elements, buttons, indicators, controls
 
-### emoji
+### ![smile](catalog/emoji/smile.png) emoji
 Faces, emotions, reactions, expressions
 
-### development
+### ![database](catalog/development/database.png) development
 Code, databases, APIs, debugging, testing
 
 ---
 
-## Tagging Best Practices
+## ![tag](catalog/ui/tag.png) Tagging Best Practices
 
-### Good Tags ✅
+### ![tick](catalog/ui/tick.png) Good Tags
 - **Descriptive:** lock, security, padlock
 - **Action-based:** search, find, lookup
 - **Context:** authentication, password, access
 - **Synonyms:** folder, directory, files
 
-### Avoid ❌
+### ![warning](catalog/ui/warning.png) Avoid
 - Too generic: icon, image, graphic
 - Too specific: "blue lock with gold keyhole"
 - Duplicates: lock, locking, locked (choose one primary)
 
 ---
 
-## Projects Using Iconics
+## ![briefcase](catalog/files/briefcase.png) Projects Using Iconics
 
 ### eero-reverse-engineering
 Network security research project
@@ -509,50 +510,50 @@ Network security research project
 
 **Integration:** Professional README with subtle icon accents for section headers
 
-[View Project →](https://github.com/johnzfitch/eero-reverse-engineering)
+![attach](catalog/ui/attach.png) [View Project](https://github.com/johnzfitch/eero-reverse-engineering)
 
 ---
 
-## Roadmap
+## ![map](catalog/ui/map.png) Roadmap
 
-### Phase 1 ✅ (Complete)
-- ✅ Basic CLI tool
-- ✅ JSON catalog system
-- ✅ Search functionality
-- ✅ Export to projects
-- ✅ Initial 9 icons cataloged
+### ![tick](catalog/ui/tick.png) Phase 1 (Complete)
+- ![tick](catalog/ui/tick.png) Basic CLI tool
+- ![tick](catalog/ui/tick.png) JSON catalog system
+- ![tick](catalog/ui/tick.png) Search functionality
+- ![tick](catalog/ui/tick.png) Export to projects
+- ![tick](catalog/ui/tick.png) Initial 9 icons cataloged
 
-### Phase 2 ✅ (Complete)
-- ✅ Bulk CSV import (3-4x faster)
-- ✅ Auto-generate CSV from filenames (10x faster)
-- ✅ Template system for icon families
-- ✅ Expand catalog to 1,215 icons (100% complete)
-- ✅ Enhanced statistics with category breakdowns
-- ✅ Catalog validation and integrity checking
-- ✅ Detailed icon information command
-- ✅ Recent icons tracking
-- ✅ Batch export by category
-- ✅ **Global CLI access system**
-- ✅ **Smart project detection**
-- ✅ **Auto-generated markdown snippets**
-- ✅ **Context-aware icon suggestions**
-- ✅ **One-command export and use**
+### ![tick](catalog/ui/tick.png) Phase 2 (Complete)
+- ![tick](catalog/ui/tick.png) Bulk CSV import (3-4x faster)
+- ![tick](catalog/ui/tick.png) Auto-generate CSV from filenames (10x faster)
+- ![tick](catalog/ui/tick.png) Template system for icon families
+- ![tick](catalog/ui/tick.png) Expand catalog to 1,215 icons (100% complete)
+- ![tick](catalog/ui/tick.png) Enhanced statistics with category breakdowns
+- ![tick](catalog/ui/tick.png) Catalog validation and integrity checking
+- ![tick](catalog/ui/tick.png) Detailed icon information command
+- ![tick](catalog/ui/tick.png) Recent icons tracking
+- ![tick](catalog/ui/tick.png) Batch export by category
+- ![tick](catalog/ui/tick.png) **Global CLI access system**
+- ![tick](catalog/ui/tick.png) **Smart project detection**
+- ![tick](catalog/ui/tick.png) **Auto-generated markdown snippets**
+- ![tick](catalog/ui/tick.png) **Context-aware icon suggestions**
+- ![tick](catalog/ui/tick.png) **One-command export and use**
 
-### Phase 3 (Future)
-- [ ] Web interface for visual browsing
-- [ ] Thumbnail generation
-- [ ] Auto-detection of similar icons
-- [ ] SVG support
-- [ ] Multiple sizes (16x16, 24x24, 32x32, 48x48)
-- [ ] Icon variations (color schemes, outlined vs filled)
-- [ ] Git hooks integration
-- [ ] Package manager (pip install iconics)
+### ![target](catalog/ui/target.png) Phase 3 (Future)
+- ![play](catalog/ui/play.png) Web interface for visual browsing
+- ![play](catalog/ui/play.png) Thumbnail generation
+- ![play](catalog/ui/play.png) Auto-detection of similar icons
+- ![play](catalog/ui/play.png) SVG support
+- ![play](catalog/ui/play.png) Multiple sizes (16x16, 24x24, 32x32, 48x48)
+- ![play](catalog/ui/play.png) Icon variations (color schemes, outlined vs filled)
+- ![play](catalog/ui/play.png) Git hooks integration
+- ![play](catalog/ui/play.png) Package manager (pip install iconics)
 
 ---
 
-## Contributing
+## ![handshake](catalog/ui/handshake.png) Contributing
 
-### Adding Icons to Catalog
+### ![add](catalog/ui/add.png) Adding Icons to Catalog
 
 1. Visual browse icons in `raw/` directory
 2. Catalog with semantic metadata:
@@ -564,7 +565,7 @@ python3 icon-manager.py add "Filename" "semantic-name" \
   --description "Clear description"
 ```
 
-### Improving Existing Entries
+### ![edit](catalog/ui/edit.png) Improving Existing Entries
 
 - Add missing tags
 - Update descriptions for clarity
@@ -573,25 +574,25 @@ python3 icon-manager.py add "Filename" "semantic-name" \
 
 ---
 
-## Technical Details
+## ![settings](catalog/tools/settings.png) Technical Details
 
-### Requirements
+### ![list](catalog/ui/list.png) Requirements
 - Python 3.6+
 - Standard library only (no external dependencies)
 
-### Icon Format
+### ![info](catalog/ui/info.png) Icon Format
 - Format: PNG
 - Size: Primarily 16x16 (some larger variants available)
 - Vintage: 2009-2011 era icon packs
 
-### Storage Efficiency
+### ![save](catalog/ui/save.png) Storage Efficiency
 - Original files stored once in `raw/`
 - Symlinks in `catalog/` for zero-duplicate storage
 - Catalog metadata ~1KB per icon
 
 ---
 
-## License
+## ![certificate](catalog/security/certificate.png) License
 
 MIT License - see LICENSE file for details
 
@@ -600,7 +601,7 @@ Suitable for personal and open-source projects.
 
 ---
 
-## Quick Reference Card
+## ![index](catalog/ui/index.png) Quick Reference Card
 
 | Command | Purpose |
 |---------|---------|
@@ -620,14 +621,14 @@ Suitable for personal and open-source projects.
 
 ---
 
-## Links
+## ![attach](catalog/ui/attach.png) Links
 
-- **Setup Guide:** [SETUP.md](SETUP.md) - Installation, aliases, shell completion
-- **Quick Start Guide:** [QUICK_START.md](QUICK_START.md) - Fast workflows and examples
-- **For AI Assistants:** [CLAUDE.md](CLAUDE.md) - Complete guide for Claude agents
-- **Repository:** https://github.com/johnzfitch/iconics
-- **Issues:** https://github.com/johnzfitch/iconics/issues
-- **Example Usage:** [eero-reverse-engineering](https://github.com/johnzfitch/eero-reverse-engineering)
+- ![book](catalog/files/book.png) **Setup Guide:** [SETUP.md](SETUP.md) - Installation, aliases, shell completion
+- ![rocket](catalog/ui/rocket.png) **Quick Start Guide:** [QUICK_START.md](QUICK_START.md) - Fast workflows and examples
+- ![script](catalog/development/script.png) **For AI Assistants:** [CLAUDE.md](CLAUDE.md) - Complete guide for Claude agents
+- ![globe](catalog/network/globe.png) **Repository:** https://github.com/johnzfitch/iconics
+- ![warning](catalog/ui/warning.png) **Issues:** https://github.com/johnzfitch/iconics/issues
+- ![briefcase](catalog/files/briefcase.png) **Example Usage:** [eero-reverse-engineering](https://github.com/johnzfitch/eero-reverse-engineering)
 
 ---
 
