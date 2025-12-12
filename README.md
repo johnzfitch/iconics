@@ -1,4 +1,4 @@
-LOL OP# Iconics
+# Iconics
 
 **A semantic icon library with intelligent tagging and discovery**
 
