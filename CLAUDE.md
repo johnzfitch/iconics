@@ -13,7 +13,7 @@ Iconics is a globally-accessible icon library with 1,200+ PNG icons designed to 
 - **Instant markdown generation** - Ready to paste
 - **Context-aware suggestions** - Recommends appropriate icons
 
-**Location:** `/home/zack/dev/iconics`
+**Location:** `~/iconics` (or wherever you cloned the repository)
 
 **Status:** 3,372 icons cataloged (100% complete) ✅
 
@@ -485,11 +485,13 @@ icon use <icon1> <icon2> <icon3>
 
 ## Files and Locations
 
-- **Icon Library:** `/home/zack/dev/iconics/`
-- **Command:** `icon` (globally accessible)
-- **Raw Icons:** `/home/zack/dev/iconics/raw/` (3,369 PNG files - all converted from ICO/GIF)
-- **Catalog:** `/home/zack/dev/iconics/icon-catalog.json` (3,372 cataloged - 100% complete)
-- **Installation:** `/home/zack/dev/iconics/install.sh`
+- **Icon Library:** `~/iconics/` (or your install location)
+- **Command:** `icon` (globally accessible via alias or PATH)
+- **Raw Icons:** `~/iconics/raw/` (3,369 PNG files - all converted from ICO/GIF)
+- **Catalog:** `~/iconics/icon-catalog.json` (3,372 cataloged - 100% complete)
+- **Scripts:** `~/iconics/icon-manager.py`, `~/iconics/icon`
+
+**Environment Variable:** Set `ICONICS_DIR` to specify the library location if not in `~/iconics`
 
 ---
 
@@ -499,7 +501,7 @@ If the user asks to catalog more icons:
 
 ```bash
 # Auto-generate suggestions from uncataloged icons
-cd /home/zack/dev/iconics
+cd ~/iconics
 python3 icon-manager.py generate-csv batch.csv --limit 100
 
 # Review and edit the CSV, then import

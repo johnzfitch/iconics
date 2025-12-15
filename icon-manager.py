@@ -15,7 +15,19 @@ from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
 
-ICON_DIR = Path("/home/zack/dev/iconics")
+# Determine ICON_DIR from environment variable or script location
+def get_icon_dir() -> Path:
+    """Get the icon library directory from environment or script location"""
+    # First check environment variable
+    env_dir = os.environ.get('ICONICS_DIR')
+    if env_dir:
+        return Path(env_dir)
+    
+    # Fall back to script's parent directory
+    script_dir = Path(__file__).resolve().parent
+    return script_dir
+
+ICON_DIR = get_icon_dir()
 CATALOG_FILE = ICON_DIR / "icon-catalog.json"
 RAW_DIR = ICON_DIR / "raw"
 CATALOG_DIR = ICON_DIR / "catalog"

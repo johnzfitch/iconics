@@ -2,7 +2,18 @@
 # Iconics Quick Access Tool
 # Global wrapper for fast icon operations from anywhere
 
-ICONICS_DIR="/home/zack/dev/iconics"
+# Determine ICONICS_DIR from environment or script location
+if [[ -n "$ICONICS_DIR" ]]; then
+    # Use environment variable if set
+    ICONICS_DIR="$ICONICS_DIR"
+elif [[ -n "${BASH_SOURCE[0]}" ]]; then
+    # Resolve script directory
+    ICONICS_DIR="$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+else
+    # Fallback to home directory
+    ICONICS_DIR="$HOME/iconics"
+fi
+
 MANAGER="$ICONICS_DIR/icon-manager.py"
 
 # Color codes for output
