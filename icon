@@ -4,6 +4,7 @@
 
 ICONICS_DIR="/home/zack/dev/iconics"
 MANAGER="$ICONICS_DIR/icon-manager.py"
+PYTHON="/home/zack/.local/share/python-global/bin/python"
 
 # Color codes for output
 RED='\033[0;31m'
@@ -57,7 +58,7 @@ EXAMPLES:
     icon here warning info      # Export warning and info to current directory
     icon cat security           # Export all security icons to project
 
-For full manager options: python3 $MANAGER --help
+For full manager options: $MANAGER --help
 EOF
 }
 
@@ -106,7 +107,7 @@ suggest_icons() {
     local limit="${2:-10}"
 
     # Use the new semantic matcher in icon-manager.py
-    python3 "$MANAGER" suggest "$context" --limit "$limit"
+    $PYTHON "$MANAGER" suggest "$context" --limit "$limit"
 }
 
 # Check and update .gitignore for icon assets
@@ -130,7 +131,7 @@ ensure_gitignore() {
 case "${1:-help}" in
     search|s)
         shift
-        python3 "$MANAGER" search "$@"
+        $PYTHON "$MANAGER" search "$@"
         ;;
 
     use|u)
@@ -143,7 +144,7 @@ case "${1:-help}" in
         project=$(detect_project)
         ensure_gitignore "$project"
         echo -e "${BLUE}Exporting to: $project${NC}"
-        python3 "$MANAGER" export "$project" "$@"
+        $PYTHON "$MANAGER" export "$project" "$@"
 
         echo ""
         echo -e "${GREEN}Markdown snippets:${NC}"
@@ -196,7 +197,7 @@ case "${1:-help}" in
         fi
 
         # Export to current directory
-        python3 "$MANAGER" export "$PWD" "$@"
+        $PYTHON "$MANAGER" export "$PWD" "$@"
         ;;
 
     cat|category)
@@ -208,44 +209,44 @@ case "${1:-help}" in
 
         project=$(detect_project)
         echo -e "${BLUE}Exporting category '$1' to: $project${NC}"
-        python3 "$MANAGER" export-category "$project" "$1"
+        $PYTHON "$MANAGER" export-category "$project" "$1"
         ;;
 
     info|i)
         shift
-        python3 "$MANAGER" info "$@"
+        $PYTHON "$MANAGER" info "$@"
         ;;
 
     recent|r)
         shift
         if [[ $# -eq 0 ]]; then
-            python3 "$MANAGER" recent
+            $PYTHON "$MANAGER" recent
         else
-            python3 "$MANAGER" recent --limit "$1"
+            $PYTHON "$MANAGER" recent --limit "$1"
         fi
         ;;
 
     stats|st)
-        python3 "$MANAGER" stats
+        $PYTHON "$MANAGER" stats
         ;;
 
     validate|v)
-        python3 "$MANAGER" validate
+        $PYTHON "$MANAGER" validate
         ;;
 
     list|l)
         shift
-        python3 "$MANAGER" list "$@"
+        $PYTHON "$MANAGER" list "$@"
         ;;
 
     add)
         shift
-        python3 "$MANAGER" add "$@"
+        $PYTHON "$MANAGER" add "$@"
         ;;
 
     import|imp)
         shift
-        python3 "$MANAGER" import-csv "$@"
+        $PYTHON "$MANAGER" import-csv "$@"
         ;;
 
     generate|gen)
@@ -257,15 +258,15 @@ case "${1:-help}" in
         output="$1"
         shift
         if [[ $# -gt 0 ]]; then
-            python3 "$MANAGER" generate-csv "$output" --limit "$1"
+            $PYTHON "$MANAGER" generate-csv "$output" --limit "$1"
         else
-            python3 "$MANAGER" generate-csv "$output"
+            $PYTHON "$MANAGER" generate-csv "$output"
         fi
         ;;
 
     history)
         project=$(detect_project)
-        python3 "$MANAGER" history "$project"
+        $PYTHON "$MANAGER" history "$project"
         ;;
 
     again)
@@ -279,7 +280,7 @@ case "${1:-help}" in
 
         # Get last used icons for this project
         project_name=$(basename "$project")
-        icons=$(python3 -c "import json; h = json.load(open('$history_file')); print(' '.join(h.get('$project_name', {}).get('icons', [])))" 2>/dev/null)
+        icons=$($PYTHON -c "import json; h = json.load(open('$history_file')); print(' '.join(h.get('$project_name', {}).get('icons', [])))" 2>/dev/null)
 
         if [[ -z "$icons" ]]; then
             echo -e "${RED}No history found for this project${NC}"
@@ -287,7 +288,7 @@ case "${1:-help}" in
         fi
 
         echo -e "${BLUE}Re-exporting last used icons: $icons${NC}"
-        python3 "$MANAGER" export "$project" $icons
+        $PYTHON "$MANAGER" export "$project" $icons
 
         echo ""
         echo -e "${GREEN}Markdown snippets:${NC}"
@@ -311,7 +312,7 @@ case "${1:-help}" in
         suggest_icons "$context" 5
 
         # Extract top 3 unique icon names from suggestions using Python
-        icons=$(python3 -c "
+        icons=$($PYTHON -c "
 import sys
 sys.path.insert(0, '$ICONICS_DIR')
 import importlib.util
@@ -342,7 +343,7 @@ print(' '.join(result))
         echo ""
 
         project=$(detect_project)
-        python3 "$MANAGER" export "$project" $icons
+        $PYTHON "$MANAGER" export "$project" $icons
 
         echo ""
         echo -e "${GREEN}Markdown snippets:${NC}"
@@ -354,18 +355,18 @@ print(' '.join(result))
     popular|pop)
         shift
         if [[ $# -eq 0 ]]; then
-            python3 "$MANAGER" popular
+            $PYTHON "$MANAGER" popular
         else
-            python3 "$MANAGER" popular --limit "$1"
+            $PYTHON "$MANAGER" popular --limit "$1"
         fi
         ;;
 
     enrich)
         shift
         if [[ "$1" == "--apply" ]]; then
-            python3 "$MANAGER" enrich --apply --verbose
+            $PYTHON "$MANAGER" enrich --apply --verbose
         else
-            python3 "$MANAGER" enrich --verbose
+            $PYTHON "$MANAGER" enrich --verbose
         fi
         ;;
 
@@ -374,9 +375,9 @@ print(' '.join(result))
         if [[ $# -eq 0 ]]; then
             # Scan current project
             project=$(detect_project)
-            python3 "$MANAGER" scan-emojis "$project"
+            $PYTHON "$MANAGER" scan-emojis "$project"
         else
-            python3 "$MANAGER" scan-emojis "$1"
+            $PYTHON "$MANAGER" scan-emojis "$1"
         fi
         ;;
 

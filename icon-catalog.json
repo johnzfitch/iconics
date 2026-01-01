@@ -254,7 +254,8 @@
       "description": "Single user or person icon. Use cases: Profile management, account settings, member directories. Use cases: Profiles, members, account settings.",
       "usedIn": [
         "dev",
-        "johnzfitch"
+        "johnzfitch",
+        "iconics"
       ],
       "metaphor": "identity",
       "emotional_valence": 0.3,
@@ -327,7 +328,9 @@
       ],
       "category": "files",
       "description": "Multiple documents or files. Use cases: File management, text editing, report generation. Use cases: File management, text editing, report generation",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "video-32x32",
@@ -466,7 +469,9 @@
       ],
       "category": "development",
       "description": "Plugin or extension module icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "logout-24x24",
@@ -502,7 +507,8 @@
       "description": "Keychain or credential storage icon",
       "usedIn": [
         "test-export",
-        "zack"
+        "zack",
+        "tmp"
       ]
     },
     {
@@ -558,7 +564,8 @@
       "category": "network",
       "description": "Network radar or scan icon",
       "usedIn": [
-        "johnzfitch"
+        "johnzfitch",
+        "iconics"
       ]
     },
     {
@@ -945,7 +952,9 @@
       ],
       "category": "files",
       "description": "Blueprint - File icon. Use cases: File management, text editing, report generation. Use cases: File management, reports, text.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics"
+      ],
       "metaphor": "information",
       "emotional_valence": 0.0,
       "abstraction_level": 1
@@ -1116,7 +1125,9 @@
       ],
       "category": "ui",
       "description": "Chart data analytics icon variant 2",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "clipboard-b-48x48",
@@ -1244,7 +1255,9 @@
       ],
       "category": "ui",
       "description": "Tick or check badge icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "box-48x48",
@@ -1258,7 +1271,9 @@
       ],
       "category": "ui",
       "description": "Box or container",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "burger-menu-32x32",
@@ -1477,7 +1492,9 @@
       ],
       "category": "ui",
       "description": "Burn - UI icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "camera-camera-capture-variant2-48x48",
@@ -2513,7 +2530,9 @@
       ],
       "category": "ui",
       "description": "Iphone - UI icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "ipod-nano-32x32",
@@ -3357,7 +3376,9 @@
       ],
       "category": "ui",
       "description": "Project",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "recicle-bin-48x48",
@@ -3403,7 +3424,9 @@
       ],
       "category": "ui",
       "description": "Ruler",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "safari-48x48",
@@ -3441,7 +3464,10 @@
       ],
       "category": "security",
       "description": "Shield security protection icon. Use cases: Data protection, system firewalls, safety verification. Use cases: Data protection, system firewalls, safety verification. Use cases: Safety, data guard, firewall.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics",
+        "tmp"
+      ],
       "metaphor": "protection",
       "emotional_valence": 0.5,
       "abstraction_level": 3
@@ -3778,7 +3804,9 @@
       ],
       "category": "tools",
       "description": "Tools",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "traffic-cone-48x48",
@@ -4325,7 +4353,9 @@
       ],
       "category": "ui",
       "description": "Apply 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "apply-24x24",
@@ -6520,7 +6550,9 @@
       ],
       "category": "ui",
       "description": "Compass 32X32 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "compass-48x48",
@@ -6544,7 +6576,9 @@
       ],
       "category": "ui",
       "description": "Component 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "computer-16x16-16x16",
@@ -7826,7 +7860,9 @@
       ],
       "category": "network",
       "description": "Global Network 32X32 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "go-back-16x16",
@@ -8186,7 +8222,9 @@
       ],
       "category": "tools",
       "description": "Hammer 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "hammer-32x32",
@@ -8198,7 +8236,9 @@
       ],
       "category": "tools",
       "description": "Hammer 32X32 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "hangar-128x128",
@@ -10093,7 +10133,9 @@
       ],
       "category": "ui",
       "description": "Lightning 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "liner-16x16",
@@ -12665,7 +12707,8 @@
       "category": "security",
       "description": "Protection 16X16 icon",
       "usedIn": [
-        "zack"
+        "zack",
+        "tmp"
       ]
     },
     {
@@ -13827,7 +13870,9 @@
       ],
       "category": "tools",
       "description": "Toolbox 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "tools-32x32",
@@ -13839,7 +13884,9 @@
       ],
       "category": "tools",
       "description": "Tools 32X32 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "top-16x16",
@@ -14097,7 +14144,9 @@
       ],
       "category": "ui",
       "description": "View 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "view-account-16x16",
@@ -14177,7 +14226,9 @@
       ],
       "category": "ui",
       "description": "Warning 16X16 icon. Use cases: Error prevention, data loss risks, attention-required states. Use cases: Error prevention, data loss risks, attention-required states. Use cases: Error prevention, attention, data loss.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics"
+      ],
       "metaphor": "risk",
       "emotional_valence": -0.6,
       "abstraction_level": 4,
@@ -14334,7 +14385,9 @@
       ],
       "category": "tools",
       "description": "Wrench 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "xls-32x32",
@@ -14513,7 +14566,9 @@
       ],
       "category": "ui",
       "description": "Cancel 16X16 icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "cd-24x24",
@@ -14629,7 +14684,9 @@
       ],
       "category": "security",
       "description": "Lock 24X24 icon. Use cases: Authentication screens, private content indicators, security settings. Use cases: Authentication screens, private content indicators, security settings. Use cases: Authentication, privacy, restriction.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics"
+      ],
       "metaphor": "security",
       "emotional_valence": 0.0,
       "abstraction_level": 3,
@@ -14691,7 +14748,9 @@
       ],
       "category": "ui",
       "description": "Search 24X24 icon. Use cases: Finding records, discovering content, query interfaces. Use cases: Finding records, discovering content, query interfaces. Use cases: Query, lookup, finding content.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics"
+      ],
       "metaphor": "discovery",
       "emotional_valence": 0.3,
       "abstraction_level": 3,
@@ -27150,7 +27209,9 @@
       ],
       "category": "development",
       "description": "Terminal. Use cases: Developer tools, CLI commands, system logs. Use cases: CLI, dev tools, system execution.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics"
+      ],
       "metaphor": "automation",
       "emotional_valence": -0.2,
       "abstraction_level": 4,
@@ -32335,7 +32396,9 @@
       ],
       "category": "files",
       "description": "Blue Document Code. Use cases: File management, text editing, report generation. Use cases: File management, reports, text.",
-      "usedIn": [],
+      "usedIn": [
+        "iconics"
+      ],
       "metaphor": "information",
       "emotional_valence": 0.0,
       "abstraction_level": 1,
@@ -35434,7 +35497,9 @@
       ],
       "category": "ui",
       "description": "Brain",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "bread-16x16",
@@ -35744,7 +35809,9 @@
       ],
       "category": "development",
       "description": "Bug",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "building-arrow-16x16",
@@ -37273,7 +37340,9 @@
       ],
       "category": "ui",
       "description": "Chain",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "chain-small-16x16",
@@ -41545,7 +41614,9 @@
       ],
       "category": "ui",
       "description": "Pixel art robot icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "save-16x16",
@@ -42712,7 +42783,9 @@
       ],
       "category": "network",
       "description": "Pixel art open ai icon",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "pinterest-12x12",
@@ -51272,7 +51345,9 @@
       ],
       "category": "tools",
       "description": "Calculator icon for calculations (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "calculator-16x16-64x64",
@@ -53624,7 +53699,9 @@
       ],
       "category": "files",
       "description": "Close-file - File icon (64x64 resolution). Use cases: File management, text editing, report generation",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "close-folder-64x64",
@@ -56562,7 +56639,9 @@
       ],
       "category": "security",
       "description": "Eye icon for visibility or viewing (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "eye-16x16-64x64",
@@ -56712,7 +56791,9 @@
       ],
       "category": "ui",
       "description": "Fast - UI icon (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "favourites-64x64",
@@ -58050,7 +58131,9 @@
       ],
       "category": "ui",
       "description": "Gear - UI icon (64x64 resolution). Use cases: User preferences, system configuration, engine settings",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "genealogy-64x64",
@@ -59578,7 +59661,9 @@
       ],
       "category": "security",
       "description": "Hide or conceal content icon (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "hierarchy-64x64",
@@ -61074,7 +61159,9 @@
       ],
       "category": "ui",
       "description": "Layers - UI icon (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "leaf-64x64",
@@ -67106,7 +67193,9 @@
       ],
       "category": "ui",
       "description": "Rocket (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "rotate-3d-4-64x64",
@@ -68615,7 +68704,9 @@
       ],
       "category": "ui",
       "description": "Speed (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "spell-checking-64x64",
@@ -69752,7 +69843,9 @@
       ],
       "category": "tools",
       "description": "Toolbox icon (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "iconics"
+      ]
     },
     {
       "id": "toolbox-16x16-64x64",
@@ -83426,7 +83519,9 @@
       ],
       "category": "ui",
       "description": "Security (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "tmp"
+      ]
     },
     {
       "id": "security-32x32-64x64",
