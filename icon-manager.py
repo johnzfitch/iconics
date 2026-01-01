@@ -2188,6 +2188,102 @@ def main():
     llm_enrich_parser.add_argument("--apply", action="store_true", help="Apply changes (default: dry-run)")
     llm_enrich_parser.add_argument("--verify", action="store_true", help="Export a sample for verification instead of applying")
 
+    # =========================================================================
+    # CLIP Vector Subspace Commands
+    # =========================================================================
+
+    # Embed command - Generate CLIP embeddings
+    embed_parser = subparsers.add_parser("embed", help="Generate CLIP embeddings for all icons")
+    embed_parser.add_argument("--model", default="ViT-B-32", help="CLIP model architecture (default: ViT-B-32)")
+    embed_parser.add_argument("--batch-size", type=int, default=64, help="Batch size for embedding (default: 64)")
+    embed_parser.add_argument("--force", action="store_true", help="Regenerate embeddings even if they exist")
+    embed_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Analyze-subspace command - Run SVD analysis
+    analyze_parser = subparsers.add_parser("analyze-subspace", help="Run SVD analysis on icon embeddings")
+    analyze_parser.add_argument("--components", type=int, default=50, help="Max components to analyze (default: 50)")
+    analyze_parser.add_argument("--threshold", type=float, default=0.95, help="Variance threshold for dim selection (default: 0.95)")
+    analyze_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Query command - Semantic icon query
+    query_parser = subparsers.add_parser("query", help="Semantic search using CLIP embeddings")
+    query_parser.add_argument("text", help="Text query (e.g., 'security lock protection')")
+    query_parser.add_argument("--k", type=int, default=10, help="Number of results (default: 10)")
+    query_parser.add_argument("--mode", choices=["raw", "projected", "weighted"], default="projected",
+                              help="Retrieval mode: raw (CLIP space), projected (subspace), weighted (PC-weighted)")
+    query_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Traverse command - Traverse semantic axis
+    traverse_parser = subparsers.add_parser("traverse", help="Traverse semantic axis from an icon")
+    traverse_parser.add_argument("icon_id", help="Starting icon ID (e.g., lock-32x32)")
+    traverse_parser.add_argument("--axis", type=int, default=0, help="Principal component index to traverse (default: 0)")
+    traverse_parser.add_argument("--steps", type=int, default=5, help="Number of steps in each direction (default: 5)")
+    traverse_parser.add_argument("--direction", choices=["positive", "negative", "both"], default="both",
+                                 help="Direction to traverse (default: both)")
+    traverse_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Interpolate command - Find icons between two icons
+    interpolate_parser = subparsers.add_parser("interpolate", help="Find icons along interpolation path between two icons")
+    interpolate_parser.add_argument("icon_a", help="Starting icon ID")
+    interpolate_parser.add_argument("icon_b", help="Ending icon ID")
+    interpolate_parser.add_argument("--steps", type=int, default=5, help="Number of interpolation points (default: 5)")
+    interpolate_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Eval-retrieval command - Evaluate retrieval quality
+    eval_parser = subparsers.add_parser("eval-retrieval", help="Evaluate retrieval quality against ground truth")
+    eval_parser.add_argument("--ground-truth", required=True, help="Path to ground truth JSON file")
+    eval_parser.add_argument("--k", type=int, default=10, help="Cutoff for metrics (default: 10)")
+    eval_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Residual command - Check query coverage
+    residual_parser = subparsers.add_parser("residual", help="Compute orthogonal residual score for query")
+    residual_parser.add_argument("text", help="Text query to analyze")
+    residual_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # =========================================================================
+    # LLM Integration Commands (Phase 7)
+    # =========================================================================
+
+    # Batch query command
+    batch_query_parser = subparsers.add_parser("batch-query", help="Batch semantic search for multiple queries")
+    batch_query_parser.add_argument("--queries", required=True, help="Comma-separated list of queries (e.g., 'security,files,settings')")
+    batch_query_parser.add_argument("--k", type=int, default=2, help="Number of results per query (default: 2)")
+    batch_query_parser.add_argument("--mode", choices=["raw", "projected", "weighted"], default="projected",
+                                    help="Retrieval mode (default: projected)")
+    batch_query_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Provision command
+    provision_parser = subparsers.add_parser("provision", help="Provision icons to a project directory")
+    provision_parser.add_argument("--icons", help="Comma-separated list of icon IDs to provision")
+    provision_parser.add_argument("--query", help="Semantic query to find icons to provision")
+    provision_parser.add_argument("--manifest", help="Path to existing manifest to replicate")
+    provision_parser.add_argument("--dest", required=True, help="Destination directory for icons")
+    provision_parser.add_argument("--subdir", default="", help="Subdirectory within dest for icons (e.g., '.github/assets/icons')")
+    provision_parser.add_argument("--k", type=int, default=2, help="Number of icons per query (used with --query)")
+    provision_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Scan emoji command
+    scan_emoji_parser = subparsers.add_parser("scan-emoji", help="Scan files for emoji usage")
+    scan_emoji_parser.add_argument("--path", required=True, help="File or directory path to scan")
+    scan_emoji_parser.add_argument("--extensions", default="md,mdx,tsx,jsx,html", help="Comma-separated file extensions (default: md,mdx,tsx,jsx,html)")
+    scan_emoji_parser.add_argument("--recursive", action="store_true", default=True, help="Scan directories recursively")
+    scan_emoji_parser.add_argument("--output", help="Output file path for JSON report (optional)")
+
+    # Convert emoji command
+    convert_emoji_parser = subparsers.add_parser("convert-emoji", help="Convert emojis to icons in files")
+    convert_emoji_parser.add_argument("--report", required=True, help="Path to emoji scan report JSON")
+    convert_emoji_parser.add_argument("--icon-path", default="icons", help="Icon path for markdown (default: icons)")
+    convert_emoji_parser.add_argument("--dry-run", action="store_true", default=True, help="Preview changes without applying")
+    convert_emoji_parser.add_argument("--apply", action="store_true", help="Apply changes (overrides --dry-run)")
+    convert_emoji_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
+
+    # Generate imports command
+    gen_imports_parser = subparsers.add_parser("generate-imports", help="Generate framework-specific import file")
+    gen_imports_parser.add_argument("--manifest", required=True, help="Path to iconics-manifest.json")
+    gen_imports_parser.add_argument("--format", required=True, choices=["react", "vue", "css", "typescript"],
+                                    help="Target format")
+    gen_imports_parser.add_argument("--output", required=True, help="Output file path")
+
     args = parser.parse_args()
     manager = IconManager()
 
@@ -2294,6 +2390,638 @@ def main():
 
     elif args.command == "enrich-llm":
         manager.llm_enrich(limit=args.limit, dry_run=not args.apply, verify=args.verify)
+
+    # =========================================================================
+    # CLIP Vector Subspace Command Handlers
+    # =========================================================================
+
+    elif args.command == "embed":
+        # Generate CLIP embeddings for all icons
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+
+        # Check if embeddings exist and not forcing regeneration
+        if not args.force and (embeddings_dir / "icon_embeddings.npy").exists():
+            if args.output == "json":
+                import json as json_mod
+                print(json_mod.dumps({
+                    "status": "skipped",
+                    "message": "Embeddings already exist. Use --force to regenerate.",
+                    "path": str(embeddings_dir)
+                }, indent=2))
+            else:
+                print(f"Embeddings already exist at {embeddings_dir}")
+                print("Use --force to regenerate.")
+            sys.exit(0)
+
+        try:
+            from iconics_embeddings import load_clip_model, embed_icons, save_embeddings
+
+            # Get all icon paths from raw directory
+            icon_paths = sorted(RAW_DIR.glob("*.png"))
+
+            if not icon_paths:
+                print("Error: No PNG files found in raw directory")
+                sys.exit(1)
+
+            print(f"Loading CLIP model: {args.model}")
+            model, preprocess, tokenizer = load_clip_model(model_name=args.model)
+
+            print(f"Embedding {len(icon_paths)} icons (batch size: {args.batch_size})...")
+            import torch
+            device = "cuda" if torch.cuda.is_available() else "cpu"
+            embeddings, index = embed_icons(icon_paths, model, preprocess, batch_size=args.batch_size, device=device)
+
+            # Save embeddings
+            metadata = {
+                "model": args.model,
+                "pretrained": "laion2b_s34b_b79k",
+                "device": device,
+            }
+            save_embeddings(embeddings, index, embeddings_dir, metadata)
+
+            if args.output == "json":
+                import json as json_mod
+                print(json_mod.dumps({
+                    "status": "success",
+                    "count": len(index),
+                    "dimension": embeddings.shape[1],
+                    "model": args.model,
+                    "path": str(embeddings_dir)
+                }, indent=2))
+            else:
+                print(f"\nEmbeddings generated successfully!")
+                print(f"  Count: {len(index)}")
+                print(f"  Dimension: {embeddings.shape[1]}")
+                print(f"  Model: {args.model}")
+                print(f"  Saved to: {embeddings_dir}")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install with: pip install open_clip_torch torch")
+            sys.exit(1)
+
+    elif args.command == "analyze-subspace":
+        # Run SVD analysis on embeddings
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        if not (embeddings_dir / "icon_embeddings.npy").exists():
+            print("Error: Embeddings not found. Run 'embed' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_subspace import compute_and_save_subspace
+
+            print(f"Running SVD analysis (threshold: {args.threshold})...")
+            analysis = compute_and_save_subspace(
+                embeddings_dir / "icon_embeddings.npy",
+                embeddings_dir / "icon_index.json",
+                subspace_dir,
+                variance_threshold=args.threshold
+            )
+
+            if args.output == "json":
+                import json as json_mod
+                result = {
+                    "effective_dim": analysis.effective_dim,
+                    "total_variance": analysis.total_variance,
+                    "explained_variance_ratio": analysis.explained_variance_ratio,
+                    "variance_threshold": analysis.variance_threshold,
+                    "elbow_point": analysis.elbow_point,
+                    "path": str(subspace_dir)
+                }
+                print(json_mod.dumps(result, indent=2))
+            else:
+                print(f"\nSubspace Analysis Complete!")
+                print(f"  Effective dimension: {analysis.effective_dim}")
+                print(f"  Explained variance: {analysis.explained_variance_ratio:.4f}")
+                print(f"  Elbow point: {analysis.elbow_point}")
+                print(f"  Saved to: {subspace_dir}")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install required packages: pip install numpy")
+            sys.exit(1)
+
+    elif args.command == "query":
+        # Semantic icon query using CLIP
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        if not (embeddings_dir / "icon_embeddings.npy").exists():
+            print("Error: Embeddings not found. Run 'embed' command first.")
+            sys.exit(1)
+
+        if not (subspace_dir / "basis_vectors.npy").exists():
+            print("Error: Subspace not found. Run 'analyze-subspace' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_retrieval import IconicsRetriever
+
+            retriever = IconicsRetriever(
+                embeddings_path=str(embeddings_dir),
+                subspace_path=str(subspace_dir)
+            )
+
+            results = retriever.retrieve(args.text, k=args.k, mode=args.mode)
+            residual = results[0].residual_score if results else 0.0
+
+            if args.output == "json":
+                import json as json_mod
+                output = {
+                    "query": args.text,
+                    "mode": args.mode,
+                    "residual_score": residual,
+                    "results": [
+                        {"rank": i+1, "icon_id": r.icon_id, "score": r.score}
+                        for i, r in enumerate(results)
+                    ]
+                }
+                print(json_mod.dumps(output, indent=2))
+            else:
+                print(f"\nQuery: {args.text}")
+                print(f"Mode: {args.mode}")
+                print(f"Residual Score: {residual:.4f}")
+                print()
+                print(f"| {'Rank':^4} | {'Icon ID':<30} | {'Score':^8} |")
+                print(f"|{'-'*6}|{'-'*32}|{'-'*10}|")
+                for i, r in enumerate(results):
+                    print(f"| {i+1:^4} | {r.icon_id:<30} | {r.score:>8.4f} |")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install required packages: pip install faiss-cpu open_clip_torch torch")
+            sys.exit(1)
+
+    elif args.command == "traverse":
+        # Traverse semantic axis from an icon
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        if not (subspace_dir / "basis_vectors.npy").exists():
+            print("Error: Subspace not found. Run 'analyze-subspace' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_retrieval import IconicsRetriever
+
+            retriever = IconicsRetriever(
+                embeddings_path=str(embeddings_dir),
+                subspace_path=str(subspace_dir)
+            )
+
+            if args.icon_id not in retriever:
+                print(f"Error: Icon '{args.icon_id}' not found")
+                sys.exit(1)
+
+            icons = retriever.traverse_axis(
+                args.icon_id,
+                axis=args.axis,
+                steps=args.steps,
+                direction=args.direction
+            )
+
+            if args.output == "json":
+                import json as json_mod
+                output = {
+                    "start_icon": args.icon_id,
+                    "axis": args.axis,
+                    "direction": args.direction,
+                    "steps": args.steps,
+                    "path": icons
+                }
+                print(json_mod.dumps(output, indent=2))
+            else:
+                print(f"\nTraverse PC{args.axis} from '{args.icon_id}'")
+                print(f"Direction: {args.direction}, Steps: {args.steps}")
+                print()
+                for i, icon in enumerate(icons):
+                    marker = " *" if icon == args.icon_id else ""
+                    print(f"  {i+1}. {icon}{marker}")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install required packages: pip install faiss-cpu open_clip_torch torch")
+            sys.exit(1)
+        except KeyError as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+
+    elif args.command == "interpolate":
+        # Find icons between two icons
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        if not (subspace_dir / "basis_vectors.npy").exists():
+            print("Error: Subspace not found. Run 'analyze-subspace' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_retrieval import IconicsRetriever
+
+            retriever = IconicsRetriever(
+                embeddings_path=str(embeddings_dir),
+                subspace_path=str(subspace_dir)
+            )
+
+            if args.icon_a not in retriever:
+                print(f"Error: Icon '{args.icon_a}' not found")
+                sys.exit(1)
+            if args.icon_b not in retriever:
+                print(f"Error: Icon '{args.icon_b}' not found")
+                sys.exit(1)
+
+            icons = retriever.interpolate(args.icon_a, args.icon_b, steps=args.steps)
+
+            if args.output == "json":
+                import json as json_mod
+                output = {
+                    "start": args.icon_a,
+                    "end": args.icon_b,
+                    "steps": args.steps,
+                    "path": icons
+                }
+                print(json_mod.dumps(output, indent=2))
+            else:
+                print(f"\nInterpolation: '{args.icon_a}' -> '{args.icon_b}'")
+                print(f"Steps: {args.steps}")
+                print()
+                for i, icon in enumerate(icons):
+                    t = i / (args.steps - 1) if args.steps > 1 else 0
+                    print(f"  {i+1}. {icon} (t={t:.2f})")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install required packages: pip install faiss-cpu open_clip_torch torch")
+            sys.exit(1)
+        except KeyError as e:
+            print(f"Error: {e}")
+            sys.exit(1)
+
+    elif args.command == "eval-retrieval":
+        # Evaluate retrieval quality
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        ground_truth_path = Path(args.ground_truth)
+        if not ground_truth_path.exists():
+            print(f"Error: Ground truth file not found: {args.ground_truth}")
+            sys.exit(1)
+
+        if not (subspace_dir / "basis_vectors.npy").exists():
+            print("Error: Subspace not found. Run 'analyze-subspace' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_retrieval import IconicsRetriever
+            from iconics_eval import load_ground_truth, evaluate_query_set, compare_methods, format_comparison_table, create_retrieve_fn_from_retriever
+
+            retriever = IconicsRetriever(
+                embeddings_path=str(embeddings_dir),
+                subspace_path=str(subspace_dir)
+            )
+
+            ground_truth = load_ground_truth(ground_truth_path)
+
+            # Compare all three modes
+            methods = {
+                "raw": create_retrieve_fn_from_retriever(retriever, "raw"),
+                "projected": create_retrieve_fn_from_retriever(retriever, "projected"),
+                "weighted": create_retrieve_fn_from_retriever(retriever, "weighted"),
+            }
+
+            comparison = compare_methods(ground_truth, methods, k=args.k)
+
+            if args.output == "json":
+                import json as json_mod
+                output = {
+                    "ground_truth_path": str(ground_truth_path),
+                    "n_queries": len(ground_truth),
+                    "k": args.k,
+                    "results": comparison
+                }
+                print(json_mod.dumps(output, indent=2))
+            else:
+                print(f"\nEvaluation Results (k={args.k}, {len(ground_truth)} queries)")
+                print("=" * 60)
+                print(format_comparison_table(comparison))
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install required packages: pip install faiss-cpu open_clip_torch torch")
+            sys.exit(1)
+
+    elif args.command == "residual":
+        # Compute orthogonal residual score
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        if not (subspace_dir / "basis_vectors.npy").exists():
+            print("Error: Subspace not found. Run 'analyze-subspace' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_retrieval import IconicsRetriever
+
+            retriever = IconicsRetriever(
+                embeddings_path=str(embeddings_dir),
+                subspace_path=str(subspace_dir)
+            )
+
+            residual_score = retriever.orthogonal_residual_score(args.text)
+
+            # Interpret the score
+            if residual_score < 0.3:
+                coverage = "high"
+                interpretation = "Query is well-represented by the icon library"
+            elif residual_score < 0.6:
+                coverage = "moderate"
+                interpretation = "Query is partially representable by icons"
+            else:
+                coverage = "low"
+                interpretation = "Query concept is outside the icon space"
+
+            if args.output == "json":
+                import json as json_mod
+                output = {
+                    "query": args.text,
+                    "residual_score": residual_score,
+                    "coverage": coverage,
+                    "interpretation": interpretation
+                }
+                print(json_mod.dumps(output, indent=2))
+            else:
+                print(f"\nQuery: {args.text}")
+                print(f"Residual Score: {residual_score:.4f}")
+                print(f"Coverage: {coverage}")
+                print(f"Interpretation: {interpretation}")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            print("Install required packages: pip install faiss-cpu open_clip_torch torch")
+            sys.exit(1)
+
+    # =========================================================================
+    # LLM Integration Command Handlers (Phase 7)
+    # =========================================================================
+
+    elif args.command == "batch-query":
+        # Batch semantic search for multiple queries
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        if not (embeddings_dir / "icon_embeddings.npy").exists():
+            print("Error: Embeddings not found. Run 'embed' command first.")
+            sys.exit(1)
+
+        if not (subspace_dir / "basis_vectors.npy").exists():
+            print("Error: Subspace not found. Run 'analyze-subspace' command first.")
+            sys.exit(1)
+
+        try:
+            from iconics_retrieval import IconicsRetriever
+
+            retriever = IconicsRetriever(
+                embeddings_path=str(embeddings_dir),
+                subspace_path=str(subspace_dir)
+            )
+
+            queries = [q.strip() for q in args.queries.split(",")]
+            all_results = {}
+
+            for query in queries:
+                results = retriever.retrieve(query, k=args.k, mode=args.mode)
+                all_results[query] = [
+                    {"icon_id": r.icon_id, "score": r.score, "residual_score": r.residual_score}
+                    for r in results
+                ]
+
+            if args.output == "json":
+                import json as json_mod
+                output = {
+                    "mode": args.mode,
+                    "k": args.k,
+                    "queries": all_results
+                }
+                print(json_mod.dumps(output, indent=2))
+            else:
+                print(f"\nBatch Query Results (mode: {args.mode}, k: {args.k})")
+                print("=" * 60)
+                for query, results in all_results.items():
+                    print(f"\nQuery: '{query}'")
+                    for r in results:
+                        print(f"  - {r['icon_id']} (score: {r['score']:.4f})")
+
+        except ImportError as e:
+            print(f"Error: Missing dependency - {e}")
+            sys.exit(1)
+
+    elif args.command == "provision":
+        # Provision icons to a project directory
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        from iconics_provision import IconicsProvisioner, load_catalog
+
+        catalog = load_catalog(str(CATALOG_FILE))
+        provisioner = IconicsProvisioner(str(RAW_DIR), catalog)
+
+        # Determine provisioning mode
+        if args.manifest:
+            # Provision from manifest
+            result = provisioner.provision_from_manifest(args.manifest, args.dest)
+        elif args.query:
+            # Provision from semantic query
+            embeddings_dir = ICON_DIR / "embeddings"
+            subspace_dir = embeddings_dir / "subspace"
+
+            retriever = None
+            if (embeddings_dir / "icon_embeddings.npy").exists() and (subspace_dir / "basis_vectors.npy").exists():
+                try:
+                    from iconics_retrieval import IconicsRetriever
+                    retriever = IconicsRetriever(
+                        embeddings_path=str(embeddings_dir),
+                        subspace_path=str(subspace_dir)
+                    )
+                except ImportError:
+                    pass
+
+            queries = [q.strip() for q in args.query.split(",")]
+            result = provisioner.provision_from_query(
+                queries=queries,
+                dest=args.dest,
+                k=args.k,
+                retriever=retriever
+            )
+        elif args.icons:
+            # Provision specific icons
+            icon_ids = [i.strip() for i in args.icons.split(",")]
+            result = provisioner.provision(
+                icon_ids,
+                args.dest,
+                icon_subdir=args.subdir
+            )
+        else:
+            print("Error: Must specify --icons, --query, or --manifest")
+            sys.exit(1)
+
+        if args.output == "json":
+            import json as json_mod
+            print(json_mod.dumps(result, indent=2))
+        else:
+            print(f"\nProvisioning Results")
+            print("=" * 40)
+            print(f"Copied: {len(result['copied'])} icons")
+            for icon in result['copied']:
+                print(f"  + {icon}")
+            if result['skipped']:
+                print(f"Skipped: {len(result['skipped'])} (already exist)")
+            if result['missing']:
+                print(f"Missing: {len(result['missing'])}")
+                for icon in result['missing']:
+                    print(f"  ! {icon}")
+            if result.get('manifest_path'):
+                print(f"\nManifest: {result['manifest_path']}")
+
+    elif args.command == "scan-emoji":
+        # Scan files for emoji usage
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        from iconics_emoji import EmojiScanner
+
+        # Initialize scanner with optional retriever
+        embeddings_dir = ICON_DIR / "embeddings"
+        subspace_dir = embeddings_dir / "subspace"
+
+        retriever = None
+        if (embeddings_dir / "icon_embeddings.npy").exists() and (subspace_dir / "basis_vectors.npy").exists():
+            try:
+                from iconics_retrieval import IconicsRetriever
+                retriever = IconicsRetriever(
+                    embeddings_path=str(embeddings_dir),
+                    subspace_path=str(subspace_dir)
+                )
+            except ImportError:
+                pass
+
+        scanner = EmojiScanner(retriever=retriever)
+
+        extensions = [e.strip() for e in args.extensions.split(",")]
+        report = scanner.scan(args.path, extensions=extensions, recursive=args.recursive)
+
+        if args.output:
+            # Save to file
+            import json as json_mod
+            with open(args.output, 'w') as f:
+                json.dump(report, f, indent=2)
+            print(f"Report saved to: {args.output}")
+        else:
+            # Print summary
+            print(f"\nEmoji Scan Results")
+            print("=" * 40)
+            print(f"Files scanned: {report['files_scanned']}")
+            print(f"Emojis found: {report['emojis_found']}")
+            print(f"Unique emojis: {report['unique_emojis']}")
+
+            if report['emoji_counts']:
+                print(f"\nEmoji breakdown:")
+                for emoji, count in sorted(report['emoji_counts'].items(), key=lambda x: -x[1])[:10]:
+                    print(f"  {emoji}: {count} occurrences")
+
+            if report['occurrences']:
+                print(f"\nSample occurrences:")
+                for occ in report['occurrences'][:5]:
+                    print(f"  {occ['emoji']} in {occ['file']}:{occ['line']}")
+                    print(f"    Context: {occ['context'][:50]}...")
+                    if occ['suggested_icons']:
+                        print(f"    Suggested: {', '.join(occ['suggested_icons'][:3])}")
+
+    elif args.command == "convert-emoji":
+        # Convert emojis to icons in files
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        from iconics_emoji import EmojiScanner
+
+        # Load report
+        report_path = Path(args.report)
+        if not report_path.exists():
+            print(f"Error: Report file not found: {args.report}")
+            sys.exit(1)
+
+        with open(report_path) as f:
+            report = json.load(f)
+
+        scanner = EmojiScanner()
+
+        # Determine if dry run
+        dry_run = not args.apply
+
+        result = scanner.convert(report, args.icon_path, dry_run=dry_run)
+
+        if args.output == "json":
+            import json as json_mod
+            print(json_mod.dumps(result, indent=2))
+        else:
+            mode = "DRY RUN" if dry_run else "APPLIED"
+            print(f"\nEmoji Conversion Results ({mode})")
+            print("=" * 40)
+            print(f"Files modified: {result['files_modified']}")
+            print(f"Replacements: {result['replacements_made']}")
+
+            if result['changes']:
+                print(f"\nChanges:")
+                for change in result['changes'][:10]:
+                    print(f"  {change['file']}:{change['line']}")
+                    print(f"    - {change['emoji']} -> {change['icon']}")
+
+            if dry_run and result['replacements_made'] > 0:
+                print(f"\nTo apply changes: python3 icon-manager.py convert-emoji --report {args.report} --apply")
+
+    elif args.command == "generate-imports":
+        # Generate framework-specific import file
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        from iconics_provision import IconicsProvisioner, load_catalog
+
+        catalog = load_catalog(str(CATALOG_FILE))
+        provisioner = IconicsProvisioner(str(RAW_DIR), catalog)
+
+        content = provisioner.generate_imports(
+            args.manifest,
+            args.format,
+            args.output
+        )
+
+        print(f"Generated {args.format} imports: {args.output}")
+        print(f"  Icons: {content.count('icon')}")
 
     else:
         parser.print_help()

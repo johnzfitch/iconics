@@ -1,0 +1,331 @@
+{
+  "version": "1.0",
+  "description": "Ground truth dataset for Iconics retrieval evaluation. Contains 65 query-result pairs across 5 query types.",
+  "queries": [
+    {
+      "query": "folder icon",
+      "type": "literal",
+      "relevant_ids": ["folder-48x48", "music-folder-48x48", "pictures-folder-48x48", "folder-docs-48x48"]
+    },
+    {
+      "query": "lock security icon",
+      "type": "literal",
+      "relevant_ids": ["lock-24x24", "lock-16x16", "lock-alt-16x16", "lock-color-64x64"]
+    },
+    {
+      "query": "shield icon",
+      "type": "literal",
+      "relevant_ids": ["shield-security-protection-16x16", "shield-security-protection-48x48", "shield-security-protection-24x24"]
+    },
+    {
+      "query": "key icon",
+      "type": "literal",
+      "relevant_ids": ["key-48x48", "blue-key-16x16", "key-keeper-16x16", "key-keeper-32x32"]
+    },
+    {
+      "query": "home button",
+      "type": "literal",
+      "relevant_ids": ["home-20x20", "home-48x48", "home-30-30x30", "home-40-40x40"]
+    },
+    {
+      "query": "arrow navigation",
+      "type": "literal",
+      "relevant_ids": ["arrow-up-48x48", "arrow-down-48x48", "arrow-left-48x48", "arrow-right-48x48"]
+    },
+    {
+      "query": "database storage icon",
+      "type": "literal",
+      "relevant_ids": ["database-48x48", "dark-network-server-32x32", "kensicons-network-server-48x48"]
+    },
+    {
+      "query": "cloud icon",
+      "type": "literal",
+      "relevant_ids": ["cloud-48x48", "cloud-64x64"]
+    },
+    {
+      "query": "wifi network signal",
+      "type": "literal",
+      "relevant_ids": ["wifi-24x24", "wifi-64x64", "network-connection-signal-16x16"]
+    },
+    {
+      "query": "warning alert icon",
+      "type": "literal",
+      "relevant_ids": ["warning-16x16", "warning-24x24", "warning-32x32", "kensicons-dialog-warning-48x48"]
+    },
+    {
+      "query": "checkbox selection",
+      "type": "literal",
+      "relevant_ids": ["checkbox-32x32", "badge-tick-48x48", "check-boxes-32x32"]
+    },
+    {
+      "query": "download save icon",
+      "type": "literal",
+      "relevant_ids": ["download-48x48", "download-crate-48x48", "downloads-folder-16x16"]
+    },
+    {
+      "query": "upload icon",
+      "type": "literal",
+      "relevant_ids": ["upload-48x48", "upload-64x64"]
+    },
+    {
+      "query": "settings gear",
+      "type": "literal",
+      "relevant_ids": ["gear-64x64", "options-64x64", "time-settings-64x64"]
+    },
+    {
+      "query": "user profile person",
+      "type": "literal",
+      "relevant_ids": ["user-48x48", "user-64x64", "person-16x16", "person-64x64"]
+    },
+    {
+      "query": "data organization",
+      "type": "conceptual",
+      "relevant_ids": ["folder-48x48", "database-48x48", "cabinet-48x48", "documents-48x48"]
+    },
+    {
+      "query": "secure access",
+      "type": "conceptual",
+      "relevant_ids": ["lock-24x24", "key-48x48", "shield-security-protection-16x16", "protection-32x32"]
+    },
+    {
+      "query": "user journey navigation",
+      "type": "conceptual",
+      "relevant_ids": ["arrow-right-48x48", "arrow-left-48x48", "home-48x48", "compass-48x48"]
+    },
+    {
+      "query": "file management",
+      "type": "conceptual",
+      "relevant_ids": ["folder-48x48", "documents-48x48", "open-file-24x24", "cabinet-48x48"]
+    },
+    {
+      "query": "internet connectivity",
+      "type": "conceptual",
+      "relevant_ids": ["wifi-24x24", "global-network-32x32", "cloud-48x48", "network-radar-48x48"]
+    },
+    {
+      "query": "data persistence backend",
+      "type": "conceptual",
+      "relevant_ids": ["database-48x48", "cloud-48x48", "kensicons-network-server-48x48"]
+    },
+    {
+      "query": "authentication credentials",
+      "type": "conceptual",
+      "relevant_ids": ["key-48x48", "lock-24x24", "shield-security-protection-16x16", "certificate-16x16"]
+    },
+    {
+      "query": "system configuration",
+      "type": "conceptual",
+      "relevant_ids": ["gear-64x64", "options-64x64", "toolbox-16x16", "tools-32x32"]
+    },
+    {
+      "query": "content publishing",
+      "type": "conceptual",
+      "relevant_ids": ["upload-48x48", "documents-48x48", "cloud-48x48"]
+    },
+    {
+      "query": "information retrieval",
+      "type": "conceptual",
+      "relevant_ids": ["search-24x24", "folder-48x48", "database-48x48", "kensicons-folder-saved-search-48x48"]
+    },
+    {
+      "query": "team collaboration",
+      "type": "conceptual",
+      "relevant_ids": ["user-group-16x16", "user-48x48", "envelope-48x48"]
+    },
+    {
+      "query": "version control",
+      "type": "conceptual",
+      "relevant_ids": ["folder-48x48", "documents-48x48", "clock-32x32"]
+    },
+    {
+      "query": "error handling",
+      "type": "conceptual",
+      "relevant_ids": ["warning-16x16", "kensicons-dialog-error-48x48", "error-64x64", "compile-error-16x16"]
+    },
+    {
+      "query": "notification system",
+      "type": "conceptual",
+      "relevant_ids": ["notification-24x24", "envelope-48x48", "warning-16x16"]
+    },
+    {
+      "query": "account management",
+      "type": "conceptual",
+      "relevant_ids": ["user-48x48", "login-16x16", "logout-24x24", "key-48x48"]
+    },
+    {
+      "query": "friendly approval",
+      "type": "emotional",
+      "relevant_ids": ["happy-16x16", "happy-32x32", "ok-smile-32x32", "badge-tick-48x48"]
+    },
+    {
+      "query": "dangerous warning",
+      "type": "emotional",
+      "relevant_ids": ["warning-32x32", "kensicons-dialog-error-48x48", "error-64x64", "kensicons-dialog-warning-48x48"]
+    },
+    {
+      "query": "calm notification",
+      "type": "emotional",
+      "relevant_ids": ["info-20-20x20", "notification-24x24", "envelope-48x48"]
+    },
+    {
+      "query": "positive confirmation",
+      "type": "emotional",
+      "relevant_ids": ["badge-tick-48x48", "checkbox-32x32", "ok-smile-32x32", "happy-32x32"]
+    },
+    {
+      "query": "urgent action required",
+      "type": "emotional",
+      "relevant_ids": ["warning-32x32", "notification-24x24", "kensicons-dialog-warning-48x48"]
+    },
+    {
+      "query": "welcoming interface",
+      "type": "emotional",
+      "relevant_ids": ["home-48x48", "happy-32x32", "smile-16x16", "user-48x48"]
+    },
+    {
+      "query": "frustration error state",
+      "type": "emotional",
+      "relevant_ids": ["sad-16x16", "sad-64x64", "kensicons-dialog-error-48x48", "warning-32x32"]
+    },
+    {
+      "query": "celebratory success",
+      "type": "emotional",
+      "relevant_ids": ["happy-32x32", "badge-tick-48x48", "star-24x24"]
+    },
+    {
+      "query": "anxious waiting",
+      "type": "emotional",
+      "relevant_ids": ["clock-32x32", "flip-clock-32x32", "time-settings-64x64"]
+    },
+    {
+      "query": "trustworthy security",
+      "type": "emotional",
+      "relevant_ids": ["shield-security-protection-48x48", "lock-24x24", "protection-32x32", "certificate-16x16"]
+    },
+    {
+      "query": "warning about deletion",
+      "type": "compositional",
+      "relevant_ids": ["warning-32x32", "empty-document-delete-48x48", "kensicons-edit-delete-48x48"]
+    },
+    {
+      "query": "secure file sharing",
+      "type": "compositional",
+      "relevant_ids": ["lock-24x24", "folder-48x48", "documents-48x48", "shield-security-protection-16x16"]
+    },
+    {
+      "query": "cloud storage download",
+      "type": "compositional",
+      "relevant_ids": ["cloud-48x48", "download-48x48", "folder-downloads-48x48"]
+    },
+    {
+      "query": "user authentication login",
+      "type": "compositional",
+      "relevant_ids": ["user-48x48", "key-48x48", "login-16x16", "lock-24x24"]
+    },
+    {
+      "query": "network error warning",
+      "type": "compositional",
+      "relevant_ids": ["wifi-24x24", "warning-32x32", "kensicons-network-error-48x48", "kensicons-dialog-error-48x48"]
+    },
+    {
+      "query": "database backup storage",
+      "type": "compositional",
+      "relevant_ids": ["database-48x48", "download-48x48", "folder-48x48"]
+    },
+    {
+      "query": "home navigation arrow",
+      "type": "compositional",
+      "relevant_ids": ["home-48x48", "arrow-right-48x48", "arrow-left-48x48"]
+    },
+    {
+      "query": "email notification alert",
+      "type": "compositional",
+      "relevant_ids": ["envelope-48x48", "notification-24x24", "email-32x32"]
+    },
+    {
+      "query": "settings configuration tools",
+      "type": "compositional",
+      "relevant_ids": ["gear-64x64", "tools-32x32", "toolbox-16x16", "options-64x64"]
+    },
+    {
+      "query": "search folder find",
+      "type": "compositional",
+      "relevant_ids": ["search-24x24", "folder-48x48", "kensicons-folder-saved-search-48x48"]
+    },
+    {
+      "query": "security without lock",
+      "type": "negation",
+      "relevant_ids": ["shield-security-protection-48x48", "protection-32x32", "key-48x48", "certificate-16x16"]
+    },
+    {
+      "query": "navigation not home",
+      "type": "negation",
+      "relevant_ids": ["arrow-right-48x48", "arrow-left-48x48", "arrow-up-48x48", "arrow-down-48x48"]
+    },
+    {
+      "query": "file storage not cloud",
+      "type": "negation",
+      "relevant_ids": ["folder-48x48", "database-48x48", "cabinet-48x48", "documents-48x48"]
+    },
+    {
+      "query": "communication not email",
+      "type": "negation",
+      "relevant_ids": ["notification-24x24", "user-48x48", "user-group-16x16"]
+    },
+    {
+      "query": "tools not hammer",
+      "type": "negation",
+      "relevant_ids": ["wrench-16x16", "wrench-64x64", "toolbox-16x16", "gear-64x64"]
+    },
+    {
+      "query": "status indicator not warning",
+      "type": "negation",
+      "relevant_ids": ["info-20-20x20", "checkbox-32x32", "badge-tick-48x48", "notification-24x24"]
+    },
+    {
+      "query": "authentication not password",
+      "type": "negation",
+      "relevant_ids": ["key-48x48", "certificate-16x16", "shield-security-protection-16x16"]
+    },
+    {
+      "query": "data visualization not chart",
+      "type": "negation",
+      "relevant_ids": ["database-48x48", "documents-48x48", "info-20-20x20"]
+    },
+    {
+      "query": "user interface not button",
+      "type": "negation",
+      "relevant_ids": ["arrow-right-48x48", "notification-24x24", "info-20-20x20", "checkbox-32x32"]
+    },
+    {
+      "query": "time not clock",
+      "type": "negation",
+      "relevant_ids": ["calendar-48x48", "notification-24x24", "time-settings-64x64"]
+    },
+    {
+      "query": "book document",
+      "type": "literal",
+      "relevant_ids": ["book-48x48", "book-fb-48x48", "help-book-3d-16x16", "documents-48x48"]
+    },
+    {
+      "query": "star favorite",
+      "type": "literal",
+      "relevant_ids": ["star-24x24", "bookmark-48x48"]
+    },
+    {
+      "query": "email envelope message",
+      "type": "literal",
+      "relevant_ids": ["envelope-48x48", "email-32x32", "notification-24x24"]
+    },
+    {
+      "query": "hammer tool",
+      "type": "literal",
+      "relevant_ids": ["hammer-16x16", "hammer-32x32", "tools-32x32", "toolbox-16x16"]
+    },
+    {
+      "query": "calendar schedule",
+      "type": "literal",
+      "relevant_ids": ["calendar-48x48", "clock-32x32", "time-settings-64x64"]
+    }
+  ]
+}
