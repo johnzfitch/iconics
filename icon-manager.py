@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/zack/.local/share/python-global/bin/python
 """
 Iconics Manager - Semantic icon library management system
 Manages the Iconics icon library for use across GitHub projects
@@ -830,6 +830,60 @@ class IconManager:
         return [icon for icon in self.catalog["icons"]
                 if tag_lower in [t.lower() for t in icon.get("tags", [])]]
 
+    def _vector_fallback(self, name: str) -> Optional[Dict]:
+        """Use CLIP vector search to find closest matching icon when exact match fails"""
+        try:
+            import sys
+            sys.path.insert(0, str(ICON_DIR / "src"))
+
+            embeddings_dir = ICON_DIR / "embeddings"
+            subspace_dir = embeddings_dir / "subspace"
+
+            # Check if embeddings exist
+            if not (embeddings_dir / "icon_embeddings.npy").exists():
+                return None
+            if not (subspace_dir / "basis_vectors.npy").exists():
+                return None
+
+            from iconics_retrieval import IconicsRetriever
+
+            # Initialize retriever (lazy load)
+            if not hasattr(self, '_retriever'):
+                self._retriever = IconicsRetriever(
+                    embeddings_path=str(embeddings_dir),
+                    subspace_path=str(subspace_dir)
+                )
+
+            # Get top result using hybrid mode (keyword + CLIP)
+            query_terms = name.lower().split()
+            keyword_results = []
+            seen_ids = set()
+            for term in query_terms:
+                for icon in self.search(term):
+                    if icon['semanticName'] not in seen_ids:
+                        seen_ids.add(icon['semanticName'])
+                        keyword_results.append(icon)
+
+            # If keyword search finds results, use the top one
+            if keyword_results:
+                return keyword_results[0]
+
+            # Fall back to CLIP search
+            results = self._retriever.retrieve(name, k=1, mode="projected")
+            if results:
+                # Find the icon in our catalog by the result icon_id
+                icon_id = results[0].icon_id
+                for icon in self.catalog["icons"]:
+                    if icon.get("semanticName") == icon_id:
+                        return icon
+
+            return None
+
+        except ImportError:
+            return None
+        except Exception:
+            return None
+
     def find_icons_by_semantic(self, name: str) -> List[Dict]:
         """Find icons by semantic name with ranked matching"""
         name_lower = name.lower()
@@ -1084,8 +1138,14 @@ class IconManager:
             # Find icon by semantic name
             icons = self.find_icons_by_semantic(name)
             if not icons:
-                print(f"✗ Icon '{name}' not found in catalog")
-                continue
+                # Try vector search fallback
+                vector_result = self._vector_fallback(name)
+                if vector_result:
+                    icons = [vector_result]
+                    print(f"↳ '{name}' not found exactly, using vector match: {vector_result['semanticName']}")
+                else:
+                    print(f"✗ Icon '{name}' not found in catalog")
+                    continue
 
             icon = icons[0]  # Take first match
             source = ICON_DIR / icon["filename"]
@@ -2211,6 +2271,10 @@ def main():
     query_parser.add_argument("--k", type=int, default=10, help="Number of results (default: 10)")
     query_parser.add_argument("--mode", choices=["raw", "projected", "weighted"], default="projected",
                               help="Retrieval mode: raw (CLIP space), projected (subspace), weighted (PC-weighted)")
+    query_parser.add_argument("--hybrid", action="store_true", default=True,
+                              help="Blend keyword and CLIP scores (default: enabled)")
+    query_parser.add_argument("--no-hybrid", action="store_true",
+                              help="Disable hybrid mode, use pure CLIP")
     query_parser.add_argument("--output", choices=["table", "json"], default="table", help="Output format (default: table)")
 
     # Traverse command - Traverse semantic axis
@@ -2510,7 +2574,7 @@ def main():
             sys.exit(1)
 
     elif args.command == "query":
-        # Semantic icon query using CLIP
+        # Semantic icon query using CLIP (with optional hybrid keyword blending)
         import sys
         sys.path.insert(0, str(ICON_DIR / "src"))
 
@@ -2533,30 +2597,128 @@ def main():
                 subspace_path=str(subspace_dir)
             )
 
-            results = retriever.retrieve(args.text, k=args.k, mode=args.mode)
-            residual = results[0].residual_score if results else 0.0
+            # Build mapping from embeddings IDs to catalog IDs (normalized)
+            # Embeddings use raw filenames, catalog uses standardized lowercase-dash names
+            def normalize_to_catalog(emb_id):
+                """Convert embeddings ID to catalog-style ID"""
+                # Normalize: lowercase, replace _ with -
+                normalized = emb_id.lower().replace('_', '-')
+                # Check if exists in catalog
+                for icon in manager.catalog['icons']:
+                    if icon['semanticName'] == normalized:
+                        return normalized
+                    # Also try matching without size suffix for icons like Close_32x32 -> close-32x32
+                    if icon['semanticName'] == normalized:
+                        return icon['semanticName']
+                # Return normalized version even if not found
+                return normalized
+
+            # Determine if hybrid mode is enabled
+            use_hybrid = args.hybrid and not args.no_hybrid
+
+            # Get CLIP results (fetch more if using hybrid for blending)
+            clip_k = args.k * 3 if use_hybrid else args.k
+            clip_results = retriever.retrieve(args.text, k=clip_k, mode=args.mode)
+            residual = clip_results[0].residual_score if clip_results else 0.0
+
+            if use_hybrid:
+                # Hybrid mode: blend keyword and CLIP scores
+                # 1. Get keyword matches using existing search (split query into terms)
+                query_terms = args.text.lower().split()
+                keyword_results = []
+                seen_ids = set()
+                for term in query_terms:
+                    for icon in manager.search(term):
+                        if icon['semanticName'] not in seen_ids:
+                            seen_ids.add(icon['semanticName'])
+                            keyword_results.append(icon)
+
+                # Normalize keyword IDs for matching (lowercase, replace _ with -)
+                def normalize_id(icon_id):
+                    return icon_id.lower().replace('_', '-')
+
+                keyword_ids_normalized = {normalize_id(icon['semanticName']) for icon in keyword_results}
+
+                # Also check if any query term appears in the icon ID directly
+                def id_contains_query_term(icon_id, terms):
+                    norm_id = normalize_id(icon_id)
+                    return any(term in norm_id for term in terms)
+
+                # 2. Score blending: boost CLIP results that also match keywords
+                # keyword_boost = 0.20 means 20% score boost for keyword matches
+                keyword_boost = 0.20
+                term_boost = 0.10  # Additional boost if query term in icon ID
+                scored_results = []
+
+                for r in clip_results:
+                    # Check if icon matches keywords (normalized matching)
+                    norm_id = normalize_id(r.icon_id)
+                    has_keyword_match = norm_id in keyword_ids_normalized
+                    has_term_in_id = id_contains_query_term(r.icon_id, query_terms)
+
+                    # Apply boosts
+                    boost = 0
+                    if has_keyword_match:
+                        boost += keyword_boost
+                    if has_term_in_id:
+                        boost += term_boost
+
+                    final_score = r.score * (1 + boost)
+                    scored_results.append((r, final_score, has_keyword_match or has_term_in_id))
+
+                # 3. Add keyword-only matches not in CLIP results (with lower base score)
+                clip_ids = {r.icon_id for r in clip_results}
+                for icon in keyword_results[:20]:  # Top 20 keyword matches
+                    if icon['semanticName'] not in clip_ids:
+                        # Create a result with estimated score based on keyword relevance
+                        from iconics_retrieval import RetrievalResult
+                        keyword_score = 0.35  # Base score for keyword-only matches
+                        fake_result = RetrievalResult(
+                            icon_id=icon['semanticName'],
+                            score=keyword_score,
+                            residual_score=residual
+                        )
+                        scored_results.append((fake_result, keyword_score, True))
+
+                # 4. Sort by blended score and take top k
+                scored_results.sort(key=lambda x: x[1], reverse=True)
+                results = [r for r, score, _ in scored_results[:args.k]]
+                # Update scores to reflect blending
+                for i, (orig_result, blended_score, _) in enumerate(scored_results[:args.k]):
+                    results[i] = type(orig_result)(
+                        icon_id=orig_result.icon_id,
+                        score=blended_score,
+                        residual_score=orig_result.residual_score,
+                        coordinates=orig_result.coordinates
+                    )
+            else:
+                # Pure CLIP mode
+                results = clip_results[:args.k]
 
             if args.output == "json":
                 import json as json_mod
                 output = {
                     "query": args.text,
                     "mode": args.mode,
+                    "hybrid": use_hybrid,
                     "residual_score": residual,
                     "results": [
-                        {"rank": i+1, "icon_id": r.icon_id, "score": r.score}
+                        {"rank": i+1, "icon_id": normalize_to_catalog(r.icon_id), "score": r.score}
                         for i, r in enumerate(results)
                     ]
                 }
                 print(json_mod.dumps(output, indent=2))
             else:
+                hybrid_note = " (hybrid)" if use_hybrid else ""
                 print(f"\nQuery: {args.text}")
-                print(f"Mode: {args.mode}")
+                print(f"Mode: {args.mode}{hybrid_note}")
                 print(f"Residual Score: {residual:.4f}")
                 print()
                 print(f"| {'Rank':^4} | {'Icon ID':<30} | {'Score':^8} |")
                 print(f"|{'-'*6}|{'-'*32}|{'-'*10}|")
                 for i, r in enumerate(results):
-                    print(f"| {i+1:^4} | {r.icon_id:<30} | {r.score:>8.4f} |")
+                    normalized_id = normalize_to_catalog(r.icon_id)
+                    print(f"| {i+1:^4} | {normalized_id:<30} | {r.score:>8.4f} |")
 
         except ImportError as e:
             print(f"Error: Missing dependency - {e}")

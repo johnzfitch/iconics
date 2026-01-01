@@ -35,37 +35,7 @@ For query q ∈ V:
 ## File Structure
 
 ```
-iconics/
-├── icon-manager.py          # Extended with new commands
-├── icon-catalog.json        # Existing metadata
-├── raw/                     # Icon PNG files
-├── embeddings/
-│   ├── icon_embeddings.npy
-│   ├── icon_index.json
-│   └── metadata.json
-├── subspace/
-│   ├── singular_values.npy
-│   ├── basis_vectors.npy
-│   ├── component_analysis.json
-│   └── semantic_mapping.json
-├── index/
-│   ├── faiss_flat.index
-│   └── faiss_ivf.index
-├── src/
-│   ├── iconics_embeddings.py
-│   ├── iconics_subspace.py
-│   ├── iconics_retrieval.py
-│   ├── iconics_index.py
-│   ├── iconics_correlation.py
-│   ├── iconics_eval.py
-│   ├── iconics_provision.py     # NEW: Project provisioning
-│   └── iconics_emoji.py         # NEW: Emoji scanning/conversion
-├── eval/
-│   ├── ground_truth.json
-│   ├── test_queries.txt
-│   └── results/
-└── skill/
-    └── SKILL.md                 # NEW: LLM skill file
+r
 ```
 
 ## Dependencies
