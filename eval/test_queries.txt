@@ -1,0 +1,148 @@
+# Iconics Test Queries
+# Format: type: query
+# Total: 115 queries across 5 types
+
+# =============================================================================
+# LITERAL QUERIES (25 queries)
+# Direct icon names and explicit descriptions
+# =============================================================================
+
+literal: folder
+literal: folder icon
+literal: open folder
+literal: closed folder
+literal: lock icon
+literal: padlock
+literal: key icon
+literal: shield protection
+literal: home button
+literal: home page icon
+literal: arrow up
+literal: arrow down
+literal: left arrow
+literal: right arrow
+literal: database icon
+literal: cloud storage
+literal: wifi signal
+literal: network connection
+literal: warning icon
+literal: error symbol
+literal: checkbox
+literal: checkmark
+literal: download button
+literal: upload icon
+literal: settings gear
+
+# =============================================================================
+# CONCEPTUAL QUERIES (25 queries)
+# Abstract concepts that map to visual icons
+# =============================================================================
+
+conceptual: organize information
+conceptual: protect data
+conceptual: secure login
+conceptual: file management
+conceptual: navigation menu
+conceptual: user authentication
+conceptual: system preferences
+conceptual: data persistence
+conceptual: content storage
+conceptual: team collaboration
+conceptual: version history
+conceptual: error handling
+conceptual: notification system
+conceptual: account settings
+conceptual: search functionality
+conceptual: bookmark favorite
+conceptual: cloud computing
+conceptual: network infrastructure
+conceptual: database records
+conceptual: document management
+conceptual: user experience
+conceptual: interface design
+conceptual: system status
+conceptual: access control
+conceptual: configuration options
+
+# =============================================================================
+# EMOTIONAL QUERIES (20 queries)
+# Affective descriptions that imply emotional states
+# =============================================================================
+
+emotional: happy confirmation
+emotional: sad error state
+emotional: friendly welcome
+emotional: urgent warning
+emotional: calm information
+emotional: positive feedback
+emotional: negative outcome
+emotional: celebratory success
+emotional: anxious loading
+emotional: trustworthy security
+emotional: dangerous action
+emotional: welcoming interface
+emotional: frustrating error
+emotional: reassuring message
+emotional: exciting notification
+emotional: peaceful settings
+emotional: alarming alert
+emotional: joyful completion
+emotional: worried status
+emotional: confident approval
+
+# =============================================================================
+# COMPOSITIONAL QUERIES (25 queries)
+# Combined concepts requiring multiple semantic elements
+# =============================================================================
+
+compositional: warning about deletion
+compositional: secure file sharing
+compositional: cloud storage download
+compositional: user authentication login
+compositional: network error warning
+compositional: database backup storage
+compositional: home navigation arrow
+compositional: email notification alert
+compositional: settings configuration tools
+compositional: search folder find
+compositional: lock security protection
+compositional: upload cloud storage
+compositional: download file save
+compositional: user profile settings
+compositional: calendar time schedule
+compositional: bookmark favorite save
+compositional: notification bell alert
+compositional: help information question
+compositional: close window exit
+compositional: open file document
+compositional: new folder create
+compositional: delete remove trash
+compositional: copy duplicate clone
+compositional: edit modify change
+compositional: refresh reload sync
+
+# =============================================================================
+# NEGATION QUERIES (20 queries)
+# Contrastive queries with exclusions
+# =============================================================================
+
+negation: security but not lock
+negation: navigation not home
+negation: storage without cloud
+negation: communication not email
+negation: tools except hammer
+negation: status not warning
+negation: authentication without password
+negation: visualization not chart
+negation: interface not button
+negation: time without clock
+negation: folder but not documents
+negation: network excluding wifi
+negation: user but not profile
+negation: settings without gear
+negation: notification not bell
+negation: file but not folder
+negation: arrow excluding up
+negation: icon but not emoji
+negation: security excluding shield
+negation: download not cloud

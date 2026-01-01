@@ -1,0 +1,85 @@
+# Iconics CLIP Vector Subspace Configuration
+
+orchestration:
+  max_phase_retries: 3
+  timeout_per_phase_minutes: 30
+  parallel_validation: true
+  checkpoint_after_phase: true
+  log_level: INFO
+
+agents:
+  model: "claude-opus-4-20250514"
+  temperature: 0.3
+  max_tokens: 16000
+  timeout_seconds: 300
+
+embedding:
+  clip_model: "ViT-B-32"
+  pretrained: "laion2b_s34b_b79k"
+  batch_size: 64
+  device: "cuda"
+  normalize: true
+  dtype: "float32"
+
+subspace:
+  max_components: 100
+  variance_threshold: 0.95
+  correlation_pvalue: 0.01
+  min_correlations: 3
+
+retrieval:
+  index_type: "flat"
+  latency_target_ms: 50
+  default_k: 10
+  include_residual: true
+
+evaluation:
+  min_ground_truth: 50
+  query_types:
+    - literal
+    - conceptual
+    - emotional
+    - compositional
+    - negation
+  metrics:
+    - precision_at_k
+    - recall_at_k
+    - mrr
+    - ndcg
+  k_values: [1, 5, 10, 20]
+
+llm_integration:
+  skill_output_path: "skill/SKILL.md"
+  provisioning:
+    default_dest: "./assets/icons/"
+    manifest_filename: "manifest.json"
+    copy_mode: "copy"
+  emoji:
+    extensions: ["md", "mdx", "tsx", "jsx", "html", "vue"]
+    recursive: true
+    min_confidence: 0.7
+  imports:
+    formats: ["react", "vue", "css", "typescript"]
+  axes:
+    - name: "valence"
+      negative_pole: "danger, error, warning"
+      positive_pole: "success, safe, approved"
+    - name: "abstraction"
+      negative_pole: "literal, concrete, specific"
+      positive_pole: "metaphorical, conceptual, general"
+    - name: "energy"
+      negative_pole: "static, passive, complete"
+      positive_pole: "active, dynamic, in-progress"
+    - name: "complexity"
+      negative_pole: "simple, minimal, clean"
+      positive_pole: "detailed, rich, complex"
+
+paths:
+  workspace: "/home/zack/dev/iconics"
+  raw_icons: "raw"
+  catalog: "icon-catalog.json"
+  embeddings_dir: "embeddings"
+  subspace_dir: "subspace"
+  index_dir: "index"
+  eval_dir: "eval"
+  skill_dir: "skill"

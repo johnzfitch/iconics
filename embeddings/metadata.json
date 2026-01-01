@@ -1,0 +1,9 @@
+{
+  "timestamp": "2026-01-01T02:51:33.667201Z",
+  "count": 7875,
+  "dimension": 512,
+  "dtype": "float32",
+  "model": "ViT-B-32",
+  "pretrained": "laion2b_s34b_b79k",
+  "source_dir": "/home/zack/dev/iconics/raw"
+}
