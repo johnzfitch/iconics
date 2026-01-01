@@ -11,9 +11,11 @@ import os
 import shutil
 import argparse
 import csv
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
+from PIL import Image
 
 ICON_DIR = Path("/home/zack/dev/iconics")
 CATALOG_FILE = ICON_DIR / "icon-catalog.json"
@@ -22,9 +24,781 @@ CATALOG_DIR = ICON_DIR / "catalog"
 HISTORY_FILE = ICON_DIR / ".icon-history.json"
 ANALYTICS_FILE = ICON_DIR / ".icon-analytics.json"
 
+class SemanticMatcher:
+    """Advanced semantic matching with weighted scores and synonyms"""
+
+    # Concept groups: related terms that should boost relevance
+    CONCEPT_SYNONYMS = {
+        # Security concepts
+        'security': ['secure', 'protection', 'safety', 'guard', 'defend', 'safe'],
+        'lock': ['padlock', 'locked', 'secure', 'closed', 'restrict'],
+        'key': ['unlock', 'access', 'credential', 'password', 'auth'],
+        'shield': ['protection', 'guard', 'defend', 'armor', 'secure'],
+        'certificate': ['cert', 'ssl', 'tls', 'credential', 'verified', 'trust'],
+        'authentication': ['auth', 'login', 'signin', 'credential', 'identity', 'user'],
+        'password': ['credential', 'secret', 'auth', 'login', 'key'],
+
+        # Network concepts
+        'network': ['connection', 'internet', 'lan', 'wan', 'connectivity', 'web'],
+        'cloud': ['server', 'hosting', 'storage', 'online', 'saas', 'remote'],
+        'api': ['endpoint', 'rest', 'service', 'interface', 'integration'],
+        'server': ['host', 'backend', 'service', 'machine', 'computer'],
+        'wifi': ['wireless', 'network', 'connection', 'signal'],
+        'globe': ['world', 'global', 'international', 'internet', 'web'],
+
+        # Data concepts
+        'database': ['db', 'data', 'storage', 'sql', 'records', 'table'],
+        'storage': ['save', 'store', 'disk', 'drive', 'memory', 'persist'],
+        'file': ['document', 'doc', 'data', 'content'],
+        'folder': ['directory', 'dir', 'organize', 'container', 'files'],
+        'document': ['doc', 'file', 'text', 'paper', 'page'],
+
+        # UI concepts
+        'warning': ['alert', 'caution', 'danger', 'error', 'attention', 'exclamation'],
+        'error': ['fail', 'problem', 'issue', 'bug', 'warning', 'critical'],
+        'success': ['done', 'complete', 'check', 'ok', 'approved', 'passed'],
+        'info': ['information', 'help', 'about', 'details', 'notice'],
+        'settings': ['config', 'configuration', 'options', 'preferences', 'setup'],
+        'navigation': ['nav', 'menu', 'browse', 'explore', 'move'],
+
+        # Actions
+        'search': ['find', 'lookup', 'query', 'discover', 'magnify'],
+        'edit': ['modify', 'change', 'update', 'write', 'pencil'],
+        'delete': ['remove', 'trash', 'erase', 'clear', 'destroy'],
+        'add': ['create', 'new', 'plus', 'insert', 'append'],
+        'save': ['store', 'persist', 'keep', 'disk', 'write'],
+        'download': ['get', 'fetch', 'receive', 'pull'],
+        'upload': ['send', 'push', 'publish', 'share'],
+
+        # Development
+        'code': ['programming', 'dev', 'script', 'source', 'coding'],
+        'terminal': ['console', 'shell', 'cli', 'command', 'prompt'],
+        'bug': ['error', 'issue', 'debug', 'problem', 'defect'],
+        'git': ['version', 'repo', 'branch', 'commit', 'vcs'],
+
+        # Communication
+        'email': ['mail', 'message', 'inbox', 'envelope', 'letter'],
+        'chat': ['message', 'talk', 'conversation', 'im', 'communication'],
+        'notification': ['alert', 'notice', 'bell', 'reminder'],
+
+        # Media
+        'image': ['picture', 'photo', 'graphic', 'visual', 'img'],
+        'video': ['movie', 'film', 'media', 'play', 'recording'],
+        'audio': ['sound', 'music', 'speaker', 'volume'],
+
+        # Users
+        'user': ['person', 'account', 'profile', 'member', 'people'],
+        'admin': ['administrator', 'root', 'superuser', 'management'],
+
+        # Office/Business (NEW)
+        'office': ['business', 'work', 'corporate', 'professional', 'workplace', 'enterprise'],
+        'business': ['office', 'corporate', 'enterprise', 'commercial', 'company'],
+        'document': ['doc', 'file', 'paper', 'report', 'spreadsheet', 'presentation'],
+        'spreadsheet': ['excel', 'sheet', 'table', 'data', 'grid', 'csv'],
+        'presentation': ['slides', 'powerpoint', 'deck', 'slideshow'],
+
+        # Media/Multimedia (NEW)
+        'media': ['video', 'audio', 'multimedia', 'player', 'streaming', 'entertainment'],
+        'player': ['media', 'play', 'video', 'audio', 'stream'],
+        'camera': ['photo', 'capture', 'image', 'picture', 'snapshot', 'record'],
+
+        # Hardware/Devices (NEW)
+        'hardware': ['device', 'computer', 'machine', 'peripheral', 'equipment', 'component'],
+        'device': ['hardware', 'gadget', 'machine', 'peripheral', 'equipment'],
+        'computer': ['pc', 'desktop', 'laptop', 'machine', 'workstation', 'server'],
+        'phone': ['mobile', 'cell', 'smartphone', 'telephone', 'call'],
+
+        # Internet/Web (NEW)
+        'internet': ['web', 'online', 'browser', 'www', 'http', 'website'],
+        'browser': ['web', 'internet', 'chrome', 'firefox', 'safari', 'edge'],
+        'website': ['web', 'page', 'site', 'online', 'portal'],
+
+        # Applications/Software (NEW)
+        'application': ['app', 'software', 'program', 'tool', 'utility', 'executable'],
+        'software': ['app', 'application', 'program', 'tool'],
+        'plugin': ['extension', 'addon', 'module', 'component'],
+
+        # People/Social (NEW)
+        'people': ['users', 'persons', 'humans', 'team', 'group', 'members'],
+        'team': ['group', 'people', 'members', 'organization', 'staff'],
+        'social': ['community', 'network', 'sharing', 'friends', 'followers'],
+
+        # Status/States (NEW)
+        'status': ['state', 'condition', 'indicator', 'signal'],
+        'active': ['online', 'running', 'live', 'enabled', 'on'],
+        'inactive': ['offline', 'stopped', 'disabled', 'off', 'paused'],
+        'pending': ['waiting', 'queued', 'processing', 'loading'],
+
+        # Actions/Operations (NEW)
+        'run': ['execute', 'start', 'launch', 'play', 'begin'],
+        'stop': ['halt', 'end', 'terminate', 'pause', 'quit'],
+        'sync': ['synchronize', 'refresh', 'update', 'mirror'],
+        'export': ['output', 'save', 'download', 'extract'],
+        'import': ['input', 'load', 'upload', 'ingest'],
+
+        # Commerce/Finance (NEW)
+        'payment': ['pay', 'money', 'transaction', 'purchase', 'checkout'],
+        'money': ['cash', 'currency', 'payment', 'finance', 'dollar'],
+        'cart': ['shopping', 'basket', 'checkout', 'purchase', 'buy'],
+        'credit': ['card', 'payment', 'finance', 'bank'],
+
+        # Time/Calendar (NEW)
+        'time': ['clock', 'timer', 'schedule', 'duration', 'period'],
+        'calendar': ['schedule', 'date', 'event', 'appointment', 'planner'],
+        'clock': ['time', 'timer', 'watch', 'hour', 'minute'],
+
+        # Themes/Appearance (NEW)
+        'dark': ['night', 'black', 'theme', 'mode'],
+        'light': ['day', 'white', 'bright', 'theme', 'mode'],
+        'theme': ['style', 'appearance', 'skin', 'mode'],
+
+        # Containers/Organization (NEW)
+        'container': ['box', 'package', 'wrapper', 'holder'],
+        'archive': ['zip', 'compress', 'backup', 'bundle', 'package'],
+        'package': ['bundle', 'archive', 'module', 'library'],
+    }
+
+    # Context mappings: what concepts to prioritize for given contexts
+    CONTEXT_WEIGHTS = {
+        'authentication': {
+            'lock': 0.95, 'key': 0.90, 'shield': 0.85, 'certificate': 0.80,
+            'login': 0.95, 'user': 0.75, 'password': 0.88, 'credential': 0.85,
+            'secure': 0.70, 'protection': 0.65, 'identity': 0.82
+        },
+        'security': {
+            'shield': 0.95, 'lock': 0.92, 'key': 0.88, 'protection': 0.90,
+            'certificate': 0.82, 'secure': 0.85, 'guard': 0.78, 'keychain': 0.75,
+            'firewall': 0.80, 'encrypted': 0.85
+        },
+        'network': {
+            'network': 0.95, 'cloud': 0.88, 'globe': 0.85, 'wifi': 0.82,
+            'server': 0.80, 'connection': 0.90, 'internet': 0.88, 'web': 0.75,
+            'router': 0.78, 'ethernet': 0.72
+        },
+        'api': {
+            'network': 0.88, 'cloud': 0.85, 'server': 0.90, 'database': 0.82,
+            'endpoint': 0.92, 'integration': 0.80, 'connection': 0.78
+        },
+        'data': {
+            'database': 0.95, 'folder': 0.85, 'storage': 0.90, 'cloud': 0.80,
+            'file': 0.82, 'document': 0.78, 'save': 0.75, 'disk': 0.72
+        },
+        'database': {
+            'database': 0.98, 'storage': 0.85, 'server': 0.80, 'data': 0.88,
+            'table': 0.82, 'sql': 0.78, 'records': 0.75
+        },
+        'error': {
+            'warning': 0.92, 'error': 0.98, 'alert': 0.88, 'danger': 0.85,
+            'bug': 0.80, 'problem': 0.82, 'critical': 0.78, 'fail': 0.85
+        },
+        'warning': {
+            'warning': 0.98, 'alert': 0.92, 'caution': 0.88, 'danger': 0.85,
+            'exclamation': 0.82, 'attention': 0.80, 'notice': 0.75
+        },
+        'success': {
+            'checkbox': 0.92, 'checkmark': 0.95, 'success': 0.98, 'done': 0.90,
+            'complete': 0.88, 'approved': 0.85, 'ok': 0.82, 'good': 0.75
+        },
+        'info': {
+            'info': 0.98, 'help': 0.90, 'question': 0.85, 'about': 0.82,
+            'details': 0.78, 'information': 0.95, 'notice': 0.72
+        },
+        'settings': {
+            'settings': 0.98, 'options': 0.92, 'gear': 0.88, 'toolbox': 0.85,
+            'config': 0.95, 'preferences': 0.82, 'setup': 0.78, 'control': 0.75
+        },
+        'navigation': {
+            'home': 0.90, 'menu': 0.92, 'arrow': 0.88, 'close': 0.75,
+            'navigation': 0.98, 'browse': 0.82, 'back': 0.85, 'forward': 0.85
+        },
+        'files': {
+            'folder': 0.95, 'document': 0.92, 'file': 0.98, 'pdf': 0.85,
+            'documents': 0.90, 'archive': 0.78, 'text': 0.75
+        },
+        'development': {
+            'console': 0.92, 'terminal': 0.90, 'code': 0.95, 'script': 0.88,
+            'database': 0.85, 'git': 0.82, 'bug': 0.78, 'api': 0.80
+        },
+        'search': {
+            'search': 0.98, 'find': 0.95, 'magnifying': 0.85, 'lookup': 0.90,
+            'query': 0.82, 'discover': 0.78
+        },
+        'user': {
+            'user': 0.98, 'profile': 0.92, 'account': 0.90, 'person': 0.88,
+            'login': 0.82, 'logout': 0.80, 'avatar': 0.78
+        },
+        'email': {
+            'email': 0.98, 'mail': 0.95, 'envelope': 0.90, 'message': 0.85,
+            'inbox': 0.88, 'letter': 0.82, 'send': 0.75
+        },
+        # NEW CONTEXT WEIGHTS
+        'office': {
+            'document': 0.95, 'spreadsheet': 0.92, 'presentation': 0.90, 'folder': 0.88,
+            'file': 0.85, 'business': 0.82, 'office': 0.98, 'work': 0.75
+        },
+        'media': {
+            'video': 0.95, 'audio': 0.92, 'player': 0.90, 'media': 0.98,
+            'camera': 0.88, 'photo': 0.85, 'music': 0.82, 'stream': 0.78
+        },
+        'hardware': {
+            'computer': 0.95, 'device': 0.92, 'hardware': 0.98, 'peripheral': 0.88,
+            'disk': 0.85, 'drive': 0.82, 'monitor': 0.80, 'keyboard': 0.78
+        },
+        'commerce': {
+            'cart': 0.95, 'payment': 0.92, 'money': 0.90, 'credit': 0.88,
+            'shop': 0.85, 'purchase': 0.82, 'checkout': 0.90, 'transaction': 0.85
+        },
+        'calendar': {
+            'calendar': 0.98, 'schedule': 0.92, 'date': 0.88, 'event': 0.85,
+            'time': 0.80, 'clock': 0.78, 'appointment': 0.82
+        },
+        'social': {
+            'people': 0.92, 'team': 0.90, 'social': 0.98, 'user': 0.85,
+            'group': 0.88, 'community': 0.82, 'share': 0.78
+        },
+        'status': {
+            'success': 0.92, 'error': 0.92, 'warning': 0.90, 'info': 0.88,
+            'status': 0.98, 'active': 0.85, 'pending': 0.82, 'indicator': 0.80
+        },
+        'theme': {
+            'dark': 0.92, 'light': 0.92, 'theme': 0.98, 'style': 0.85,
+            'appearance': 0.82, 'color': 0.78, 'mode': 0.88
+        },
+    }
+
+    # Aliases for context lookup
+    CONTEXT_ALIASES = {
+        'auth': 'authentication', 'login': 'authentication', 'signin': 'authentication',
+        'secure': 'security', 'protection': 'security',
+        'connection': 'network', 'internet': 'network', 'web': 'network', 'server': 'network',
+        'storage': 'data', 'db': 'database',
+        'alert': 'warning', 'caution': 'warning', 'danger': 'error',
+        'complete': 'success', 'done': 'success', 'check': 'success',
+        'help': 'info', 'information': 'info', 'about': 'info',
+        'config': 'settings', 'options': 'settings', 'preferences': 'settings',
+        'nav': 'navigation', 'menu': 'navigation', 'ui': 'navigation',
+        'documents': 'files', 'docs': 'files', 'folder': 'files',
+        'code': 'development', 'programming': 'development', 'coding': 'development',
+        'find': 'search', 'lookup': 'search',
+        'account': 'user', 'profile': 'user', 'person': 'user',
+        'mail': 'email', 'message': 'email',
+        # NEW ALIASES
+        'business': 'office', 'work': 'office', 'corporate': 'office', 'professional': 'office',
+        'video': 'media', 'audio': 'media', 'multimedia': 'media', 'streaming': 'media',
+        'device': 'hardware', 'computer': 'hardware', 'peripheral': 'hardware', 'equipment': 'hardware',
+        'payment': 'commerce', 'money': 'commerce', 'shop': 'commerce', 'shopping': 'commerce', 'checkout': 'commerce',
+        'schedule': 'calendar', 'date': 'calendar', 'event': 'calendar', 'appointment': 'calendar',
+        'team': 'social', 'group': 'social', 'people': 'social', 'community': 'social',
+        'state': 'status', 'indicator': 'status', 'condition': 'status',
+        'dark': 'theme', 'light': 'theme', 'mode': 'theme', 'appearance': 'theme', 'style': 'theme',
+    }
+
+    # Negative terms: concepts that should NOT match for a given context
+    CONTEXT_NEGATIVE = {
+        'security': {'clock', 'time', 'alarm', 'hour', 'minute', 'color', 'transparency'},
+        'authentication': {'clock', 'time', 'alarm', 'hour', 'minute', 'flow', 'flip'},
+        'network': {'time', 'clock', 'alarm'},
+        'data': {'time', 'clock', 'alarm'},
+        'files': {'time', 'clock', 'alarm'},
+        'development': {'time', 'clock', 'alarm'},
+    }
+
+    @classmethod
+    def get_synonyms(cls, term: str) -> set:
+        """Get all synonyms for a term"""
+        term_lower = term.lower()
+        synonyms = {term_lower}
+
+        # Direct synonyms
+        if term_lower in cls.CONCEPT_SYNONYMS:
+            synonyms.update(cls.CONCEPT_SYNONYMS[term_lower])
+
+        # Reverse lookup: find terms that have this as a synonym
+        for key, values in cls.CONCEPT_SYNONYMS.items():
+            if term_lower in values:
+                synonyms.add(key)
+                synonyms.update(values)
+
+        return synonyms
+
+    @classmethod
+    def resolve_context(cls, context: str) -> str:
+        """Resolve context aliases to canonical form"""
+        context_lower = context.lower()
+        return cls.CONTEXT_ALIASES.get(context_lower, context_lower)
+
+    @classmethod
+    def calculate_match_score(cls, icon: dict, query: str, context: str = None) -> float:
+        """
+        Calculate match score (0.0 - 1.0) for an icon against a query/context
+
+        Scoring factors:
+        - Direct tag match: base score
+        - Semantic name match: high score
+        - Synonym matches: partial score
+        - Context relevance: weighted boost
+        """
+        import re
+
+        score = 0.0
+        query_lower = query.lower()
+        query_synonyms = cls.get_synonyms(query)
+
+        semantic_name = icon.get('semanticName', '').lower()
+        tags = [t.lower() for t in icon.get('tags', [])]
+        description = icon.get('description', '').lower()
+
+        # Helper: check for word boundary match (avoid "clock" matching "lock")
+        def word_match(needle: str, haystack: str) -> bool:
+            """Check if needle matches as a whole word in haystack"""
+            # Match at word boundaries
+            pattern = r'\b' + re.escape(needle) + r'\b'
+            return bool(re.search(pattern, haystack))
+
+        def word_in_compound(needle: str, haystack: str) -> bool:
+            """Check if needle is a meaningful component of haystack (e.g., 'lock' in 'unlock')"""
+            # Known meaningful prefixes/suffixes for compound words
+            valid_prefixes = {'un', 'open', 're', 'pre', 'anti', 'non', 'auto', 'over', 'under'}
+            valid_suffixes = {'ing', 'ed', 's', 'er', 'es'}
+
+            if haystack == needle:
+                return True
+
+            # Check if it's a prefix+needle pattern (e.g., "unlock" = "un" + "lock")
+            if haystack.endswith(needle):
+                prefix = haystack[:-len(needle)]
+                if prefix in valid_prefixes:
+                    return True
+
+            # Check if it's needle+suffix pattern
+            if haystack.startswith(needle):
+                suffix = haystack[len(needle):]
+                if suffix in valid_suffixes or suffix.startswith('-'):
+                    return True
+
+            # Check for hyphenated compounds
+            if f'-{needle}' in haystack or f'{needle}-' in haystack:
+                return True
+
+            return False
+
+        # Exact semantic name match = highest score
+        if query_lower == semantic_name:
+            score = 0.98
+        elif word_match(query_lower, semantic_name):
+            score = max(score, 0.85)
+        elif word_in_compound(query_lower, semantic_name):
+            score = max(score, 0.75)
+
+        # Tag matching - require exact or word boundary matches
+        for tag in tags:
+            if query_lower == tag:
+                score = max(score, 0.90)
+            elif word_match(query_lower, tag) or word_match(tag, query_lower):
+                score = max(score, 0.70)
+            elif tag in query_synonyms:
+                score = max(score, 0.65)
+
+        # Synonym matching in semantic name - require word boundary
+        for syn in query_synonyms:
+            if word_match(syn, semantic_name) or word_in_compound(syn, semantic_name):
+                score = max(score, 0.72)
+            if word_match(syn, description):
+                score = max(score, 0.48)
+
+        # Context-based scoring - use word boundary matching
+        if context:
+            resolved_context = cls.resolve_context(context)
+            if resolved_context in cls.CONTEXT_WEIGHTS:
+                context_weights = cls.CONTEXT_WEIGHTS[resolved_context]
+
+                # Check semantic name against context weights
+                for weighted_term, weight in context_weights.items():
+                    if word_match(weighted_term, semantic_name) or word_in_compound(weighted_term, semantic_name):
+                        score = max(score, weight)
+                    for tag in tags:
+                        if weighted_term == tag:
+                            score = max(score, weight * 0.95)
+                        elif word_match(weighted_term, tag):
+                            score = max(score, weight * 0.90)
+
+        # Penalize size-only tags and generic icons
+        size_tags = {'16x16', '24x24', '32x32', '48x48', '128x128', '12x12', '256x256'}
+        non_size_tags = [t for t in tags if t not in size_tags and t not in {'icon', 'generic', 'ui-element', 'numbered'}]
+        if len(non_size_tags) == 0 and score > 0:
+            score *= 0.5  # Penalize icons with only generic tags
+
+        # Apply negative term filtering for context
+        if context and score > 0:
+            resolved_context = cls.resolve_context(context)
+            negative_terms = cls.CONTEXT_NEGATIVE.get(resolved_context, set())
+            for neg_term in negative_terms:
+                if neg_term in semantic_name or any(neg_term in t for t in tags):
+                    score *= 0.1  # Heavy penalty for negative matches
+                    break
+
+        return min(score, 1.0)
+
+    @classmethod
+    def rank_icons(cls, icons: list, query: str, context: str = None, min_score: float = 0.3) -> list:
+        """
+        Rank icons by relevance score
+
+        Returns: List of (icon, score) tuples sorted by score descending
+        """
+        scored = []
+        for icon in icons:
+            score = cls.calculate_match_score(icon, query, context)
+            if score >= min_score:
+                scored.append((icon, score))
+
+        return sorted(scored, key=lambda x: -x[1])
+
+
+class EmojiMapper:
+    """Maps common emojis to semantic icon names for README migration"""
+
+    # Emoji to icon semantic name mappings
+    EMOJI_TO_ICON = {
+        # Folders/Files
+        '📁': 'folder',
+        '📂': 'folder-open',
+        '📄': 'document',
+        '📃': 'document',
+        '📋': 'clipboard',
+        '📝': 'edit',
+        '📖': 'book',
+        '📚': 'books',
+
+        # Security
+        '🔒': 'lock',
+        '🔓': 'unlock',
+        '🔐': 'lock',
+        '🔑': 'key',
+        '🛡️': 'shield',
+        '🛡': 'shield',
+
+        # Status/Indicators
+        '✅': 'checkbox',
+        '✓': 'checkmark',
+        '❌': 'error',
+        '❎': 'cancel',
+        '⚠️': 'warning',
+        '⚠': 'warning',
+        '⛔': 'stop',
+        '🚫': 'prohibited',
+        '❓': 'question',
+        '❔': 'question',
+        'ℹ️': 'info',
+        'ℹ': 'info',
+
+        # Severity/Priority
+        '🔴': 'status-red',
+        '🟠': 'status-orange',
+        '🟡': 'status-yellow',
+        '🟢': 'status-green',
+        '🔵': 'status-blue',
+
+        # Actions
+        '🚀': 'rocket',
+        '⬆️': 'arrow-up',
+        '⬇️': 'arrow-down',
+        '➡️': 'arrow-right',
+        '⬅️': 'arrow-left',
+        '🔄': 'refresh',
+        '🔃': 'sync',
+        '💾': 'save',
+        '📥': 'download',
+        '📤': 'upload',
+        '🔍': 'search',
+        '🔎': 'search',
+
+        # Tools/Settings
+        '🔧': 'toolbox',
+        '🛠️': 'tools',
+        '🛠': 'tools',
+        '⚙️': 'settings',
+        '⚙': 'settings',
+        '🔩': 'component',
+
+        # Network/Web
+        '🌐': 'globe',
+        '🌍': 'globe',
+        '🌎': 'globe',
+        '🌏': 'globe',
+        '☁️': 'cloud',
+        '☁': 'cloud',
+        '📡': 'network-signal',
+        '🔗': 'link',
+
+        # Communication
+        '📧': 'email',
+        '✉️': 'envelope',
+        '💬': 'chat',
+        '💭': 'thought',
+        '📢': 'announcement',
+        '🔔': 'notification',
+        '📞': 'phone',
+
+        # Data/Analytics
+        '📊': 'chart',
+        '📈': 'chart-up',
+        '📉': 'chart-down',
+        '🗃️': 'database',
+        '🗄️': 'archive',
+
+        # Media
+        '🖼️': 'image',
+        '📷': 'camera',
+        '📸': 'camera',
+        '🎬': 'video',
+        '🎥': 'video-camera',
+        '🎵': 'audio',
+        '🎶': 'music',
+
+        # Time
+        '⏰': 'clock',
+        '🕐': 'clock',
+        '📅': 'calendar',
+        '⏱️': 'timer',
+
+        # People/Users
+        '👤': 'user',
+        '👥': 'users',
+        '👋': 'wave',
+        '🙋': 'help',
+
+        # Misc
+        '⚖️': 'balance',
+        '💡': 'idea',
+        '🎯': 'target',
+        '🏷️': 'tag',
+        '⭐': 'star',
+        '🌟': 'star',
+        '❤️': 'heart',
+        '💥': 'explosion',
+        '🔥': 'fire',
+        '✨': 'sparkle',
+        '💎': 'diamond',
+        '🎉': 'celebration',
+        '🎊': 'confetti',
+    }
+
+    # Reverse mapping for suggesting emojis to replace
+    ICON_TO_EMOJI = {v: k for k, v in EMOJI_TO_ICON.items()}
+
+    @classmethod
+    def find_emojis_in_text(cls, text: str) -> list:
+        """Find all recognized emojis in text and suggest replacements"""
+        import re
+        found = []
+
+        for emoji, icon_name in cls.EMOJI_TO_ICON.items():
+            if emoji in text:
+                # Find all occurrences with context
+                for match in re.finditer(re.escape(emoji), text):
+                    # Get surrounding context
+                    start = max(0, match.start() - 30)
+                    end = min(len(text), match.end() + 30)
+                    context = text[start:end].replace('\n', ' ')
+
+                    found.append({
+                        'emoji': emoji,
+                        'icon': icon_name,
+                        'position': match.start(),
+                        'context': f"...{context}..."
+                    })
+
+        return sorted(found, key=lambda x: x['position'])
+
+    @classmethod
+    def generate_replacement_markdown(cls, icon_name: str, project_path: str = None) -> str:
+        """Generate markdown replacement for an emoji"""
+        if project_path:
+            return f"![{icon_name}](.github/assets/icons/{icon_name}.png)"
+        return f"![{icon_name}](icons/{icon_name}.png)"
+
+    @classmethod
+    def scan_readme(cls, readme_path: str) -> dict:
+        """Scan a README file for emoji replacements"""
+        from pathlib import Path
+
+        path = Path(readme_path)
+        if not path.exists():
+            return {'error': f'File not found: {readme_path}'}
+
+        content = path.read_text(errors='ignore')
+        emojis_found = cls.find_emojis_in_text(content)
+
+        # Group by icon name
+        by_icon = {}
+        for item in emojis_found:
+            icon = item['icon']
+            if icon not in by_icon:
+                by_icon[icon] = {'emoji': item['emoji'], 'count': 0, 'contexts': []}
+            by_icon[icon]['count'] += 1
+            if len(by_icon[icon]['contexts']) < 3:
+                by_icon[icon]['contexts'].append(item['context'])
+
+        return {
+            'file': str(path),
+            'total_emojis': len(emojis_found),
+            'unique_icons_needed': len(by_icon),
+            'replacements': by_icon
+        }
+
+
+class GalleryGenerator:
+    """Generates a static HTML gallery for the icon library"""
+
+    HTML_TEMPLATE = """
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iconics Gallery</title>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <style>
+        :root {
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --primary: #0d6efd;
+        }
+        body { font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 2rem; }
+        h1 { text-align: center; }
+        .controls { position: sticky; top: 0; background: var(--bg); padding: 1rem; z-index: 100; display: flex; gap: 1rem; justify-content: center; border-bottom: 1px solid #dee2e6; margin-bottom: 2rem; }
+        input { padding: 0.5rem 1rem; border: 1px solid #ced4da; border-radius: 0.25rem; width: 300px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1.5rem; }
+        .icon-card { background: var(--card-bg); border-radius: 0.5rem; padding: 1rem; text-align: center; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075); transition: transform 0.2s; cursor: pointer; }
+        .icon-card:hover { transform: translateY(-5px); box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15); }
+        .icon-card img { width: 64px; height: 64px; image-rendering: pixelated; margin-bottom: 0.5rem; }
+        .icon-name { font-size: 0.875rem; font-weight: bold; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .icon-meta { font-size: 0.75rem; color: #6c757d; margin-top: 0.25rem; }
+        .category-section { margin-bottom: 3rem; }
+        .category-title { border-bottom: 2px solid var(--primary); padding-bottom: 0.5rem; margin-bottom: 1.5rem; text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        /* HTMX transition styles */
+        .icon-card.htmx-swapping { opacity: 0; transition: opacity 0.2s ease-out; }
+    </style>
+</head>
+<body hx-boost="true">
+    <h1>Iconics Library Gallery</h1>
+    <div class="controls">
+        <input type="text" id="search" name="q" placeholder="Search icons..." 
+               onkeyup="filterIcons()"
+               hx-trigger="keyup changed delay:200ms"
+               hx-target="#gallery"
+               hx-select="#gallery">
+        <select id="categoryFilter" name="category" onchange="filterIcons()"
+                hx-trigger="change"
+                hx-target="#gallery"
+                hx-select="#gallery">
+            <option value="all">All Categories</option>
+            {category_options}
+        </select>
+    </div>
+    <div id="gallery">
+        {content}
+    </div>
+    <script>
+        // Enhanced filtering with smooth transitions
+        function filterIcons() {
+            const query = document.getElementById('search').value.toLowerCase();
+            const category = document.getElementById('categoryFilter').value;
+            const sections = document.querySelectorAll('.category-section');
+            
+            sections.forEach(section => {
+                const sectionCat = section.getAttribute('data-cat');
+                const cards = section.querySelectorAll('.icon-card');
+                let hasVisibleCards = false;
+                
+                const catMatches = category === 'all' || category === sectionCat;
+                
+                if (!catMatches) {
+                    section.style.display = 'none';
+                    return;
+                }
+                
+                cards.forEach(card => {
+                    const name = card.getAttribute('data-name');
+                    const tags = card.getAttribute('data-tags');
+                    const matchesSearch = name.includes(query) || tags.includes(query);
+                    
+                    card.style.display = matchesSearch ? 'block' : 'none';
+                    if (matchesSearch) hasVisibleCards = true;
+                });
+                
+                section.style.display = hasVisibleCards ? 'block' : 'none';
+            });
+        }
+        
+        function copyCommand(name) {
+            const cmd = `icon use ${name}`;
+            navigator.clipboard.writeText(cmd);
+            const feedback = document.createElement('div');
+            feedback.style.position = 'fixed';
+            feedback.style.bottom = '2rem';
+            feedback.style.left = '50%';
+            feedback.style.transform = 'translateX(-50%)';
+            feedback.style.background = '#198754';
+            feedback.style.color = 'white';
+            feedback.style.padding = '0.5rem 1.5rem';
+            feedback.style.borderRadius = '2rem';
+            feedback.style.zIndex = '1000';
+            feedback.textContent = `Copied: ${cmd}`;
+            document.body.appendChild(feedback);
+            setTimeout(() => feedback.remove(), 2000);
+        }
+    </script>
+</body>
+</html>
+"""
+
+    @classmethod
+    def generate(cls, catalog: dict, output_path: Path):
+        categories = sorted(catalog.get("categories", []))
+        category_options = "".join([f'<option value="{c}">{c.title()}</option>' for c in categories])
+        
+        # Group icons by category
+        by_category = {}
+        for icon in catalog["icons"]:
+            cat = icon.get("category", "ui")
+            if cat not in by_category: by_category[cat] = []
+            by_category[cat].append(icon)
+            
+        content_html = ""
+        for cat in sorted(by_category.keys()):
+            content_html += f'<div class="category-section" data-cat="{cat}">'
+            content_html += f'<h2 class="category-title">{cat}</h2>'
+            content_html += '<div class="grid">'
+            
+            # Sort icons in category
+            sorted_icons = sorted(by_category[cat], key=lambda x: x["semanticName"])
+            for icon in sorted_icons:
+                name = icon["semanticName"]
+                tags = ",".join(icon.get("tags", []))
+                # Use relative path for local viewing
+                img_path = f"raw/{icon['id']}.png"
+                content_html += f"""
+                <div class="icon-card" data-name="{name.lower()}" data-tags="{tags.lower()}" data-category="{cat}" onclick="copyCommand('{name}')">
+                    <img src="{img_path}" alt="{name}">
+                    <div class="icon-name">{name}</div>
+                    <div class="icon-meta">#{icon['id']}</div>
+                </div>"""
+            
+            content_html += "</div></div>"
+            
+        full_html = cls.HTML_TEMPLATE.replace("{category_options}", category_options).replace("{content}", content_html)
+        output_path.write_text(full_html)
+        return True
+
+
 class IconManager:
     def __init__(self):
         self.catalog = self.load_catalog()
+        self.matcher = SemanticMatcher()
 
     def load_catalog(self) -> Dict:
         """Load icon catalog from JSON file"""
@@ -57,28 +831,188 @@ class IconManager:
                 if tag_lower in [t.lower() for t in icon.get("tags", [])]]
 
     def find_icons_by_semantic(self, name: str) -> List[Dict]:
-        """Find icons by semantic name"""
+        """Find icons by semantic name with ranked matching"""
         name_lower = name.lower()
-        return [icon for icon in self.catalog["icons"]
-                if name_lower in icon.get("semanticName", "").lower()]
+
+        # Categorize matches by quality
+        exact_matches = []      # Exact semantic name
+        prefix_matches = []     # Starts with query
+        suffix_matches = []     # Ends with query (e.g., checkmark for check)
+        contains_matches = []   # Contains query anywhere
+
+        for icon in self.catalog["icons"]:
+            semantic = icon.get("semanticName", "").lower()
+            if semantic == name_lower:
+                exact_matches.append(icon)
+            elif semantic.startswith(name_lower + "-") or semantic.startswith(name_lower):
+                prefix_matches.append(icon)
+            elif semantic.endswith(name_lower) or semantic.endswith("-" + name_lower):
+                suffix_matches.append(icon)
+            elif name_lower in semantic:
+                contains_matches.append(icon)
+
+        # Return in priority order: exact > prefix > suffix > contains
+        return exact_matches + prefix_matches + suffix_matches + contains_matches
+
+    def get_fuzzy_terms(self, query: str) -> List[str]:
+        """Expand query to include fuzzy-matched related terms"""
+        query_lower = query.lower()
+        terms = [query_lower]
+
+        # Common suffixes to try
+        suffixes = ['mark', 'box', 'ing', 'ed', 's', 'er', 'tion', 'icon', 'file', 'folder']
+        prefixes = ['un', 're', 'pre', 'post', 'out', 'in']
+
+        # Add variations with suffixes
+        for suffix in suffixes:
+            variant = query_lower + suffix
+            if variant not in terms:
+                terms.append(variant)
+
+        # Common term expansions (synonym-like)
+        expansions = {
+            'check': ['checkmark', 'checkbox', 'tick', 'verify', 'done'],
+            'book': ['notebook', 'manual', 'documentation', 'guide'],
+            'lock': ['padlock', 'secure', 'locked'],
+            'folder': ['directory', 'dir'],
+            'file': ['document', 'doc'],
+            'arrow': ['pointer', 'direction'],
+            'user': ['person', 'profile', 'account'],
+            'settings': ['config', 'configuration', 'options', 'preferences'],
+            'search': ['find', 'lookup', 'magnify'],
+            'error': ['warning', 'alert', 'danger'],
+            'info': ['information', 'help', 'about'],
+            'home': ['house', 'main'],
+            'mail': ['email', 'envelope', 'message'],
+            'phone': ['telephone', 'call', 'mobile'],
+            'cloud': ['upload', 'download', 'sync'],
+            'star': ['favorite', 'bookmark', 'rating'],
+            'heart': ['favorite', 'love', 'like'],
+            'trash': ['delete', 'remove', 'garbage', 'bin'],
+            'save': ['disk', 'floppy'],
+            'edit': ['pencil', 'pen', 'modify'],
+            'add': ['plus', 'new', 'create'],
+            'remove': ['minus', 'delete', 'close'],
+        }
+
+        if query_lower in expansions:
+            terms.extend(expansions[query_lower])
+
+        # Also check reverse (if searching for 'checkmark', also try 'check')
+        for base, variants in expansions.items():
+            if query_lower in variants:
+                terms.append(base)
+
+        return list(set(terms))  # Remove duplicates
 
     def search(self, query: str) -> List[Dict]:
-        """Search icons by tag or semantic name"""
+        """Search icons by tag or semantic name with fuzzy matching"""
         results = []
-        results.extend(self.find_icons_by_tag(query))
-        results.extend(self.find_icons_by_semantic(query))
-        # Remove duplicates
-        seen = set()
-        unique_results = []
-        for icon in results:
-            if icon["id"] not in seen:
-                seen.add(icon["id"])
-                unique_results.append(icon)
-        return unique_results
+        scored_results = {}  # id -> (icon, score)
+
+        # Get expanded search terms
+        terms = self.get_fuzzy_terms(query)
+        query_lower = query.lower()
+
+        for term in terms:
+            # Higher score for exact query, lower for fuzzy matches
+            score_multiplier = 1.0 if term == query_lower else 0.7
+
+            for icon in self.find_icons_by_tag(term):
+                icon_id = icon["id"]
+                # Exact tag match gets bonus
+                tag_bonus = 0.3 if term in [t.lower() for t in icon.get("tags", [])] else 0
+                score = (0.8 + tag_bonus) * score_multiplier
+                if icon_id not in scored_results or scored_results[icon_id][1] < score:
+                    scored_results[icon_id] = (icon, score)
+
+            for icon in self.find_icons_by_semantic(term):
+                icon_id = icon["id"]
+                semantic = icon.get("semanticName", "").lower()
+                # Score based on match quality
+                if semantic == term:
+                    base_score = 1.0  # Exact match
+                elif semantic.startswith(term):
+                    base_score = 0.9  # Prefix match
+                elif semantic.endswith(term):
+                    base_score = 0.8  # Suffix match
+                else:
+                    base_score = 0.6  # Contains match
+                score = base_score * score_multiplier
+                if icon_id not in scored_results or scored_results[icon_id][1] < score:
+                    scored_results[icon_id] = (icon, score)
+
+        # Sort by score descending
+        sorted_results = sorted(scored_results.values(), key=lambda x: x[1], reverse=True)
+        return [icon for icon, score in sorted_results]
+
+    def suggest(self, context: str, limit: int = 10) -> List[tuple]:
+        """
+        Get icon suggestions for a context with relevance scores
+
+        Args:
+            context: The context/topic to suggest icons for (e.g., 'security', 'authentication')
+            limit: Maximum number of suggestions to return
+
+        Returns:
+            List of (icon, score) tuples sorted by relevance
+        """
+        # Score all icons against the context
+        ranked = SemanticMatcher.rank_icons(
+            self.catalog["icons"],
+            context,
+            context=context,
+            min_score=0.30
+        )
+
+        return ranked[:limit]
+
+    def suggest_formatted(self, context: str, limit: int = 10) -> str:
+        """
+        Get formatted icon suggestions with percentage scores
+
+        Returns human-readable string output
+        """
+        # Get more suggestions than needed so we can dedupe
+        suggestions = self.suggest(context, limit * 3)
+
+        if not suggestions:
+            return f"No icons found for context '{context}'"
+
+        lines = [f"\nIcon suggestions for '{context}':\n"]
+
+        # Deduplicate by semantic name, keeping highest score
+        seen_names = set()
+        deduped = []
+        for icon, score in suggestions:
+            name = icon['semanticName']
+            if name not in seen_names:
+                seen_names.add(name)
+                deduped.append((icon, score))
+                if len(deduped) >= limit:
+                    break
+
+        # Filter out size tags for cleaner display
+        size_tags = {'16x16', '24x24', '32x32', '48x48', '128x128', '12x12', '256x256',
+                     'icon', 'generic', 'ui-element', 'numbered'}
+
+        for icon, score in deduped:
+            pct = int(score * 100)
+            name = icon['semanticName']
+            # Filter tags for display
+            display_tags = [t for t in icon.get('tags', []) if t.lower() not in size_tags][:4]
+            tags_str = ', '.join(display_tags) if display_tags else icon['category']
+            lines.append(f"  {name:20} ({pct:2}%)  [{icon['category']}]  {tags_str}")
+
+        lines.append(f"\nUse: icon use <name> to export and get markdown")
+
+        return '\n'.join(lines)
 
     def add_icon(self, icon_id: str, semantic_name: str, tags: List[str],
-                 category: str, description: str = ""):
-        """Add or update icon in catalog"""
+                 category: str, description: str = "", save: bool = True,
+                 metaphor: str = "", valence: float = 0.0, abstraction: int = 1,
+                 variant_of: str = "", style: str = "silk", confidence: float = 1.0):
+        """Add or update icon in catalog with Schema 2.1 features"""
         existing = self.find_icon_by_id(icon_id)
 
         icon_data = {
@@ -88,22 +1022,26 @@ class IconManager:
             "tags": tags,
             "category": category,
             "description": description,
+            "style": style or (existing.get("style") if existing else "silk"),
+            "metaphor": metaphor or (existing.get("metaphor") if existing else ""),
+            "emotional_valence": valence if valence != 0.0 else (existing.get("emotional_valence", 0.0) if existing else 0.0),
+            "abstraction_level": abstraction if abstraction != 1 else (existing.get("abstraction_level", 1) if existing else 1),
+            "variant_of": variant_of or (existing.get("variant_of") if existing else ""),
+            "enrichment_confidence": confidence if confidence != 1.0 else (existing.get("enrichment_confidence", 1.0) if existing else 1.0),
             "usedIn": existing.get("usedIn", []) if existing else []
         }
 
         if existing:
-            # Update existing
             idx = self.catalog["icons"].index(existing)
             self.catalog["icons"][idx] = icon_data
-            print(f"✓ Updated icon {icon_id} ({semantic_name})")
+            # print(f"✓ Updated icon {icon_id}")
         else:
-            # Add new
             self.catalog["icons"].append(icon_data)
-            print(f"✓ Added icon {icon_id} ({semantic_name})")
+            # print(f"✓ Added icon {icon_id}")
 
-        # Create symlink in catalog directory
         self.create_symlink(icon_id, semantic_name, category)
-        self.save_catalog()
+        if save:
+            self.save_catalog()
 
     def create_symlink(self, icon_id: str, semantic_name: str, category: str):
         """Create symlink in catalog/category/ directory"""
@@ -118,7 +1056,7 @@ class IconManager:
 
         if source.exists():
             target.symlink_to(f"../../raw/{icon_id}.png")
-            print(f"  → Created symlink: catalog/{category}/{semantic_name}.png")
+            # print(f"  → Created symlink: catalog/{category}/{semantic_name}.png") # Too noisy for bulk
 
     def list_category(self, category: str):
         """List all icons in a category"""
@@ -374,14 +1312,17 @@ class IconManager:
                         print(f"  ⚠ Row {row_num}: Icon '{icon_id}' already exists, skipping")
                         continue
 
-                    self.add_icon(icon_id, semantic, tags, category, description)
+                    self.add_icon(icon_id, semantic, tags, category, description, save=False)
                     success_count += 1
 
                 except Exception as e:
                     print(f"  ✗ Row {row_num}: Error processing row: {e}")
                     error_count += 1
 
-        # Final summary (catalog already saved by add_icon calls)
+        # Final summary and save
+        if success_count > 0:
+            self.save_catalog()
+            
         print(f"\n=== Import Summary ===")
         print(f"✓ Successfully imported: {success_count} icons")
         if error_count > 0:
@@ -556,10 +1497,175 @@ class IconManager:
                 print(f"  ⚠ '{icon_id}' already exists, skipping")
                 continue
 
-            self.add_icon(icon_id, semantic, all_tags, template['category'], description)
+            self.add_icon(icon_id, semantic, all_tags, template['category'], description, save=False)
             success_count += 1
 
+        if success_count > 0:
+            self.save_catalog()
+
         print(f"\n✓ Applied template to {success_count} icons")
+
+    def enrich_catalog(self, dry_run: bool = True) -> dict:
+        """Auto-enrich icons with derived semantic tags based on their names
+
+        Uses semantic name analysis to add missing tags for better LLM matching.
+
+        Args:
+            dry_run: If True, report changes without saving
+
+        Returns:
+            dict with stats about enrichment
+        """
+        # Tag derivation rules based on semantic name components
+        TAG_DERIVATIONS = {
+            # Security domain
+            'lock': ['security', 'access', 'protected', 'authentication'],
+            'key': ['security', 'access', 'credential', 'authentication'],
+            'shield': ['security', 'protection', 'guard', 'defense'],
+            'certificate': ['security', 'ssl', 'tls', 'credential', 'verified'],
+
+            # Files domain
+            'folder': ['directory', 'files', 'storage', 'organize'],
+            'document': ['file', 'text', 'paper', 'content'],
+            'file': ['document', 'content', 'data'],
+            'pdf': ['document', 'file', 'adobe', 'portable'],
+
+            # Network domain
+            'network': ['connection', 'internet', 'web', 'connectivity'],
+            'cloud': ['server', 'hosting', 'storage', 'online'],
+            'globe': ['world', 'global', 'international', 'web'],
+            'wifi': ['wireless', 'network', 'connection', 'signal'],
+
+            # UI domain
+            'arrow': ['navigation', 'direction', 'movement', 'ui'],
+            'button': ['ui', 'control', 'interface', 'click'],
+            'menu': ['navigation', 'ui', 'list', 'options'],
+            'checkbox': ['selection', 'toggle', 'form', 'input'],
+
+            # Status domain
+            'warning': ['alert', 'caution', 'attention', 'status'],
+            'error': ['fail', 'problem', 'issue', 'status'],
+            'success': ['done', 'complete', 'check', 'status'],
+            'info': ['information', 'help', 'about', 'notice'],
+
+            # Tools domain
+            'search': ['find', 'lookup', 'query', 'magnify'],
+            'settings': ['config', 'options', 'preferences', 'gear'],
+            'toolbox': ['tools', 'utilities', 'equipment', 'kit'],
+
+            # Actions
+            'download': ['save', 'fetch', 'get', 'receive'],
+            'upload': ['send', 'push', 'share', 'transmit'],
+            'refresh': ['reload', 'sync', 'update', 'renew'],
+            'delete': ['remove', 'trash', 'erase', 'clear'],
+
+            # Development
+            'database': ['data', 'storage', 'sql', 'records'],
+            'console': ['terminal', 'shell', 'command', 'cli'],
+            'code': ['programming', 'script', 'source', 'dev'],
+
+            # Media
+            'camera': ['photo', 'capture', 'image', 'picture'],
+            'video': ['movie', 'film', 'media', 'recording'],
+            'audio': ['sound', 'music', 'speaker', 'volume'],
+
+            # Communication
+            'email': ['mail', 'message', 'inbox', 'envelope'],
+            'chat': ['message', 'conversation', 'communication'],
+            'phone': ['call', 'mobile', 'telephone', 'contact'],
+
+            # Commerce
+            'cart': ['shopping', 'purchase', 'buy', 'checkout'],
+            'credit': ['payment', 'card', 'finance', 'transaction'],
+
+            # Time
+            'clock': ['time', 'timer', 'schedule', 'hour'],
+            'calendar': ['date', 'schedule', 'event', 'planner'],
+        }
+
+        # Size tags to ignore
+        size_tags = {'16x16', '24x24', '32x32', '48x48', '64x64', '72x72',
+                     '80x80', '96x96', '128x128', '256x256', '12x12'}
+        generic_tags = {'icon', 'generic', 'ui-element', 'numbered'}
+
+        enriched_count = 0
+        tags_added = 0
+        changes = []
+
+        for icon in self.catalog['icons']:
+            semantic_name = icon['semanticName'].lower()
+            current_tags = set(icon.get('tags', []))
+            semantic_tags = current_tags - size_tags - generic_tags
+            new_tags = set()
+
+            # Check each derivation rule
+            for keyword, derived_tags in TAG_DERIVATIONS.items():
+                if keyword in semantic_name:
+                    for tag in derived_tags:
+                        if tag not in current_tags:
+                            new_tags.add(tag)
+
+            if new_tags:
+                enriched_count += 1
+                tags_added += len(new_tags)
+
+                if dry_run:
+                    changes.append({
+                        'name': icon['semanticName'],
+                        'current': len(semantic_tags),
+                        'adding': list(new_tags)
+                    })
+                else:
+                    icon['tags'] = list(current_tags | new_tags)
+
+        if not dry_run and enriched_count > 0:
+            self.save_catalog()
+
+        return {
+            'enriched': enriched_count,
+            'tags_added': tags_added,
+            'dry_run': dry_run,
+            'changes': changes[:50]  # Limit output
+        }
+
+    def scan_emojis(self, project_path: str):
+        """Scan a project for emoji usage and suggest icon replacements"""
+        from pathlib import Path
+
+        project = Path(project_path)
+        readme_path = project / "README.md"
+
+        if not readme_path.exists():
+            readme_path = project / "readme.md"
+
+        if not readme_path.exists():
+            print(f"✗ No README.md found in {project_path}")
+            return
+
+        result = EmojiMapper.scan_readme(str(readme_path))
+
+        if 'error' in result:
+            print(f"✗ {result['error']}")
+            return
+
+        print(f"\n=== Emoji Scan Results ===")
+        print(f"File: {result['file']}")
+        print(f"Total emojis found: {result['total_emojis']}")
+        print(f"Unique icons needed: {result['unique_icons_needed']}")
+
+        if result['replacements']:
+            print(f"\n=== Replacement Suggestions ===\n")
+            for icon_name, data in sorted(result['replacements'].items()):
+                print(f"  {data['emoji']} → {icon_name} ({data['count']} occurrences)")
+                for ctx in data['contexts'][:2]:
+                    print(f"      {ctx[:60]}...")
+
+            # Show export command
+            icons_needed = list(result['replacements'].keys())
+            print(f"\n=== Quick Export ===")
+            print(f"icon use {' '.join(icons_needed[:10])}")
+        else:
+            print("\nNo recognized emojis found!")
 
     def validate(self):
         """Validate catalog integrity - check for missing files, broken symlinks, etc."""
@@ -696,6 +1802,288 @@ class IconManager:
         icon_names = [icon['semanticName'] for icon in category_icons]
         self.export_to_project(project_path, icon_names)
 
+    def standardize_library(self, limit: Optional[int] = None, dry_run: bool = True):
+        """Standardize all filenames and metadata in the library"""
+        print(f"Standardizing library (Limit: {limit}, Dry Run: {dry_run})...")
+        
+        changes = []
+        id_map = {} # old_id -> new_id
+        
+        processed_count = 0
+        for icon in self.catalog["icons"]:
+            if limit and processed_count >= limit:
+                break
+                
+            old_id = icon["id"]
+            old_semantic = icon["semanticName"]
+            
+            # Standard naming: lowercase, alphanumeric + hyphens
+            new_semantic = re.sub(r'[^a-z0-9]+', '-', old_semantic.lower()).strip('-')
+            
+            # Ensure size is in semantic name if not present
+            source_path = RAW_DIR / f"{old_id}.png"
+            size_str = ""
+            if source_path.exists():
+                try:
+                    with Image.open(source_path) as img:
+                        w, h = img.size
+                        size_str = f"{w}x{h}"
+                        if size_str not in new_semantic:
+                            new_semantic = f"{new_semantic}-{size_str}"
+                except Exception:
+                    pass
+            
+            new_id = new_semantic
+            id_map[old_id] = new_id
+            
+            if old_id != new_id or old_semantic != new_semantic:
+                changes.append({
+                    "old_id": old_id,
+                    "new_id": new_id,
+                    "old_semantic": old_semantic,
+                    "new_semantic": new_semantic,
+                    "old_file": f"raw/{old_id}.png",
+                    "new_file": f"raw/{new_id}.png"
+                })
+            
+            processed_count += 1
+
+        if not changes:
+            print("✓ Library is already standardized!")
+            return
+
+        print(f"Found {len(changes)} icons to standardize.")
+        
+        if dry_run:
+            for change in changes[:10]:
+                print(f"  [PREVIEW] {change['old_id']} -> {change['new_id']}")
+            if len(changes) > 10:
+                print(f"  ... and {len(changes) - 10} more")
+            return
+
+        # 2. Apply changes
+        success_count = 0
+        for change in changes:
+            old_path = ICON_DIR / change["old_file"]
+            new_path = ICON_DIR / change["new_file"]
+            
+            # Rename file
+            if old_path.exists():
+                if new_path.exists() and old_path != new_path:
+                    # Collision! This is a deduplication opportunity
+                    print(f"  ⚠ Collision: {change['new_id']} already exists. Skipping rename.")
+                else:
+                    try:
+                        old_path.rename(new_path)
+                    except Exception as e:
+                        print(f"  ✗ Error renaming {change['old_id']}: {e}")
+                        continue
+            
+            # Update catalog entry
+            icon = self.find_icon_by_id(change["old_id"])
+            if icon:
+                icon["id"] = change["new_id"]
+                icon["semanticName"] = change["new_semantic"]
+                icon["filename"] = change["new_file"]
+                success_count += 1
+
+        if success_count > 0:
+            self.save_catalog()
+            # Clean and recreate symlinks
+            shutil.rmtree(CATALOG_DIR, ignore_errors=True)
+            for icon in self.catalog["icons"]:
+                self.create_symlink(icon["id"], icon["semanticName"], icon["category"])
+            
+        print(f"✓ Standardized {success_count} icons.")
+
+    def deduplicate(self, dry_run: bool = True):
+        """Find and remove duplicate icons based on visual content (hash)"""
+        import hashlib
+        
+        print(f"Deduplicating library (Dry Run: {dry_run})...")
+        hashes = {} # hash -> [icon_ids]
+        
+        for icon in self.catalog["icons"]:
+            path = ICON_DIR / icon["filename"]
+            if not path.exists(): continue
+            
+            with open(path, "rb") as f:
+                img_hash = hashlib.md5(f.read()).hexdigest()
+                
+            if img_hash not in hashes: hashes[img_hash] = []
+            hashes[img_hash].append(icon["id"])
+            
+        duplicates_found = 0
+        removed_count = 0
+        
+        for img_hash, ids in hashes.items():
+            if len(ids) > 1:
+                duplicates_found += 1
+                # Keep the one with the best name (shortest or most semantic)
+                ids.sort(key=lambda x: (len(x), x))
+                keep_id = ids[0]
+                remove_ids = ids[1:]
+                
+                if dry_run:
+                    print(f"  [PREVIEW] Duplicates of {keep_id}: {', '.join(remove_ids)}")
+                else:
+                    # Update usage tracking for the kept icon if needed
+                    keep_icon = self.find_icon_by_id(keep_id)
+                    for rid in remove_ids:
+                        remove_icon = self.find_icon_by_id(rid)
+                        if remove_icon and "usedIn" in remove_icon:
+                            for proj in remove_icon["usedIn"]:
+                                if proj not in keep_icon.get("usedIn", []):
+                                    keep_icon.setdefault("usedIn", []).append(proj)
+                        
+                        # Remove from catalog
+                        self.catalog["icons"] = [icon for icon in self.catalog["icons"] if icon["id"] != rid]
+                        # Remove file
+                        remove_path = ICON_DIR / f"raw/{rid}.png"
+                        if remove_path.exists(): remove_path.unlink()
+                        removed_count += 1
+
+        if not dry_run and removed_count > 0:
+            self.save_catalog()
+            print(f"✓ Removed {removed_count} duplicate icons.")
+        elif duplicates_found == 0:
+            print("✓ No duplicates found.")
+
+    def generate_gallery(self, output_file: str = "gallery.html"):
+        """Generate a visual HTML gallery"""
+        output_path = ICON_DIR / output_file
+        if GalleryGenerator.generate(self.catalog, output_path):
+            print(f"✓ Gallery generated at {output_path}")
+
+    def llm_enrich(self, limit: int = 100, dry_run: bool = True, verify: bool = False):
+        """Enrichment 2.1: Apply Schema 2.1 with Tag Grounding and Confidence"""
+        print(f"Enriching up to {limit} icons (Schema 2.1, Verify: {verify}, Dry Run: {dry_run})...")
+        
+        # Negative mapping for tag grounding: metaphor -> forbidden keywords in tags
+        TAG_GROUNDING_CONSTRAINTS = {
+            "risk": ["tool", "utility", "fix", "repair", "service"],
+            "security": ["time", "clock", "watch"],
+            "communication": ["capture", "camera", "photo"],
+            "failure": ["check", "tick", "success", "done"]
+        }
+        
+        KNOWLEDGE_BASE = {
+            "lock": ("security", 0.0, 3, "Authentication, privacy, restriction"),
+            "shield": ("protection", 0.5, 3, "Safety, data guard, firewall"),
+            "database": ("storage", -0.1, 2, "Data persistence, backend, records"),
+            "cloud": ("connectivity", 0.2, 4, "Remote sync, SaaS, online services"),
+            "terminal": ("automation", -0.2, 4, "CLI, dev tools, system execution"),
+            "gear": ("configuration", 0.0, 3, "Settings, preferences, engine control"),
+            "search": ("discovery", 0.3, 3, "Query, lookup, finding content"),
+            "warning": ("risk", -0.6, 4, "Error prevention, attention, data loss"),
+            "error": ("failure", -1.0, 5, "System crash, invalid input, critical stop"),
+            "success": ("completion", 1.0, 5, "Task done, verified, positive feedback"),
+            "document": ("information", 0.0, 1, "File management, reports, text"),
+            "user": ("identity", 0.4, 2, "Profiles, members, account settings"),
+            "email": ("communication", 0.1, 2, "Contact, messaging, notifications"),
+            "camera": ("capture", 0.2, 1, "Multimedia, image upload, vision"),
+            "folder": ("organization", 0.0, 2, "Directory structure, grouping"),
+            "star": ("favorite", 0.9, 4, "Rating, bookmarking, highlighted"),
+            "heart": ("appreciation", 1.0, 5, "Social likes, love, favorites"),
+            "trash": ("disposal", -0.4, 3, "Delete, clear, remove content"),
+            "edit": ("modification", 0.1, 3, "Pencil, change, write"),
+            "add": ("creation", 0.6, 4, "Plus, insert, new item")
+        }
+        
+        modified_count = 0
+        verification_data = []
+        
+        for icon in self.catalog["icons"]:
+            if modified_count >= limit: break
+            
+            # Find all high-quality semantic matches
+            scored_matches = []
+            for concept, data in KNOWLEDGE_BASE.items():
+                score = SemanticMatcher.calculate_match_score(icon, concept)
+                if score >= 0.85:
+                    scored_matches.append((concept, score, data))
+            
+            if not scored_matches:
+                continue
+                
+            # Sort to find winner and runner-up
+            scored_matches.sort(key=lambda x: -x[1])
+            best_concept, best_score, (metaphor, valence, abstraction, use_cases) = scored_matches[0]
+            runner_up_score = scored_matches[1][1] if len(scored_matches) > 1 else 0
+            
+            # --- TAG GROUNDING CHECK ---
+            tags = [t.lower() for t in icon.get("tags", [])]
+            forbidden = TAG_GROUNDING_CONSTRAINTS.get(metaphor, [])
+            # Precise list check: ensures forbidden words are not present in the tags
+            if any(f in tags for f in forbidden):
+                continue
+            
+            # Check if already enriched with this specific metaphor
+            if icon.get("metaphor") == metaphor:
+                continue
+            
+            # --- ADVANCED CONFIDENCE CALCULATION ---
+            # 1. Ambiguity Penalty: If two concepts are very close, confidence drops
+            ambiguity_penalty = max(0, 1 - (best_score - runner_up_score) * 2)
+            
+            # 2. Tag Alignment: Bonus if tags overlap with the intended use-cases/description
+            # Normalize use_cases to set of words
+            use_case_words = set(re.sub(r'[^a-z]+', ' ', use_cases.lower()).split())
+            tag_alignment = len(set(tags) & use_case_words) / max(len(tags), 1)
+            
+            # 3. Aggregate Confidence: Score * machine-discount * ambiguity * alignment
+            # Base discount: 0.95 (machine generated)
+            # Alignment factor: 0.7 base + up to 0.3 bonus
+            confidence = round(
+                best_score * 0.95 * 
+                (1 - ambiguity_penalty * 0.3) * 
+                (0.7 + tag_alignment * 0.3), 
+                2
+            )
+            
+            if verify:
+                verification_data.append({
+                    'id': icon['id'],
+                    'name': icon['semanticName'],
+                    'concept': best_concept,
+                    'score': f"{best_score:.2f}",
+                    'metaphor': metaphor,
+                    'confidence': confidence,
+                    'alignment': f"{tag_alignment:.2f}"
+                })
+                modified_count += 1
+                continue
+
+            if not dry_run:
+                icon["metaphor"] = metaphor
+                icon["emotional_valence"] = valence
+                icon["abstraction_level"] = abstraction
+                icon["enrichment_confidence"] = confidence
+                
+                # Update description if use cases not present
+                current_desc = icon.get('description', '')
+                use_case_str = f"Use cases: {use_cases}"
+                if use_case_str not in current_desc:
+                     icon["description"] = f"{current_desc}. {use_case_str}".strip(". ") + "."
+            else:
+                print(f"  [PREVIEW] {icon['semanticName']} -> {metaphor} (Conf: {confidence}, Align: {tag_alignment:.2f})")
+            
+            modified_count += 1
+
+        if verify and verification_data:
+            verify_file = ICON_DIR / "enrichment_verification_v2.1.csv"
+            with open(verify_file, 'w', newline='') as f:
+                writer = csv.DictWriter(f, fieldnames=['id', 'name', 'concept', 'score', 'metaphor', 'confidence', 'alignment'])
+                writer.writeheader()
+                writer.writerows(verification_data)
+            print(f"✓ Verification sample exported to {verify_file}")
+            return
+
+        if not dry_run and modified_count > 0:
+            self.save_catalog()
+            
+        print(f"✓ Processed library, applied {modified_count} new Schema 2.1 enrichments.")
+
 def main():
     parser = argparse.ArgumentParser(description="Icon library management system")
     subparsers = parser.add_subparsers(dest="command", help="Commands")
@@ -766,6 +2154,39 @@ def main():
     # Popular command
     popular_parser = subparsers.add_parser("popular", help="Show most popular icons")
     popular_parser.add_argument("--limit", type=int, default=10, help="Number of popular icons to show (default: 10)")
+
+    # Suggest command (with percentage scores)
+    suggest_parser = subparsers.add_parser("suggest", help="Get icon suggestions with match percentages")
+    suggest_parser.add_argument("context", help="Context/topic to suggest icons for (e.g., security, authentication)")
+    suggest_parser.add_argument("--limit", type=int, default=10, help="Number of suggestions to show (default: 10)")
+
+    # Enrich command - auto-add semantic tags
+    enrich_parser = subparsers.add_parser("enrich", help="Auto-enrich catalog with derived semantic tags")
+    enrich_parser.add_argument("--apply", action="store_true", help="Apply changes (default: dry-run preview)")
+    enrich_parser.add_argument("--verbose", action="store_true", help="Show detailed changes")
+
+    # Scan-emojis command - find emojis in project READMEs
+    scan_parser = subparsers.add_parser("scan-emojis", help="Scan project README for emoji replacements")
+    scan_parser.add_argument("project_path", help="Path to project directory")
+
+    # Standardize command
+    standardize_parser = subparsers.add_parser("standardize", help="Standardize filenames and metadata")
+    standardize_parser.add_argument("--limit", type=int, help="Max icons to standardize")
+    standardize_parser.add_argument("--apply", action="store_true", help="Apply changes (default: dry-run)")
+
+    # Deduplicate command
+    dedupe_parser = subparsers.add_parser("dedupe", help="Remove duplicate icons based on visual content")
+    dedupe_parser.add_argument("--apply", action="store_true", help="Apply changes (default: dry-run)")
+
+    # Gallery command
+    gallery_parser = subparsers.add_parser("gallery", help="Generate a visual HTML gallery")
+    gallery_parser.add_argument("--output", default="gallery.html", help="Output filename")
+
+    # LLM Enrich command
+    llm_enrich_parser = subparsers.add_parser("enrich-llm", help="Enrich metadata with LLM-grade descriptions")
+    llm_enrich_parser.add_argument("--limit", type=int, default=100, help="Max icons to enrich")
+    llm_enrich_parser.add_argument("--apply", action="store_true", help="Apply changes (default: dry-run)")
+    llm_enrich_parser.add_argument("--verify", action="store_true", help="Export a sample for verification instead of applying")
 
     args = parser.parse_args()
     manager = IconManager()
@@ -838,6 +2259,41 @@ def main():
 
     elif args.command == "popular":
         manager.show_popular(args.limit)
+
+    elif args.command == "suggest":
+        print(manager.suggest_formatted(args.context, args.limit))
+
+    elif args.command == "enrich":
+        dry_run = not args.apply
+        result = manager.enrich_catalog(dry_run=dry_run)
+
+        print(f"\n=== Catalog Enrichment {'(DRY RUN)' if dry_run else 'APPLIED'} ===")
+        print(f"Icons enriched: {result['enriched']}")
+        print(f"Tags added: {result['tags_added']}")
+
+        if args.verbose and result['changes']:
+            print(f"\n=== Sample Changes ===")
+            for change in result['changes'][:25]:
+                tags_str = ', '.join(change['adding'])
+                print(f"  {change['name']}: +{len(change['adding'])} tags ({tags_str})")
+
+        if dry_run and result['enriched'] > 0:
+            print(f"\nTo apply changes: python3 icon-manager.py enrich --apply")
+
+    elif args.command == "scan-emojis":
+        manager.scan_emojis(args.project_path)
+
+    elif args.command == "standardize":
+        manager.standardize_library(limit=args.limit, dry_run=not args.apply)
+
+    elif args.command == "dedupe":
+        manager.deduplicate(dry_run=not args.apply)
+
+    elif args.command == "gallery":
+        manager.generate_gallery(args.output)
+
+    elif args.command == "enrich-llm":
+        manager.llm_enrich(limit=args.limit, dry_run=not args.apply, verify=args.verify)
 
     else:
         parser.print_help()

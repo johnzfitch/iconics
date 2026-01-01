@@ -6,7 +6,7 @@
 
 ## What Is This?
 
-Iconics is a globally-accessible icon library with 1,200+ PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing. The system provides:
+Iconics is a globally-accessible icon library with 4,205 PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing. The system provides:
 
 - **Global `icon` command** - Works from anywhere
 - **Smart project detection** - Auto-finds project root
@@ -15,7 +15,7 @@ Iconics is a globally-accessible icon library with 1,200+ PNG icons designed to 
 
 **Location:** `/home/zack/dev/iconics`
 
-**Status:** 3,372 icons cataloged (100% complete) ✅
+**Status:** 4,205 icons cataloged (100% complete)
 
 ---
 
@@ -155,7 +155,7 @@ All commands have short aliases:
 
 ## When to Use Iconics
 
-### ✅ Use Icons For:
+### Use Icons For:
 
 1. **Section Headers in READMEs**
    ```markdown
@@ -179,7 +179,7 @@ All commands have short aliases:
    - ![code](.github/assets/icons/console.png) **Development**: See CONTRIBUTING.md
    ```
 
-### ❌ Don't Overuse:
+### Don't Overuse:
 
 - **Not every line** - Use for headers and key points, not inline text
 - **Not in code** - Only in markdown/documentation
@@ -355,18 +355,18 @@ icon use lock shield
 
 Browse by category:
 
-- **security** (76 icons) - lock, shield, key, certificate, keychain, protection, unlock, open-lock, eye, hide, show (+ sizes)
-- **ui** (2,969 icons) - info, warning, arrows, buttons, controls, home, menu, close, delete, checkbox (+ all sizes)
-- **files** (179 icons) - folder, document, pdf, photo, video, archive, new-document, open-file, save-file (+ sizes)
-- **network** (31 icons) - network, cloud, globe, wifi, network-radar, global-network, connect, disconnect (+ sizes)
-- **development** (39 icons) - database, console, application, script, plugin, error, login, logout, update (+ sizes)
-- **tools** (60 icons) - search, toolbox, settings, options, control-panel, print, export, import, battery, power (+ sizes)
-- **emoji** (18 icons) - happy, sad, smile (+ sizes)
+- **ui** (3,483 icons) - info, warning, arrows, buttons, controls, home, menu, close, delete, checkbox (+ all sizes)
+- **files** (297 icons) - folder, document, pdf, photo, video, archive, new-document, open-file, save-file (+ sizes)
+- **emoji** (141 icons) - happy, sad, smile, expressions, characters (+ sizes)
+- **network** (93 icons) - network, cloud, globe, wifi, network-radar, global-network, connect, disconnect (+ sizes)
+- **security** (80 icons) - lock, shield, key, certificate, keychain, protection, unlock, open-lock, eye, hide, show (+ sizes)
+- **tools** (70 icons) - search, toolbox, settings, options, control-panel, print, export, import, battery, power (+ sizes)
+- **development** (41 icons) - database, console, application, script, plugin, error, login, logout, update (+ sizes)
 
 Export entire categories:
 ```bash
 icon cat security
-# Exports all 11 security icons
+# Exports all 80 security icons
 ```
 
 ---
@@ -487,8 +487,8 @@ icon use <icon1> <icon2> <icon3>
 
 - **Icon Library:** `/home/zack/dev/iconics/`
 - **Command:** `icon` (globally accessible)
-- **Raw Icons:** `/home/zack/dev/iconics/raw/` (3,369 PNG files - all converted from ICO/GIF)
-- **Catalog:** `/home/zack/dev/iconics/icon-catalog.json` (3,372 cataloged - 100% complete)
+- **Raw Icons:** `/home/zack/dev/iconics/raw/` (4,205 PNG files + 3,820 64x64 variants)
+- **Catalog:** `/home/zack/dev/iconics/icon-catalog.json` (4,205 cataloged - 100% complete)
 - **Installation:** `/home/zack/dev/iconics/install.sh`
 
 ---
@@ -516,4 +516,4 @@ See the main README.md for full cataloging workflows.
 
 **Last Updated:** 2025-10-28
 **Version:** 3.0 (Full Cataloging + ICO/GIF Conversions)
-**Cataloged Icons:** 3,372/3,369 (100% Complete) ✅
+**Cataloged Icons:** 4,205 (100% Complete)
