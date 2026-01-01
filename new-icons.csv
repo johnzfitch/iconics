@@ -1,0 +1,374 @@
+id,semantic,tags,category,description
+Dark-application-exit,dark-application-exit,"dark,exit,application",ui,Dark Application Exit icon
+Dark-applications-internet,dark-applications-internet,"dark,applications,internet",network,Dark Applications Internet icon
+Dark-application-x-executable,dark-application-x-executable,"dark,executable,x,application",ui,Dark Application X Executable icon
+Dark-computer,dark-computer,"dark,computer",ui,Dark Computer icon
+Dark-dialog-question,dark-dialog-question,"dark,dialog,question",ui,Dark Dialog Question icon
+Dark-document-open,dark-document-open,"dark,open,document",files,Dark Document Open icon
+Dark-document-page-setup,dark-document-page-setup,"dark,document,page,setup",files,Dark Document Page Setup icon
+Dark-document-properties,dark-document-properties,"dark,document,properties",files,Dark Document Properties icon
+Dark-drive-harddisk,dark-drive-harddisk,"dark,harddisk,drive",ui,Dark Drive Harddisk icon
+Dark-drive-optical,dark-drive-optical,"dark,optical,drive",ui,Dark Drive Optical icon
+Dark-drive-removable-media,dark-drive-removable-media,"dark,media,removable,drive",ui,Dark Drive Removable Media icon
+Dark-edit-delete,dark-edit-delete,"dark,delete,edit",ui,Dark Edit Delete icon
+Dark-edit-find,dark-edit-find,"dark,find,edit",ui,Dark Edit Find icon
+Dark-emblems-documents,dark-emblems-documents,"dark,emblems,documents",files,Dark Emblems Documents icon
+Dark-emblem-shared,dark-emblem-shared,"dark,emblem,shared",ui,Dark Emblem Shared icon
+Dark-emblem-symbolic-link,dark-emblem-symbolic-link,"dark,emblem,link,symbolic",ui,Dark Emblem Symbolic Link icon
+Dark-emblem-web,dark-emblem-web,"dark,web,emblem",network,Dark Emblem Web icon
+Dark-folder-drag-accept,dark-folder-drag-accept,"dark,accept,drag,folder",files,Dark Folder Drag Accept icon
+Dark-folder-open,dark-folder-open,"dark,open,folder",files,Dark Folder Open icon
+Dark-folder,dark-folder,"dark,folder",files,Dark Folder icon
+Dark-folder-remote,dark-folder-remote,"dark,remote,folder",files,Dark Folder Remote icon
+Dark-help-about,dark-help-about,"dark,help,about",ui,Dark Help About icon
+Dark-help-browser,dark-help-browser,"dark,browser,help",ui,Dark Help Browser icon
+Dark-help-contents,dark-help-contents,"dark,help,contents",ui,Dark Help Contents icon
+Dark-help-faq,dark-help-faq,"dark,faq,help",ui,Dark Help Faq icon
+Dark-media-flash,dark-media-flash,"dark,flash,media",ui,Dark Media Flash icon
+Dark-media-floppy,dark-media-floppy,"dark,floppy,media",ui,Dark Media Floppy icon
+Dark-media-optical,dark-media-optical,"dark,optical,media",ui,Dark Media Optical icon
+Dark-modem,dark-modem,"dark,modem",ui,Dark Modem icon
+Dark-network-server,dark-network-server,"dark,network,server",network,Dark Network Server icon
+Dark-network-wired,dark-network-wired,"dark,wired,network",network,Dark Network Wired icon
+Dark-network-workgroup,dark-network-workgroup,"dark,workgroup,network",network,Dark Network Workgroup icon
+Dark-preferences-desktop,dark-preferences-desktop,"dark,preferences,desktop",ui,Dark Preferences Desktop icon
+Dark-preferences-other,dark-preferences-other,"dark,other,preferences",ui,Dark Preferences Other icon
+Dark-preferences-system,dark-preferences-system,"dark,system,preferences",ui,Dark Preferences System icon
+Dark-system-log-out,dark-system-log-out,"dark,system,log,out",ui,Dark System Log Out icon
+Dark-system-run,dark-system-run,"dark,run,system",ui,Dark System Run icon
+Dark-system-search,dark-system-search,"dark,system,search",ui,Dark System Search icon
+Dark-text-html,dark-text-html,"dark,html,text",files,Dark Text Html icon
+Dark-text-x-generic,dark-text-x-generic,"dark,x,text,generic",files,Dark Text X Generic icon
+Dark-text-x-preview,dark-text-x-preview,"dark,x,text,preview",files,Dark Text X Preview icon
+Dark-user-desktop,dark-user-desktop,"dark,user,desktop",ui,Dark User Desktop icon
+Dark-user-home,dark-user-home,"dark,user,home",ui,Dark User Home icon
+Dark-user-trash-full,dark-user-trash-full,"dark,trash,full,user",ui,Dark User Trash Full icon
+Dark-user-trash,dark-user-trash,"dark,trash,user",ui,Dark User Trash icon
+Dark-utilities-terminal,dark-utilities-terminal,"dark,terminal,utilities",development,Dark Utilities Terminal icon
+Dark-video-display,dark-video-display,"dark,display,video",ui,Dark Video Display icon
+Dark-x-office-document,dark-x-office-document,"dark,document,x,office",files,Dark X Office Document icon
+Haiku-decibel-audio-player,haiku-decibel-audio-player,"audio,haiku,decibel,player",ui,Haiku Decibel Audio Player icon
+Haiku-process-working,haiku-process-working,"haiku,working,process",ui,Haiku Process Working icon
+KensIcons-accessories-calculator,kensicons-accessories-calculator,"kensicons,accessories,calculator",ui,Kensicons Accessories Calculator icon
+KensIcons-accessories-character-map,kensicons-accessories-character-map,"kensicons,accessories,map,character",ui,Kensicons Accessories Character Map icon
+KensIcons-accessories-dictionary,kensicons-accessories-dictionary,"kensicons,accessories,dictionary",ui,Kensicons Accessories Dictionary icon
+KensIcons-accessories-text-editor,kensicons-accessories-text-editor,"kensicons,accessories,text,editor",files,Kensicons Accessories Text Editor icon
+KensIcons-address-book-new,kensicons-address-book-new,"new,kensicons,book,address",files,Kensicons Address Book New icon
+KensIcons-applets-screenshooter,kensicons-applets-screenshooter,"kensicons,screenshooter,applets",ui,Kensicons Applets Screenshooter icon
+KensIcons-application-certificate,kensicons-application-certificate,"kensicons,application,certificate",security,Kensicons Application Certificate icon
+KensIcons-application-rss+xml,kensicons-application-rss+xml,"kensicons,rss+xml,application",ui,Kensicons Application Rss+Xml icon
+KensIcons-applications-accessories,kensicons-applications-accessories,"kensicons,applications,accessories",ui,Kensicons Applications Accessories icon
+KensIcons-applications-development,kensicons-applications-development,"kensicons,applications,development",ui,Kensicons Applications Development icon
+KensIcons-applications-engineering,kensicons-applications-engineering,"kensicons,applications,engineering",ui,Kensicons Applications Engineering icon
+KensIcons-applications-games,kensicons-applications-games,"kensicons,applications,games",ui,Kensicons Applications Games icon
+KensIcons-applications-graphics,kensicons-applications-graphics,"kensicons,applications,graphics",ui,Kensicons Applications Graphics icon
+KensIcons-applications-internet,kensicons-applications-internet,"kensicons,applications,internet",network,Kensicons Applications Internet icon
+KensIcons-applications-multimedia,kensicons-applications-multimedia,"multimedia,kensicons,applications",ui,Kensicons Applications Multimedia icon
+KensIcons-applications-office,kensicons-applications-office,"kensicons,applications,office",ui,Kensicons Applications Office icon
+KensIcons-applications-other,kensicons-applications-other,"other,kensicons,applications",ui,Kensicons Applications Other icon
+KensIcons-applications-science,kensicons-applications-science,"kensicons,applications,science",ui,Kensicons Applications Science icon
+KensIcons-applications-system,kensicons-applications-system,"kensicons,applications,system",ui,Kensicons Applications System icon
+KensIcons-applications-utilities,kensicons-applications-utilities,"utilities,kensicons,applications",ui,Kensicons Applications Utilities icon
+KensIcons-application-vnd.openofficeorg.extension,kensicons-application-vnd.openofficeorg.extension,"vnd.openofficeorg.extension,kensicons,application",ui,Kensicons Application Vnd.Openofficeorg.Extension icon
+KensIcons-application-x-blender,kensicons-application-x-blender,"x,kensicons,application,blender",ui,Kensicons Application X Blender icon
+KensIcons-application-x-cd-image,kensicons-application-x-cd-image,"x,image,cd,application,kensicons",ui,Kensicons Application X Cd Image icon
+KensIcons-application-x-executable,kensicons-application-x-executable,"x,kensicons,application,executable",ui,Kensicons Application X Executable icon
+KensIcons-application-x-mono-develop-xib,kensicons-application-x-mono-develop-xib,"x,mono,develop,xib,application",ui,Kensicons Application X Mono Develop Xib icon
+KensIcons-appointment-missed,kensicons-appointment-missed,"kensicons,missed,appointment",ui,Kensicons Appointment Missed icon
+KensIcons-appointment-soon,kensicons-appointment-soon,"soon,kensicons,appointment",ui,Kensicons Appointment Soon icon
+KensIcons-audio-card,kensicons-audio-card,"audio,kensicons,card",ui,Kensicons Audio Card icon
+KensIcons-audio-volume-high,kensicons-audio-volume-high,"audio,kensicons,volume,high",ui,Kensicons Audio Volume High icon
+KensIcons-audio-volume-low,kensicons-audio-volume-low,"audio,kensicons,volume,low",ui,Kensicons Audio Volume Low icon
+KensIcons-audio-volume-medium,kensicons-audio-volume-medium,"audio,kensicons,volume,medium",ui,Kensicons Audio Volume Medium icon
+KensIcons-audio-volume-muted,kensicons-audio-volume-muted,"audio,kensicons,volume,muted",ui,Kensicons Audio Volume Muted icon
+KensIcons-audio-x-generic,kensicons-audio-x-generic,"audio,kensicons,x,generic",ui,Kensicons Audio X Generic icon
+KensIcons-camera-video,kensicons-camera-video,"kensicons,camera,video",ui,Kensicons Camera Video icon
+KensIcons-computer,kensicons-computer,"kensicons,computer",ui,Kensicons Computer icon
+KensIcons-dialog-error,kensicons-dialog-error,"kensicons,error,dialog",ui,Kensicons Dialog Error icon
+KensIcons-dialog-information,kensicons-dialog-information,"kensicons,information,dialog",ui,Kensicons Dialog Information icon
+KensIcons-dialog-question,kensicons-dialog-question,"kensicons,question,dialog",ui,Kensicons Dialog Question icon
+KensIcons-dialog-warning,kensicons-dialog-warning,"kensicons,dialog,warning",ui,Kensicons Dialog Warning icon
+KensIcons-document-new,kensicons-document-new,"new,kensicons,document",files,Kensicons Document New icon
+KensIcons-document-open,kensicons-document-open,"kensicons,open,document",ui,Kensicons Document Open icon
+KensIcons-document-print,kensicons-document-print,"kensicons,document,print",files,Kensicons Document Print icon
+KensIcons-document-print-preview,kensicons-document-print-preview,"kensicons,document,print,preview",files,Kensicons Document Print Preview icon
+KensIcons-document-save-as,kensicons-document-save-as,"kensicons,document,as,save",files,Kensicons Document Save As icon
+KensIcons-document-save,kensicons-document-save,"kensicons,document,save",files,Kensicons Document Save icon
+KensIcons-drive-encrypted,kensicons-drive-encrypted,"kensicons,encrypted,drive",ui,Kensicons Drive Encrypted icon
+KensIcons-drive-harddisk-ieee1394,kensicons-drive-harddisk-ieee1394,"kensicons,harddisk,ieee1394,drive",ui,Kensicons Drive Harddisk Ieee1394 icon
+KensIcons-drive-harddisk,kensicons-drive-harddisk,"kensicons,harddisk,drive",ui,Kensicons Drive Harddisk icon
+KensIcons-drive-harddisk-usb,kensicons-drive-harddisk-usb,"kensicons,harddisk,usb,drive",ui,Kensicons Drive Harddisk Usb icon
+KensIcons-drive-optical,kensicons-drive-optical,"kensicons,optical,drive",ui,Kensicons Drive Optical icon
+KensIcons-drive-optical-recorder,kensicons-drive-optical-recorder,"kensicons,optical,recorder,drive",ui,Kensicons Drive Optical Recorder icon
+KensIcons-drive-removable-media-flash-cf,kensicons-drive-removable-media-flash-cf,"removable,flash,media,cf,kensicons",ui,Kensicons Drive Removable Media Flash Cf icon
+KensIcons-drive-removable-media-flash-ms,kensicons-drive-removable-media-flash-ms,"removable,flash,media,kensicons,ms",ui,Kensicons Drive Removable Media Flash Ms icon
+KensIcons-drive-removable-media-flash,kensicons-drive-removable-media-flash,"removable,flash,media,kensicons,drive",ui,Kensicons Drive Removable Media Flash icon
+KensIcons-drive-removable-media-flash-sd,kensicons-drive-removable-media-flash-sd,"removable,flash,media,sd,kensicons",ui,Kensicons Drive Removable Media Flash Sd icon
+KensIcons-drive-removable-media-flash-sm,kensicons-drive-removable-media-flash-sm,"sm,removable,flash,media,kensicons",ui,Kensicons Drive Removable Media Flash Sm icon
+KensIcons-drive-removable-media-floppy,kensicons-drive-removable-media-floppy,"removable,media,floppy,kensicons,drive",ui,Kensicons Drive Removable Media Floppy icon
+KensIcons-drive-removable-media-ieee1394,kensicons-drive-removable-media-ieee1394,"removable,ieee1394,media,kensicons,drive",ui,Kensicons Drive Removable Media Ieee1394 icon
+KensIcons-drive-removable-media,kensicons-drive-removable-media,"kensicons,removable,media,drive",ui,Kensicons Drive Removable Media icon
+KensIcons-drive-removable-media-usb,kensicons-drive-removable-media-usb,"usb,removable,media,kensicons,drive",ui,Kensicons Drive Removable Media Usb icon
+KensIcons-edit-copy,kensicons-edit-copy,"kensicons,copy,edit",ui,Kensicons Edit Copy icon
+KensIcons-edit-delete,kensicons-edit-delete,"delete,kensicons,edit",ui,Kensicons Edit Delete icon
+KensIcons-edit-find,kensicons-edit-find,"kensicons,find,edit",ui,Kensicons Edit Find icon
+KensIcons-edit-paste,kensicons-edit-paste,"kensicons,paste,edit",ui,Kensicons Edit Paste icon
+KensIcons-edit-select-all,kensicons-edit-select-all,"kensicons,edit,select,all",ui,Kensicons Edit Select All icon
+KensIcons-emblem-default,kensicons-emblem-default,"kensicons,emblem,default",ui,Kensicons Emblem Default icon
+KensIcons-emblem-documents,kensicons-emblem-documents,"kensicons,emblem,documents",files,Kensicons Emblem Documents icon
+KensIcons-emblem-downloads,kensicons-emblem-downloads,"kensicons,emblem,downloads",ui,Kensicons Emblem Downloads icon
+KensIcons-emblem-favorite,kensicons-emblem-favorite,"kensicons,favorite,emblem",ui,Kensicons Emblem Favorite icon
+KensIcons-emblem-fun,kensicons-emblem-fun,"kensicons,emblem,fun",ui,Kensicons Emblem Fun icon
+KensIcons-emblem-generic,kensicons-emblem-generic,"kensicons,emblem,generic",ui,Kensicons Emblem Generic icon
+KensIcons-emblem-important,kensicons-emblem-important,"kensicons,emblem,important",ui,Kensicons Emblem Important icon
+KensIcons-emblem-mail,kensicons-emblem-mail,"kensicons,emblem,mail",ui,Kensicons Emblem Mail icon
+KensIcons-emblem-multimedia,kensicons-emblem-multimedia,"multimedia,kensicons,emblem",ui,Kensicons Emblem Multimedia icon
+KensIcons-emblem-musicarchiv,kensicons-emblem-musicarchiv,"kensicons,emblem,musicarchiv",ui,Kensicons Emblem Musicarchiv icon
+KensIcons-emblem-new,kensicons-emblem-new,"new,kensicons,emblem",ui,Kensicons Emblem New icon
+KensIcons-emblem-package,kensicons-emblem-package,"kensicons,emblem,package",ui,Kensicons Emblem Package icon
+KensIcons-emblem-photos,kensicons-emblem-photos,"kensicons,emblem,photos",ui,Kensicons Emblem Photos icon
+KensIcons-emblem-shared,kensicons-emblem-shared,"kensicons,emblem,shared",ui,Kensicons Emblem Shared icon
+KensIcons-emblem-system,kensicons-emblem-system,"kensicons,system,emblem",ui,Kensicons Emblem System icon
+KensIcons-emblem-urgent,kensicons-emblem-urgent,"kensicons,urgent,emblem",ui,Kensicons Emblem Urgent icon
+KensIcons-emblem-web,kensicons-emblem-web,"kensicons,web,emblem",network,Kensicons Emblem Web icon
+KensIcons-folder-documents,kensicons-folder-documents,"kensicons,documents,folder",files,Kensicons Folder Documents icon
+KensIcons-folder-download,kensicons-folder-download,"kensicons,download,folder",files,Kensicons Folder Download icon
+KensIcons-folder-drag-accept,kensicons-folder-drag-accept,"kensicons,accept,drag,folder",files,Kensicons Folder Drag Accept icon
+KensIcons-folder-music,kensicons-folder-music,"music,kensicons,folder",files,Kensicons Folder Music icon
+KensIcons-folder-new,kensicons-folder-new,"new,kensicons,folder",files,Kensicons Folder New icon
+KensIcons-folder-open,kensicons-folder-open,"kensicons,open,folder",ui,Kensicons Folder Open icon
+KensIcons-folder-pictures,kensicons-folder-pictures,"kensicons,pictures,folder",files,Kensicons Folder Pictures icon
+KensIcons-folder,kensicons-folder,"kensicons,folder",files,Kensicons Folder icon
+KensIcons-folder-publicshare,kensicons-folder-publicshare,"kensicons,publicshare,folder",files,Kensicons Folder Publicshare icon
+KensIcons-folder-remote,kensicons-folder-remote,"kensicons,remote,folder",files,Kensicons Folder Remote icon
+KensIcons-folder-saved-search,kensicons-folder-saved-search,"kensicons,search,saved,folder",files,Kensicons Folder Saved Search icon
+KensIcons-folder-templates,kensicons-folder-templates,"kensicons,templates,folder",files,Kensicons Folder Templates icon
+KensIcons-folder-videos,kensicons-folder-videos,"kensicons,videos,folder",files,Kensicons Folder Videos icon
+KensIcons-folder-visiting,kensicons-folder-visiting,"kensicons,visiting,folder",files,Kensicons Folder Visiting icon
+KensIcons-font-x-generic,kensicons-font-x-generic,"x,kensicons,generic,font",ui,Kensicons Font X Generic icon
+KensIcons-gnome-mime-application-pdf,kensicons-gnome-mime-application-pdf,"gnome,pdf,application,kensicons,mime",files,Kensicons Gnome Mime Application Pdf icon
+KensIcons-gnome-mime-application-postscript,kensicons-gnome-mime-application-postscript,"gnome,postscript,application,kensicons,mime",ui,Kensicons Gnome Mime Application Postscript icon
+KensIcons-go-bottom,kensicons-go-bottom,"kensicons,go,bottom",ui,Kensicons Go Bottom icon
+KensIcons-go-down,kensicons-go-down,"kensicons,go,down",ui,Kensicons Go Down icon
+KensIcons-go-first,kensicons-go-first,"first,kensicons,go",ui,Kensicons Go First icon
+KensIcons-go-home,kensicons-go-home,"home,kensicons,go",ui,Kensicons Go Home icon
+KensIcons-go-last,kensicons-go-last,"kensicons,go,last",ui,Kensicons Go Last icon
+KensIcons-go-next,kensicons-go-next,"kensicons,next,go",ui,Kensicons Go Next icon
+KensIcons-go-previous,kensicons-go-previous,"kensicons,go,previous",ui,Kensicons Go Previous icon
+KensIcons-go-top,kensicons-go-top,"kensicons,go,top",ui,Kensicons Go Top icon
+KensIcons-go-up,kensicons-go-up,"kensicons,go,up",ui,Kensicons Go Up icon
+KensIcons-help-about,kensicons-help-about,"kensicons,help,about",ui,Kensicons Help About icon
+KensIcons-help-browser,kensicons-help-browser,"kensicons,browser,help",ui,Kensicons Help Browser icon
+KensIcons-help-contents,kensicons-help-contents,"kensicons,help,contents",ui,Kensicons Help Contents icon
+KensIcons-image-loading,kensicons-image-loading,"kensicons,image,loading",ui,Kensicons Image Loading icon
+KensIcons-image-missing,kensicons-image-missing,"kensicons,image,missing",ui,Kensicons Image Missing icon
+KensIcons-image-x-generic,kensicons-image-x-generic,"x,kensicons,generic,image",ui,Kensicons Image X Generic icon
+KensIcons-input-gaming,kensicons-input-gaming,"kensicons,gaming,input",ui,Kensicons Input Gaming icon
+KensIcons-input-keyboard,kensicons-input-keyboard,"kensicons,keyboard,input",security,Kensicons Input Keyboard icon
+KensIcons-input-mouse,kensicons-input-mouse,"kensicons,input,mouse",ui,Kensicons Input Mouse icon
+KensIcons-logviewer,kensicons-logviewer,"kensicons,logviewer",ui,Kensicons Logviewer icon
+KensIcons-media-encrypted,kensicons-media-encrypted,"kensicons,media,encrypted",ui,Kensicons Media Encrypted icon
+KensIcons-media-flash-cf,kensicons-media-flash-cf,"kensicons,flash,media,cf",ui,Kensicons Media Flash Cf icon
+KensIcons-media-flash-ms,kensicons-media-flash-ms,"kensicons,flash,media,ms",ui,Kensicons Media Flash Ms icon
+KensIcons-media-flash,kensicons-media-flash,"kensicons,flash,media",ui,Kensicons Media Flash icon
+KensIcons-media-flash-sd,kensicons-media-flash-sd,"sd,kensicons,flash,media",ui,Kensicons Media Flash Sd icon
+KensIcons-media-flash-sm,kensicons-media-flash-sm,"kensicons,flash,media,sm",ui,Kensicons Media Flash Sm icon
+KensIcons-media-floppy,kensicons-media-floppy,"kensicons,media,floppy",ui,Kensicons Media Floppy icon
+KensIcons-media-optical-audio,kensicons-media-optical-audio,"audio,kensicons,optical,media",ui,Kensicons Media Optical Audio icon
+KensIcons-media-optical-bd,kensicons-media-optical-bd,"kensicons,optical,media,bd",ui,Kensicons Media Optical Bd icon
+KensIcons-media-optical-cd-audio,kensicons-media-optical-cd-audio,"media,optical,cd,audio,kensicons",ui,Kensicons Media Optical Cd Audio icon
+KensIcons-media-optical-cd,kensicons-media-optical-cd,"cd,kensicons,optical,media",ui,Kensicons Media Optical Cd icon
+KensIcons-media-optical-dvd,kensicons-media-optical-dvd,"kensicons,optical,media,dvd",ui,Kensicons Media Optical Dvd icon
+KensIcons-media-optical-hddvd,kensicons-media-optical-hddvd,"kensicons,optical,media,hddvd",ui,Kensicons Media Optical Hddvd icon
+KensIcons-media-optical,kensicons-media-optical,"kensicons,optical,media",ui,Kensicons Media Optical icon
+KensIcons-media-tape,kensicons-media-tape,"kensicons,media,tape",ui,Kensicons Media Tape icon
+KensIcons-media-zip,kensicons-media-zip,"kensicons,zip,media",ui,Kensicons Media Zip icon
+KensIcons-modem,kensicons-modem,"kensicons,modem",ui,Kensicons Modem icon
+KensIcons-multimedia-player-apple-ipod-touch,kensicons-multimedia-player-apple-ipod-touch,"apple,ipod,multimedia,kensicons,player",ui,Kensicons Multimedia Player Apple Ipod Touch icon
+KensIcons-multimedia-player,kensicons-multimedia-player,"multimedia,kensicons,player",ui,Kensicons Multimedia Player icon
+KensIcons-multimedia-volume-control,kensicons-multimedia-volume-control,"multimedia,kensicons,volume,control",ui,Kensicons Multimedia Volume Control icon
+KensIcons-network-error,kensicons-network-error,"kensicons,error,network",network,Kensicons Network Error icon
+KensIcons-network-idle,kensicons-network-idle,"idle,kensicons,network",network,Kensicons Network Idle icon
+KensIcons-network-offline,kensicons-network-offline,"kensicons,offline,network",network,Kensicons Network Offline icon
+KensIcons-network-receive,kensicons-network-receive,"kensicons,network,receive",network,Kensicons Network Receive icon
+KensIcons-network-server,kensicons-network-server,"kensicons,network,server",network,Kensicons Network Server icon
+KensIcons-network-transmit,kensicons-network-transmit,"transmit,kensicons,network",network,Kensicons Network Transmit icon
+KensIcons-network-transmit-receive,kensicons-network-transmit-receive,"transmit,kensicons,network,receive",network,Kensicons Network Transmit Receive icon
+KensIcons-network-wired,kensicons-network-wired,"kensicons,wired,network",network,Kensicons Network Wired icon
+KensIcons-network-workgroup,kensicons-network-workgroup,"kensicons,workgroup,network",network,Kensicons Network Workgroup icon
+KensIcons-package-x-generic,kensicons-package-x-generic,"x,kensicons,generic,package",ui,Kensicons Package X Generic icon
+KensIcons-phone-apple-iphone,kensicons-phone-apple-iphone,"kensicons,apple,phone,iphone",ui,Kensicons Phone Apple Iphone icon
+KensIcons-phone-google-nexus-one,kensicons-phone-google-nexus-one,"nexus,google,one,kensicons,phone",ui,Kensicons Phone Google Nexus One icon
+KensIcons-phone-htc-g1-white,kensicons-phone-htc-g1-white,"htc,white,g1,kensicons,phone",ui,Kensicons Phone Htc G1 White icon
+KensIcons-phone-palm-pre,kensicons-phone-palm-pre,"pre,kensicons,palm,phone",ui,Kensicons Phone Palm Pre icon
+KensIcons-phone,kensicons-phone,"kensicons,phone",ui,Kensicons Phone icon
+KensIcons-preferences-desktop-accessibility,kensicons-preferences-desktop-accessibility,"desktop,kensicons,accessibility,preferences",ui,Kensicons Preferences Desktop Accessibility icon
+KensIcons-preferences-desktop-display,kensicons-preferences-desktop-display,"desktop,kensicons,display,preferences",ui,Kensicons Preferences Desktop Display icon
+KensIcons-preferences-desktop-font,kensicons-preferences-desktop-font,"desktop,kensicons,preferences,font",ui,Kensicons Preferences Desktop Font icon
+KensIcons-preferences-desktop-keyboard,kensicons-preferences-desktop-keyboard,"desktop,kensicons,keyboard,preferences",security,Kensicons Preferences Desktop Keyboard icon
+KensIcons-preferences-desktop-keyboard-shortcuts,kensicons-preferences-desktop-keyboard-shortcuts,"desktop,keyboard,preferences,kensicons,shortcuts",security,Kensicons Preferences Desktop Keyboard Shortcuts icon
+KensIcons-preferences-desktop-locale,kensicons-preferences-desktop-locale,"desktop,kensicons,locale,preferences",ui,Kensicons Preferences Desktop Locale icon
+KensIcons-preferences-desktop-peripherals,kensicons-preferences-desktop-peripherals,"desktop,kensicons,peripherals,preferences",ui,Kensicons Preferences Desktop Peripherals icon
+KensIcons-preferences-desktop-personal,kensicons-preferences-desktop-personal,"desktop,kensicons,personal,preferences",ui,Kensicons Preferences Desktop Personal icon
+KensIcons-preferences-desktop,kensicons-preferences-desktop,"desktop,kensicons,preferences",ui,Kensicons Preferences Desktop icon
+KensIcons-preferences-desktop-remote-desktop,kensicons-preferences-desktop-remote-desktop,"desktop,kensicons,remote,preferences",ui,Kensicons Preferences Desktop Remote Desktop icon
+KensIcons-preferences-desktop-screensaver,kensicons-preferences-desktop-screensaver,"desktop,kensicons,screensaver,preferences",ui,Kensicons Preferences Desktop Screensaver icon
+KensIcons-preferences-desktop-theme,kensicons-preferences-desktop-theme,"desktop,kensicons,preferences,theme",ui,Kensicons Preferences Desktop Theme icon
+KensIcons-preferences-desktop-wallpaper,kensicons-preferences-desktop-wallpaper,"desktop,kensicons,preferences,wallpaper",files,Kensicons Preferences Desktop Wallpaper icon
+KensIcons-preferences-other,kensicons-preferences-other,"other,kensicons,preferences",ui,Kensicons Preferences Other icon
+KensIcons-preferences-system-network,kensicons-preferences-system-network,"kensicons,system,preferences,network",network,Kensicons Preferences System Network icon
+KensIcons-preferences-system,kensicons-preferences-system,"kensicons,system,preferences",ui,Kensicons Preferences System icon
+KensIcons-preferences-system-windows,kensicons-preferences-system-windows,"kensicons,system,preferences,windows",ui,Kensicons Preferences System Windows icon
+KensIcons-printer-error,kensicons-printer-error,"printer,kensicons,error",ui,Kensicons Printer Error icon
+KensIcons-printer,kensicons-printer,"printer,kensicons",ui,Kensicons Printer icon
+KensIcons-printer-printing,kensicons-printer-printing,"printer,kensicons,printing",ui,Kensicons Printer Printing icon
+KensIcons-process-stop,kensicons-process-stop,"kensicons,process,stop",ui,Kensicons Process Stop icon
+KensIcons-scanner,kensicons-scanner,"scanner,kensicons",ui,Kensicons Scanner icon
+KensIcons-start-here,kensicons-start-here,"here,kensicons,start",ui,Kensicons Start Here icon
+KensIcons-stock_person,kensicons-stock-person,"kensicons,person,stock",ui,Kensicons Stock Person icon
+KensIcons-system-file-manager,kensicons-system-file-manager,"file,kensicons,system,manager",files,Kensicons System File Manager icon
+KensIcons-system-help,kensicons-system-help,"kensicons,system,help",ui,Kensicons System Help icon
+KensIcons-system-run,kensicons-system-run,"kensicons,system,run",ui,Kensicons System Run icon
+KensIcons-system-search,kensicons-system-search,"kensicons,system,search",ui,Kensicons System Search icon
+KensIcons-system-software-install,kensicons-system-software-install,"kensicons,system,install,software",ui,Kensicons System Software Install icon
+KensIcons-system-software-update,kensicons-system-software-update,"update,kensicons,system,software",ui,Kensicons System Software Update icon
+KensIcons-system-users,kensicons-system-users,"kensicons,system,users",ui,Kensicons System Users icon
+KensIcons-text-html,kensicons-text-html,"html,kensicons,text",files,Kensicons Text Html icon
+KensIcons-text-x-generic,kensicons-text-x-generic,"x,kensicons,text,generic",files,Kensicons Text X Generic icon
+KensIcons-text-x-generic-template,kensicons-text-x-generic-template,"x,generic,kensicons,text,template",files,Kensicons Text X Generic Template icon
+KensIcons-text-x-preview,kensicons-text-x-preview,"x,kensicons,text,preview",files,Kensicons Text X Preview icon
+KensIcons-text-x-script,kensicons-text-x-script,"x,kensicons,text,script",files,Kensicons Text X Script icon
+KensIcons-user-bookmarks,kensicons-user-bookmarks,"bookmarks,kensicons,user",files,Kensicons User Bookmarks icon
+KensIcons-user-desktop,kensicons-user-desktop,"desktop,kensicons,user",ui,Kensicons User Desktop icon
+KensIcons-user-home,kensicons-user-home,"home,kensicons,user",ui,Kensicons User Home icon
+KensIcons-user-info,kensicons-user-info,"kensicons,info,user",ui,Kensicons User Info icon
+KensIcons-user-trash-full,kensicons-user-trash-full,"trash,kensicons,full,user",ui,Kensicons User Trash Full icon
+KensIcons-user-trash,kensicons-user-trash,"trash,kensicons,user",ui,Kensicons User Trash icon
+KensIcons-utilities-system-monitor,kensicons-utilities-system-monitor,"utilities,kensicons,system,monitor",ui,Kensicons Utilities System Monitor icon
+KensIcons-utilities-terminal,kensicons-utilities-terminal,"utilities,kensicons,terminal",ui,Kensicons Utilities Terminal icon
+KensIcons-video-display,kensicons-video-display,"display,kensicons,video",ui,Kensicons Video Display icon
+KensIcons-video-x-generic,kensicons-video-x-generic,"x,kensicons,generic,video",ui,Kensicons Video X Generic icon
+KensIcons-view-refresh,kensicons-view-refresh,"view,kensicons,refresh",ui,Kensicons View Refresh icon
+KensIcons-web-browser,kensicons-web-browser,"kensicons,web,browser",network,Kensicons Web Browser icon
+KensIcons-window-new,kensicons-window-new,"new,kensicons,window",ui,Kensicons Window New icon
+KensIcons-window,kensicons-window,"kensicons,window",ui,Kensicons Window icon
+KensIcons-x-office-address-book,kensicons-x-office-address-book,"x,book,office,kensicons,address",files,Kensicons X Office Address Book icon
+KensIcons-x-office-calendar,kensicons-x-office-calendar,"x,kensicons,calendar,office",ui,Kensicons X Office Calendar icon
+KensIcons-x-office-document,kensicons-x-office-document,"x,kensicons,document,office",files,Kensicons X Office Document icon
+KensIcons-x-office-document-template,kensicons-x-office-document-template,"x,document,office,kensicons,template",files,Kensicons X Office Document Template icon
+KensIcons-x-office-drawing,kensicons-x-office-drawing,"x,kensicons,drawing,office",ui,Kensicons X Office Drawing icon
+KensIcons-x-office-drawing-template,kensicons-x-office-drawing-template,"x,drawing,office,kensicons,template",ui,Kensicons X Office Drawing Template icon
+KensIcons-x-office-presentation,kensicons-x-office-presentation,"x,kensicons,presentation,office",ui,Kensicons X Office Presentation icon
+KensIcons-x-office-presentation-template,kensicons-x-office-presentation-template,"x,office,kensicons,template,presentation",ui,Kensicons X Office Presentation Template icon
+KensIcons-x-office-spreadsheet,kensicons-x-office-spreadsheet,"x,kensicons,spreadsheet,office",ui,Kensicons X Office Spreadsheet icon
+KensIcons-x-office-spreadsheet-template,kensicons-x-office-spreadsheet-template,"x,spreadsheet,office,kensicons,template",ui,Kensicons X Office Spreadsheet Template icon
+OfficePack-application-msword,officepack-application-msword,"msword,application,officepack",ui,Officepack Application Msword icon
+OfficePack-application-vnd.ms-excel.addin.macroEnabled.12,officepack-application-vnd.ms-excel.addin.macroenabled.12,"excel.addin.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Excel.Addin.Macroenabled.12 icon
+OfficePack-application-vnd.ms-excel,officepack-application-vnd.ms-excel,"vnd.ms,application,officepack,excel",ui,Officepack Application Vnd.Ms Excel icon
+OfficePack-application-vnd.ms-excel.sheet.binary.macroEnabled.12,officepack-application-vnd.ms-excel.sheet.binary.macroenabled.12,"vnd.ms,application,officepack,excel.sheet.binary.macroenabled.12",ui,Officepack Application Vnd.Ms Excel.Sheet.Binary.Macroenabled.12 icon
+OfficePack-application-vnd.ms-excel.sheet.macroEnabled.12,officepack-application-vnd.ms-excel.sheet.macroenabled.12,"excel.sheet.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Excel.Sheet.Macroenabled.12 icon
+OfficePack-application-vnd.ms-excel.template.macroEnabled.12,officepack-application-vnd.ms-excel.template.macroenabled.12,"excel.template.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Excel.Template.Macroenabled.12 icon
+OfficePack-application-vnd.ms-powerpoint.addin.macroEnabled.12,officepack-application-vnd.ms-powerpoint.addin.macroenabled.12,"powerpoint.addin.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Powerpoint.Addin.Macroenabled.12 icon
+OfficePack-application-vnd.ms-powerpoint,officepack-application-vnd.ms-powerpoint,"vnd.ms,application,officepack,powerpoint",ui,Officepack Application Vnd.Ms Powerpoint icon
+OfficePack-application-vnd.ms-powerpoint.presentation.macroEnabled.12,officepack-application-vnd.ms-powerpoint.presentation.macroenabled.12,"powerpoint.presentation.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Powerpoint.Presentation.Macroenabled.12 icon
+OfficePack-application-vnd.ms-powerpoint.slideshow.macroEnabled.12,officepack-application-vnd.ms-powerpoint.slideshow.macroenabled.12,"powerpoint.slideshow.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Powerpoint.Slideshow.Macroenabled.12 icon
+OfficePack-application-vnd.ms-powerpoint.template.macroEnabled.12,officepack-application-vnd.ms-powerpoint.template.macroenabled.12,"powerpoint.template.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Powerpoint.Template.Macroenabled.12 icon
+OfficePack-application-vnd.ms-word.document.macroEnabled.12,officepack-application-vnd.ms-word.document.macroenabled.12,"vnd.ms,word.document.macroenabled.12,application,officepack",files,Officepack Application Vnd.Ms Word.Document.Macroenabled.12 icon
+OfficePack-application-vnd.ms-word.template.macroEnabled.12,officepack-application-vnd.ms-word.template.macroenabled.12,"word.template.macroenabled.12,vnd.ms,application,officepack",ui,Officepack Application Vnd.Ms Word.Template.Macroenabled.12 icon
+OfficePack-application-vnd.oasis.opendocument.chart,officepack-application-vnd.oasis.opendocument.chart,"vnd.oasis.opendocument.chart,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Chart icon
+OfficePack-application-vnd.oasis.opendocument.database,officepack-application-vnd.oasis.opendocument.database,"vnd.oasis.opendocument.database,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Database icon
+OfficePack-application-vnd.oasis.opendocument.formula,officepack-application-vnd.oasis.opendocument.formula,"application,officepack,vnd.oasis.opendocument.formula",files,Officepack Application Vnd.Oasis.Opendocument.Formula icon
+OfficePack-application-vnd.oasis.opendocument.graphics,officepack-application-vnd.oasis.opendocument.graphics,"vnd.oasis.opendocument.graphics,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Graphics icon
+OfficePack-application-vnd.oasis.opendocument.graphics-template,officepack-application-vnd.oasis.opendocument.graphics-template,"template,vnd.oasis.opendocument.graphics,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Graphics Template icon
+OfficePack-application-vnd.oasis.opendocument.presentation,officepack-application-vnd.oasis.opendocument.presentation,"vnd.oasis.opendocument.presentation,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Presentation icon
+OfficePack-application-vnd.oasis.opendocument.presentation-template,officepack-application-vnd.oasis.opendocument.presentation-template,"vnd.oasis.opendocument.presentation,template,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Presentation Template icon
+OfficePack-application-vnd.oasis.opendocument.spreadsheet,officepack-application-vnd.oasis.opendocument.spreadsheet,"vnd.oasis.opendocument.spreadsheet,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Spreadsheet icon
+OfficePack-application-vnd.oasis.opendocument.spreadsheet-template,officepack-application-vnd.oasis.opendocument.spreadsheet-template,"vnd.oasis.opendocument.spreadsheet,template,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Spreadsheet Template icon
+OfficePack-application-vnd.oasis.opendocument.text-master,officepack-application-vnd.oasis.opendocument.text-master,"vnd.oasis.opendocument.text,master,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Text Master icon
+OfficePack-application-vnd.oasis.opendocument.text,officepack-application-vnd.oasis.opendocument.text,"vnd.oasis.opendocument.text,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Text icon
+OfficePack-application-vnd.oasis.opendocument.text-template,officepack-application-vnd.oasis.opendocument.text-template,"vnd.oasis.opendocument.text,template,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Text Template icon
+OfficePack-application-vnd.oasis.opendocument.text-web,officepack-application-vnd.oasis.opendocument.text-web,"vnd.oasis.opendocument.text,web,application,officepack",files,Officepack Application Vnd.Oasis.Opendocument.Text Web icon
+OfficePack-application-vnd.openxmlformats-officedocument.presentationml.presentation,officepack-application-vnd.openxmlformats-officedocument.presentationml.presentation,"vnd.openxmlformats,application,officepack,officedocument.presentationml.presentation",files,Officepack Application Vnd.Openxmlformats Officedocument.Presentationml.Presentation icon
+OfficePack-application-vnd.openxmlformats-officedocument.presentationml.slideshow,officepack-application-vnd.openxmlformats-officedocument.presentationml.slideshow,"vnd.openxmlformats,officedocument.presentationml.slideshow,application,officepack",files,Officepack Application Vnd.Openxmlformats Officedocument.Presentationml.Slideshow icon
+OfficePack-application-vnd.openxmlformats-officedocument.presentationml.template,officepack-application-vnd.openxmlformats-officedocument.presentationml.template,"officedocument.presentationml.template,vnd.openxmlformats,application,officepack",files,Officepack Application Vnd.Openxmlformats Officedocument.Presentationml.Template icon
+OfficePack-application-vnd.openxmlformats-officedocument.spreadsheetml.sheet,officepack-application-vnd.openxmlformats-officedocument.spreadsheetml.sheet,"vnd.openxmlformats,application,officepack,officedocument.spreadsheetml.sheet",files,Officepack Application Vnd.Openxmlformats Officedocument.Spreadsheetml.Sheet icon
+OfficePack-application-vnd.openxmlformats-officedocument.spreadsheetml.template,officepack-application-vnd.openxmlformats-officedocument.spreadsheetml.template,"vnd.openxmlformats,application,officepack,officedocument.spreadsheetml.template",files,Officepack Application Vnd.Openxmlformats Officedocument.Spreadsheetml.Template icon
+OfficePack-application-vnd.openxmlformats-officedocument.wordprocessingml.document,officepack-application-vnd.openxmlformats-officedocument.wordprocessingml.document,"vnd.openxmlformats,officedocument.wordprocessingml.document,application,officepack",files,Officepack Application Vnd.Openxmlformats Officedocument.Wordprocessingml.Document icon
+OfficePack-application-vnd.openxmlformats-officedocument.wordprocessingml.template,officepack-application-vnd.openxmlformats-officedocument.wordprocessingml.template,"vnd.openxmlformats,officedocument.wordprocessingml.template,application,officepack",files,Officepack Application Vnd.Openxmlformats Officedocument.Wordprocessingml.Template icon
+OfficePack-application-vnd.stardivision.calc,officepack-application-vnd.stardivision.calc,"vnd.stardivision.calc,application,officepack",ui,Officepack Application Vnd.Stardivision.Calc icon
+OfficePack-application-vnd.stardivision.chart,officepack-application-vnd.stardivision.chart,"vnd.stardivision.chart,application,officepack",ui,Officepack Application Vnd.Stardivision.Chart icon
+OfficePack-application-vnd.stardivision.draw,officepack-application-vnd.stardivision.draw,"application,officepack,vnd.stardivision.draw",ui,Officepack Application Vnd.Stardivision.Draw icon
+OfficePack-application-vnd.stardivision.impress,officepack-application-vnd.stardivision.impress,"vnd.stardivision.impress,application,officepack",ui,Officepack Application Vnd.Stardivision.Impress icon
+OfficePack-application-vnd.stardivision.math,officepack-application-vnd.stardivision.math,"vnd.stardivision.math,application,officepack",ui,Officepack Application Vnd.Stardivision.Math icon
+OfficePack-application-vnd.stardivision.writer-global,officepack-application-vnd.stardivision.writer-global,"global,vnd.stardivision.writer,application,officepack",ui,Officepack Application Vnd.Stardivision.Writer Global icon
+OfficePack-application-vnd.stardivision.writer,officepack-application-vnd.stardivision.writer,"vnd.stardivision.writer,application,officepack",ui,Officepack Application Vnd.Stardivision.Writer icon
+OfficePack-application-vnd.sun.xml.calc,officepack-application-vnd.sun.xml.calc,"vnd.sun.xml.calc,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Calc icon
+OfficePack-application-vnd.sun.xml.calc.template,officepack-application-vnd.sun.xml.calc.template,"vnd.sun.xml.calc.template,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Calc.Template icon
+OfficePack-application-vnd.sun.xml.draw,officepack-application-vnd.sun.xml.draw,"vnd.sun.xml.draw,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Draw icon
+OfficePack-application-vnd.sun.xml.draw.template,officepack-application-vnd.sun.xml.draw.template,"vnd.sun.xml.draw.template,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Draw.Template icon
+OfficePack-application-vnd.sun.xml.impress,officepack-application-vnd.sun.xml.impress,"vnd.sun.xml.impress,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Impress icon
+OfficePack-application-vnd.sun.xml.impress.template,officepack-application-vnd.sun.xml.impress.template,"vnd.sun.xml.impress.template,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Impress.Template icon
+OfficePack-application-vnd.sun.xml.math,officepack-application-vnd.sun.xml.math,"application,officepack,vnd.sun.xml.math",ui,Officepack Application Vnd.Sun.Xml.Math icon
+OfficePack-application-vnd.sun.xml.writer.global,officepack-application-vnd.sun.xml.writer.global,"vnd.sun.xml.writer.global,application,officepack",ui,Officepack Application Vnd.Sun.Xml.Writer.Global icon
+OfficePack-application-vnd.sun.xml.writer,officepack-application-vnd.sun.xml.writer,"application,officepack,vnd.sun.xml.writer",ui,Officepack Application Vnd.Sun.Xml.Writer icon
+OfficePack-application-vnd.sun.xml.writer.template,officepack-application-vnd.sun.xml.writer.template,"application,officepack,vnd.sun.xml.writer.template",ui,Officepack Application Vnd.Sun.Xml.Writer.Template icon
+OfficePack-application-x-starcalc,officepack-application-x-starcalc,"x,application,officepack,starcalc",ui,Officepack Application X Starcalc icon
+OfficePack-application-x-starchart,officepack-application-x-starchart,"x,starchart,application,officepack",ui,Officepack Application X Starchart icon
+OfficePack-application-x-stardraw,officepack-application-x-stardraw,"x,stardraw,application,officepack",ui,Officepack Application X Stardraw icon
+OfficePack-application-x-starimpress,officepack-application-x-starimpress,"x,starimpress,application,officepack",ui,Officepack Application X Starimpress icon
+OfficePack-application-x-starmath,officepack-application-x-starmath,"x,starmath,application,officepack",ui,Officepack Application X Starmath icon
+OfficePack-application-x-starwriter,officepack-application-x-starwriter,"x,starwriter,application,officepack",ui,Officepack Application X Starwriter icon
+OfficePack-gnome-fs-directory,officepack-gnome-fs-directory,"directory,fs,officepack,gnome",ui,Officepack Gnome Fs Directory icon
+OfficePack-gtk-directory,officepack-gtk-directory,"gtk,directory,officepack",ui,Officepack Gtk Directory icon
+uMac-application-exit,umac-application-exit,"exit,umac,application",ui,Umac Application Exit icon
+uMac-applications-internet,umac-applications-internet,"applications,umac,internet",network,Umac Applications Internet icon
+uMac-application-x-cd-image,umac-application-x-cd-image,"x,umac,image,cd,application",ui,Umac Application X Cd Image icon
+uMac-application-x-executable,umac-application-x-executable,"x,executable,umac,application",ui,Umac Application X Executable icon
+uMac-audio-x-generic,umac-audio-x-generic,"audio,x,umac,generic",ui,Umac Audio X Generic icon
+uMac-computer,umac-computer,"umac,computer",ui,Umac Computer icon
+uMac-dialog-question,umac-dialog-question,"dialog,question,umac",ui,Umac Dialog Question icon
+uMac-document-open,umac-document-open,"open,document,umac",files,Umac Document Open icon
+uMac-document-page-setup,umac-document-page-setup,"page,document,umac,setup",files,Umac Document Page Setup icon
+uMac-document-properties,umac-document-properties,"document,umac,properties",files,Umac Document Properties icon
+uMac-drive-harddisk,umac-drive-harddisk,"harddisk,umac,drive",ui,Umac Drive Harddisk icon
+uMac-drive-optical,umac-drive-optical,"optical,umac,drive",ui,Umac Drive Optical icon
+uMac-drive-removable-media,umac-drive-removable-media,"media,umac,removable,drive",ui,Umac Drive Removable Media icon
+uMac-edit-delete,umac-edit-delete,"delete,umac,edit",ui,Umac Edit Delete icon
+uMac-edit-find,umac-edit-find,"find,umac,edit",ui,Umac Edit Find icon
+uMac-emblems-documents,umac-emblems-documents,"emblems,documents,umac",files,Umac Emblems Documents icon
+uMac-emblem-shared,umac-emblem-shared,"emblem,umac,shared",ui,Umac Emblem Shared icon
+uMac-emblem-symbolic-link,umac-emblem-symbolic-link,"emblem,umac,link,symbolic",ui,Umac Emblem Symbolic Link icon
+uMac-emblem-web,umac-emblem-web,"web,emblem,umac",network,Umac Emblem Web icon
+uMac-folder-drag-accept,umac-folder-drag-accept,"drag,umac,accept,folder",files,Umac Folder Drag Accept icon
+uMac-folder-open,umac-folder-open,"open,umac,folder",files,Umac Folder Open icon
+uMac-folder,umac-folder,"umac,folder",files,Umac Folder icon
+uMac-folder-remote,umac-folder-remote,"remote,umac,folder",files,Umac Folder Remote icon
+uMac-help-about,umac-help-about,"umac,help,about",ui,Umac Help About icon
+uMac-help-browser,umac-help-browser,"browser,umac,help",ui,Umac Help Browser icon
+uMac-help-contents,umac-help-contents,"umac,help,contents",ui,Umac Help Contents icon
+uMac-help-faq,umac-help-faq,"faq,umac,help",ui,Umac Help Faq icon
+uMac-media-flash,umac-media-flash,"media,flash,umac",ui,Umac Media Flash icon
+uMac-media-floppy,umac-media-floppy,"media,umac,floppy",ui,Umac Media Floppy icon
+uMac-media-optical,umac-media-optical,"media,optical,umac",ui,Umac Media Optical icon
+uMac-modem,umac-modem,"umac,modem",ui,Umac Modem icon
+uMac-network-server,umac-network-server,"umac,network,server",network,Umac Network Server icon
+uMac-network-wired,umac-network-wired,"umac,wired,network",network,Umac Network Wired icon
+uMac-network-workgroup,umac-network-workgroup,"workgroup,umac,network",network,Umac Network Workgroup icon
+uMac-package-x-generic,umac-package-x-generic,"x,generic,umac,package",ui,Umac Package X Generic icon
+uMac-preferences-desktop,umac-preferences-desktop,"desktop,umac,preferences",ui,Umac Preferences Desktop icon
+uMac-preferences-other,umac-preferences-other,"other,umac,preferences",ui,Umac Preferences Other icon
+uMac-preferences-system,umac-preferences-system,"system,umac,preferences",ui,Umac Preferences System icon
+uMac-system-log-out,umac-system-log-out,"system,log,umac,out",ui,Umac System Log Out icon
+uMac-system-run,umac-system-run,"run,system,umac",ui,Umac System Run icon
+uMac-system-search,umac-system-search,"system,umac,search",ui,Umac System Search icon
+uMac-text-html,umac-text-html,"html,text,umac",files,Umac Text Html icon
+uMac-text-x-generic,umac-text-x-generic,"x,text,umac,generic",files,Umac Text X Generic icon
+uMac-text-x-preview,umac-text-x-preview,"x,text,umac,preview",files,Umac Text X Preview icon
+uMac-user-desktop,umac-user-desktop,"desktop,user,umac",ui,Umac User Desktop icon
+uMac-user-home,umac-user-home,"home,user,umac",ui,Umac User Home icon
+uMac-user-trash-full,umac-user-trash-full,"trash,user,umac,full",ui,Umac User Trash Full icon
+uMac-user-trash,umac-user-trash,"trash,user,umac",ui,Umac User Trash icon
+uMac-utilities-terminal,umac-utilities-terminal,"utilities,terminal,umac",development,Umac Utilities Terminal icon
+uMac-video-display,umac-video-display,"display,umac,video",ui,Umac Video Display icon
+uMac-video-x-generic,umac-video-x-generic,"x,generic,umac,video",ui,Umac Video X Generic icon
+uMac-x-office-document,umac-x-office-document,"x,document,umac,office",files,Umac X Office Document icon

@@ -3,11 +3,11 @@
 **A semantic icon library with intelligent tagging and discovery**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Icons](https://img.shields.io/badge/icons-3369-brightgreen.svg)
-![Cataloged](https://img.shields.io/badge/cataloged-3372-brightgreen.svg)
+![Icons](https://img.shields.io/badge/icons-4205-brightgreen.svg)
+![Cataloged](https://img.shields.io/badge/cataloged-4205-brightgreen.svg)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 
-**📖 [Quick Start](QUICK_START.md) | 🤖 [For AI Assistants](CLAUDE.md)**
+**![book](.github/assets/icons/book.png) [Quick Start](QUICK_START.md) | ![script](.github/assets/icons/script.png) [For AI Assistants](CLAUDE.md)**
 
 ---
 
@@ -22,7 +22,7 @@ Iconics is a globally-accessible, semantically-tagged icon library designed for 
 - **Ready-to-Paste Markdown:** Generates markdown snippets automatically
 - **Context-Aware Suggestions:** `icon suggest authentication` recommends appropriate icons
 - **Semantic Search:** Find icons by meaning, not filename
-- **3,369 Icons - Fully Cataloged:** All icons tagged, categorized, and ready to use (including all sizes from ICO/GIF conversions)
+- **4,205 Icons - Fully Cataloged:** All icons tagged, categorized, and ready to use
 - **No More Emojis:** Professional, semantic icons for all your projects
 
 ---
@@ -99,20 +99,20 @@ python3 icon-manager.py export ~/dev/my-project lock shield
 
 ## Library Stats
 
-- **Total Icons:** 3,369 PNG files
-- **Cataloged:** 3,372 icons (100% coverage) ✅ **COMPLETE!**
+- **Total Icons:** 4,205 PNG files (plus 3,820 64x64 variants)
+- **Cataloged:** 4,205 icons (100% coverage) ![tick](.github/assets/icons/tick.png) **COMPLETE!**
 - **Categories:** 7 (files, network, security, tools, ui, emoji, development)
 - **Projects Using:** Multiple (tracked via usage analytics)
 - **Archives:** ICO (6.3MB) and GIF (575KB) originals preserved in archives
 
 ### Category Breakdown
-- **UI Elements:** 2,969 icons (arrows, buttons, controls, indicators, media, numbers, sizes)
-- **Files:** 179 icons (documents, folders, blueprints, file types, bookmarks, archives)
-- **Security:** 76 icons (locks, keys, shields, certificates, safes, clocks, alarms)
-- **Tools:** 60 icons (hardware, utilities, design tools, devices, instruments)
-- **Development:** 39 icons (console, database, code, terminal, git, apps)
-- **Network:** 31 icons (wifi, cloud, globe, connections, streaming, browsers)
-- **Emoji:** 18 icons (expressions, symbols, yin-yang, faces)
+- **UI Elements:** 3,483 icons (arrows, buttons, controls, indicators, media, numbers, sizes)
+- **Files:** 297 icons (documents, folders, blueprints, file types, bookmarks, archives)
+- **Emoji:** 141 icons (expressions, symbols, yin-yang, faces, characters)
+- **Network:** 93 icons (wifi, cloud, globe, connections, streaming, browsers)
+- **Security:** 80 icons (locks, keys, shields, certificates, safes, protection)
+- **Tools:** 70 icons (hardware, utilities, design tools, devices, instruments)
+- **Development:** 41 icons (console, database, code, terminal, apps, scripts)
 
 ---
 
@@ -486,13 +486,13 @@ Code, databases, APIs, debugging, testing
 
 ## Tagging Best Practices
 
-### Good Tags ✅
+### Good Tags ![tick](.github/assets/icons/tick.png)
 - **Descriptive:** lock, security, padlock
 - **Action-based:** search, find, lookup
 - **Context:** authentication, password, access
 - **Synonyms:** folder, directory, files
 
-### Avoid ❌
+### Avoid ![error](.github/assets/icons/error.png)
 - Too generic: icon, image, graphic
 - Too specific: "blue lock with gold keyhole"
 - Duplicates: lock, locking, locked (choose one primary)
@@ -515,28 +515,28 @@ Network security research project
 
 ## Roadmap
 
-### Phase 1 ✅ (Complete)
-- ✅ Basic CLI tool
-- ✅ JSON catalog system
-- ✅ Search functionality
-- ✅ Export to projects
-- ✅ Initial 9 icons cataloged
+### Phase 1 ![tick](.github/assets/icons/tick.png) (Complete)
+- ![tick](.github/assets/icons/tick.png) Basic CLI tool
+- ![tick](.github/assets/icons/tick.png) JSON catalog system
+- ![tick](.github/assets/icons/tick.png) Search functionality
+- ![tick](.github/assets/icons/tick.png) Export to projects
+- ![tick](.github/assets/icons/tick.png) Initial 9 icons cataloged
 
-### Phase 2 ✅ (Complete)
-- ✅ Bulk CSV import (3-4x faster)
-- ✅ Auto-generate CSV from filenames (10x faster)
-- ✅ Template system for icon families
-- ✅ Expand catalog to 1,215 icons (100% complete)
-- ✅ Enhanced statistics with category breakdowns
-- ✅ Catalog validation and integrity checking
-- ✅ Detailed icon information command
-- ✅ Recent icons tracking
-- ✅ Batch export by category
-- ✅ **Global CLI access system**
-- ✅ **Smart project detection**
-- ✅ **Auto-generated markdown snippets**
-- ✅ **Context-aware icon suggestions**
-- ✅ **One-command export and use**
+### Phase 2 ![tick](.github/assets/icons/tick.png) (Complete)
+- ![tick](.github/assets/icons/tick.png) Bulk CSV import (3-4x faster)
+- ![tick](.github/assets/icons/tick.png) Auto-generate CSV from filenames (10x faster)
+- ![tick](.github/assets/icons/tick.png) Template system for icon families
+- ![tick](.github/assets/icons/tick.png) Expand catalog to 1,215 icons (100% complete)
+- ![tick](.github/assets/icons/tick.png) Enhanced statistics with category breakdowns
+- ![tick](.github/assets/icons/tick.png) Catalog validation and integrity checking
+- ![tick](.github/assets/icons/tick.png) Detailed icon information command
+- ![tick](.github/assets/icons/tick.png) Recent icons tracking
+- ![tick](.github/assets/icons/tick.png) Batch export by category
+- ![tick](.github/assets/icons/tick.png) **Global CLI access system**
+- ![tick](.github/assets/icons/tick.png) **Smart project detection**
+- ![tick](.github/assets/icons/tick.png) **Auto-generated markdown snippets**
+- ![tick](.github/assets/icons/tick.png) **Context-aware icon suggestions**
+- ![tick](.github/assets/icons/tick.png) **One-command export and use**
 
 ### Phase 3 (Future)
 - [ ] Web interface for visual browsing

@@ -45,6 +45,10 @@ CATALOGING:
     import <csv>                Bulk import from CSV
     generate <csv> [limit]      Auto-generate CSV from filenames
 
+ENRICHMENT:
+    enrich [--apply]            Auto-add semantic tags to catalog
+    scan <project>              Scan project README for emoji replacements
+
 EXAMPLES:
     icon search security        # Find security-related icons
     icon use lock shield        # Export lock and shield to current project
@@ -96,61 +100,13 @@ generate_markdown() {
     echo "![${name}](${rel_path})"
 }
 
-# Suggest icons based on context
+# Suggest icons based on context (with semantic matching and percentages)
 suggest_icons() {
     local context="$1"
+    local limit="${2:-10}"
 
-    echo -e "${BLUE}Icon suggestions for '${context}':${NC}\n"
-
-    # Define context mappings
-    case "$context" in
-        auth|authentication|login|signin)
-            echo "  lock, key, shield, certificate, login"
-            ;;
-        security|secure|protection)
-            echo "  shield, lock, key, protection, certificate, keychain"
-            ;;
-        network|connection|api|server)
-            echo "  network, cloud, globe, wifi, connect, server"
-            ;;
-        data|database|storage)
-            echo "  database, folder, save-file, cloud, documents"
-            ;;
-        error|warning|alert)
-            echo "  warning, error, alert, caution, danger"
-            ;;
-        success|complete|done)
-            echo "  checkbox, checkmark, success, done"
-            ;;
-        info|information|help)
-            echo "  info, help, question, about"
-            ;;
-        settings|config|options)
-            echo "  settings, options, control-panel, toolbox, gear"
-            ;;
-        navigation|menu|ui)
-            echo "  home, menu, arrow-right, arrow-left, close"
-            ;;
-        files|documents|docs)
-            echo "  folder, document, pdf, file, documents"
-            ;;
-        code|development|programming)
-            echo "  console, script, database, code, terminal"
-            ;;
-        search|find|lookup)
-            echo "  search, find, magnifying-glass, lookup"
-            ;;
-        user|account|profile)
-            echo "  login, logout, user, account, profile"
-            ;;
-        *)
-            # Fall back to search
-            python3 "$MANAGER" search "$context" 2>/dev/null | grep -v "Found" | head -10
-            ;;
-    esac
-
-    echo ""
-    echo -e "${YELLOW}Use: icon use <name> to export and get markdown${NC}"
+    # Use the new semantic matcher in icon-manager.py
+    python3 "$MANAGER" suggest "$context" --limit "$limit"
 }
 
 # Check and update .gitignore for icon assets
@@ -202,7 +158,23 @@ case "${1:-help}" in
             echo -e "${RED}Error: Specify context (e.g., authentication, network, security)${NC}"
             exit 1
         fi
-        suggest_icons "$*"
+        # Parse --limit option if provided
+        context=""
+        limit=10
+        while [[ $# -gt 0 ]]; do
+            case "$1" in
+                --limit)
+                    shift
+                    limit="$1"
+                    ;;
+                *)
+                    context="$context $1"
+                    ;;
+            esac
+            shift
+        done
+        context=$(echo "$context" | xargs)  # trim whitespace
+        suggest_icons "$context" "$limit"
         ;;
 
     md|markdown)
@@ -335,40 +307,30 @@ case "${1:-help}" in
         echo -e "${BLUE}Quick mode for '$context'${NC}"
         echo ""
 
-        # Get suggestions
-        suggest_icons "$context"
+        # Get suggestions using semantic matcher
+        suggest_icons "$context" 5
 
-        # Extract top 3 icon names from suggestions
-        case "$context" in
-            auth|authentication|login|signin)
-                icons="lock key shield"
-                ;;
-            security|secure|protection)
-                icons="shield lock key"
-                ;;
-            network|connection|api|server)
-                icons="network cloud globe"
-                ;;
-            data|database|storage)
-                icons="database folder cloud"
-                ;;
-            error|warning|alert)
-                icons="warning error alert"
-                ;;
-            success|complete|done)
-                icons="checkbox checkmark success"
-                ;;
-            info|information|help)
-                icons="info help question"
-                ;;
-            settings|config|options)
-                icons="settings options toolbox"
-                ;;
-            *)
-                # Fallback to search
-                icons=$(python3 "$MANAGER" search "$context" 2>/dev/null | grep -oP '^\s+\K\w+' | head -3 | tr '\n' ' ')
-                ;;
-        esac
+        # Extract top 3 unique icon names from suggestions using Python
+        icons=$(python3 -c "
+import sys
+sys.path.insert(0, '$ICONICS_DIR')
+import importlib.util
+spec = importlib.util.spec_from_file_location('icon_manager', '$ICONICS_DIR/icon-manager.py')
+mod = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(mod)
+manager = mod.IconManager()
+suggestions = manager.suggest('$context', 10)
+seen = set()
+result = []
+for icon, score in suggestions:
+    name = icon['semanticName']
+    if name not in seen:
+        seen.add(name)
+        result.append(name)
+        if len(result) >= 3:
+            break
+print(' '.join(result))
+" 2>/dev/null)
 
         if [[ -z "$icons" ]]; then
             echo -e "${RED}No icons found for context${NC}"
@@ -395,6 +357,26 @@ case "${1:-help}" in
             python3 "$MANAGER" popular
         else
             python3 "$MANAGER" popular --limit "$1"
+        fi
+        ;;
+
+    enrich)
+        shift
+        if [[ "$1" == "--apply" ]]; then
+            python3 "$MANAGER" enrich --apply --verbose
+        else
+            python3 "$MANAGER" enrich --verbose
+        fi
+        ;;
+
+    scan)
+        shift
+        if [[ $# -eq 0 ]]; then
+            # Scan current project
+            project=$(detect_project)
+            python3 "$MANAGER" scan-emojis "$project"
+        else
+            python3 "$MANAGER" scan-emojis "$1"
         fi
         ;;
 
