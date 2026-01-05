@@ -41,3 +41,33 @@ thumbnails/
 batch*.csv
 *_improved.csv
 improve_csv.py
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Batch CSVs (legacy)
+batch*.csv
+*_improved.csv
+enrichment_verification*.csv
+remaining.csv
+final-batch.csv
+new-icons*.csv
+*-import-*.csv
+
+# Caches
+vision_cache/
+tui/target/
+
+# History (local)
+.icon-history.json
+.icon-analytics.json
+
+# Temporary files
+*.log
+*.tmp
+*.orig
+*.bak
+*.bak2
+gallery.html

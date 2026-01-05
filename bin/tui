@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Iconics TUI Launcher
+# Auto-builds if needed, then launches the Rust TUI
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+TUI_DIR="$SCRIPT_DIR/tui"
+
+cd "$TUI_DIR"
+
+# Build if binary doesn't exist or source is newer
+if [[ ! -f target/release/iconics-tui ]] || [[ src/main.rs -nt target/release/iconics-tui ]]; then
+    echo "Building iconics-tui..."
+    cargo build --release
+fi
+
+exec target/release/iconics-tui "$@"

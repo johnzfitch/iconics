@@ -2,9 +2,9 @@
 # Iconics Quick Access Tool
 # Global wrapper for fast icon operations from anywhere
 
-ICONICS_DIR="/home/zack/dev/iconics"
+ICONICS_DIR="${ICONICS_ROOT:-$(cd "$(dirname "$0")" && pwd)}"
 MANAGER="$ICONICS_DIR/icon-manager.py"
-PYTHON="/home/zack/.local/share/python-global/bin/python"
+PYTHON="${ICONICS_PYTHON:-python3}"
 
 # Color codes for output
 RED='\033[0;31m'

@@ -88,7 +88,9 @@
       ],
       "category": "ui",
       "description": "Upward pointing arrow for navigation",
-      "usedIn": []
+      "usedIn": [
+        "swappy-src"
+      ]
     },
     {
       "id": "arrow-down-48x48",
@@ -198,7 +200,8 @@
       "description": "Download or save file",
       "usedIn": [
         "claude-desktop-linux",
-        "dev"
+        "dev",
+        "swappy-src"
       ]
     },
     {
@@ -508,7 +511,8 @@
       "usedIn": [
         "test-export",
         "zack",
-        "tmp"
+        "tmp",
+        "bartender"
       ]
     },
     {
@@ -565,7 +569,8 @@
       "description": "Network radar or scan icon",
       "usedIn": [
         "johnzfitch",
-        "iconics"
+        "iconics",
+        "bartender"
       ]
     },
     {
@@ -2574,7 +2579,9 @@
       ],
       "category": "security",
       "description": "Key - Security icon",
-      "usedIn": []
+      "usedIn": [
+        "bartender"
+      ]
     },
     {
       "id": "laptop-48x48",
@@ -2669,7 +2676,9 @@
       ],
       "category": "ui",
       "description": "Loudspeaker - UI icon",
-      "usedIn": []
+      "usedIn": [
+        "bartender"
+      ]
     },
     {
       "id": "magic-48x48",
@@ -2810,7 +2819,9 @@
       ],
       "category": "ui",
       "description": "Monitor-black - UI icon",
-      "usedIn": []
+      "usedIn": [
+        "bartender"
+      ]
     },
     {
       "id": "monitor-48x48",
@@ -3177,7 +3188,9 @@
       ],
       "category": "ui",
       "description": "Pen",
-      "usedIn": []
+      "usedIn": [
+        "swappy-src"
+      ]
     },
     {
       "id": "pen-tool-48x48",
@@ -4525,7 +4538,8 @@
       "category": "security",
       "description": "Blue Key 16X16 icon",
       "usedIn": [
-        "zack"
+        "zack",
+        "bartender"
       ]
     },
     {
@@ -4930,7 +4944,9 @@
       ],
       "category": "ui",
       "description": "Brush 24X24 icon",
-      "usedIn": []
+      "usedIn": [
+        "swappy-src"
+      ]
     },
     {
       "id": "brush-32x32",
@@ -12905,7 +12921,9 @@
       ],
       "category": "ui",
       "description": "Redo 24X24 icon",
-      "usedIn": []
+      "usedIn": [
+        "swappy-src"
+      ]
     },
     {
       "id": "redo-32x32",
@@ -14592,7 +14610,9 @@
       ],
       "category": "ui",
       "description": "Clipboard 24X24 icon",
-      "usedIn": []
+      "usedIn": [
+        "swappy-src"
+      ]
     },
     {
       "id": "clock-24x24",
@@ -14685,7 +14705,8 @@
       "category": "security",
       "description": "Lock 24X24 icon. Use cases: Authentication screens, private content indicators, security settings. Use cases: Authentication screens, private content indicators, security settings. Use cases: Authentication, privacy, restriction.",
       "usedIn": [
-        "iconics"
+        "iconics",
+        "bartender"
       ],
       "metaphor": "security",
       "emotional_valence": 0.0,
@@ -25212,7 +25233,9 @@
       ],
       "category": "network",
       "description": "Kensicons Preferences System Network icon",
-      "usedIn": []
+      "usedIn": [
+        "bartender"
+      ]
     },
     {
       "id": "kensicons-preferences-system-48x48",
@@ -58132,7 +58155,8 @@
       "category": "ui",
       "description": "Gear - UI icon (64x64 resolution). Use cases: User preferences, system configuration, engine settings",
       "usedIn": [
-        "iconics"
+        "iconics",
+        "swappy-src"
       ]
     },
     {
@@ -63199,7 +63223,9 @@
       ],
       "category": "ui",
       "description": "New Room 72X72 icon (64x64 resolution)",
-      "usedIn": []
+      "usedIn": [
+        "bartender"
+      ]
     },
     {
       "id": "new-room-80x80-64x64",
@@ -84193,6 +84219,183 @@
       "category": "ui",
       "description": "Xls 32X32 icon (64x64 resolution)",
       "usedIn": []
+    },
+    {
+      "id": "test-icon",
+      "semanticName": "save-file-16x16",
+      "tags": [
+        "save",
+        "file",
+        "document",
+        "data",
+        "content",
+        "storage",
+        "download"
+      ],
+      "category": "files",
+      "description": "A simplified representation of a save file icon, designed for user interface applications.",
+      "sourceFile": "/tmp/iconics-test-raw/test-icon.png"
+    },
+    {
+      "id": "test-icon",
+      "semanticName": "save-file-16x16",
+      "tags": [
+        "save",
+        "file",
+        "document",
+        "data",
+        "content",
+        "storage",
+        "download"
+      ],
+      "category": "files",
+      "description": "A simplified representation of a save file icon, designed for user interface applications.",
+      "sourceFile": "/tmp/iconics-test-raw/test-icon.png"
+    },
+    {
+      "id": "test-json-mode",
+      "semanticName": "save-file-16x16",
+      "tags": [
+        "save",
+        "file",
+        "document",
+        "data",
+        "content",
+        "storage",
+        "download"
+      ],
+      "category": "files",
+      "description": "A simplified representation of a save file icon, designed for user interface applications.",
+      "sourceFile": "/tmp/test-json-mode.png"
+    },
+    {
+      "id": "test-json-mode",
+      "semanticName": "save-file-16x16",
+      "tags": [
+        "save",
+        "file",
+        "document",
+        "data",
+        "content",
+        "storage",
+        "download"
+      ],
+      "category": "files",
+      "description": "A simplified representation of a save file icon, designed for user interface applications.",
+      "sourceFile": "/tmp/test-json-mode.png"
+    },
+    {
+      "id": "achievements-earnings-awards-unlocks-trophies-collection-earned-gathered-ranking",
+      "semanticName": "achievements-trophy",
+      "tags": [
+        "ui",
+        "achievements",
+        "trophy",
+        "icon",
+        "game",
+        "reward"
+      ],
+      "category": "ui",
+      "description": "A pixelated trophy icon representing achievements within a game interface.",
+      "sourceFile": "raw/achievements-earnings-awards-unlocks-trophies-collection-earned-gathered-ranking.png"
+    },
+    {
+      "id": "test-incremental",
+      "semanticName": "add-64x64",
+      "tags": [
+        "add",
+        "plus",
+        "create",
+        "ui",
+        "numbered",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "A pixelated green circle with a white plus sign, representing an addition or creation action.",
+      "sourceFile": "/tmp/test-incremental.png"
+    },
+    {
+      "id": "test-incr-final",
+      "semanticName": "monster",
+      "tags": [
+        "monster",
+        "character",
+        "pack",
+        "archon",
+        "fantasy",
+        "avatar",
+        "retro",
+        "pixel-art",
+        "64x64"
+      ],
+      "category": "emoji",
+      "description": "Pixel art style monster character icon. Fantasy creature design suitable for games or apps.",
+      "sourceFile": "/tmp/test-incr-final.png"
+    },
+    {
+      "id": "adversarial-lock-blurred",
+      "semanticName": "home",
+      "tags": [
+        "home",
+        "house",
+        "building",
+        "64x64",
+        "48x48",
+        "32x32",
+        "ui"
+      ],
+      "category": "ui",
+      "description": "Classic home icon. Represents a house or home symbol commonly used in user interface designs.",
+      "sourceFile": "/tmp/naming-drift-test/adversarial-lock-blurred.png"
+    },
+    {
+      "id": "home",
+      "semanticName": "home",
+      "tags": [
+        "home",
+        "house",
+        "building",
+        "64x64",
+        "48x48",
+        "32x32",
+        "ui"
+      ],
+      "category": "ui",
+      "description": "Classic home icon. Represents a house or home symbol commonly used in user interface designs.",
+      "sourceFile": "/tmp/naming-drift-test/adversarial-lock-blurred.png"
+    },
+    {
+      "id": "save-file-16x16",
+      "semanticName": "save-file-16x16",
+      "tags": [
+        "dialog",
+        "application",
+        "save",
+        "16x16",
+        "document",
+        "data",
+        "content",
+        "blue",
+        "small",
+        "file"
+      ],
+      "category": "emoji",
+      "description": "Small blue application dialog icon. Represents a simple dialog box for applications.",
+      "sourceFile": "/tmp/test-canonical-bug-12345.png"
+    },
+    {
+      "id": "application-dialog",
+      "semanticName": "application-dialog",
+      "tags": [
+        "application",
+        "dialog",
+        "blue",
+        "small",
+        "16x16"
+      ],
+      "category": "emoji",
+      "description": "Small blue application dialog icon. Represents a simple dialog box for applications.",
+      "sourceFile": "/tmp/test-canonical-bug-12345.png"
     }
   ],
   "categories": [

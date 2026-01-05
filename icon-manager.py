@@ -1,4 +1,4 @@
-#!/home/zack/.local/share/python-global/bin/python
+#!/usr/bin/env python3
 """
 Iconics Manager - Semantic icon library management system
 Manages the Iconics icon library for use across GitHub projects
@@ -17,12 +17,14 @@ from pathlib import Path
 from typing import List, Dict, Optional
 from PIL import Image
 
-ICON_DIR = Path("/home/zack/dev/iconics")
-CATALOG_FILE = ICON_DIR / "icon-catalog.json"
-RAW_DIR = ICON_DIR / "raw"
-CATALOG_DIR = ICON_DIR / "catalog"
-HISTORY_FILE = ICON_DIR / ".icon-history.json"
-ANALYTICS_FILE = ICON_DIR / ".icon-analytics.json"
+from src.iconics_config import (
+    ICONICS_ROOT as ICON_DIR,
+    CATALOG_FILE,
+    RAW_DIR,
+    CATALOG_DIR,
+    HISTORY_FILE,
+    ANALYTICS_FILE
+)
 
 class SemanticMatcher:
     """Advanced semantic matching with weighted scores and synonyms"""
@@ -1490,6 +1492,329 @@ class IconManager:
         print(f"2. Improve tags and descriptions as needed")
         print(f"3. Import with: python3 icon-manager.py import-csv {output_path}")
 
+    def import_win2k_workflow(
+        self,
+        source_dir: str,
+        output_dir: str = "raw/win2k",
+        limit: int = None,
+        keep_sizes: str = "16x16,32x32,48x48",
+        model_name: str = "qwen2.5-vl-7b",
+        min_confidence: float = 0.70,
+        skip_convert: bool = False,
+        skip_import: bool = False,
+        dry_run: bool = False
+    ):
+        """
+        Automated Win2k icon import workflow.
+
+        Steps:
+        1. Convert ICO → PNG (unless skip_convert)
+        2. Generate vision-labeled CSV
+        3. Import CSV to catalog (unless skip_import)
+        4. Regenerate embeddings (unless skip_import)
+
+        Args:
+            source_dir: Directory containing Win2k ICO files
+            output_dir: Output directory for PNG files
+            limit: Limit number of icons (for testing)
+            keep_sizes: Comma-separated sizes to extract
+            model_name: Vision model to use
+            min_confidence: Minimum confidence threshold
+            skip_convert: Skip ICO conversion step
+            skip_import: Skip final import step
+            dry_run: Show what would be done without executing
+        """
+        import subprocess
+        import sys
+
+        print("\n" + "="*60)
+        print("WIN2K ICON IMPORT WORKFLOW")
+        print("="*60)
+
+        if dry_run:
+            print("\n⚠ DRY RUN MODE - No files will be created or modified\n")
+
+        # Validate source directory
+        source_path = Path(source_dir)
+        if not source_path.exists():
+            print(f"✗ Source directory not found: {source_path}")
+            return
+
+        output_path = ICON_DIR / output_dir
+
+        # Step 1: Convert ICO → PNG
+        if not skip_convert:
+            print("\n--- Step 1: Converting ICO → PNG ---")
+            convert_script = ICON_DIR / "scripts" / "convert-win2k-icons.py"
+
+            convert_cmd = [
+                "python3",
+                str(convert_script),
+                "--source", str(source_path),
+                "--output", str(output_path),
+                "--keep-sizes", keep_sizes
+            ]
+
+            if limit:
+                # Note: convert script doesn't have --limit yet, but we can add it
+                pass
+
+            if dry_run:
+                convert_cmd.append("--dry-run")
+
+            print(f"Running: {' '.join(convert_cmd)}")
+
+            if not dry_run:
+                result = subprocess.run(convert_cmd, cwd=str(ICON_DIR))
+                if result.returncode != 0:
+                    print(f"\n✗ Conversion failed with exit code {result.returncode}")
+                    return
+                print("✓ Conversion complete")
+            else:
+                print("  (skipped in dry-run mode)")
+        else:
+            print("\n--- Step 1: Skipping ICO conversion (--skip-convert) ---")
+
+        # Step 2: Generate vision-labeled CSV
+        print("\n--- Step 2: Generating vision-labeled CSV ---")
+
+        csv_filename = f"win2k-import-{Path(output_dir).name}.csv"
+        csv_path = ICON_DIR / csv_filename
+
+        if not dry_run:
+            self.generate_csv_with_vision(
+                output_file=str(csv_path),
+                source_dir=str(output_path),
+                limit=limit,
+                min_confidence=min_confidence,
+                model_name=model_name
+            )
+            print(f"✓ CSV generated: {csv_path}")
+        else:
+            print(f"  Would generate: {csv_path}")
+            print(f"  Source: {output_path}")
+            print(f"  Model: {model_name}")
+            print(f"  Min confidence: {min_confidence}")
+
+        # Step 3: Import CSV to catalog
+        if not skip_import and not dry_run:
+            print("\n--- Step 3: Importing to catalog ---")
+
+            if csv_path.exists():
+                self.bulk_import(str(csv_path))
+                print("✓ Import complete")
+            else:
+                print(f"✗ CSV file not found: {csv_path}")
+                return
+
+            # Step 4: Regenerate embeddings
+            print("\n--- Step 4: Regenerating embeddings ---")
+            embed_script = ICON_DIR / "generate_all_embeddings.py"
+
+            if embed_script.exists():
+                print(f"Running: python3 {embed_script}")
+                result = subprocess.run(
+                    ["python3", str(embed_script)],
+                    cwd=str(ICON_DIR)
+                )
+                if result.returncode == 0:
+                    print("✓ Embeddings regenerated")
+                else:
+                    print(f"⚠ Embedding generation exited with code {result.returncode}")
+            else:
+                print(f"⚠ Embedding script not found: {embed_script}")
+                print("  You can regenerate manually later with:")
+                print(f"    python3 {embed_script}")
+
+        elif skip_import:
+            print("\n--- Step 3: Skipping import (--skip-import) ---")
+            print(f"CSV saved to: {csv_path}")
+            print("\nTo complete import manually:")
+            print(f"  python3 icon-manager.py import-csv {csv_path}")
+            print(f"  python3 generate_all_embeddings.py")
+
+        # Summary
+        print("\n" + "="*60)
+        print("WORKFLOW COMPLETE")
+        print("="*60)
+
+        if not dry_run and not skip_import:
+            print("\n✓ Win2k icons successfully imported to catalog!")
+            print(f"✓ Catalog now contains {len(self.catalog['icons'])} icons")
+        elif dry_run:
+            print("\n⚠ Dry run complete - no changes made")
+        elif skip_import:
+            print("\n✓ CSV generated - import skipped")
+            print(f"  Review {csv_path} before importing")
+
+        print("="*60 + "\n")
+
+    def generate_csv_with_vision(
+        self,
+        output_file: str,
+        source_dir: Optional[str] = None,
+        limit: int = None,
+        min_confidence: float = 0.70,
+        model_name: str = "qwen2.5-vl-7b"
+    ):
+        """Generate CSV using vision model for semantic labeling
+
+        Args:
+            output_file: Path to output CSV file
+            source_dir: Source directory for icons (default: raw/)
+            limit: Maximum number of icons to process (None = all)
+            min_confidence: Minimum confidence threshold (icons below this go to low_confidence.csv)
+            model_name: Vision model to use
+        """
+        # Import vision modules (only when needed)
+        import sys
+        sys.path.insert(0, str(ICON_DIR / "src"))
+
+        from iconics_vision import VisionLabeler
+
+        # Determine source directory
+        if source_dir:
+            source_path = Path(source_dir)
+        else:
+            source_path = RAW_DIR
+
+        if not source_path.exists():
+            print(f"✗ Source directory not found: {source_path}")
+            return
+
+        print(f"Scanning {source_path} for PNG icons...")
+
+        # Get all PNG files
+        all_icon_paths = list(source_path.rglob("*.png"))
+
+        # Filter out already cataloged icons
+        cataloged_ids = {icon['id'] for icon in self.catalog['icons']}
+        uncataloged_paths = [
+            p for p in all_icon_paths
+            if p.stem not in cataloged_ids
+        ]
+
+        if not uncataloged_paths:
+            print("✓ All icons are already cataloged!")
+            return
+
+        print(f"Found {len(uncataloged_paths)} uncataloged icons")
+
+        if limit:
+            uncataloged_paths = uncataloged_paths[:limit]
+            print(f"Limiting to {limit} icons for vision labeling")
+
+        # Initialize vision labeler
+        print(f"\nInitializing vision labeler (model: {model_name})...")
+        print("This may take a few moments to load the model...")
+
+        labeler = VisionLabeler(
+            model_name=model_name,
+            quantization=None,  # No quantization - run in full bfloat16 precision
+            embeddings_path=str(ICON_DIR / "embeddings"),
+            subspace_path=str(ICON_DIR / "embeddings" / "subspace"),
+            catalog_path=str(CATALOG_FILE)
+        )
+
+        # Label icons using BATCH processing (10-50x faster than one-at-a-time)
+        suggestions = []
+        low_confidence = []
+
+        print("\n" + "="*60)
+        print("Labeling icons with vision model (BATCH MODE)")
+        print("="*60)
+
+        print(f"\nBatch labeling {len(uncataloged_paths)} icons...")
+        print("This uses batch processing for CLIP retrieval and VLM inference.")
+        print("Progress will be shown as batches complete.\n")
+
+        # Use label_icons_batch for 10-50x speedup
+        labels = labeler.label_icons_batch(
+            uncataloged_paths,
+            use_cache=True,
+            k_neighbors=10,
+            batch_size=4,          # VLM batch size (4 icons per forward pass)
+            clip_batch_size=64     # CLIP batch size for retrieval (64 icons per batch)
+        )
+
+        # Process results
+        for idx, (icon_path, label) in enumerate(zip(uncataloged_paths, labels), 1):
+            print(f"[{idx}/{len(uncataloged_paths)}] {icon_path.name}")
+
+            # Extract filename-based metadata
+            filename_parts = icon_path.stem.split('-')
+
+            # Enrich tags with Win2k-specific tags if applicable
+            enriched_tags = label.tags.copy()
+
+            # Add win2k tags if filename suggests it
+            if 'win2k' in icon_path.stem.lower() or 'windows' in icon_path.stem.lower():
+                for tag in ['win2k', 'windows2000', 'retro', 'vintage', 'classic']:
+                    if tag not in enriched_tags:
+                        enriched_tags.append(tag)
+
+            # Infer size from filename if present
+            for part in filename_parts:
+                if 'x' in part and part.replace('x', '').replace('px', '').isdigit():
+                    # Size tag (e.g., "48x48", "32x32")
+                    size_tag = part.replace('px', '')
+                    if size_tag not in enriched_tags:
+                        enriched_tags.append(size_tag)
+
+            # Build suggestion
+            suggestion = {
+                'id': icon_path.stem,
+                'semantic': label.canonical,
+                'tags': ','.join(enriched_tags),
+                'category': label.category,
+                'description': label.description
+            }
+
+            # Check confidence
+            if label.confidence >= min_confidence:
+                suggestions.append(suggestion)
+                print(f"  ✓ {label.canonical} (confidence: {label.confidence:.3f})")
+            else:
+                low_confidence.append({
+                    **suggestion,
+                    'confidence': label.confidence,
+                    'alternates': ','.join(label.alternates)
+                })
+                print(f"  ⚠ {label.canonical} (LOW confidence: {label.confidence:.3f})")
+
+        # Write high-confidence CSV
+        output_path = Path(output_file)
+        with open(output_path, 'w', newline='', encoding='utf-8') as f:
+            fieldnames = ['id', 'semantic', 'tags', 'category', 'description']
+            writer = csv.DictWriter(f, fieldnames=fieldnames)
+            writer.writeheader()
+            writer.writerows(suggestions)
+
+        print(f"\n" + "="*60)
+        print("SUMMARY")
+        print("="*60)
+        print(f"✓ Generated {len(suggestions)} high-confidence labels (>={min_confidence})")
+        print(f"✓ Saved to: {output_path}")
+
+        # Write low-confidence CSV if any
+        if low_confidence:
+            low_conf_path = output_path.parent / f"low_confidence_{output_path.name}"
+            with open(low_conf_path, 'w', newline='', encoding='utf-8') as f:
+                fieldnames = ['id', 'semantic', 'tags', 'category', 'description', 'confidence', 'alternates']
+                writer = csv.DictWriter(f, fieldnames=fieldnames)
+                writer.writeheader()
+                writer.writerows(low_confidence)
+
+            print(f"⚠ {len(low_confidence)} low-confidence labels (<{min_confidence})")
+            print(f"⚠ Saved to: {low_conf_path}")
+            print(f"\nReview low-confidence labels manually and merge into main CSV if accurate.")
+
+        print(f"\nNext steps:")
+        print(f"1. Review {output_path} for accuracy")
+        if low_confidence:
+            print(f"2. Review {low_conf_path} and merge corrections into {output_path}")
+        print(f"3. Import with: python3 icon-manager.py import-csv {output_path}")
+
     def create_template(self, template_name: str, tags: List[str], category: str):
         """Create a reusable template for icon families
 
@@ -2180,6 +2505,22 @@ def main():
     generate_parser = subparsers.add_parser("generate-csv", help="Auto-generate CSV from uncataloged icon filenames")
     generate_parser.add_argument("output_file", help="Path to output CSV file")
     generate_parser.add_argument("--limit", type=int, help="Maximum number of icons to process (default: all)")
+    generate_parser.add_argument("--vision", action="store_true", help="Use vision model for semantic labeling (requires GPU)")
+    generate_parser.add_argument("--source", type=str, help="Source directory for icons (default: raw/)")
+    generate_parser.add_argument("--min-confidence", type=float, default=0.70, help="Minimum confidence for auto-labeling (default: 0.70)")
+    generate_parser.add_argument("--model", type=str, default="qwen2.5-vl-7b", choices=["qwen2.5-vl-7b", "internvl3-14b"], help="Vision model to use")
+
+    # Win2k import workflow command
+    win2k_parser = subparsers.add_parser("import-win2k", help="Automated Win2k icon import: convert ICO → PNG → vision label → import")
+    win2k_parser.add_argument("--source", type=str, required=True, help="Source directory containing Win2k ICO files")
+    win2k_parser.add_argument("--output-dir", type=str, default="raw/win2k", help="Output directory for PNG files (default: raw/win2k)")
+    win2k_parser.add_argument("--limit", type=int, help="Limit number of icons to process (for testing)")
+    win2k_parser.add_argument("--keep-sizes", type=str, default="16x16,32x32,48x48", help="Sizes to extract (default: 16x16,32x32,48x48)")
+    win2k_parser.add_argument("--model", type=str, default="qwen2.5-vl-7b", choices=["qwen2.5-vl-7b", "internvl3-14b"], help="Vision model (default: qwen2.5-vl-7b)")
+    win2k_parser.add_argument("--min-confidence", type=float, default=0.70, help="Min confidence threshold (default: 0.70)")
+    win2k_parser.add_argument("--skip-convert", action="store_true", help="Skip ICO conversion (if PNGs already exist)")
+    win2k_parser.add_argument("--skip-import", action="store_true", help="Skip final import (generate CSV only)")
+    win2k_parser.add_argument("--dry-run", action="store_true", help="Dry run: show what would be done without executing")
 
     # Template commands
     template_create_parser = subparsers.add_parser("create-template", help="Create reusable template for icon families")
@@ -2378,7 +2719,32 @@ def main():
         manager.bulk_import(args.csv_file)
 
     elif args.command == "generate-csv":
-        manager.generate_csv_from_filenames(args.output_file, args.limit)
+        if args.vision:
+            # Vision-powered labeling
+            manager.generate_csv_with_vision(
+                output_file=args.output_file,
+                source_dir=args.source,
+                limit=args.limit,
+                min_confidence=args.min_confidence,
+                model_name=args.model
+            )
+        else:
+            # Filename-based labeling
+            manager.generate_csv_from_filenames(args.output_file, args.limit)
+
+    elif args.command == "import-win2k":
+        # Automated Win2k import workflow
+        manager.import_win2k_workflow(
+            source_dir=args.source,
+            output_dir=args.output_dir,
+            limit=args.limit,
+            keep_sizes=args.keep_sizes,
+            model_name=args.model,
+            min_confidence=args.min_confidence,
+            skip_convert=args.skip_convert,
+            skip_import=args.skip_import,
+            dry_run=args.dry_run
+        )
 
     elif args.command == "create-template":
         manager.create_template(args.name, args.tags, args.category)
@@ -2483,12 +2849,23 @@ def main():
         try:
             from iconics_embeddings import load_clip_model, embed_icons, save_embeddings
 
-            # Get all icon paths from raw directory
-            icon_paths = sorted(RAW_DIR.glob("*.png"))
+            # Get icon paths ONLY for cataloged icons (not sized variants)
+            cataloged_ids = {icon['id'] for icon in manager.catalog['icons']}
+            all_pngs = sorted(RAW_DIR.glob("*.png"))
+
+            # Filter to only cataloged icons
+            icon_paths = [path for path in all_pngs if path.stem in cataloged_ids]
 
             if not icon_paths:
-                print("Error: No PNG files found in raw directory")
+                print("Error: No PNG files found matching catalog entries")
+                print(f"  Catalog has {len(cataloged_ids)} icons")
+                print(f"  Raw directory has {len(all_pngs)} PNG files")
                 sys.exit(1)
+
+            # Report filtering results
+            print(f"Filtered {len(all_pngs)} PNG files to {len(icon_paths)} cataloged icons")
+            if len(all_pngs) > len(icon_paths):
+                print(f"  Skipping {len(all_pngs) - len(icon_paths)} non-cataloged files (sized variants, etc.)")
 
             print(f"Loading CLIP model: {args.model}")
             model, preprocess, tokenizer = load_clip_model(model_name=args.model)

@@ -152,8 +152,8 @@ def embed_icons(
         # Stack batch and move to device
         batch_tensor = torch.cat(batch_images, dim=0).to(device)
 
-        # Generate embeddings
-        with torch.no_grad():
+        # Generate embeddings (inference_mode is ~5% faster than no_grad)
+        with torch.inference_mode():
             batch_embeddings = model.encode_image(batch_tensor)
             batch_embeddings = batch_embeddings.cpu().numpy()
 
@@ -214,7 +214,7 @@ def embed_text(
     text_tokens = tokenizer([query]).to(device)
 
     # Generate embedding
-    with torch.no_grad():
+    with torch.inference_mode():
         text_embedding = model.encode_text(text_tokens)
         text_embedding = text_embedding.cpu().numpy()
 
@@ -260,7 +260,7 @@ def embed_image(
         processed = preprocess(image).unsqueeze(0).to(device)
 
         # Generate embedding
-        with torch.no_grad():
+        with torch.inference_mode():
             embedding = model.encode_image(processed)
             embedding = embedding.cpu().numpy()
 
@@ -434,7 +434,8 @@ if __name__ == "__main__":
     model, preprocess, tokenizer = load_clip_model()
 
     # Get all icon paths
-    workspace = Path("/home/zack/dev/iconics")
+    from iconics_config import ICONICS_ROOT
+    workspace = ICONICS_ROOT
     raw_dir = workspace / "raw"
     icon_paths = sorted(raw_dir.glob("*.png"))
 
