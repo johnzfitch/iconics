@@ -1,7 +1,7 @@
 {
-  "effective_dim": 166,
-  "total_variance": 7874.99951171875,
-  "explained_variance_ratio": 0.95039302110672,
+  "effective_dim": 182,
+  "total_variance": 5670.99951171875,
+  "explained_variance_ratio": 0.9501046538352966,
   "variance_threshold": 0.95,
-  "elbow_point": 2
+  "elbow_point": 4
 }

@@ -488,7 +488,8 @@ def compute_and_save_subspace(
 
 if __name__ == "__main__":
     # Example usage
-    base_dir = Path("/home/zack/dev/iconics")
+    from iconics_config import ICONICS_ROOT
+    base_dir = ICONICS_ROOT
     embeddings_path = base_dir / "embeddings" / "icon_embeddings.npy"
     index_path = base_dir / "embeddings" / "icon_index.json"
     output_dir = base_dir / "embeddings" / "subspace"

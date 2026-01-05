@@ -1,0 +1,31 @@
+# Vision labeling dependencies for Iconics
+# For use with Qwen2.5-VL-7B-Instruct and InternVL3-14B
+
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Transformers (from source to avoid KeyError: 'qwen2_5_vl')
+# Install with: pip install git+https://github.com/huggingface/transformers
+# transformers  # Installed from source, not PyPI
+
+# Model-specific
+accelerate>=0.20.0
+qwen-vl-utils[decord]==0.0.8
+
+# Image processing
+pillow>=10.0.0
+numpy>=1.24.0
+opencv-python>=4.8.0
+
+# Optional: Quantization support (8-bit/4-bit inference)
+bitsandbytes>=0.41.0
+
+# Optional: Performance optimization
+# flash-attn  # Install separately with: pip install flash-attn --no-build-isolation
+
+# Existing iconics dependencies (should already be installed)
+# These are listed here for reference but may already exist in main requirements
+# pathlib (stdlib in Python 3.4+)
+# json (stdlib)
+# argparse (stdlib)
