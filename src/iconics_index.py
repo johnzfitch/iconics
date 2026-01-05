@@ -53,7 +53,8 @@ class IconicsIndex:
         self,
         embeddings: np.ndarray,
         icon_ids: List[str],
-        use_projection: bool = False
+        use_projection: bool = False,
+        use_gpu: bool = False
     ):
         """
         Initialize FAISS index with embeddings.
@@ -65,6 +66,8 @@ class IconicsIndex:
                      Order must match embedding row order.
             use_projection: If True, indicates embeddings are projected to subspace.
                            This is for metadata only; doesn't affect search.
+            use_gpu: If True, use GPU-accelerated FAISS (requires faiss-gpu).
+                    For <100K vectors, CPU is often fast enough.
 
         Raises:
             ValueError: If embeddings and icon_ids have mismatched lengths
@@ -90,10 +93,21 @@ class IconicsIndex:
         self.n_icons = len(icon_ids)
         self.dimension = embeddings.shape[1]
         self.use_projection = use_projection
+        self.use_gpu = use_gpu
 
         # Create FAISS index
         # IndexFlatIP: Flat index with Inner Product (cosine sim for normalized vecs)
         self.index = faiss.IndexFlatIP(self.dimension)
+
+        # Optionally move to GPU
+        if use_gpu:
+            try:
+                res = faiss.StandardGpuResources()
+                self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
+                logger.info("FAISS index moved to GPU")
+            except Exception as e:
+                logger.warning(f"Failed to move FAISS to GPU: {e}. Using CPU.")
+                self.use_gpu = False
 
         # Ensure contiguous array for FAISS
         embeddings_contiguous = np.ascontiguousarray(embeddings)
@@ -103,7 +117,7 @@ class IconicsIndex:
 
         logger.info(
             f"Created FAISS index with {self.n_icons} icons, "
-            f"dimension={self.dimension}, projected={use_projection}"
+            f"dimension={self.dimension}, projected={use_projection}, gpu={self.use_gpu}"
         )
 
     def search(

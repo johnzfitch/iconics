@@ -13,7 +13,9 @@ from __future__ import annotations
 import re
 from pathlib import Path
 
-RAW_DIR = Path("/home/zack/dev/iconics/raw")
+import sys
+sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
+from iconics_config import RAW_DIR
 TARGET_PREFIXES = {
     "2000mlb": {
         "base": ["sports", "mlb", "baseball", "logo"],

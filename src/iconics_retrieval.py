@@ -132,6 +132,11 @@ class IconicsRetriever:
         embeddings_path = Path(embeddings_path)
         subspace_path = Path(subspace_path)
 
+        # Store paths for incremental updates
+        self.embeddings_path = embeddings_path
+        self.subspace_path = subspace_path
+        self.index_path = index_path
+
         # Load embeddings
         embeddings_file = embeddings_path / "icon_embeddings.npy"
         index_file = embeddings_path / "icon_index.json"
@@ -148,7 +153,17 @@ class IconicsRetriever:
         # Create ordered icon_ids list (sorted by row index)
         self.icon_index = icon_index
         self._index_to_icon = {v: k for k, v in icon_index.items()}
-        self.icon_ids = [self._index_to_icon[i] for i in range(len(icon_index))]
+        # Use sorted actual indices instead of range() to handle gaps in index
+        sorted_indices = sorted(self._index_to_icon.keys())
+        self.icon_ids = [self._index_to_icon[i] for i in sorted_indices]
+
+        # Filter embeddings to match icon_ids (in case of gaps in index)
+        if len(sorted_indices) != self.embeddings.shape[0]:
+            logger.warning(
+                f"Index has gaps: {len(sorted_indices)} entries but embeddings has {self.embeddings.shape[0]} rows. "
+                f"Filtering embeddings to match index."
+            )
+            self.embeddings = self.embeddings[sorted_indices]
 
         logger.info(f"Loaded {len(self.icon_ids)} icon embeddings, shape {self.embeddings.shape}")
 
@@ -187,6 +202,12 @@ class IconicsRetriever:
         self._preprocess = None
         self._tokenizer = None
         self._device = None
+        
+        # Catalog cache for retrieve_for_labeling (avoid repeated JSON parsing)
+        self._catalog_cache: Dict[str, Dict] = {}
+        
+        # Track warned icon IDs to avoid log spam (warn once per icon)
+        self._warned_missing_icons: set = set()
 
     def _build_faiss_index(self, index_path: Optional[str] = None) -> None:
         """Build or load FAISS index for fast search."""
@@ -745,6 +766,105 @@ class IconicsRetriever:
 
         return float(np.dot(emb_a, emb_b))
 
+    def retrieve_for_labeling(
+        self,
+        icon_embedding: np.ndarray,
+        catalog_path: Union[str, Path],
+        k: int = 10,
+        mode: Literal["raw", "projected"] = "projected"
+    ) -> List[Dict]:
+        """
+        Retrieve candidate labels from k-nearest neighbors for vision labeling.
+
+        This method is specifically designed for the vision labeling workflow:
+        it retrieves the most similar existing icons and extracts their semantic
+        metadata (names, tags, categories) to provide context to the VLM.
+
+        Args:
+            icon_embedding: Icon embedding vector (from preprocessing + CLIP encoding)
+            catalog_path: Path to icon-catalog.json
+            k: Number of nearest neighbors to retrieve
+            mode: Retrieval mode ("raw" or "projected")
+
+        Returns:
+            List of candidate label dicts, each containing:
+            {
+                "icon_id": str,
+                "semantic_name": str,
+                "tags": List[str],
+                "category": str,
+                "description": str,
+                "similarity": float
+            }
+
+        Example:
+            >>> retriever = IconicsRetriever(...)
+            >>> embedding = np.load('icon_embedding.npy')
+            >>> candidates = retriever.retrieve_for_labeling(
+            ...     embedding,
+            ...     catalog_path='icon-catalog.json',
+            ...     k=10
+            ... )
+            >>> for cand in candidates:
+            ...     print(f"{cand['semantic_name']}: {cand['similarity']:.3f}")
+            ...     print(f"  Tags: {', '.join(cand['tags'])}")
+            ...     print(f"  Category: {cand['category']}")
+        """
+        # Load catalog with caching (avoid parsing 84K line JSON every call)
+        catalog_path = Path(catalog_path)
+        cache_key = str(catalog_path)
+        
+        if cache_key not in self._catalog_cache:
+            with open(catalog_path) as f:
+                catalog_data = json.load(f)
+            self._catalog_cache[cache_key] = {
+                icon['id']: icon for icon in catalog_data['icons']
+            }
+        
+        catalog_lookup = self._catalog_cache[cache_key]
+
+        # Over-request to compensate for potential missing catalog entries
+        # Request 50% more, cap at available icons
+        request_k = min(int(k * 1.5), len(self.icon_ids))
+        
+        # Retrieve k-nearest neighbors
+        results = self.retrieve(
+            query=icon_embedding,
+            k=request_k,
+            mode=mode,
+            include_coordinates=False
+        )
+
+        # Extract candidate labels
+        candidates = []
+        for result in results:
+            icon_id = result.icon_id
+
+            if icon_id not in catalog_lookup:
+                # Warn only once per icon ID to avoid log spam
+                if icon_id not in self._warned_missing_icons:
+                    logger.warning(f"Icon {icon_id} found in embeddings but not in catalog")
+                    self._warned_missing_icons.add(icon_id)
+                continue
+
+            icon_meta = catalog_lookup[icon_id]
+
+            candidates.append({
+                'icon_id': icon_id,
+                'semantic_name': icon_meta.get('semanticName', icon_id),
+                'tags': icon_meta.get('tags', []),
+                'category': icon_meta.get('category', 'unknown'),
+                'description': icon_meta.get('description', ''),
+                'similarity': result.score,
+                'residual_score': result.residual_score
+            })
+            
+            # Stop once we have enough valid candidates
+            if len(candidates) >= k:
+                break
+
+        return candidates
+
     def __len__(self) -> int:
         """Return number of icons."""
         return len(self.icon_ids)
@@ -759,3 +879,108 @@ class IconicsRetriever:
             f"IconicsRetriever(n_icons={len(self.icon_ids)}, "
             f"dim={self.embeddings.shape[1]}, k={self.k})"
         )
+
+    def validate_catalog_sync(self, catalog_path: Union[str, Path]) -> Dict[str, List[str]]:
+        """
+        Check for mismatches between embeddings index and catalog.
+        
+        Useful for debugging the "icon found in embeddings but not in catalog" warnings.
+        
+        Args:
+            catalog_path: Path to icon-catalog.json
+            
+        Returns:
+            Dict with:
+            - 'in_embeddings_not_catalog': Icons in embeddings but missing from catalog
+            - 'in_catalog_not_embeddings': Icons in catalog but missing embeddings
+        """
+        catalog_path = Path(catalog_path)
+        with open(catalog_path) as f:
+            catalog_data = json.load(f)
+        
+        catalog_ids = set(icon['id'] for icon in catalog_data['icons'])
+        embedding_ids = set(self.icon_ids)
+        
+        return {
+            'in_embeddings_not_catalog': sorted(embedding_ids - catalog_ids),
+            'in_catalog_not_embeddings': sorted(catalog_ids - embedding_ids)
+        }
+
+    def add_incremental_embedding(self, icon_path: Path) -> None:
+        """
+        Add a single icon embedding without full rebuild.
+
+        This enables the auto-pipeline promise: drop icons → auto-catalog → auto-embed.
+        New icons are immediately searchable after this call.
+
+        Process:
+        1. Embed icon using CLIP
+        2. Append to embeddings array
+        3. Update index mappings
+        4. Add to FAISS index (fast incremental operation)
+        5. Persist embeddings, index, and FAISS to disk
+
+        Args:
+            icon_path: Path to icon file
+
+        Example:
+            >>> retriever.add_incremental_embedding(Path("raw/new-icon.png"))
+            >>> # Icon is now searchable immediately
+            >>> results = retriever.retrieve("new icon concept", k=1)
+        """
+        from iconics_embeddings import embed_image
+
+        # Ensure CLIP model is loaded
+        self._ensure_model_loaded()
+
+        # 1. Embed the new icon
+        icon_path = Path(icon_path)
+        icon_id = icon_path.stem
+
+        try:
+            embedding = embed_image(icon_path, self._model, self._preprocess, self._device)
+            embedding = embedding.flatten().astype(np.float32)
+        except Exception as e:
+            logger.error(f"Failed to embed {icon_path}: {e}")
+            raise
+
+        # Normalize to unit vector (consistent with batch embedding)
+        norm = np.linalg.norm(embedding)
+        if norm > 0:
+            embedding = embedding / norm
+
+        # 2. Append to embeddings array
+        self.embeddings = np.vstack([self.embeddings, embedding.reshape(1, -1)])
+
+        # 3. Update index mappings
+        new_index = len(self.icon_ids)
+        self.icon_index[icon_id] = new_index
+        self._index_to_icon[new_index] = icon_id
+        self.icon_ids.append(icon_id)
+
+        # 4. Add to FAISS index (fast incremental operation)
+        self.faiss_index.index.add(embedding.reshape(1, -1))
+
+        # 5. Persist to disk
+        embeddings_file = self.embeddings_path / "icon_embeddings.npy"
+        index_file = self.embeddings_path / "icon_index.json"
+
+        np.save(embeddings_file, self.embeddings)
+        with open(index_file, 'w') as f:
+            json.dump(self.icon_index, f, indent=2)
+
+        # Persist FAISS index if we have a path
+        if self.index_path:
+            self.faiss_index.save(str(self.index_path))
+            logger.debug(f"Saved FAISS index to {self.index_path}")
+
+        logger.info(
+            f"Added incremental embedding for {icon_id} "
+            f"(total embeddings: {len(self.icon_ids)})"
+        )
+
+    def clear_caches(self):
+        """Clear internal caches (catalog cache, warning deduplication)."""
+        self._catalog_cache.clear()
+        self._warned_missing_icons.clear()
+        logger.info("Retriever caches cleared")

@@ -75,7 +75,7 @@ llm_integration:
       positive_pole: "detailed, rich, complex"
 
 paths:
-  workspace: "/home/zack/dev/iconics"
+  # workspace: auto-detected via ICONICS_ROOT env var or git root
   raw_icons: "raw"
   catalog: "icon-catalog.json"
   embeddings_dir: "embeddings"
