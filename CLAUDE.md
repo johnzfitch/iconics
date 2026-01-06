@@ -6,16 +6,18 @@
 
 ## What Is This?
 
-Iconics is a globally-accessible icon library with 4,205 PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing. The system provides:
+Iconics is a globally-accessible icon library with 7,996 PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing. The system provides:
 
 - **Global `icon` command** - Works from anywhere
+- **Iconics skill** - Claude agents can invoke `/iconics` for intelligent icon suggestions
 - **Smart project detection** - Auto-finds project root
 - **Instant markdown generation** - Ready to paste
-- **Context-aware suggestions** - Recommends appropriate icons
+- **Context-aware suggestions** - Recommends appropriate icons with CLIP embeddings
+- **Semantic search** - Vector-based similarity matching for intelligent results
 
 **Location:** `/home/zack/dev/iconics`
 
-**Status:** 4,205 icons cataloged (100% complete)
+**Status:** 7,996 icons cataloged (100% complete) with full CLIP embeddings
 
 ---
 
@@ -355,13 +357,13 @@ icon use lock shield
 
 Browse by category:
 
-- **ui** (3,483 icons) - info, warning, arrows, buttons, controls, home, menu, close, delete, checkbox (+ all sizes)
-- **files** (297 icons) - folder, document, pdf, photo, video, archive, new-document, open-file, save-file (+ sizes)
-- **emoji** (141 icons) - happy, sad, smile, expressions, characters (+ sizes)
-- **network** (93 icons) - network, cloud, globe, wifi, network-radar, global-network, connect, disconnect (+ sizes)
-- **security** (80 icons) - lock, shield, key, certificate, keychain, protection, unlock, open-lock, eye, hide, show (+ sizes)
-- **tools** (70 icons) - search, toolbox, settings, options, control-panel, print, export, import, battery, power (+ sizes)
-- **development** (41 icons) - database, console, application, script, plugin, error, login, logout, update (+ sizes)
+- **ui** (4,252 icons) - info, warning, arrows, buttons, controls, home, menu, close, delete, checkbox (+ all sizes)
+- **files** (539 icons) - folder, document, pdf, photo, video, archive, new-document, open-file, save-file (+ sizes)
+- **emoji** (269 icons) - happy, sad, smile, expressions, characters (+ sizes)
+- **network** (197 icons) - network, cloud, globe, wifi, network-radar, global-network, connect, disconnect (+ sizes)
+- **security** (171 icons) - lock, shield, key, certificate, keychain, protection, unlock, open-lock, eye, hide, show (+ sizes)
+- **tools** (184 icons) - search, toolbox, settings, options, control-panel, print, export, import, battery, power (+ sizes)
+- **development** (85 icons) - database, console, application, script, plugin, error, login, logout, update (+ sizes)
 
 Export entire categories:
 ```bash
@@ -514,6 +516,8 @@ See the main README.md for full cataloging workflows.
 
 ---
 
-**Last Updated:** 2025-10-28
-**Version:** 3.0 (Full Cataloging + ICO/GIF Conversions)
-**Cataloged Icons:** 4,205 (100% Complete)
+**Last Updated:** 2026-01-05
+**Version:** 4.0 (Full Library + CLIP Embeddings)
+**Cataloged Icons:** 7,996 (100% Complete)
+**Embeddings:** 7,996 CLIP vectors (512-dim)
+**Semantic Tags:** 2,984 enriched tags across 763 icons

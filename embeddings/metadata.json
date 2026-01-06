@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-01-04T02:12:09.494233Z",
-  "count": 5671,
+  "timestamp": "2026-01-06T02:09:16.767727Z",
+  "count": 7996,
   "dimension": 512,
   "dtype": "float32",
   "model": "ViT-B-32",
   "pretrained": "laion2b_s34b_b79k",
-  "device": "cuda"
+  "source_dir": "/home/zack/dev/iconics/raw"
 }
