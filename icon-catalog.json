@@ -85907,70 +85907,6 @@
       "usedIn": []
     },
     {
-      "id": "test-icon",
-      "semanticName": "save-file-16x16",
-      "tags": [
-        "save",
-        "file",
-        "document",
-        "data",
-        "content",
-        "storage",
-        "download"
-      ],
-      "category": "files",
-      "description": "A simplified representation of a save file icon, designed for user interface applications.",
-      "sourceFile": "/tmp/iconics-test-raw/test-icon.png"
-    },
-    {
-      "id": "test-icon",
-      "semanticName": "save-file-16x16",
-      "tags": [
-        "save",
-        "file",
-        "document",
-        "data",
-        "content",
-        "storage",
-        "download"
-      ],
-      "category": "files",
-      "description": "A simplified representation of a save file icon, designed for user interface applications.",
-      "sourceFile": "/tmp/iconics-test-raw/test-icon.png"
-    },
-    {
-      "id": "test-json-mode",
-      "semanticName": "save-file-16x16",
-      "tags": [
-        "save",
-        "file",
-        "document",
-        "data",
-        "content",
-        "storage",
-        "download"
-      ],
-      "category": "files",
-      "description": "A simplified representation of a save file icon, designed for user interface applications.",
-      "sourceFile": "/tmp/test-json-mode.png"
-    },
-    {
-      "id": "test-json-mode",
-      "semanticName": "save-file-16x16",
-      "tags": [
-        "save",
-        "file",
-        "document",
-        "data",
-        "content",
-        "storage",
-        "download"
-      ],
-      "category": "files",
-      "description": "A simplified representation of a save file icon, designed for user interface applications.",
-      "sourceFile": "/tmp/test-json-mode.png"
-    },
-    {
       "id": "achievements-earnings-awards-unlocks-trophies-collection-earned-gathered-ranking",
       "semanticName": "achievements-trophy",
       "tags": [
@@ -85986,71 +85922,6 @@
       "sourceFile": "raw/achievements-earnings-awards-unlocks-trophies-collection-earned-gathered-ranking.png"
     },
     {
-      "id": "test-incremental",
-      "semanticName": "add-64x64",
-      "tags": [
-        "add",
-        "plus",
-        "create",
-        "ui",
-        "numbered",
-        "icon"
-      ],
-      "category": "ui",
-      "description": "A pixelated green circle with a white plus sign, representing an addition or creation action.",
-      "sourceFile": "/tmp/test-incremental.png"
-    },
-    {
-      "id": "test-incr-final",
-      "semanticName": "monster",
-      "tags": [
-        "monster",
-        "character",
-        "pack",
-        "archon",
-        "fantasy",
-        "avatar",
-        "retro",
-        "pixel-art",
-        "64x64"
-      ],
-      "category": "emoji",
-      "description": "Pixel art style monster character icon. Fantasy creature design suitable for games or apps.",
-      "sourceFile": "/tmp/test-incr-final.png"
-    },
-    {
-      "id": "adversarial-lock-blurred",
-      "semanticName": "home",
-      "tags": [
-        "home",
-        "house",
-        "building",
-        "64x64",
-        "48x48",
-        "32x32",
-        "ui"
-      ],
-      "category": "ui",
-      "description": "Classic home icon. Represents a house or home symbol commonly used in user interface designs.",
-      "sourceFile": "/tmp/naming-drift-test/adversarial-lock-blurred.png"
-    },
-    {
-      "id": "home",
-      "semanticName": "home",
-      "tags": [
-        "home",
-        "house",
-        "building",
-        "64x64",
-        "48x48",
-        "32x32",
-        "ui"
-      ],
-      "category": "ui",
-      "description": "Classic home icon. Represents a house or home symbol commonly used in user interface designs.",
-      "sourceFile": "/tmp/naming-drift-test/adversarial-lock-blurred.png"
-    },
-    {
       "id": "save-file-16x16",
       "semanticName": "save-file-16x16",
       "tags": [
@@ -86064,20 +85935,6 @@
         "blue",
         "small",
         "file"
-      ],
-      "category": "emoji",
-      "description": "Small blue application dialog icon. Represents a simple dialog box for applications.",
-      "sourceFile": "/tmp/test-canonical-bug-12345.png"
-    },
-    {
-      "id": "application-dialog",
-      "semanticName": "application-dialog",
-      "tags": [
-        "application",
-        "dialog",
-        "blue",
-        "small",
-        "16x16"
       ],
       "category": "emoji",
       "description": "Small blue application dialog icon. Represents a simple dialog box for applications.",
