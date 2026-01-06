@@ -6,18 +6,15 @@
 
 ## What Is This?
 
-Iconics is a globally-accessible icon library with 7,996 PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing. The system provides:
+Iconics is a globally-accessible icon library with 7,996 PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing.
 
-- **Global `icon` command** - Works from anywhere
-- **Iconics skill** - Claude agents can invoke `/iconics` for intelligent icon suggestions
-- **Smart project detection** - Auto-finds project root
-- **Instant markdown generation** - Ready to paste
-- **Context-aware suggestions** - Recommends appropriate icons with CLIP embeddings
-- **Semantic search** - Vector-based similarity matching for intelligent results
+**Features:**
+- Global `icon` command + `/iconics` skill for agents
+- Smart project detection, instant markdown generation
+- CLIP-powered semantic search (512-dim vectors)
 
 **Location:** `/home/zack/dev/iconics`
-
-**Status:** 7,996 icons cataloged (100% complete) with full CLIP embeddings
+**Status:** 7,996 icons (100%), fully embedded & tagged
 
 ---
 
@@ -487,11 +484,9 @@ icon use <icon1> <icon2> <icon3>
 
 ## Files and Locations
 
-- **Icon Library:** `/home/zack/dev/iconics/`
-- **Command:** `icon` (globally accessible)
-- **Raw Icons:** `/home/zack/dev/iconics/raw/` (4,205 PNG files + 3,820 64x64 variants)
-- **Catalog:** `/home/zack/dev/iconics/icon-catalog.json` (4,205 cataloged - 100% complete)
-- **Installation:** `/home/zack/dev/iconics/install.sh`
+- **Library:** `/home/zack/dev/iconics/`
+- **Catalog:** `/home/zack/dev/iconics/icon-catalog.json`
+- **Raw Icons:** `/home/zack/dev/iconics/raw/`
 
 ---
 
@@ -516,8 +511,4 @@ See the main README.md for full cataloging workflows.
 
 ---
 
-**Last Updated:** 2026-01-05
-**Version:** 4.0 (Full Library + CLIP Embeddings)
-**Cataloged Icons:** 7,996 (100% Complete)
-**Embeddings:** 7,996 CLIP vectors (512-dim)
-**Semantic Tags:** 2,984 enriched tags across 763 icons
+**Updated:** 2026-01-05 | **v4.0** | 7,996 icons | 7,996 CLIP vectors | 2,984 semantic tags
