@@ -76,6 +76,10 @@ Output modes:
                               help='Search query (natural language)')
     search_parser.add_argument('--limit', '-l', type=int, default=10,
                               help='Number of results (default: 10)')
+    search_parser.add_argument('--hybrid', '-H', action='store_true',
+                              help='Use hybrid search (CLIP + metadata matching)')
+    search_parser.add_argument('--no-dedupe', action='store_true',
+                              help='Disable deduplication of icon variants')
 
     suggest_parser = subparsers.add_parser('suggest',
                                           help='Context-based icon suggestions')
@@ -241,8 +245,18 @@ Output modes:
                 output.error("CLIP retriever not initialized. Check embeddings path.")
                 sys.exit(1)
 
-            # Use retriever for text query
-            results = executive.retriever.retrieve(query, k=args.limit)
+            # Use hybrid search by default for better results
+            if args.hybrid or not args.no_dedupe:
+                # Hybrid search with metadata matching and deduplication
+                results = executive.retriever.retrieve_hybrid(
+                    query,
+                    k=args.limit,
+                    dedupe=not args.no_dedupe
+                )
+            else:
+                # Basic CLIP retrieval
+                results = executive.retriever.retrieve(query, k=args.limit)
+
             if not results:
                 output.warn(f"No results found for '{query}'")
                 sys.exit(0)
