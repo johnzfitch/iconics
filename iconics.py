@@ -14,7 +14,7 @@ import time
 from pathlib import Path
 
 # Add src/ to path for imports
-sys.path.insert(0, str(Path(__file__).parent / 'src'))
+sys.path.insert(0, str(Path(__file__).resolve().parent / 'src'))
 
 from iconics_output import Output, OutputContext
 from iconics_executive import IconicsExecutive
@@ -99,6 +99,17 @@ Output modes:
                                        help='Export to current directory')
     here_parser.add_argument('icons', nargs='+',
                             help='Icon IDs or semantic names to export')
+
+    md_parser = subparsers.add_parser('md',
+                                     help='Generate markdown snippets (no export)')
+    md_parser.add_argument('icons', nargs='+',
+                          help='Icon IDs or semantic names')
+
+    cat_parser = subparsers.add_parser('cat',
+                                      help='Export entire category')
+    cat_parser.add_argument('category', help='Category to export')
+    cat_parser.add_argument('--project', '-p', type=Path,
+                           help='Project directory (auto-detected if not specified)')
 
     # --- AUTO-PIPELINE GROUP ---
     ingest_parser = subparsers.add_parser('ingest',
@@ -344,6 +355,84 @@ Output modes:
                 markdown_snippets=result['markdown']
             ))
 
+        elif args.command == 'md':
+            # Generate markdown snippets without exporting
+            icons = executive.catalog._catalog.get('icons', [])
+            icon_lookup = {icon['id']: icon for icon in icons}
+
+            # Also build semantic name lookup
+            for icon in icons:
+                if icon.get('semanticName'):
+                    icon_lookup[icon['semanticName']] = icon
+
+            found_icons = []
+            failed = []
+
+            for query in args.icons:
+                # Exact match first
+                if query in icon_lookup:
+                    found_icons.append(icon_lookup[query])
+                else:
+                    # Fuzzy match
+                    matched = False
+                    for icon in icons:
+                        if query.lower() in icon['id'].lower() or \
+                           query.lower() in icon.get('semanticName', '').lower():
+                            found_icons.append(icon)
+                            matched = True
+                            break
+                    if not matched:
+                        failed.append(query)
+
+            if not found_icons:
+                output.error("No icons found")
+                if failed:
+                    output.info(f"Failed to find: {', '.join(failed)}")
+                sys.exit(1)
+
+            output.info("\nMarkdown snippets:\n")
+            for icon in found_icons:
+                name = icon.get('semanticName', icon['id'])
+                cat = icon.get('category', 'ui')
+                # Generate markdown using standard path
+                md = f"![{name}](.github/assets/icons/{name}.png)"
+                print(f"  {md}")
+
+            if failed:
+                output.warn(f"\nNot found: {', '.join(failed)}")
+
+        elif args.command == 'cat':
+            # Export entire category
+            category = args.category.lower()
+            icons = executive.catalog._catalog.get('icons', [])
+
+            # Filter by category
+            matching = [icon for icon in icons if icon.get('category', '').lower() == category]
+
+            if not matching:
+                output.error(f"No icons found in category '{category}'")
+                cats = set(icon.get('category', 'unknown') for icon in icons)
+                output.info(f"Available categories: {', '.join(sorted(cats))}")
+                sys.exit(1)
+
+            output.info(f"Exporting {len(matching)} icons from category '{category}'...")
+
+            # Use the executive to export all icons
+            icon_ids = [icon['id'] for icon in matching]
+            result = executive.use_icons(
+                query_ids=icon_ids[:50],  # Limit to 50 to avoid overwhelming
+                target_dir=args.project,
+                generate_markdown=True
+            )
+
+            if result['exported']:
+                output.success(f"Exported {len(result['exported'])} icons")
+                if len(matching) > 50:
+                    output.warn(f"Limited to first 50 icons. Category has {len(matching)} total.")
+            else:
+                output.error("Export failed")
+                sys.exit(1)
+
         elif args.command == 'stats':
             stats = executive.get_stats()
             output.format_stats(stats)
@@ -587,6 +676,377 @@ Output modes:
                 )
             elif args.dry_run:
                 output.info("\n[Dry run mode - no changes made]")
+
+        elif args.command == 'suggest':
+            # Context-based icon suggestions using semantic matching
+            context = args.context.lower()
+
+            # Context weight mappings for common use cases
+            CONTEXT_WEIGHTS = {
+                'authentication': ['lock', 'key', 'shield', 'certificate', 'login', 'user', 'password'],
+                'auth': ['lock', 'key', 'shield', 'certificate', 'login', 'user', 'password'],
+                'login': ['lock', 'key', 'shield', 'login', 'user', 'password', 'certificate'],
+                'security': ['shield', 'lock', 'key', 'protection', 'certificate', 'secure', 'keychain'],
+                'secure': ['shield', 'lock', 'key', 'protection', 'certificate'],
+                'network': ['network', 'cloud', 'globe', 'wifi', 'server', 'connection', 'internet'],
+                'api': ['network', 'cloud', 'server', 'database', 'endpoint', 'connection'],
+                'server': ['server', 'network', 'cloud', 'database', 'computer'],
+                'data': ['database', 'folder', 'storage', 'cloud', 'file', 'document', 'save'],
+                'database': ['database', 'storage', 'server', 'data', 'table'],
+                'storage': ['database', 'folder', 'storage', 'cloud', 'save', 'disk'],
+                'error': ['warning', 'error', 'alert', 'danger', 'bug', 'problem', 'critical'],
+                'warning': ['warning', 'alert', 'caution', 'danger', 'exclamation', 'attention'],
+                'alert': ['warning', 'alert', 'bell', 'notification', 'exclamation'],
+                'success': ['checkbox', 'checkmark', 'success', 'done', 'complete', 'approved', 'ok'],
+                'complete': ['checkbox', 'checkmark', 'success', 'done', 'complete'],
+                'done': ['checkbox', 'checkmark', 'success', 'done', 'complete'],
+                'info': ['info', 'help', 'question', 'about', 'details', 'information'],
+                'help': ['help', 'question', 'info', 'about', 'book'],
+                'information': ['info', 'help', 'question', 'about', 'details'],
+                'settings': ['settings', 'gear', 'options', 'toolbox', 'config', 'preferences', 'wrench'],
+                'config': ['settings', 'gear', 'options', 'toolbox', 'config', 'preferences'],
+                'options': ['settings', 'gear', 'options', 'toolbox', 'preferences'],
+                'navigation': ['home', 'menu', 'arrow', 'close', 'back', 'forward', 'navigation'],
+                'menu': ['menu', 'navigation', 'home', 'list', 'hamburger'],
+                'ui': ['arrow', 'button', 'checkbox', 'menu', 'close', 'home', 'navigation'],
+                'files': ['folder', 'document', 'file', 'pdf', 'documents', 'archive', 'text'],
+                'documents': ['folder', 'document', 'file', 'pdf', 'documents', 'book', 'text'],
+                'docs': ['folder', 'document', 'file', 'pdf', 'book', 'text'],
+                'code': ['console', 'terminal', 'code', 'script', 'database', 'git', 'bug'],
+                'development': ['console', 'terminal', 'code', 'script', 'database', 'git', 'bug'],
+                'programming': ['console', 'terminal', 'code', 'script', 'database'],
+                'search': ['search', 'find', 'magnifying', 'lookup', 'query', 'discover'],
+                'find': ['search', 'find', 'magnifying', 'lookup'],
+                'user': ['user', 'profile', 'account', 'person', 'login', 'logout', 'avatar'],
+                'account': ['user', 'profile', 'account', 'person', 'login'],
+                'profile': ['user', 'profile', 'account', 'person', 'avatar'],
+                'email': ['email', 'mail', 'message', 'inbox', 'envelope', 'letter'],
+                'mail': ['email', 'mail', 'message', 'inbox', 'envelope'],
+                'message': ['email', 'mail', 'message', 'chat', 'comment', 'envelope'],
+                'chat': ['chat', 'message', 'comment', 'conversation', 'bubble'],
+                'notification': ['bell', 'notification', 'alert', 'message', 'badge'],
+                'media': ['video', 'audio', 'image', 'photo', 'camera', 'play', 'music'],
+                'image': ['image', 'picture', 'photo', 'camera', 'graphic'],
+                'photo': ['image', 'picture', 'photo', 'camera'],
+                'video': ['video', 'play', 'media', 'camera', 'film'],
+                'audio': ['audio', 'sound', 'music', 'speaker', 'volume'],
+                'time': ['clock', 'timer', 'calendar', 'schedule', 'time', 'alarm'],
+                'calendar': ['calendar', 'clock', 'schedule', 'date', 'event'],
+                'clock': ['clock', 'timer', 'time', 'alarm', 'watch'],
+                'tools': ['toolbox', 'wrench', 'hammer', 'gear', 'settings', 'screwdriver'],
+                'money': ['money', 'cash', 'payment', 'dollar', 'coin', 'credit', 'cart'],
+                'payment': ['money', 'cash', 'payment', 'credit', 'cart', 'checkout'],
+                'shopping': ['cart', 'basket', 'checkout', 'buy', 'bag'],
+            }
+
+            # Get suggestions for context
+            suggestions = CONTEXT_WEIGHTS.get(context, None)
+
+            if suggestions:
+                # Use CLIP to find actual icons matching these terms
+                if executive.retriever:
+                    all_results = []
+                    for term in suggestions[:args.limit]:
+                        results = executive.retriever.retrieve(term, k=3)
+                        for r in results:
+                            if r.icon_id not in [x['icon_id'] for x in all_results]:
+                                all_results.append({
+                                    'icon_id': r.icon_id,
+                                    'score': r.score,
+                                    'term': term
+                                })
+
+                    # Sort by score and dedupe
+                    seen = set()
+                    final_results = []
+                    for r in sorted(all_results, key=lambda x: x['score'], reverse=True):
+                        # Normalize icon_id to semantic name
+                        base_name = r['icon_id'].split('-')[0].replace('_', ' ')
+                        if base_name not in seen:
+                            seen.add(base_name)
+                            final_results.append(r)
+                        if len(final_results) >= args.limit:
+                            break
+
+                    if final_results:
+                        output.info(f"\nIcon suggestions for '{context}':\n")
+                        for i, r in enumerate(final_results, 1):
+                            print(f"  {i}. {r['icon_id']}")
+                    else:
+                        output.warn(f"No icons found for context '{context}'")
+                else:
+                    # Fallback: just show the terms
+                    output.info(f"\nSuggested icon terms for '{context}':")
+                    for term in suggestions[:args.limit]:
+                        print(f"  {term}")
+            else:
+                # Use CLIP search as fallback
+                if executive.retriever:
+                    results = executive.retriever.retrieve(context, k=args.limit)
+                    if results:
+                        output.info(f"\nIcon suggestions for '{context}':\n")
+                        for i, r in enumerate(results, 1):
+                            print(f"  {i}. {r.icon_id}")
+                    else:
+                        output.warn(f"No icons found for context '{context}'")
+                else:
+                    output.error("CLIP retriever not initialized")
+                    sys.exit(1)
+
+        elif args.command == 'info':
+            # Show detailed icon information
+            icon_name = args.name
+
+            # Search catalog for the icon
+            icons = executive.catalog._catalog.get('icons', [])
+
+            # Try exact match first
+            found = None
+            for icon in icons:
+                if icon['id'] == icon_name or icon.get('semanticName', '') == icon_name:
+                    found = icon
+                    break
+
+            # Try fuzzy match if not found
+            if not found:
+                for icon in icons:
+                    if icon_name.lower() in icon['id'].lower() or \
+                       icon_name.lower() in icon.get('semanticName', '').lower():
+                        found = icon
+                        break
+
+            if found:
+                print(f"\nIcon: {found['id']}")
+                print(f"  Semantic Name: {found.get('semanticName', 'N/A')}")
+                print(f"  Category: {found.get('category', 'unknown')}")
+                print(f"  Tags: {', '.join(found.get('tags', []))}")
+                if found.get('description'):
+                    print(f"  Description: {found['description']}")
+                if found.get('sourceFile'):
+                    print(f"  Source: {found['sourceFile']}")
+                if found.get('style'):
+                    print(f"  Style: {found['style']}")
+                if found.get('usedIn'):
+                    print(f"  Used In: {', '.join(found['usedIn'][:5])}")
+
+                # Check embedding status
+                if executive.retriever and found['id'] in executive.retriever.icon_index:
+                    print(f"  Embedding: Yes (index {executive.retriever.icon_index[found['id']]})")
+                else:
+                    print(f"  Embedding: No")
+            else:
+                output.error(f"Icon '{icon_name}' not found")
+                # Suggest similar icons
+                if executive.retriever:
+                    results = executive.retriever.retrieve(icon_name, k=5)
+                    if results:
+                        output.info("Did you mean:")
+                        for r in results:
+                            print(f"  {r.icon_id}")
+                sys.exit(1)
+
+        elif args.command == 'recent':
+            # Show recently cataloged icons (by position in catalog - last N added)
+            icons = executive.catalog._catalog.get('icons', [])
+            n = args.n
+
+            if not icons:
+                output.warn("No icons in catalog")
+                sys.exit(0)
+
+            recent = icons[-n:][::-1]  # Get last N, reverse for newest first
+
+            output.info(f"\nMost recent {len(recent)} icons:\n")
+            for i, icon in enumerate(recent, 1):
+                name = icon.get('semanticName', icon['id'])
+                cat = icon.get('category', 'unknown')
+                print(f"  {i}. {name:30} [{cat}]")
+
+        elif args.command == 'list':
+            # List icons in a category
+            category = args.category.lower()
+            icons = executive.catalog._catalog.get('icons', [])
+
+            # Filter by category
+            matching = [icon for icon in icons if icon.get('category', '').lower() == category]
+
+            if not matching:
+                output.error(f"No icons found in category '{category}'")
+                # Show available categories
+                cats = set(icon.get('category', 'unknown') for icon in icons)
+                output.info(f"Available categories: {', '.join(sorted(cats))}")
+                sys.exit(1)
+
+            output.info(f"\nIcons in category '{category}' ({len(matching)} total):\n")
+
+            # Group by first letter for readability
+            from itertools import groupby
+
+            # Show first 50 or all if less
+            display = matching[:50]
+            for icon in display:
+                name = icon.get('semanticName', icon['id'])
+                print(f"  {name}")
+
+            if len(matching) > 50:
+                output.info(f"\n  ... and {len(matching) - 50} more")
+
+        elif args.command == 'validate':
+            # Validate catalog integrity
+            output.info("Validating catalog integrity...\n")
+
+            icons = executive.catalog._catalog.get('icons', [])
+            issues = []
+
+            # Check for required fields
+            required_fields = ['id', 'category']
+            for icon in icons:
+                for field in required_fields:
+                    if field not in icon or not icon[field]:
+                        issues.append(f"Missing {field}: {icon.get('id', 'UNKNOWN')}")
+
+            # Check for duplicate IDs
+            seen_ids = {}
+            for icon in icons:
+                icon_id = icon.get('id', '')
+                if icon_id in seen_ids:
+                    issues.append(f"Duplicate ID: {icon_id}")
+                seen_ids[icon_id] = True
+
+            # Check embedding coverage
+            if executive.retriever:
+                embedding_ids = set(executive.retriever.icon_ids)
+                catalog_ids = set(icon['id'] for icon in icons)
+
+                missing_embeddings = catalog_ids - embedding_ids
+                orphan_embeddings = embedding_ids - catalog_ids
+
+                if missing_embeddings:
+                    issues.append(f"Icons missing embeddings: {len(missing_embeddings)}")
+                    for icon_id in list(missing_embeddings)[:5]:
+                        issues.append(f"  - {icon_id}")
+                    if len(missing_embeddings) > 5:
+                        issues.append(f"  ... and {len(missing_embeddings) - 5} more")
+
+                if orphan_embeddings:
+                    issues.append(f"Orphan embeddings (not in catalog): {len(orphan_embeddings)}")
+                    for icon_id in list(orphan_embeddings)[:5]:
+                        issues.append(f"  - {icon_id}")
+
+            # Check for missing source files
+            missing_files = 0
+            for icon in icons[:100]:  # Check first 100 to avoid slowdown
+                source = icon.get('sourceFile', '')
+                if source:
+                    # Try multiple locations
+                    found = False
+                    for base in [Path('.'), Path('raw'), Path('catalog')]:
+                        if (base / source).exists() or Path(source).exists():
+                            found = True
+                            break
+                    if not found:
+                        missing_files += 1
+
+            if missing_files > 0:
+                issues.append(f"Missing source files (sampled): {missing_files}")
+
+            # Summary
+            if issues:
+                output.warn(f"Found {len(issues)} issues:\n")
+                for issue in issues:
+                    print(f"  {issue}")
+            else:
+                output.success("Catalog validation passed!")
+                print(f"\n  Total icons: {len(icons)}")
+                print(f"  Categories: {len(set(icon.get('category', 'unknown') for icon in icons))}")
+                if executive.retriever:
+                    print(f"  Embeddings: {len(executive.retriever.icon_ids)}")
+
+        elif args.command == 'sync':
+            # Sync raw/ with catalog/embeddings
+            output.info("Syncing raw/ with catalog and embeddings...\n")
+
+            raw_path = Path('raw')
+            if not raw_path.exists():
+                output.error("raw/ directory not found")
+                sys.exit(1)
+
+            # Find all icon files in raw/
+            raw_files = []
+            for ext in ['.png', '.svg', '.webp']:
+                raw_files.extend(raw_path.glob(f'*{ext}'))
+
+            # Get catalog IDs
+            catalog_ids = {icon['id'] for icon in executive.catalog._catalog.get('icons', [])}
+
+            # Get embedding IDs
+            embedding_ids = set(executive.retriever.icon_ids) if executive.retriever else set()
+
+            # Find files not in catalog
+            raw_stems = {f.stem for f in raw_files}
+            not_cataloged = raw_stems - catalog_ids
+            not_embedded = catalog_ids - embedding_ids
+
+            output.info(f"Raw files: {len(raw_files)}")
+            output.info(f"Cataloged: {len(catalog_ids)}")
+            output.info(f"Embedded: {len(embedding_ids)}")
+            print()
+
+            if not_cataloged:
+                output.warn(f"Files not in catalog: {len(not_cataloged)}")
+                for name in list(not_cataloged)[:10]:
+                    print(f"  {name}")
+                if len(not_cataloged) > 10:
+                    print(f"  ... and {len(not_cataloged) - 10} more")
+                print()
+
+            if not_embedded:
+                output.warn(f"Catalog entries missing embeddings: {len(not_embedded)}")
+                for name in list(not_embedded)[:10]:
+                    print(f"  {name}")
+                if len(not_embedded) > 10:
+                    print(f"  ... and {len(not_embedded) - 10} more")
+                print()
+
+            if not args.dry_run:
+                # Actually perform the sync
+                if not_cataloged:
+                    output.info("Ingesting uncataloged files...")
+                    for name in not_cataloged:
+                        file_path = raw_path / f"{name}.png"
+                        if file_path.exists():
+                            result = executive.execute_ingest(file_path)
+                            if result.status != 'error':
+                                output.debug(f"Ingested: {name}")
+                    output.success(f"Ingested {len(not_cataloged)} files")
+            else:
+                output.info("[Dry run mode - no changes made]")
+
+        elif args.command == 'query':
+            # Direct CLIP embedding query
+            query_text = ' '.join(args.text)
+
+            if not executive.retriever:
+                output.error("CLIP retriever not initialized. Check embeddings path.")
+                sys.exit(1)
+
+            # Perform retrieval
+            results = executive.retriever.retrieve(query_text, k=args.limit)
+
+            if not results:
+                output.warn(f"No results for query: '{query_text}'")
+                sys.exit(0)
+
+            # Format output
+            result_dicts = [
+                {
+                    'icon_id': r.icon_id,
+                    'score': r.score,
+                    'residual_score': getattr(r, 'residual_score', 0.0)
+                }
+                for r in results
+            ]
+            print(output.format_search_results(result_dicts, query_text, show_scores=True))
 
         else:
             output.error(f"Command '{args.command}' not yet implemented")
