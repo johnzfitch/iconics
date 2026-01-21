@@ -21,10 +21,10 @@ cd /home/zack/dev/iconics
 
 ```bash
 # Find icons
-icon search authentication
+iconics search authentication
 
 # Use them instantly (exports + generates markdown)
-icon use lock key
+iconics use lock key
 ```
 
 **Output:**
@@ -47,13 +47,13 @@ Markdown snippets:
 Don't know which icons to use? Get context-aware suggestions:
 
 ```bash
-icon suggest authentication
+iconics suggest authentication
 # Suggests: lock, key, shield, certificate, login
 
-icon suggest network
+iconics suggest network
 # Suggests: network, cloud, globe, wifi, connect, server
 
-icon suggest error
+iconics suggest error
 # Suggests: warning, error, alert, caution, danger
 ```
 
@@ -64,7 +64,7 @@ icon suggest error
 Already have icons exported? Just get the markdown:
 
 ```bash
-icon md shield database network
+iconics md shield database network
 ```
 
 **Output:**
@@ -82,10 +82,10 @@ icon md shield database network
 
 ```bash
 # Get icon suggestions
-icon suggest security
+iconics suggest security
 
 # Export relevant icons
-icon use lock shield key certificate
+iconics use lock shield key certificate
 
 # Paste the generated markdown into README.md
 ```
@@ -94,20 +94,20 @@ icon use lock shield key certificate
 
 ```bash
 # Search for what you need
-icon search data
+iconics search data
 
 # Export and get markdown instantly
-icon use database folder documents
+iconics use database folder documents
 ```
 
 ### Export All Icons from a Category
 
 ```bash
 # Export entire security category
-icon cat security
+iconics cat security
 
 # Or UI category
-icon cat ui
+iconics cat ui
 ```
 
 ---
@@ -116,13 +116,13 @@ icon cat ui
 
 | Command | What It Does | Example |
 |---------|--------------|---------|
-| `icon search <query>` | Find icons by keyword | `icon search security` |
-| `icon use <name>...` | Export + generate markdown | `icon use lock shield` |
-| `icon suggest <context>` | Get icon suggestions | `icon suggest api` |
-| `icon md <name>...` | Generate markdown only | `icon md network` |
-| `icon cat <category>` | Export whole category | `icon cat security` |
-| `icon i <name>` | Show icon details | `icon i lock` |
-| `icon recent` | Show recently added | `icon recent` |
+| `iconics search <query>` | Find icons by keyword | `iconics search security` |
+| `iconics use <name>...` | Export + generate markdown | `iconics use lock shield` |
+| `iconics suggest <context>` | Get icon suggestions | `iconics suggest api` |
+| `iconics md <name>...` | Generate markdown only | `iconics md network` |
+| `iconics cat <category>` | Export whole category | `iconics cat security` |
+| `iconics info <name>` | Show icon details | `iconics info lock` |
+| `iconics recent` | Show recently added | `iconics recent` |
 | `icon stats` | Show library stats | `icon stats` |
 
 ---
@@ -151,7 +151,7 @@ The `suggest` command understands these contexts:
 
 ### 1. Project Auto-Detection
 
-The `icon use` command automatically detects your project root:
+The `iconics use` command automatically detects your project root:
 - First tries git root (`git rev-parse --show-toplevel`)
 - Falls back to nearest README.md location
 - Exports icons to `.github/assets/icons/`
@@ -170,9 +170,9 @@ cd /home/zack/dev/myproject/src/api  # → ../../.github/assets/icons/lock.png
 
 All commands support multiple icons:
 ```bash
-icon use warning error info success
-icon md lock key shield certificate
-icon i lock key shield
+iconics use warning error info success
+iconics md lock key shield certificate
+iconics info lock key shield
 ```
 
 ---
@@ -186,10 +186,10 @@ All commands have short aliases:
 | `search` | `s` | `icon s security` |
 | `use` | `u` | `icon u lock` |
 | `suggest` | `sug` | `icon sug auth` |
-| `markdown` | `md` | `icon md lock` |
+| `markdown` | `md` | `iconics md lock` |
 | `here` | `h` | `icon h warning` |
-| `category` | `cat` | `icon cat ui` |
-| `info` | `i` | `icon i lock` |
+| `category` | `cat` | `iconics cat ui` |
+| `info` | `i` | `iconics info lock` |
 | `recent` | `r` | `icon r` |
 | `stats` | `st` | `icon st` |
 | `validate` | `v` | `icon v` |
@@ -203,11 +203,11 @@ All commands have short aliases:
 
 ```bash
 # What icons should I use for security?
-icon suggest security
+iconics suggest security
 # → lock, shield, key, protection, certificate
 
 # Export them and get markdown
-icon use lock shield
+iconics use lock shield
 ```
 
 **Paste into README.md:**
@@ -222,11 +222,11 @@ All data transmitted using TLS 1.3...
 
 ```bash
 # Get appropriate icons
-icon suggest api
+iconics suggest api
 # → network, cloud, globe, server, database
 
 # Export what I need
-icon use network database cloud
+iconics use network database cloud
 ```
 
 **Paste into docs/api.md:**
@@ -244,7 +244,7 @@ Seamless cloud storage support...
 
 ```bash
 # Need error and warning icons
-icon use error warning info
+iconics use error warning info
 
 # Copy the generated markdown and paste into docs
 ```
@@ -257,21 +257,21 @@ icon use error warning info
 
 ```bash
 # Find security icons
-icon search security
+iconics search security
 
 # Pick the ones you want
-icon use lock shield certificate
+iconics use lock shield certificate
 ```
 
 ### 2. Preview Before Using
 
 ```bash
 # See details about an icon
-icon i lock
+iconics info lock
 
 # Check file status, tags, description
 # Then export if it's what you need
-icon use lock
+iconics use lock
 ```
 
 ### 3. Explore by Category
@@ -281,17 +281,17 @@ icon use lock
 icon list security
 
 # Export the whole category if needed
-icon cat security
+iconics cat security
 ```
 
 ### 4. Track Recent Additions
 
 ```bash
 # See what's new in the library
-icon recent
+iconics recent
 
 # Export the latest icons
-icon use arrow-up arrow-down arrow-left arrow-right
+iconics use arrow-up arrow-down arrow-left arrow-right
 ```
 
 ---
@@ -301,8 +301,8 @@ icon use arrow-up arrow-down arrow-left arrow-right
 This tool is designed for quick, emoji-free icon usage:
 
 ### Typical Workflow:
-1. **Suggest**: `icon suggest <context>` to recommend appropriate icons
-2. **Export + Markdown**: `icon use <names>` to export and generate ready-to-paste markdown
+1. **Suggest**: `iconics suggest <context>` to recommend appropriate icons
+2. **Export + Markdown**: `iconics use <names>` to export and generate ready-to-paste markdown
 3. **Use in response**: Include the generated markdown in documentation
 
 ### Example:
@@ -312,8 +312,8 @@ User: "Add security documentation to the README"
 Assistant Response:
 "I'll add a security section to your README with appropriate icons."
 
-[Runs: icon suggest security]
-[Runs: icon use lock shield]
+[Runs: iconics suggest security]
+[Runs: iconics use lock shield]
 
 Then includes in README.md:
 ## ![lock](.github/assets/icons/lock.png) Security Features
@@ -371,7 +371,7 @@ icon here warning error info
 
 # Export to arbitrary path
 cd /path/to/project
-icon use lock shield
+iconics use lock shield
 ```
 
 ### Generate CSV for Bulk Import
@@ -400,7 +400,7 @@ icon validate
 
 ```bash
 # Show all commands
-icon help
+iconics --help
 
 # Full manager options
 python3 /home/zack/dev/iconics/icon-manager.py --help

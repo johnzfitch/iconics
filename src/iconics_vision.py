@@ -16,6 +16,7 @@ import json
 import logging
 import hashlib
 import os
+import importlib.util
 from pathlib import Path
 from typing import Dict, List, Optional, Literal, Union
 from dataclasses import dataclass
@@ -33,11 +34,9 @@ os.environ.setdefault("HF_HOME", os.path.expanduser("~/.cache/huggingface"))
 # Import original preprocessing (4-panel composite)
 from iconics_preprocessing import preprocess_icon
 from iconics_retrieval import IconicsRetriever
+from iconics_taxonomy import ALLOWED_CATEGORIES, coerce_category
 
 logger = logging.getLogger(__name__)
-
-# Allowed categories (must match iconics catalog)
-ALLOWED_CATEGORIES = ['files', 'network', 'security', 'tools', 'ui', 'emoji', 'development']
 
 # Retrieval similarity threshold to skip VLM inference
 HIGH_CONFIDENCE_THRESHOLD = 0.92
@@ -108,6 +107,7 @@ class VisionLabeler:
         catalog_path: str = "icon-catalog.json",
         cache_dir: Optional[Path] = None,
         use_flash_attn: bool = True,
+        use_fast_processor: bool = False,
         use_constrained_decoding: bool = False,
         retrieval_bypass_threshold: float = HIGH_CONFIDENCE_THRESHOLD
     ):
@@ -131,6 +131,7 @@ class VisionLabeler:
         self.quantization = quantization
         self.catalog_path = Path(catalog_path)
         self.use_flash_attn = use_flash_attn
+        self.use_fast_processor = use_fast_processor
         self.use_constrained_decoding = use_constrained_decoding
         self.retrieval_bypass_threshold = retrieval_bypass_threshold
 
@@ -143,11 +144,20 @@ class VisionLabeler:
 
         # Initialize retrieval system
         logger.info("Initializing retrieval system...")
-        self.retriever = IconicsRetriever(
-            embeddings_path=embeddings_path,
-            subspace_path=subspace_path
-        )
-        logger.info(f"Retrieval system loaded: {len(self.retriever)} icons")
+        try:
+            self.retriever = IconicsRetriever(
+                embeddings_path=embeddings_path,
+                subspace_path=subspace_path
+            )
+            logger.info(f"Retrieval system loaded: {len(self.retriever)} icons")
+        except ModuleNotFoundError as e:
+            # Common local-only case: missing CLIP deps (e.g. open_clip).
+            # We can still run the VLM without retrieval augmentation.
+            logger.warning(f"Retrieval system unavailable (missing dependency): {e}")
+            self.retriever = None
+        except Exception as e:
+            logger.warning(f"Retrieval system unavailable: {e}")
+            self.retriever = None
 
         # Model lazy-loaded on first use
         self.model = None
@@ -160,9 +170,10 @@ class VisionLabeler:
     def _get_catalog_lookup(self) -> Dict:
         """Get or load catalog lookup dict (cached)."""
         if self._catalog_cache is None:
-            with open(self.catalog_path) as f:
-                data = json.load(f)
-            self._catalog_cache = {icon['id']: icon for icon in data['icons']}
+            from iconics_catalog import load_catalog
+
+            data = load_catalog(self.catalog_path)
+            self._catalog_cache = {icon["id"]: icon for icon in data["icons"]}
         return self._catalog_cache
 
     def _load_model(self):
@@ -193,8 +204,12 @@ class VisionLabeler:
 
         model_id = "Qwen/Qwen2.5-VL-7B-Instruct"
 
-        # Load processor
-        self.processor = AutoProcessor.from_pretrained(model_id)
+        # Load processor.
+        #
+        # Transformers started defaulting to a "fast" processor for Qwen2VL, which can
+        # change outputs slightly. For consistent, high-quality cataloging runs, we
+        # default to the checkpoint-compatible "slow" processor unless explicitly enabled.
+        self.processor = AutoProcessor.from_pretrained(model_id, use_fast=self.use_fast_processor)
 
         # Quantization config
         quantization_config = None
@@ -209,12 +224,18 @@ class VisionLabeler:
             )
 
         # Attention implementation
-        attn_impl = "flash_attention_2" if self.use_flash_attn else "sdpa"
+        #
+        # FlashAttention is an optional performance optimization. Many environments
+        # (especially isolated uv venvs) won't have it installed; avoid a scary warning
+        # in that common case and just use SDPA.
+        flash_available = importlib.util.find_spec("flash_attn") is not None
+        attn_impl = "flash_attention_2" if (self.use_flash_attn and flash_available) else "sdpa"
+        desired_dtype = torch.bfloat16
         
         try:
             self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
                 model_id,
-                torch_dtype=torch.bfloat16,
+                dtype=desired_dtype,
                 quantization_config=quantization_config,
                 device_map="auto",  # CRITICAL: "auto" not self.device
                 attn_implementation=attn_impl
@@ -222,16 +243,24 @@ class VisionLabeler:
         except Exception as e:
             # Fall back to SDPA if flash-attn not available
             if "flash" in str(e).lower():
-                logger.warning("Flash attention not available, falling back to SDPA")
+                logger.info("Flash attention unavailable at runtime, falling back to SDPA")
                 self.model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
                     model_id,
-                    torch_dtype=torch.bfloat16,
+                    dtype=desired_dtype,
                     quantization_config=quantization_config,
                     device_map="auto",
                     attn_implementation="sdpa"
                 )
             else:
                 raise
+
+        # Some model wrappers still default to fp32 even when a dtype kwarg is ignored.
+        # For non-quantized loads, ensure we end up in the desired dtype for stable, fast inference.
+        if quantization_config is None and getattr(self.model, "dtype", None) != desired_dtype:
+            try:
+                self.model = self.model.to(desired_dtype)
+            except Exception:
+                pass
 
     def _load_internvl_model(self):
         """Load InternVL3-14B model."""
@@ -250,9 +279,11 @@ class VisionLabeler:
                 bnb_4bit_compute_dtype=torch.bfloat16
             )
 
+        desired_dtype = torch.bfloat16
+
         self.model = AutoModel.from_pretrained(
             model_id,
-            torch_dtype=torch.bfloat16,
+            dtype=desired_dtype,
             quantization_config=quantization_config,
             trust_remote_code=True,
             device_map="auto"
@@ -377,10 +408,8 @@ Respond with ONLY the JSON object, no other text."""
             if field not in label_dict:
                 raise ValueError(f"Missing required field: {field}")
 
-        # Validate/fix category
-        if label_dict['category'] not in ALLOWED_CATEGORIES:
-            logger.warning(f"Invalid category '{label_dict['category']}', defaulting to 'ui'")
-            label_dict['category'] = 'ui'
+        # NOTE: category coercion now happens after parse (so we can use retrieval candidates too).
+        # Keep this method focused on JSON extraction + required fields.
 
         # Ensure alternates exists
         if 'alternates' not in label_dict:
@@ -403,6 +432,7 @@ Respond with ONLY the JSON object, no other text."""
     def _run_qwen_inference(self, image: Image.Image, prompt: str) -> str:
         """Run inference with Qwen2.5-VL."""
         from qwen_vl_utils import process_vision_info
+        from transformers import GenerationConfig
 
         messages = [
             {
@@ -431,11 +461,15 @@ Respond with ONLY the JSON object, no other text."""
         )
         inputs = inputs.to(self.model.device)
 
+        generation_config = GenerationConfig(
+            max_new_tokens=512,
+            do_sample=False,  # Deterministic for structured output
+        )
+
         with torch.inference_mode():
             generated_ids = self.model.generate(
                 **inputs,
-                max_new_tokens=512,
-                do_sample=False  # Deterministic for structured output
+                generation_config=generation_config,
             )
 
         # Trim input tokens
@@ -461,6 +495,7 @@ Respond with ONLY the JSON object, no other text."""
         Native HuggingFace batching - processes multiple images in one forward pass.
         """
         from qwen_vl_utils import process_vision_info
+        from transformers import GenerationConfig
         
         if not images:
             return []
@@ -501,11 +536,15 @@ Respond with ONLY the JSON object, no other text."""
         )
         inputs = inputs.to(self.model.device)
         
+        generation_config = GenerationConfig(
+            max_new_tokens=512,
+            do_sample=False,
+        )
+
         with torch.inference_mode():
             generated_ids = self.model.generate(
                 **inputs,
-                max_new_tokens=512,
-                do_sample=False
+                generation_config=generation_config,
             )
         
         # Trim and decode each
@@ -562,13 +601,23 @@ Respond with ONLY the JSON object, no other text."""
 
     def _get_retrieval_candidates(self, icon_path: Path, k: int = 10) -> List[Dict]:
         """Get k-nearest neighbors from catalog."""
-        icon_embedding = self.retriever.embed_image(icon_path)
-        return self.retriever.retrieve_for_labeling(
-            icon_embedding,
-            catalog_path=self.catalog_path,
-            k=k,
-            mode="projected"
-        )
+        if self.retriever is None:
+            return []
+
+        try:
+            icon_embedding = self.retriever.embed_image(icon_path)
+            return self.retriever.retrieve_for_labeling(
+                icon_embedding,
+                catalog_path=self.catalog_path,
+                k=k,
+                mode="projected"
+            )
+        except ModuleNotFoundError as e:
+            logger.warning(f"Retrieval disabled (missing dependency): {e}")
+            return []
+        except Exception as e:
+            logger.warning(f"Retrieval failed for {icon_path.name}: {e}")
+            return []
 
     def _batch_embed_icons(self, icon_paths: List[Path], batch_size: int = 64) -> np.ndarray:
         """
@@ -584,10 +633,25 @@ Respond with ONLY the JSON object, no other text."""
         Returns:
             Embeddings array of shape (n_icons, d)
         """
-        # Ensure CLIP is loaded
-        self.retriever._ensure_model_loaded()
+        if self.retriever is None:
+            return np.array([])
+
+        # Ensure CLIP is loaded (may fail locally if open_clip is not installed)
+        try:
+            self.retriever._ensure_model_loaded()
+        except ModuleNotFoundError as e:
+            logger.warning(f"Batch CLIP embedding disabled (missing dependency): {e}")
+            return np.array([])
+        except Exception as e:
+            logger.warning(f"Batch CLIP embedding disabled (failed to init model): {e}")
+            return np.array([])
         
-        from iconics_embeddings import normalize_embeddings
+        try:
+            from iconics_embeddings import normalize_embeddings
+        except ModuleNotFoundError as e:
+            logger.warning(f"Batch CLIP embedding disabled (missing dependency): {e}")
+            return np.array([])
+
         from PIL import Image
         
         model = self.retriever._model
@@ -651,7 +715,7 @@ Respond with ONLY the JSON object, no other text."""
                 logger.info(f"Cache hit for {icon_path.name}")
                 return IconLabel(**cached)
 
-        # Step 1: Retrieve similar icons
+        # Step 1: Retrieve similar icons (optional)
         logger.info(f"Retrieving similar icons for {icon_path.name}...")
         candidates = self._get_retrieval_candidates(icon_path, k_neighbors)
 
@@ -665,7 +729,7 @@ Respond with ONLY the JSON object, no other text."""
             label_dict = {
                 'canonical': top['semantic_name'],
                 'tags': top['tags'],
-                'category': top['category'],
+                'category': coerce_category(top.get('category', 'misc'), tags=top.get('tags'), candidates=candidates),
                 'description': top.get('description', f"Similar to {top['semantic_name']}"),
                 'confidence': float(top['similarity']),
                 'alternates': [c['semantic_name'] for c in candidates[1:4]],
@@ -689,6 +753,11 @@ Respond with ONLY the JSON object, no other text."""
         # Step 5: Parse response
         logger.info("Parsing VLM response...")
         label_dict = self._parse_vlm_response(response_text)
+        label_dict["category"] = coerce_category(
+            label_dict.get("category", "misc"),
+            tags=label_dict.get("tags"),
+            candidates=candidates,
+        )
         label_dict['retrieval_candidates'] = candidates
 
         # Cache result
@@ -749,22 +818,32 @@ Respond with ONLY the JSON object, no other text."""
         if not needs_embedding:
             return [results[i] for i in sorted(results.keys())]
 
-        # Second pass: batch CLIP embedding (much faster than one-at-a-time)
-        logger.info(f"Batch embedding {len(needs_embedding)} icons through CLIP...")
+        # Second pass: batch CLIP embedding (optional; requires retrieval system)
         paths_to_embed = [p for _, p in needs_embedding]
-        embeddings = self._batch_embed_icons(paths_to_embed, batch_size=clip_batch_size)
+        embeddings = np.array([])
+        if self.retriever is not None:
+            logger.info(f"Batch embedding {len(needs_embedding)} icons through CLIP...")
+            embeddings = self._batch_embed_icons(paths_to_embed, batch_size=clip_batch_size)
         
         # Third pass: retrieval and bypass check
         pending_vlm: List[tuple] = []  # (idx, icon_path, candidates)
         
-        for (idx, icon_path), embedding in zip(needs_embedding, embeddings):
-            # Retrieve using pre-computed embedding
-            candidates = self.retriever.retrieve_for_labeling(
-                embedding,
-                catalog_path=self.catalog_path,
-                k=k_neighbors,
-                mode="projected"
-            )
+        for order, (idx, icon_path) in enumerate(needs_embedding):
+            candidates = []
+
+            # Retrieve using pre-computed embedding (if available)
+            if self.retriever is not None and embeddings.size:
+                try:
+                    embedding = embeddings[order]
+                    candidates = self.retriever.retrieve_for_labeling(
+                        embedding,
+                        catalog_path=self.catalog_path,
+                        k=k_neighbors,
+                        mode="projected"
+                    )
+                except Exception as e:
+                    logger.warning(f"Batch retrieval failed for {icon_path.name}: {e}")
+                    candidates = []
             
             # Check retrieval bypass
             if candidates and candidates[0]['similarity'] >= self.retrieval_bypass_threshold:
@@ -773,7 +852,7 @@ Respond with ONLY the JSON object, no other text."""
                 label_dict = {
                     'canonical': top['semantic_name'],
                     'tags': top['tags'],
-                    'category': top['category'],
+                    'category': coerce_category(top.get('category', 'misc'), tags=top.get('tags'), candidates=candidates),
                     'description': top.get('description', ''),
                     'confidence': float(top['similarity']),
                     'alternates': [c['semantic_name'] for c in candidates[1:4]],
@@ -817,6 +896,11 @@ Respond with ONLY the JSON object, no other text."""
                 for (idx, icon_path, candidates), response in zip(batch, responses):
                     try:
                         label_dict = self._parse_vlm_response(response)
+                        label_dict["category"] = coerce_category(
+                            label_dict.get("category", "misc"),
+                            tags=label_dict.get("tags"),
+                            candidates=candidates,
+                        )
                         label_dict['retrieval_candidates'] = candidates
                         results[idx] = IconLabel(**label_dict)
 

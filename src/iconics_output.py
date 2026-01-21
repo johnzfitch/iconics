@@ -106,8 +106,7 @@ class OutputFormatter:
             lines.append(f"Results for '{query}' ({len(results)} found):")
 
         for i, r in enumerate(results, 1):
-            # Clean up icon ID (remove size suffixes for display)
-            icon_id = self._clean_icon_id(r["icon_id"])
+            icon_id = r["icon_id"]
 
             if show_scores:
                 lines.append(f"  {i}. {icon_id} ({r['score']:.3f})")
@@ -139,7 +138,7 @@ class OutputFormatter:
 
         # Results
         for i, r in enumerate(results, 1):
-            icon_id = self._clean_icon_id(r["icon_id"])
+            icon_id = r["icon_id"]
 
             if show_scores:
                 lines.append(f"  {i:2d}  {icon_id:30s}  {r['score']:.3f}")
@@ -237,15 +236,15 @@ class OutputFormatter:
             lines.append("")
 
         if exported:
-            lines.append(f"✓ Exported {len(exported)} icon(s):")
+            lines.append(f"OK: Exported {len(exported)} icon(s):")
             for icon_id in exported:
-                lines.append(f"  • {self._clean_icon_id(icon_id)}")
+                lines.append(f"  - {self._clean_icon_id(icon_id)}")
 
         if failed:
             lines.append("")
-            lines.append(f"✗ Failed {len(failed)} icon(s):")
+            lines.append(f"ERR: Failed {len(failed)} icon(s):")
             for icon_id in failed:
-                lines.append(f"  • {icon_id}")
+                lines.append(f"  - {icon_id}")
 
         if markdown_snippets and not self.quiet:
             lines.append("")
@@ -278,7 +277,7 @@ class OutputFormatter:
 
         for check, status in validation_result.items():
             if isinstance(status, bool):
-                symbol = "✓" if status else "✗"
+                symbol = "OK" if status else "ERR"
                 lines.append(f"  {symbol} {check}")
             elif isinstance(status, dict):
                 lines.append(f"  {check}:")
@@ -376,7 +375,7 @@ class Output(OutputFormatter):
             if self.mode == 'json':
                 print(json.dumps({"level": "info", "message": message}))
             else:
-                print(f"{self.colors['BLUE']}ℹ{self.colors['END']} {message}")
+                print(f"{self.colors['BLUE']}INFO{self.colors['END']} {message}")
 
     def success(self, message: str):
         """Print success message (respects quiet mode)."""
@@ -384,14 +383,14 @@ class Output(OutputFormatter):
             if self.mode == 'json':
                 print(json.dumps({"level": "success", "message": message}))
             else:
-                print(f"{self.colors['GREEN']}✓{self.colors['END']} {message}")
+                print(f"{self.colors['GREEN']}OK{self.colors['END']} {message}")
 
     def error(self, message: str):
         """Print error message to stderr (always shown)."""
         if self.mode == 'json':
             print(json.dumps({"level": "error", "message": message}), file=sys.stderr)
         else:
-            print(f"{self.colors['RED']}✗{self.colors['END']} {message}", file=sys.stderr)
+            print(f"{self.colors['RED']}ERR{self.colors['END']} {message}", file=sys.stderr)
 
     def warn(self, message: str):
         """Print warning message (respects quiet mode)."""
@@ -399,7 +398,7 @@ class Output(OutputFormatter):
             if self.mode == 'json':
                 print(json.dumps({"level": "warning", "message": message}))
             else:
-                print(f"{self.colors['YELLOW']}⚠{self.colors['END']} {message}")
+                print(f"{self.colors['YELLOW']}WARN{self.colors['END']} {message}")
 
     def debug(self, message: str):
         """Print debug message (only in verbose mode)."""
@@ -422,7 +421,7 @@ class Output(OutputFormatter):
 
         # Human-friendly visual trace
         print(f"   {self.colors['YELLOW']}Audit:{self.colors['END']} Detected naming drift '{self.colors['YELLOW']}{original_label}{self.colors['END']}'")
-        print(f"  {self.colors['GREEN']}✓{self.colors['END']} Action: Re-aligned to catalog standard '{self.colors['GREEN']}{corrected_label}{self.colors['END']}'")
+        print(f"  {self.colors['GREEN']}OK{self.colors['END']} Action: Re-aligned to catalog standard '{self.colors['GREEN']}{corrected_label}{self.colors['END']}'")
         print(f"   Reason: {reason}")
 
     def format_ingest_result_detailed(self, result):
@@ -443,11 +442,11 @@ class Output(OutputFormatter):
         confidence = result.get('confidence', 0.0)
 
         if status == 'bypass':
-            print(f"✨ {self.colors['CYAN']}{path_name}{self.colors['END']} → {icon_id} (High-Confidence Bypass, sim={confidence:.3f})")
+            print(f"BYPASS {self.colors['CYAN']}{path_name}{self.colors['END']} -> {icon_id} (sim={confidence:.3f})")
         elif status == 'vlm':
-            print(f"🔮 {self.colors['GREEN']}{path_name}{self.colors['END']} → {icon_id} (VLM Enriched, conf={confidence:.3f})")
+            print(f"VLM {self.colors['GREEN']}{path_name}{self.colors['END']} -> {icon_id} (conf={confidence:.3f})")
         else:
-            print(f"• {path_name} → {icon_id} (status={status})")
+            print(f"{path_name} -> {icon_id} (status={status})")
 
     def format_stats(self, stats: Dict):
         """Format library statistics."""

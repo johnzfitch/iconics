@@ -52,7 +52,7 @@ Iconics is a globally-accessible icon library with 7,996 PNG icons designed to r
 ### 2. Get Icon Suggestions
 
 ```bash
-icon suggest security
+iconics suggest security
 ```
 
 **Output:**
@@ -64,7 +64,7 @@ Icon suggestions for 'security':
 ### 3. Export Icons + Generate Markdown
 
 ```bash
-icon use lock shield
+iconics use lock shield
 ```
 
 **Output:**
@@ -95,7 +95,7 @@ All network traffic is encrypted using TLS 1.3...
 
 ## Built-In Context Suggestions
 
-Use `icon suggest <context>` for these common scenarios:
+Use `iconics suggest <context>` for these common scenarios:
 
 | Context | Suggested Icons |
 |---------|-----------------|
@@ -121,22 +121,22 @@ Use `icon suggest <context>` for these common scenarios:
 
 ```bash
 # Get suggestions for a context
-icon suggest authentication
+iconics suggest authentication
 
 # Export icons and get markdown (most common)
-icon use lock shield key
+iconics use lock shield key
 
 # Just generate markdown (icons already exported)
-icon md database network
+iconics md database network
 
 # Search for icons by keyword
-icon search security
+iconics search security
 
 # Show icon details
-icon i lock
+iconics info lock
 
 # Export entire category
-icon cat security
+iconics cat security
 ```
 
 ### Shortcuts
@@ -145,10 +145,10 @@ All commands have short aliases:
 - `icon s <query>` → search
 - `icon u <names>` → use (export + markdown)
 - `icon sug <context>` → suggest
-- `icon md <names>` → markdown only
-- `icon i <name>` → info
+- `iconics md <names>` → markdown only
+- `iconics info <name>` → info
 - `icon r` → recent
-- `icon cat <category>` → export category
+- `iconics cat <category>` → export category
 
 ---
 
@@ -195,10 +195,10 @@ All commands have short aliases:
 
 **Your Actions:**
 ```bash
-icon suggest api
+iconics suggest api
 # → network, cloud, globe, server, database
 
-icon use network database
+iconics use network database
 ```
 
 **Your Response:**
@@ -217,10 +217,10 @@ GET /api/v1/data
 
 **Your Actions:**
 ```bash
-icon suggest security
+iconics suggest security
 # → lock, shield, key, protection, certificate
 
-icon use lock shield key
+iconics use lock shield key
 ```
 
 **Your Response:**
@@ -240,10 +240,10 @@ JWT-based authentication with...
 
 **Your Actions:**
 ```bash
-icon suggest settings
+iconics suggest settings
 # → settings, options, control-panel, toolbox
 
-icon use toolbox settings
+iconics use toolbox settings
 ```
 
 **Your Response:**
@@ -268,8 +268,8 @@ When creating or modifying documentation, automatically use icons without waitin
 **Good:**
 ```
 User: "Add a security section"
-Assistant: [Runs: icon suggest security]
-Assistant: [Runs: icon use lock shield]
+Assistant: [Runs: iconics suggest security]
+Assistant: [Runs: iconics use lock shield]
 Assistant: "I've added a security section with professional icons."
 ```
 
@@ -289,7 +289,7 @@ Within a project, use consistent icon styles:
 
 ### 4. Generate Markdown Immediately
 
-Always run `icon use` to get ready-to-paste markdown. Don't manually type paths:
+Always run `iconics use` to get ready-to-paste markdown. Don't manually type paths:
 
 **Bad:**
 ```markdown
@@ -298,7 +298,7 @@ Always run `icon use` to get ready-to-paste markdown. Don't manually type paths:
 
 **Good:**
 ```bash
-icon use lock
+iconics use lock
 # Copy the generated: ![lock](.github/assets/icons/lock.png)
 ```
 
@@ -307,7 +307,7 @@ icon use lock
 If a suggested icon isn't cataloged, search or suggest alternatives:
 
 ```bash
-icon search authentication
+iconics search authentication
 # Shows all authentication-related icons
 ```
 
@@ -319,10 +319,10 @@ icon search authentication
 
 ```bash
 # Search for alternatives
-icon search <keyword>
+iconics search <keyword>
 
 # Check what's available
-icon recent
+iconics recent
 icon stats
 ```
 
@@ -330,14 +330,14 @@ icon stats
 
 ```bash
 # Get details about an icon
-icon i <name>
+iconics info <name>
 
 # Shows: tags, description, file status, projects using it
 ```
 
 ### Wrong Project Detected
 
-The `icon use` command auto-detects project root via:
+The `iconics use` command auto-detects project root via:
 1. Git root (`git rev-parse --show-toplevel`)
 2. Nearest README.md
 3. Current directory
@@ -345,7 +345,7 @@ The `icon use` command auto-detects project root via:
 If wrong, manually specify:
 ```bash
 cd /path/to/correct/project
-icon use lock shield
+iconics use lock shield
 ```
 
 ---
@@ -364,7 +364,7 @@ Browse by category:
 
 Export entire categories:
 ```bash
-icon cat security
+iconics cat security
 # Exports all 80 security icons
 ```
 
@@ -376,14 +376,14 @@ icon cat security
 
 Export multiple icons at once:
 ```bash
-icon use lock shield key certificate database network
+iconics use lock shield key certificate database network
 ```
 
 ### Markdown Only (No Export)
 
 If icons already exist in project:
 ```bash
-icon md lock shield
+iconics md lock shield
 # Just generates markdown, no export
 ```
 
@@ -391,7 +391,7 @@ icon md lock shield
 
 See what's newly cataloged:
 ```bash
-icon recent 10
+iconics recent 10
 # Shows last 10 added icons
 ```
 
@@ -399,7 +399,7 @@ icon recent 10
 
 ```bash
 # Search by keyword
-icon search <keyword>
+iconics search <keyword>
 
 # List category contents
 icon list security
@@ -459,8 +459,8 @@ icon stats
 ## Remember
 
 1. **Always prefer icons over emojis** in professional documentation
-2. **Use `icon suggest` first** to get appropriate recommendations
-3. **Run `icon use`** to export and generate markdown in one command
+2. **Use `iconics suggest` first** to get appropriate recommendations
+3. **Run `iconics use`** to export and generate markdown in one command
 4. **Copy-paste the generated markdown** - don't type paths manually
 5. **Be proactive** - add icons when creating/updating docs without being asked
 
@@ -470,10 +470,10 @@ icon stats
 
 ```bash
 # 1. Get suggestions
-icon suggest <context>
+iconics suggest <context>
 
 # 2. Export and get markdown
-icon use <icon1> <icon2> <icon3>
+iconics use <icon1> <icon2> <icon3>
 
 # 3. Paste the generated markdown into documentation
 
@@ -511,4 +511,4 @@ See the main README.md for full cataloging workflows.
 
 ---
 
-**Updated:** 2026-01-05 | **v4.0** | 7,996 icons | 7,996 CLIP vectors | 2,984 semantic tags
+**Updated:** 2026-01-06 | **v4.1** | 8,203 icons | 8,202 CLIP vectors | Full semantic embeddings

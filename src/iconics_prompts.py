@@ -9,9 +9,14 @@ System 2 Reasoning: Context-aware labeling with drift prevention.
 
 from typing import Dict, List, Optional
 
+from iconics_taxonomy import ALLOWED_CATEGORIES
+
+
+CATEGORY_LIST = ", ".join(ALLOWED_CATEGORIES)
+
 
 # System Prompt: Establishes VLM Persona
-LIBRARIAN_SYSTEM_PROMPT = """### Role
+LIBRARIAN_SYSTEM_PROMPT = f"""### Role
 You are the "Iconics Cataloger." Your goal is to label new visual assets so they fit perfectly into a pre-existing design system.
 
 ### Guidelines
@@ -22,7 +27,7 @@ You are the "Iconics Cataloger." Your goal is to label new visual assets so they
 ### Output Format
 Return ONLY a JSON object with these keys:
 - "canonical": (The primary semantic name)
-- "category": (The most relevant library category: ui, files, security, network, tools, development, or emoji)
+- "category": (The most relevant library category: {CATEGORY_LIST})
 - "tags": (A list of 5-8 descriptive and functional keywords)
 - "description": (A one-sentence technical description)
 - "confidence": (Your confidence in this label from 0.0 to 1.0, where 1.0 is completely certain)
@@ -88,14 +93,14 @@ def build_ingestion_prompt(
             )
 
         prompt_parts.append("2. Ensure the 'tags' include both the new visual elements and the existing functional tags.")
-        prompt_parts.append("3. Choose the most appropriate category from: ui, files, security, network, tools, development, emoji.")
+        prompt_parts.append(f"3. Choose the most appropriate category from: {CATEGORY_LIST}.")
 
     else:
         # No neighbor context
         prompt_parts.append("\n[TASK]")
         prompt_parts.append("1. Provide a unique, descriptive canonical name.")
         prompt_parts.append("2. Include 5-8 functional and descriptive tags.")
-        prompt_parts.append("3. Choose the most appropriate category from: ui, files, security, network, tools, development, emoji.")
+        prompt_parts.append(f"3. Choose the most appropriate category from: {CATEGORY_LIST}.")
         prompt_parts.append("4. Write a clear, one-sentence technical description.")
 
     # Additional k-NN context for broader awareness
@@ -194,12 +199,27 @@ Consider semantic relationships when generating names and tags.
 # Category definitions with examples
 CATEGORY_GUIDELINES = {
     'ui': 'User interface controls: buttons, arrows, checkboxes, navigation, menus, close, delete, home',
+    'navigation': 'Navigation and movement: arrows, chevrons, back/forward, next/previous, home, menus, directions',
+    'status': 'Status and severity: warning, error, success, info, alert, critical, badges, indicators',
     'files': 'File and document management: folders, documents, PDFs, photos, videos, archives, save, open',
     'security': 'Security and privacy: locks, shields, keys, certificates, authentication, encryption, hide, show',
     'network': 'Network and connectivity: cloud, globe, wifi, network diagrams, connections, servers',
-    'tools': 'Tools and utilities: search, settings, print, export, import, battery, power, toolbox',
+    'tools': 'Tools and utilities: search, print, export, import, toolbox, utilities',
+    'system': 'System and hardware: settings, power, battery, devices, hardware, preferences',
     'development': 'Software development: databases, consoles, applications, scripts, plugins, errors, APIs',
-    'emoji': 'Expressive icons: emotions, characters, reactions, gestures'
+    'communication': 'Communication: email, mail, chat, messages, comments, notifications',
+    'media': 'Media: video, audio, music, camera, images, playback controls',
+    'people': 'People and accounts: user, profile, account, identity, login/logout',
+    'commerce': 'Commerce and finance: money, payments, billing, cart, checkout',
+    'time': 'Time and scheduling: clock, calendar, date, timer, schedule',
+    'apps': 'Application icons: specific apps, clients, browsers, suites, dashboards',
+    'brands': 'Brand marks: logos, product marks, services (use for logo-first icons)',
+    'devices': 'Hardware: phones, tablets, desktops, monitors, printers, peripherals',
+    'data': 'Data + analytics: databases, charts, graphs, reports, tables, metrics',
+    'location': 'Location + maps: map pins, markers, compass, GPS, wayfinding',
+    'weather': 'Weather: sun, cloud, rain, snow, storms, temperature',
+    'emoji': 'Expressive icons: emotions, characters, reactions, gestures',
+    'misc': 'Last resort: if none of the other categories fit'
 }
 
 

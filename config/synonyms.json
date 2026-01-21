@@ -1,0 +1,598 @@
+{
+  "active": [
+    "enabled",
+    "live",
+    "on",
+    "online",
+    "running"
+  ],
+  "add": [
+    "append",
+    "create",
+    "insert",
+    "new",
+    "plus"
+  ],
+  "admin": [
+    "administrator",
+    "management",
+    "root",
+    "superuser"
+  ],
+  "api": [
+    "endpoint",
+    "integration",
+    "interface",
+    "rest",
+    "service"
+  ],
+  "application": [
+    "app",
+    "executable",
+    "program",
+    "software",
+    "tool",
+    "utility"
+  ],
+  "archive": [
+    "backup",
+    "bundle",
+    "compress",
+    "package",
+    "zip"
+  ],
+  "audio": [
+    "music",
+    "sound",
+    "speaker",
+    "volume"
+  ],
+  "authentication": [
+    "auth",
+    "credential",
+    "identity",
+    "login",
+    "signin",
+    "user"
+  ],
+  "browser": [
+    "chrome",
+    "edge",
+    "firefox",
+    "internet",
+    "safari",
+    "web"
+  ],
+  "bug": [
+    "debug",
+    "defect",
+    "error",
+    "issue",
+    "problem"
+  ],
+  "business": [
+    "commercial",
+    "company",
+    "corporate",
+    "enterprise",
+    "office"
+  ],
+  "calendar": [
+    "appointment",
+    "date",
+    "event",
+    "planner",
+    "schedule"
+  ],
+  "camera": [
+    "capture",
+    "image",
+    "photo",
+    "picture",
+    "record",
+    "snapshot"
+  ],
+  "cart": [
+    "basket",
+    "buy",
+    "checkout",
+    "purchase",
+    "shopping"
+  ],
+  "certificate": [
+    "cert",
+    "credential",
+    "ssl",
+    "tls",
+    "trust",
+    "verified"
+  ],
+  "chat": [
+    "communication",
+    "conversation",
+    "im",
+    "message",
+    "talk"
+  ],
+  "clock": [
+    "hour",
+    "minute",
+    "time",
+    "timer",
+    "watch"
+  ],
+  "cloud": [
+    "hosting",
+    "online",
+    "remote",
+    "saas",
+    "server",
+    "storage"
+  ],
+  "code": [
+    "coding",
+    "dev",
+    "programming",
+    "script",
+    "source"
+  ],
+  "computer": [
+    "desktop",
+    "laptop",
+    "machine",
+    "pc",
+    "server",
+    "workstation"
+  ],
+  "container": [
+    "box",
+    "holder",
+    "package",
+    "wrapper"
+  ],
+  "credit": [
+    "bank",
+    "card",
+    "finance",
+    "payment"
+  ],
+  "dark": [
+    "black",
+    "mode",
+    "night",
+    "theme"
+  ],
+  "database": [
+    "data",
+    "db",
+    "records",
+    "sql",
+    "storage",
+    "table"
+  ],
+  "delete": [
+    "clear",
+    "destroy",
+    "erase",
+    "remove",
+    "trash"
+  ],
+  "device": [
+    "equipment",
+    "gadget",
+    "hardware",
+    "machine",
+    "peripheral"
+  ],
+  "document": [
+    "doc",
+    "file",
+    "paper",
+    "presentation",
+    "report",
+    "spreadsheet"
+  ],
+  "download": [
+    "fetch",
+    "get",
+    "pull",
+    "receive"
+  ],
+  "edit": [
+    "change",
+    "modify",
+    "pencil",
+    "update",
+    "write"
+  ],
+  "email": [
+    "envelope",
+    "inbox",
+    "letter",
+    "mail",
+    "message"
+  ],
+  "error": [
+    "bug",
+    "critical",
+    "fail",
+    "issue",
+    "problem",
+    "warning"
+  ],
+  "export": [
+    "download",
+    "extract",
+    "output",
+    "save"
+  ],
+  "file": [
+    "content",
+    "data",
+    "doc",
+    "document"
+  ],
+  "folder": [
+    "container",
+    "dir",
+    "directory",
+    "files",
+    "organize"
+  ],
+  "git": [
+    "branch",
+    "commit",
+    "repo",
+    "vcs",
+    "version"
+  ],
+  "globe": [
+    "global",
+    "international",
+    "internet",
+    "web",
+    "world"
+  ],
+  "hardware": [
+    "component",
+    "computer",
+    "device",
+    "equipment",
+    "machine",
+    "peripheral"
+  ],
+  "image": [
+    "graphic",
+    "img",
+    "photo",
+    "picture",
+    "visual"
+  ],
+  "import": [
+    "ingest",
+    "input",
+    "load",
+    "upload"
+  ],
+  "inactive": [
+    "disabled",
+    "off",
+    "offline",
+    "paused",
+    "stopped"
+  ],
+  "info": [
+    "about",
+    "details",
+    "help",
+    "information",
+    "notice"
+  ],
+  "internet": [
+    "browser",
+    "http",
+    "online",
+    "web",
+    "website",
+    "www"
+  ],
+  "key": [
+    "access",
+    "auth",
+    "credential",
+    "password",
+    "unlock"
+  ],
+  "light": [
+    "bright",
+    "day",
+    "mode",
+    "theme",
+    "white"
+  ],
+  "lock": [
+    "closed",
+    "locked",
+    "padlock",
+    "restrict",
+    "secure"
+  ],
+  "media": [
+    "audio",
+    "entertainment",
+    "multimedia",
+    "player",
+    "streaming",
+    "video"
+  ],
+  "money": [
+    "cash",
+    "currency",
+    "dollar",
+    "finance",
+    "payment"
+  ],
+  "navigation": [
+    "browse",
+    "explore",
+    "menu",
+    "move",
+    "nav"
+  ],
+  "network": [
+    "connection",
+    "connectivity",
+    "internet",
+    "lan",
+    "wan",
+    "web"
+  ],
+  "notification": [
+    "alert",
+    "bell",
+    "notice",
+    "reminder"
+  ],
+  "office": [
+    "business",
+    "corporate",
+    "enterprise",
+    "professional",
+    "work",
+    "workplace"
+  ],
+  "package": [
+    "archive",
+    "bundle",
+    "library",
+    "module"
+  ],
+  "password": [
+    "auth",
+    "credential",
+    "key",
+    "login",
+    "secret"
+  ],
+  "payment": [
+    "checkout",
+    "money",
+    "pay",
+    "purchase",
+    "transaction"
+  ],
+  "pending": [
+    "loading",
+    "processing",
+    "queued",
+    "waiting"
+  ],
+  "people": [
+    "group",
+    "humans",
+    "members",
+    "persons",
+    "team",
+    "users"
+  ],
+  "phone": [
+    "call",
+    "cell",
+    "mobile",
+    "smartphone",
+    "telephone"
+  ],
+  "player": [
+    "audio",
+    "media",
+    "play",
+    "stream",
+    "video"
+  ],
+  "plugin": [
+    "addon",
+    "component",
+    "extension",
+    "module"
+  ],
+  "presentation": [
+    "deck",
+    "powerpoint",
+    "slides",
+    "slideshow"
+  ],
+  "run": [
+    "begin",
+    "execute",
+    "launch",
+    "play",
+    "start"
+  ],
+  "save": [
+    "disk",
+    "keep",
+    "persist",
+    "store",
+    "write"
+  ],
+  "search": [
+    "discover",
+    "find",
+    "lookup",
+    "magnify",
+    "query"
+  ],
+  "security": [
+    "defend",
+    "guard",
+    "protection",
+    "safe",
+    "safety",
+    "secure"
+  ],
+  "server": [
+    "backend",
+    "computer",
+    "host",
+    "machine",
+    "service"
+  ],
+  "settings": [
+    "config",
+    "configuration",
+    "options",
+    "preferences",
+    "setup"
+  ],
+  "shield": [
+    "armor",
+    "defend",
+    "guard",
+    "protection",
+    "secure"
+  ],
+  "social": [
+    "community",
+    "followers",
+    "friends",
+    "network",
+    "sharing"
+  ],
+  "software": [
+    "app",
+    "application",
+    "program",
+    "tool"
+  ],
+  "spreadsheet": [
+    "csv",
+    "data",
+    "excel",
+    "grid",
+    "sheet",
+    "table"
+  ],
+  "status": [
+    "condition",
+    "indicator",
+    "signal",
+    "state"
+  ],
+  "stop": [
+    "end",
+    "halt",
+    "pause",
+    "quit",
+    "terminate"
+  ],
+  "storage": [
+    "disk",
+    "drive",
+    "memory",
+    "persist",
+    "save",
+    "store"
+  ],
+  "success": [
+    "approved",
+    "check",
+    "complete",
+    "done",
+    "ok",
+    "passed"
+  ],
+  "sync": [
+    "mirror",
+    "refresh",
+    "synchronize",
+    "update"
+  ],
+  "team": [
+    "group",
+    "members",
+    "organization",
+    "people",
+    "staff"
+  ],
+  "terminal": [
+    "cli",
+    "command",
+    "console",
+    "prompt",
+    "shell"
+  ],
+  "theme": [
+    "appearance",
+    "mode",
+    "skin",
+    "style"
+  ],
+  "time": [
+    "clock",
+    "duration",
+    "period",
+    "schedule",
+    "timer"
+  ],
+  "upload": [
+    "publish",
+    "push",
+    "send",
+    "share"
+  ],
+  "user": [
+    "account",
+    "member",
+    "people",
+    "person",
+    "profile"
+  ],
+  "video": [
+    "film",
+    "media",
+    "movie",
+    "play",
+    "recording"
+  ],
+  "warning": [
+    "alert",
+    "attention",
+    "caution",
+    "danger",
+    "error",
+    "exclamation"
+  ],
+  "website": [
+    "online",
+    "page",
+    "portal",
+    "site",
+    "web"
+  ],
+  "wifi": [
+    "connection",
+    "network",
+    "signal",
+    "wireless"
+  ]
+}

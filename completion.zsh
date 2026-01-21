@@ -1,9 +1,9 @@
-#compdef icon
-# Zsh completion for icon command
+#compdef iconics
+# Zsh completion for iconics command
 # Source this file: source /home/zack/dev/iconics/completion.zsh
 # Or add to ~/.zshrc: source /home/zack/dev/iconics/completion.zsh
 
-_icon() {
+_iconics() {
     local -a commands categories contexts icon_names
 
     commands=(
@@ -87,4 +87,4 @@ _icon() {
     esac
 }
 
-_icon "$@"
+_iconics "$@"

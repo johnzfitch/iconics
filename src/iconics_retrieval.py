@@ -216,9 +216,12 @@ class IconicsRetriever:
         if index_path is not None:
             index_path = Path(index_path)
             if index_path.exists():
-                self.faiss_index = IconicsIndex.load(str(index_path), self.icon_ids)
-                logger.info(f"Loaded FAISS index from {index_path}")
-                return
+                try:
+                    self.faiss_index = IconicsIndex.load(str(index_path), self.icon_ids)
+                    logger.info(f"Loaded FAISS index from {index_path}")
+                    return
+                except Exception as e:
+                    logger.warning(f"Failed to load FAISS index from {index_path}: {e}. Rebuilding index.")
 
         # Build index from embeddings
         self.faiss_index = IconicsIndex(
@@ -810,17 +813,16 @@ class IconicsRetriever:
             ...     print(f"  Tags: {', '.join(cand['tags'])}")
             ...     print(f"  Category: {cand['category']}")
         """
-        # Load catalog with caching (avoid parsing 84K line JSON every call)
+        # Load catalog with caching (avoid repeated disk/parsing per call)
         catalog_path = Path(catalog_path)
         cache_key = str(catalog_path)
-        
+
         if cache_key not in self._catalog_cache:
-            with open(catalog_path) as f:
-                catalog_data = json.load(f)
-            self._catalog_cache[cache_key] = {
-                icon['id']: icon for icon in catalog_data['icons']
-            }
-        
+            from iconics_catalog import load_catalog
+
+            catalog_data = load_catalog(catalog_path)
+            self._catalog_cache[cache_key] = {icon["id"]: icon for icon in catalog_data["icons"]}
+
         catalog_lookup = self._catalog_cache[cache_key]
 
         # Over-request to compensate for potential missing catalog entries
@@ -894,9 +896,10 @@ class IconicsRetriever:
             - 'in_embeddings_not_catalog': Icons in embeddings but missing from catalog
             - 'in_catalog_not_embeddings': Icons in catalog but missing embeddings
         """
+        from iconics_catalog import load_catalog
+
         catalog_path = Path(catalog_path)
-        with open(catalog_path) as f:
-            catalog_data = json.load(f)
+        catalog_data = load_catalog(catalog_path)
         
         catalog_ids = set(icon['id'] for icon in catalog_data['icons'])
         embedding_ids = set(self.icon_ids)
@@ -1015,16 +1018,15 @@ class IconicsRetriever:
         """
         import re
 
-        # Load catalog
+        # Load catalog (JSON or SQLite)
         catalog_path = Path(catalog_path)
         cache_key = str(catalog_path)
 
         if cache_key not in self._catalog_cache:
-            with open(catalog_path) as f:
-                catalog_data = json.load(f)
-            self._catalog_cache[cache_key] = {
-                icon['id']: icon for icon in catalog_data['icons']
-            }
+            from iconics_catalog import load_catalog
+
+            catalog_data = load_catalog(catalog_path)
+            self._catalog_cache[cache_key] = {icon["id"]: icon for icon in catalog_data["icons"]}
 
         catalog_lookup = self._catalog_cache[cache_key]
 

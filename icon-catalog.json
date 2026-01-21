@@ -14279,7 +14279,9 @@
       ],
       "category": "ui",
       "description": "Warning 24X24 icon. Use cases: Error prevention, data loss risks, attention-required states. Use cases: Error prevention, data loss risks, attention-required states. Use cases: Error prevention, attention, data loss.",
-      "usedIn": [],
+      "usedIn": [
+        "definitelynot.ai"
+      ],
       "metaphor": "risk",
       "emotional_valence": -0.6,
       "abstraction_level": 4,
@@ -85922,25 +85924,6 @@
       "sourceFile": "raw/achievements-earnings-awards-unlocks-trophies-collection-earned-gathered-ranking.png"
     },
     {
-      "id": "save-file-16x16",
-      "semanticName": "save-file-16x16",
-      "tags": [
-        "dialog",
-        "application",
-        "save",
-        "16x16",
-        "document",
-        "data",
-        "content",
-        "blue",
-        "small",
-        "file"
-      ],
-      "category": "emoji",
-      "description": "Small blue application dialog icon. Represents a simple dialog box for applications.",
-      "sourceFile": "/tmp/test-canonical-bug-12345.png"
-    },
-    {
       "id": "100_12x12",
       "filename": "raw/100_12x12.png",
       "semanticName": "100-12x12",
@@ -91744,7 +91727,9 @@
       "abstraction_level": 1,
       "variant_of": "",
       "enrichment_confidence": 1.0,
-      "usedIn": []
+      "usedIn": [
+        "definitelynot.ai"
+      ]
     },
     {
       "id": "Color_profile_32x32",
@@ -96848,7 +96833,9 @@
       "abstraction_level": 1,
       "variant_of": "",
       "enrichment_confidence": 1.0,
-      "usedIn": []
+      "usedIn": [
+        "definitelynot.ai"
+      ]
     },
     {
       "id": "Mail_24x24",
@@ -131568,6 +131555,4227 @@
       ],
       "category": "ui",
       "description": "Small Monster Sprite Baby Fire Breathing Monster Non Evolved icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "sound-on-blue-button-icon-2-sound-bars-white-sound-speaker",
+      "filename": "raw/sound-on-blue-button-icon-2-sound-bars-white-sound-speaker.png",
+      "semanticName": "sound-on-blue-button-icon-2-sound-bars-white-sound-speaker",
+      "tags": [
+        "sound",
+        "white",
+        "2",
+        "button",
+        "bars"
+      ],
+      "category": "ui",
+      "description": "Sound On Blue Button Icon 2 Sound Bars White Sound Speaker icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "sprite-sheet-2",
+      "filename": "raw/sprite-sheet-2.png",
+      "semanticName": "sprite-sheet-2",
+      "tags": [
+        "2",
+        "sprite",
+        "sheet"
+      ],
+      "category": "ui",
+      "description": "Sprite Sheet 2 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "sprite-sheet",
+      "filename": "raw/sprite-sheet.png",
+      "semanticName": "sprite-sheet",
+      "tags": [
+        "sprite",
+        "sheet"
+      ],
+      "category": "ui",
+      "description": "Sprite Sheet icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "star_award_icon",
+      "filename": "raw/star_award_icon.png",
+      "semanticName": "star-award-icon",
+      "tags": [
+        "icon",
+        "award",
+        "star"
+      ],
+      "category": "ui",
+      "description": "Star Award Icon icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "star_icon_smoot",
+      "filename": "raw/star_icon_smoot.png",
+      "semanticName": "star-icon-smoot",
+      "tags": [
+        "icon",
+        "star",
+        "smoot"
+      ],
+      "category": "ui",
+      "description": "Star Icon Smoot icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "submit-send-enter-go-push-commit-form",
+      "filename": "raw/submit-send-enter-go-push-commit-form.png",
+      "semanticName": "submit-send-enter-go-push-commit-form",
+      "tags": [
+        "submit",
+        "push",
+        "send",
+        "go",
+        "form"
+      ],
+      "category": "ui",
+      "description": "Submit Send Enter Go Push Commit Form icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "sword-attack-offensive-weapon-code-tool-coding-cut-stab-surgical-removal",
+      "filename": "raw/sword-attack-offensive-weapon-code-tool-coding-cut-stab-surgical-removal.png",
+      "semanticName": "sword-attack-offensive-weapon-code-tool-coding-cut-stab-surgical-removal",
+      "tags": [
+        "surgical",
+        "sword",
+        "attack",
+        "weapon",
+        "coding"
+      ],
+      "category": "tools",
+      "description": "Sword Attack Offensive Weapon Code Tool Coding Cut Stab Surgical Removal icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "treasure-chest-with-gems-inside-showing-award-well-done-good-job",
+      "filename": "raw/treasure-chest-with-gems-inside-showing-award-well-done-good-job.png",
+      "semanticName": "treasure-chest-with-gems-inside-showing-award-well-done-good-job",
+      "tags": [
+        "gems",
+        "chest",
+        "good",
+        "done",
+        "with"
+      ],
+      "category": "ui",
+      "description": "Treasure Chest With Gems Inside Showing Award Well Done Good Job icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "two-tone-blue-background-back-button-left-facing-arrow-go-back-undo-step-step-backwards",
+      "filename": "raw/two-tone-blue-background-back-button-left-facing-arrow-go-back-undo-step-step-backwards.png",
+      "semanticName": "two-tone-blue-background-back-button-left-facing-arrow-go-back-undo-step-step-backwards",
+      "tags": [
+        "two",
+        "left",
+        "step",
+        "arrow",
+        "background"
+      ],
+      "category": "ui",
+      "description": "Two Tone Blue Background Back Button Left Facing Arrow Go Back Undo Step Step Backwards icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "warning_icon_it",
+      "filename": "raw/warning_icon_it.png",
+      "semanticName": "warning-icon-it",
+      "tags": [
+        "icon",
+        "warning",
+        "it"
+      ],
+      "category": "ui",
+      "description": "Warning Icon It icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "CandyBar-alt",
+      "filename": "raw/CandyBar-alt.png",
+      "semanticName": "candybar-alt",
+      "tags": [
+        "candybar",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Candybar Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "CandyBar",
+      "filename": "raw/CandyBar.png",
+      "semanticName": "candybar",
+      "tags": [
+        "candybar"
+      ],
+      "category": "ui",
+      "description": "Candybar icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Contacts-alt1",
+      "filename": "raw/Contacts-alt1.png",
+      "semanticName": "contacts-alt1",
+      "tags": [
+        "contacts",
+        "alt1"
+      ],
+      "category": "ui",
+      "description": "Contacts Alt1 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Contacts-alt2",
+      "filename": "raw/Contacts-alt2.png",
+      "semanticName": "contacts-alt2",
+      "tags": [
+        "contacts",
+        "alt2"
+      ],
+      "category": "ui",
+      "description": "Contacts Alt2 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Contacts-alt3",
+      "filename": "raw/Contacts-alt3.png",
+      "semanticName": "contacts-alt3",
+      "tags": [
+        "contacts",
+        "alt3"
+      ],
+      "category": "ui",
+      "description": "Contacts Alt3 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Contacts",
+      "filename": "raw/Contacts.png",
+      "semanticName": "contacts",
+      "tags": [
+        "contacts"
+      ],
+      "category": "ui",
+      "description": "Contacts icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Coversutra-alt",
+      "filename": "raw/Coversutra-alt.png",
+      "semanticName": "coversutra-alt",
+      "tags": [
+        "coversutra",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Coversutra Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Coversutra",
+      "filename": "raw/Coversutra.png",
+      "semanticName": "coversutra",
+      "tags": [
+        "coversutra"
+      ],
+      "category": "ui",
+      "description": "Coversutra icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Design-alt1",
+      "filename": "raw/Design-alt1.png",
+      "semanticName": "design-alt1",
+      "tags": [
+        "alt1",
+        "design"
+      ],
+      "category": "ui",
+      "description": "Design Alt1 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Design-alt2",
+      "filename": "raw/Design-alt2.png",
+      "semanticName": "design-alt2",
+      "tags": [
+        "alt2",
+        "design"
+      ],
+      "category": "ui",
+      "description": "Design Alt2 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Design",
+      "filename": "raw/Design.png",
+      "semanticName": "design",
+      "tags": [
+        "design"
+      ],
+      "category": "ui",
+      "description": "Design icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Facebook-alt1",
+      "filename": "raw/Facebook-alt1.png",
+      "semanticName": "facebook-alt1",
+      "tags": [
+        "facebook",
+        "alt1"
+      ],
+      "category": "files",
+      "description": "Facebook Alt1 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Facebook-alt2",
+      "filename": "raw/Facebook-alt2.png",
+      "semanticName": "facebook-alt2",
+      "tags": [
+        "facebook",
+        "alt2"
+      ],
+      "category": "files",
+      "description": "Facebook Alt2 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Facebook-alt3",
+      "filename": "raw/Facebook-alt3.png",
+      "semanticName": "facebook-alt3",
+      "tags": [
+        "facebook",
+        "alt3"
+      ],
+      "category": "files",
+      "description": "Facebook Alt3 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Facebook",
+      "filename": "raw/Facebook.png",
+      "semanticName": "facebook",
+      "tags": [
+        "facebook"
+      ],
+      "category": "files",
+      "description": "Facebook icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "HD-alt1",
+      "filename": "raw/HD-alt1.png",
+      "semanticName": "hd-alt1",
+      "tags": [
+        "alt1",
+        "hd"
+      ],
+      "category": "ui",
+      "description": "Hd Alt1 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "HD-alt2",
+      "filename": "raw/HD-alt2.png",
+      "semanticName": "hd-alt2",
+      "tags": [
+        "alt2",
+        "hd"
+      ],
+      "category": "ui",
+      "description": "Hd Alt2 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "HD",
+      "filename": "raw/HD.png",
+      "semanticName": "hd",
+      "tags": [
+        "hd"
+      ],
+      "category": "ui",
+      "description": "Hd icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "iPhone-alt",
+      "filename": "raw/iPhone-alt.png",
+      "semanticName": "iphone-alt",
+      "tags": [
+        "iphone",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Iphone Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "iPhone",
+      "filename": "raw/iPhone.png",
+      "semanticName": "iphone",
+      "tags": [
+        "iphone"
+      ],
+      "category": "ui",
+      "description": "Iphone icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "iPod-alt2",
+      "filename": "raw/iPod-alt2.png",
+      "semanticName": "ipod-alt2",
+      "tags": [
+        "ipod",
+        "alt2"
+      ],
+      "category": "ui",
+      "description": "Ipod Alt2 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "iPod-alt3",
+      "filename": "raw/iPod-alt3.png",
+      "semanticName": "ipod-alt3",
+      "tags": [
+        "ipod",
+        "alt3"
+      ],
+      "category": "ui",
+      "description": "Ipod Alt3 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "iPod-alt",
+      "filename": "raw/iPod-alt.png",
+      "semanticName": "ipod-alt",
+      "tags": [
+        "ipod",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Ipod Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "iPod",
+      "filename": "raw/iPod.png",
+      "semanticName": "ipod",
+      "tags": [
+        "ipod"
+      ],
+      "category": "ui",
+      "description": "Ipod icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Mail-alt",
+      "filename": "raw/Mail-alt.png",
+      "semanticName": "mail-alt",
+      "tags": [
+        "mail",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Mail Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Mail",
+      "filename": "raw/Mail.png",
+      "semanticName": "mail",
+      "tags": [
+        "mail"
+      ],
+      "category": "ui",
+      "description": "Mail icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Safari-alt",
+      "filename": "raw/Safari-alt.png",
+      "semanticName": "safari-alt",
+      "tags": [
+        "safari",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Safari Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Safari",
+      "filename": "raw/Safari.png",
+      "semanticName": "safari",
+      "tags": [
+        "safari"
+      ],
+      "category": "ui",
+      "description": "Safari icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Things-alt",
+      "filename": "raw/Things-alt.png",
+      "semanticName": "things-alt",
+      "tags": [
+        "things",
+        "alt"
+      ],
+      "category": "ui",
+      "description": "Things Alt icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Things",
+      "filename": "raw/Things.png",
+      "semanticName": "things",
+      "tags": [
+        "things"
+      ],
+      "category": "ui",
+      "description": "Things icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Address Book",
+      "filename": "raw/Address Book.png",
+      "semanticName": "address-book",
+      "tags": [
+        "address",
+        "book"
+      ],
+      "category": "files",
+      "description": "Address Book icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Aero Window \u252c\u2557 Explorer",
+      "filename": "raw/Aero Window \u252c\u2557 Explorer.png",
+      "semanticName": "aero-window-\u252c\u2557-explorer",
+      "tags": [
+        "window",
+        "\u252c\u2557",
+        "explorer",
+        "aero"
+      ],
+      "category": "ui",
+      "description": "Aero Window \u252c\u2557 Explorer icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Aero Window \u252c\u2557 List",
+      "filename": "raw/Aero Window \u252c\u2557 List.png",
+      "semanticName": "aero-window-\u252c\u2557-list",
+      "tags": [
+        "window",
+        "\u252c\u2557",
+        "list",
+        "aero"
+      ],
+      "category": "ui",
+      "description": "Aero Window \u252c\u2557 List icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Alert",
+      "filename": "raw/Alert.png",
+      "semanticName": "alert",
+      "tags": [
+        "alert"
+      ],
+      "category": "ui",
+      "description": "Alert icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Applications",
+      "filename": "raw/Applications.png",
+      "semanticName": "applications",
+      "tags": [
+        "applications"
+      ],
+      "category": "ui",
+      "description": "Applications icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Battery Display \u252c\u2557 Charging",
+      "filename": "raw/Battery Display \u252c\u2557 Charging.png",
+      "semanticName": "battery-display-\u252c\u2557-charging",
+      "tags": [
+        "\u252c\u2557",
+        "charging",
+        "display",
+        "battery"
+      ],
+      "category": "ui",
+      "description": "Battery Display \u252c\u2557 Charging icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Battery Display \u252c\u2557 Full",
+      "filename": "raw/Battery Display \u252c\u2557 Full.png",
+      "semanticName": "battery-display-\u252c\u2557-full",
+      "tags": [
+        "\u252c\u2557",
+        "display",
+        "battery",
+        "full"
+      ],
+      "category": "ui",
+      "description": "Battery Display \u252c\u2557 Full icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Battery Display \u252c\u2557 Low",
+      "filename": "raw/Battery Display \u252c\u2557 Low.png",
+      "semanticName": "battery-display-\u252c\u2557-low",
+      "tags": [
+        "low",
+        "\u252c\u2557",
+        "display",
+        "battery"
+      ],
+      "category": "ui",
+      "description": "Battery Display \u252c\u2557 Low icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Battery Display",
+      "filename": "raw/Battery Display.png",
+      "semanticName": "battery-display",
+      "tags": [
+        "display",
+        "battery"
+      ],
+      "category": "ui",
+      "description": "Battery Display icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Battery",
+      "filename": "raw/Battery.png",
+      "semanticName": "battery",
+      "tags": [
+        "battery"
+      ],
+      "category": "ui",
+      "description": "Battery icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Bell",
+      "filename": "raw/Bell.png",
+      "semanticName": "bell",
+      "tags": [
+        "bell"
+      ],
+      "category": "ui",
+      "description": "Bell icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Book \u252c\u2557 Bookmark",
+      "filename": "raw/Book \u252c\u2557 Bookmark.png",
+      "semanticName": "book-\u252c\u2557-bookmark",
+      "tags": [
+        "\u252c\u2557",
+        "bookmark",
+        "book"
+      ],
+      "category": "files",
+      "description": "Book \u252c\u2557 Bookmark icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Book",
+      "filename": "raw/Book.png",
+      "semanticName": "book",
+      "tags": [
+        "book"
+      ],
+      "category": "files",
+      "description": "Book icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Bookshelf \u252c\u2557 Empty",
+      "filename": "raw/Bookshelf \u252c\u2557 Empty.png",
+      "semanticName": "bookshelf-\u252c\u2557-empty",
+      "tags": [
+        "empty",
+        "bookshelf",
+        "\u252c\u2557"
+      ],
+      "category": "files",
+      "description": "Bookshelf \u252c\u2557 Empty icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Bookshelf",
+      "filename": "raw/Bookshelf.png",
+      "semanticName": "bookshelf",
+      "tags": [
+        "bookshelf"
+      ],
+      "category": "files",
+      "description": "Bookshelf icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Box",
+      "filename": "raw/Box.png",
+      "semanticName": "box",
+      "tags": [
+        "box"
+      ],
+      "category": "ui",
+      "description": "Box icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Box \u252c\u2557 This Side Up",
+      "filename": "raw/Box \u252c\u2557 This Side Up.png",
+      "semanticName": "box-\u252c\u2557-this-side-up",
+      "tags": [
+        "box",
+        "side",
+        "up",
+        "this",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Box \u252c\u2557 This Side Up icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Burn",
+      "filename": "raw/Burn.png",
+      "semanticName": "burn",
+      "tags": [
+        "burn"
+      ],
+      "category": "ui",
+      "description": "Burn icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Calendar \u252c\u2557 Blue",
+      "filename": "raw/Calendar \u252c\u2557 Blue.png",
+      "semanticName": "calendar-\u252c\u2557-blue",
+      "tags": [
+        "blue",
+        "calendar",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Calendar \u252c\u2557 Blue icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Calendar \u252c\u2557 Day View",
+      "filename": "raw/Calendar \u252c\u2557 Day View.png",
+      "semanticName": "calendar-\u252c\u2557-day-view",
+      "tags": [
+        "calendar",
+        "view",
+        "day",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Calendar \u252c\u2557 Day View icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Calendar \u252c\u2557 Month View",
+      "filename": "raw/Calendar \u252c\u2557 Month View.png",
+      "semanticName": "calendar-\u252c\u2557-month-view",
+      "tags": [
+        "calendar",
+        "view",
+        "month",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Calendar \u252c\u2557 Month View icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Camera",
+      "filename": "raw/Camera.png",
+      "semanticName": "camera",
+      "tags": [
+        "camera"
+      ],
+      "category": "ui",
+      "description": "Camera icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "CD \u252c\u2557 Burn",
+      "filename": "raw/CD \u252c\u2557 Burn.png",
+      "semanticName": "cd-\u252c\u2557-burn",
+      "tags": [
+        "cd",
+        "burn",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Cd \u252c\u2557 Burn icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "CD",
+      "filename": "raw/CD.png",
+      "semanticName": "cd",
+      "tags": [
+        "cd"
+      ],
+      "category": "ui",
+      "description": "Cd icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Chalkboard \u252c\u2557 Empty",
+      "filename": "raw/Chalkboard \u252c\u2557 Empty.png",
+      "semanticName": "chalkboard-\u252c\u2557-empty",
+      "tags": [
+        "empty",
+        "chalkboard",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Chalkboard \u252c\u2557 Empty icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Chalkboard",
+      "filename": "raw/Chalkboard.png",
+      "semanticName": "chalkboard",
+      "tags": [
+        "chalkboard"
+      ],
+      "category": "ui",
+      "description": "Chalkboard icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Chest of Drawers \u252c\u2557 Open \u252c\u2557 Files",
+      "filename": "raw/Chest of Drawers \u252c\u2557 Open \u252c\u2557 Files.png",
+      "semanticName": "chest-of-drawers-\u252c\u2557-open-\u252c\u2557-files",
+      "tags": [
+        "drawers",
+        "chest",
+        "open",
+        "files",
+        "of"
+      ],
+      "category": "files",
+      "description": "Chest Of Drawers \u252c\u2557 Open \u252c\u2557 Files icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Chest of Drawers \u252c\u2557 Open",
+      "filename": "raw/Chest of Drawers \u252c\u2557 Open.png",
+      "semanticName": "chest-of-drawers-\u252c\u2557-open",
+      "tags": [
+        "drawers",
+        "chest",
+        "open",
+        "of",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Chest Of Drawers \u252c\u2557 Open icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Chest of Drawers",
+      "filename": "raw/Chest of Drawers.png",
+      "semanticName": "chest-of-drawers",
+      "tags": [
+        "of",
+        "chest",
+        "drawers"
+      ],
+      "category": "ui",
+      "description": "Chest Of Drawers icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Chip",
+      "filename": "raw/Chip.png",
+      "semanticName": "chip",
+      "tags": [
+        "chip"
+      ],
+      "category": "ui",
+      "description": "Chip icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Christmas Tree \u252c\u2557 Lit",
+      "filename": "raw/Christmas Tree \u252c\u2557 Lit.png",
+      "semanticName": "christmas-tree-\u252c\u2557-lit",
+      "tags": [
+        "christmas",
+        "lit",
+        "\u252c\u2557",
+        "tree"
+      ],
+      "category": "ui",
+      "description": "Christmas Tree \u252c\u2557 Lit icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Christmas Tree",
+      "filename": "raw/Christmas Tree.png",
+      "semanticName": "christmas-tree",
+      "tags": [
+        "christmas",
+        "tree"
+      ],
+      "category": "ui",
+      "description": "Christmas Tree icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Christmas Tree \u252c\u2557 Undecorated",
+      "filename": "raw/Christmas Tree \u252c\u2557 Undecorated.png",
+      "semanticName": "christmas-tree-\u252c\u2557-undecorated",
+      "tags": [
+        "christmas",
+        "undecorated",
+        "\u252c\u2557",
+        "tree"
+      ],
+      "category": "ui",
+      "description": "Christmas Tree \u252c\u2557 Undecorated icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clapperboard \u252c\u2557 Blank",
+      "filename": "raw/Clapperboard \u252c\u2557 Blank.png",
+      "semanticName": "clapperboard-\u252c\u2557-blank",
+      "tags": [
+        "clapperboard",
+        "\u252c\u2557",
+        "blank"
+      ],
+      "category": "ui",
+      "description": "Clapperboard \u252c\u2557 Blank icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clapperboard \u252c\u2557 Closed",
+      "filename": "raw/Clapperboard \u252c\u2557 Closed.png",
+      "semanticName": "clapperboard-\u252c\u2557-closed",
+      "tags": [
+        "clapperboard",
+        "closed",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Clapperboard \u252c\u2557 Closed icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clapperboard \u252c\u2557 Picture",
+      "filename": "raw/Clapperboard \u252c\u2557 Picture.png",
+      "semanticName": "clapperboard-\u252c\u2557-picture",
+      "tags": [
+        "picture",
+        "clapperboard",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Clapperboard \u252c\u2557 Picture icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clapperboard",
+      "filename": "raw/Clapperboard.png",
+      "semanticName": "clapperboard",
+      "tags": [
+        "clapperboard"
+      ],
+      "category": "ui",
+      "description": "Clapperboard icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clipboard \u252c\u2557 Empty",
+      "filename": "raw/Clipboard \u252c\u2557 Empty.png",
+      "semanticName": "clipboard-\u252c\u2557-empty",
+      "tags": [
+        "clipboard",
+        "empty",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Clipboard \u252c\u2557 Empty icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clipboard \u252c\u2557 Fold",
+      "filename": "raw/Clipboard \u252c\u2557 Fold.png",
+      "semanticName": "clipboard-\u252c\u2557-fold",
+      "tags": [
+        "clipboard",
+        "fold",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Clipboard \u252c\u2557 Fold icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clipboard",
+      "filename": "raw/Clipboard.png",
+      "semanticName": "clipboard",
+      "tags": [
+        "clipboard"
+      ],
+      "category": "ui",
+      "description": "Clipboard icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clipboard \u252c\u2557 Text",
+      "filename": "raw/Clipboard \u252c\u2557 Text.png",
+      "semanticName": "clipboard-\u252c\u2557-text",
+      "tags": [
+        "clipboard",
+        "text",
+        "\u252c\u2557"
+      ],
+      "category": "files",
+      "description": "Clipboard \u252c\u2557 Text icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Clipboard \u252c\u2557 Torn",
+      "filename": "raw/Clipboard \u252c\u2557 Torn.png",
+      "semanticName": "clipboard-\u252c\u2557-torn",
+      "tags": [
+        "clipboard",
+        "torn",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Clipboard \u252c\u2557 Torn icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Color Wheel",
+      "filename": "raw/Color Wheel.png",
+      "semanticName": "color-wheel",
+      "tags": [
+        "wheel",
+        "color"
+      ],
+      "category": "ui",
+      "description": "Color Wheel icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Contact Card",
+      "filename": "raw/Contact Card.png",
+      "semanticName": "contact-card",
+      "tags": [
+        "card",
+        "contact"
+      ],
+      "category": "ui",
+      "description": "Contact Card icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Curtains",
+      "filename": "raw/Curtains.png",
+      "semanticName": "curtains",
+      "tags": [
+        "curtains"
+      ],
+      "category": "ui",
+      "description": "Curtains icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Dashboard",
+      "filename": "raw/Dashboard.png",
+      "semanticName": "dashboard",
+      "tags": [
+        "dashboard"
+      ],
+      "category": "ui",
+      "description": "Dashboard icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Decoration \u252c\u2557 Branch",
+      "filename": "raw/Decoration \u252c\u2557 Branch.png",
+      "semanticName": "decoration-\u252c\u2557-branch",
+      "tags": [
+        "branch",
+        "\u252c\u2557",
+        "decoration"
+      ],
+      "category": "ui",
+      "description": "Decoration \u252c\u2557 Branch icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Decoration",
+      "filename": "raw/Decoration.png",
+      "semanticName": "decoration",
+      "tags": [
+        "decoration"
+      ],
+      "category": "ui",
+      "description": "Decoration icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Delete",
+      "filename": "raw/Delete.png",
+      "semanticName": "delete",
+      "tags": [
+        "delete"
+      ],
+      "category": "ui",
+      "description": "Delete icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Design \u252c\u2557 Blueprint",
+      "filename": "raw/Design \u252c\u2557 Blueprint.png",
+      "semanticName": "design-\u252c\u2557-blueprint",
+      "tags": [
+        "blueprint",
+        "design",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Design \u252c\u2557 Blueprint icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Desktop",
+      "filename": "raw/Desktop.png",
+      "semanticName": "desktop",
+      "tags": [
+        "desktop"
+      ],
+      "category": "ui",
+      "description": "Desktop icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Dictionary",
+      "filename": "raw/Dictionary.png",
+      "semanticName": "dictionary",
+      "tags": [
+        "dictionary"
+      ],
+      "category": "ui",
+      "description": "Dictionary icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Digsby",
+      "filename": "raw/Digsby.png",
+      "semanticName": "digsby",
+      "tags": [
+        "digsby"
+      ],
+      "category": "ui",
+      "description": "Digsby icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Disk \u252c\u2557 Hard Disk",
+      "filename": "raw/Disk \u252c\u2557 Hard Disk.png",
+      "semanticName": "disk-\u252c\u2557-hard-disk",
+      "tags": [
+        "disk",
+        "hard",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Disk \u252c\u2557 Hard Disk icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Disk \u252c\u2557 iDisk",
+      "filename": "raw/Disk \u252c\u2557 iDisk.png",
+      "semanticName": "disk-\u252c\u2557-idisk",
+      "tags": [
+        "disk",
+        "idisk",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Disk \u252c\u2557 Idisk icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Disk \u252c\u2557 Removable",
+      "filename": "raw/Disk \u252c\u2557 Removable.png",
+      "semanticName": "disk-\u252c\u2557-removable",
+      "tags": [
+        "disk",
+        "removable",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Disk \u252c\u2557 Removable icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Disk \u252c\u2557 Time Machine",
+      "filename": "raw/Disk \u252c\u2557 Time Machine.png",
+      "semanticName": "disk-\u252c\u2557-time-machine",
+      "tags": [
+        "disk",
+        "machine",
+        "\u252c\u2557",
+        "time"
+      ],
+      "category": "ui",
+      "description": "Disk \u252c\u2557 Time Machine icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Door \u252c\u2557 Chat Room",
+      "filename": "raw/Door \u252c\u2557 Chat Room.png",
+      "semanticName": "door-\u252c\u2557-chat-room",
+      "tags": [
+        "chat",
+        "room",
+        "door",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Door \u252c\u2557 Chat Room icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Door",
+      "filename": "raw/Door.png",
+      "semanticName": "door",
+      "tags": [
+        "door"
+      ],
+      "category": "ui",
+      "description": "Door icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Download \u252c\u2557 High Speed",
+      "filename": "raw/Download \u252c\u2557 High Speed.png",
+      "semanticName": "download-\u252c\u2557-high-speed",
+      "tags": [
+        "high",
+        "speed",
+        "download",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Download \u252c\u2557 High Speed icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Download \u252c\u2557 Turbo Speed",
+      "filename": "raw/Download \u252c\u2557 Turbo Speed.png",
+      "semanticName": "download-\u252c\u2557-turbo-speed",
+      "tags": [
+        "speed",
+        "turbo",
+        "download",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Download \u252c\u2557 Turbo Speed icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "E-Mail",
+      "filename": "raw/E-Mail.png",
+      "semanticName": "e-mail",
+      "tags": [
+        "e",
+        "mail"
+      ],
+      "category": "ui",
+      "description": "E Mail icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Emoticon",
+      "filename": "raw/Emoticon.png",
+      "semanticName": "emoticon",
+      "tags": [
+        "emoticon"
+      ],
+      "category": "ui",
+      "description": "Emoticon icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Emoticon \u252c\u2557 Sleep",
+      "filename": "raw/Emoticon \u252c\u2557 Sleep.png",
+      "semanticName": "emoticon-\u252c\u2557-sleep",
+      "tags": [
+        "emoticon",
+        "sleep",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Emoticon \u252c\u2557 Sleep icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Envelope \u252c\u2557 Airmail",
+      "filename": "raw/Envelope \u252c\u2557 Airmail.png",
+      "semanticName": "envelope-\u252c\u2557-airmail",
+      "tags": [
+        "airmail",
+        "envelope",
+        "\u252c\u2557"
+      ],
+      "category": "ui",
+      "description": "Envelope \u252c\u2557 Airmail icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Envelope",
+      "filename": "raw/Envelope.png",
+      "semanticName": "envelope",
+      "tags": [
+        "envelope"
+      ],
+      "category": "ui",
+      "description": "Envelope icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Error",
+      "filename": "raw/Error.png",
+      "semanticName": "error",
+      "tags": [
+        "error"
+      ],
+      "category": "ui",
+      "description": "Error icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Face Book",
+      "filename": "raw/Face Book.png",
+      "semanticName": "face-book",
+      "tags": [
+        "face",
+        "book"
+      ],
+      "category": "files",
+      "description": "Face Book icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "File",
+      "filename": "raw/File.png",
+      "semanticName": "file",
+      "tags": [
+        "file"
+      ],
+      "category": "files",
+      "description": "File icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 Blueprint",
+      "filename": "raw/Filetype \u252c\u2557 Blueprint.png",
+      "semanticName": "filetype-\u252c\u2557-blueprint",
+      "tags": [
+        "blueprint",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Blueprint icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 Blueprint \u252c\u2557 Under Construction",
+      "filename": "raw/Filetype \u252c\u2557 Blueprint \u252c\u2557 Under Construction.png",
+      "semanticName": "filetype-\u252c\u2557-blueprint-\u252c\u2557-under-construction",
+      "tags": [
+        "blueprint",
+        "under",
+        "construction",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Blueprint \u252c\u2557 Under Construction icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype",
+      "filename": "raw/Filetype.png",
+      "semanticName": "filetype",
+      "tags": [
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 RSS \u252c\u2557 Orange",
+      "filename": "raw/Filetype \u252c\u2557 RSS \u252c\u2557 Orange.png",
+      "semanticName": "filetype-\u252c\u2557-rss-\u252c\u2557-orange",
+      "tags": [
+        "orange",
+        "rss",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Rss \u252c\u2557 Orange icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 RSS",
+      "filename": "raw/Filetype \u252c\u2557 RSS.png",
+      "semanticName": "filetype-\u252c\u2557-rss",
+      "tags": [
+        "rss",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Rss icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 Script",
+      "filename": "raw/Filetype \u252c\u2557 Script.png",
+      "semanticName": "filetype-\u252c\u2557-script",
+      "tags": [
+        "script",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Script icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 Under Construction",
+      "filename": "raw/Filetype \u252c\u2557 Under Construction.png",
+      "semanticName": "filetype-\u252c\u2557-under-construction",
+      "tags": [
+        "under",
+        "construction",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Under Construction icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filetype \u252c\u2557 Video",
+      "filename": "raw/Filetype \u252c\u2557 Video.png",
+      "semanticName": "filetype-\u252c\u2557-video",
+      "tags": [
+        "video",
+        "\u252c\u2557",
+        "filetype"
+      ],
+      "category": "files",
+      "description": "Filetype \u252c\u2557 Video icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Film Roll",
+      "filename": "raw/Film Roll.png",
+      "semanticName": "film-roll",
+      "tags": [
+        "roll",
+        "film"
+      ],
+      "category": "ui",
+      "description": "Film Roll icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Filmstrip",
+      "filename": "raw/Filmstrip.png",
+      "semanticName": "filmstrip",
+      "tags": [
+        "filmstrip"
+      ],
+      "category": "ui",
+      "description": "Filmstrip icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Folder \u252c\u2557 Blue",
+      "filename": "raw/Folder \u252c\u2557 Blue.png",
+      "semanticName": "folder-\u252c\u2557-blue",
+      "tags": [
+        "blue",
+        "folder",
+        "\u252c\u2557"
+      ],
+      "category": "files",
+      "description": "Folder \u252c\u2557 Blue icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Folder \u252c\u2557 Classic \u252c\u2557 Blue",
+      "filename": "raw/Folder \u252c\u2557 Classic \u252c\u2557 Blue.png",
+      "semanticName": "folder-\u252c\u2557-classic-\u252c\u2557-blue",
+      "tags": [
+        "blue",
+        "folder",
+        "classic",
+        "\u252c\u2557"
+      ],
+      "category": "files",
+      "description": "Folder \u252c\u2557 Classic \u252c\u2557 Blue icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Folder \u252c\u2557 Classic \u252c\u2557 Recycled",
+      "filename": "raw/Folder \u252c\u2557 Classic \u252c\u2557 Recycled.png",
+      "semanticName": "folder-\u252c\u2557-classic-\u252c\u2557-recycled",
+      "tags": [
+        "folder",
+        "recycled",
+        "classic",
+        "\u252c\u2557"
+      ],
+      "category": "files",
+      "description": "Folder \u252c\u2557 Classic \u252c\u2557 Recycled icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 01",
+      "filename": "raw/Icon-A-Day 1.1 Icon 01.png",
+      "semanticName": "icon-a-day-1.1-icon-01",
+      "tags": [
+        "1.1",
+        "day",
+        "01",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 01 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 02",
+      "filename": "raw/Icon-A-Day 1.1 Icon 02.png",
+      "semanticName": "icon-a-day-1.1-icon-02",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "02"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 02 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 03",
+      "filename": "raw/Icon-A-Day 1.1 Icon 03.png",
+      "semanticName": "icon-a-day-1.1-icon-03",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "03"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 03 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 04",
+      "filename": "raw/Icon-A-Day 1.1 Icon 04.png",
+      "semanticName": "icon-a-day-1.1-icon-04",
+      "tags": [
+        "1.1",
+        "day",
+        "04",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 04 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 05",
+      "filename": "raw/Icon-A-Day 1.1 Icon 05.png",
+      "semanticName": "icon-a-day-1.1-icon-05",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "05"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 05 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 06",
+      "filename": "raw/Icon-A-Day 1.1 Icon 06.png",
+      "semanticName": "icon-a-day-1.1-icon-06",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "06"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 06 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 07",
+      "filename": "raw/Icon-A-Day 1.1 Icon 07.png",
+      "semanticName": "icon-a-day-1.1-icon-07",
+      "tags": [
+        "1.1",
+        "day",
+        "07",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 07 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 08",
+      "filename": "raw/Icon-A-Day 1.1 Icon 08.png",
+      "semanticName": "icon-a-day-1.1-icon-08",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "08"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 08 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 09",
+      "filename": "raw/Icon-A-Day 1.1 Icon 09.png",
+      "semanticName": "icon-a-day-1.1-icon-09",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "09"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 09 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 10",
+      "filename": "raw/Icon-A-Day 1.1 Icon 10.png",
+      "semanticName": "icon-a-day-1.1-icon-10",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "10"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 10 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 11",
+      "filename": "raw/Icon-A-Day 1.1 Icon 11.png",
+      "semanticName": "icon-a-day-1.1-icon-11",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "11"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 11 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 12",
+      "filename": "raw/Icon-A-Day 1.1 Icon 12.png",
+      "semanticName": "icon-a-day-1.1-icon-12",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "12"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 12 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 13",
+      "filename": "raw/Icon-A-Day 1.1 Icon 13.png",
+      "semanticName": "icon-a-day-1.1-icon-13",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "13"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 13 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 14",
+      "filename": "raw/Icon-A-Day 1.1 Icon 14.png",
+      "semanticName": "icon-a-day-1.1-icon-14",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "14"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 14 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 15",
+      "filename": "raw/Icon-A-Day 1.1 Icon 15.png",
+      "semanticName": "icon-a-day-1.1-icon-15",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "15"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 15 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 16",
+      "filename": "raw/Icon-A-Day 1.1 Icon 16.png",
+      "semanticName": "icon-a-day-1.1-icon-16",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "16"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 16 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 17",
+      "filename": "raw/Icon-A-Day 1.1 Icon 17.png",
+      "semanticName": "icon-a-day-1.1-icon-17",
+      "tags": [
+        "1.1",
+        "day",
+        "17",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 17 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 18",
+      "filename": "raw/Icon-A-Day 1.1 Icon 18.png",
+      "semanticName": "icon-a-day-1.1-icon-18",
+      "tags": [
+        "1.1",
+        "18",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 18 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 19",
+      "filename": "raw/Icon-A-Day 1.1 Icon 19.png",
+      "semanticName": "icon-a-day-1.1-icon-19",
+      "tags": [
+        "1.1",
+        "day",
+        "19",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 19 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 20",
+      "filename": "raw/Icon-A-Day 1.1 Icon 20.png",
+      "semanticName": "icon-a-day-1.1-icon-20",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "20"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 20 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 21",
+      "filename": "raw/Icon-A-Day 1.1 Icon 21.png",
+      "semanticName": "icon-a-day-1.1-icon-21",
+      "tags": [
+        "21",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 21 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 22",
+      "filename": "raw/Icon-A-Day 1.1 Icon 22.png",
+      "semanticName": "icon-a-day-1.1-icon-22",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "22",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 22 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 23",
+      "filename": "raw/Icon-A-Day 1.1 Icon 23.png",
+      "semanticName": "icon-a-day-1.1-icon-23",
+      "tags": [
+        "1.1",
+        "23",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 23 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 24",
+      "filename": "raw/Icon-A-Day 1.1 Icon 24.png",
+      "semanticName": "icon-a-day-1.1-icon-24",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "24"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 24 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 25",
+      "filename": "raw/Icon-A-Day 1.1 Icon 25.png",
+      "semanticName": "icon-a-day-1.1-icon-25",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "25"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 25 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 26",
+      "filename": "raw/Icon-A-Day 1.1 Icon 26.png",
+      "semanticName": "icon-a-day-1.1-icon-26",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "26"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 26 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 27",
+      "filename": "raw/Icon-A-Day 1.1 Icon 27.png",
+      "semanticName": "icon-a-day-1.1-icon-27",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "27",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 27 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 28",
+      "filename": "raw/Icon-A-Day 1.1 Icon 28.png",
+      "semanticName": "icon-a-day-1.1-icon-28",
+      "tags": [
+        "1.1",
+        "28",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 28 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 29",
+      "filename": "raw/Icon-A-Day 1.1 Icon 29.png",
+      "semanticName": "icon-a-day-1.1-icon-29",
+      "tags": [
+        "1.1",
+        "day",
+        "29",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 29 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 30",
+      "filename": "raw/Icon-A-Day 1.1 Icon 30.png",
+      "semanticName": "icon-a-day-1.1-icon-30",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "30",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 30 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 31",
+      "filename": "raw/Icon-A-Day 1.1 Icon 31.png",
+      "semanticName": "icon-a-day-1.1-icon-31",
+      "tags": [
+        "31",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 31 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 32",
+      "filename": "raw/Icon-A-Day 1.1 Icon 32.png",
+      "semanticName": "icon-a-day-1.1-icon-32",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "32"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 32 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 33",
+      "filename": "raw/Icon-A-Day 1.1 Icon 33.png",
+      "semanticName": "icon-a-day-1.1-icon-33",
+      "tags": [
+        "33",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 33 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 34",
+      "filename": "raw/Icon-A-Day 1.1 Icon 34.png",
+      "semanticName": "icon-a-day-1.1-icon-34",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "34",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 34 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 35",
+      "filename": "raw/Icon-A-Day 1.1 Icon 35.png",
+      "semanticName": "icon-a-day-1.1-icon-35",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "35"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 35 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 36",
+      "filename": "raw/Icon-A-Day 1.1 Icon 36.png",
+      "semanticName": "icon-a-day-1.1-icon-36",
+      "tags": [
+        "36",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 36 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 37",
+      "filename": "raw/Icon-A-Day 1.1 Icon 37.png",
+      "semanticName": "icon-a-day-1.1-icon-37",
+      "tags": [
+        "37",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 37 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 38",
+      "filename": "raw/Icon-A-Day 1.1 Icon 38.png",
+      "semanticName": "icon-a-day-1.1-icon-38",
+      "tags": [
+        "38",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 38 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 39",
+      "filename": "raw/Icon-A-Day 1.1 Icon 39.png",
+      "semanticName": "icon-a-day-1.1-icon-39",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "39"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 39 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 40",
+      "filename": "raw/Icon-A-Day 1.1 Icon 40.png",
+      "semanticName": "icon-a-day-1.1-icon-40",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "40"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 40 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 41",
+      "filename": "raw/Icon-A-Day 1.1 Icon 41.png",
+      "semanticName": "icon-a-day-1.1-icon-41",
+      "tags": [
+        "41",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 41 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 42",
+      "filename": "raw/Icon-A-Day 1.1 Icon 42.png",
+      "semanticName": "icon-a-day-1.1-icon-42",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "42"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 42 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 43",
+      "filename": "raw/Icon-A-Day 1.1 Icon 43.png",
+      "semanticName": "icon-a-day-1.1-icon-43",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "43"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 43 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 44",
+      "filename": "raw/Icon-A-Day 1.1 Icon 44.png",
+      "semanticName": "icon-a-day-1.1-icon-44",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "44"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 44 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 45",
+      "filename": "raw/Icon-A-Day 1.1 Icon 45.png",
+      "semanticName": "icon-a-day-1.1-icon-45",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "45"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 45 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 46",
+      "filename": "raw/Icon-A-Day 1.1 Icon 46.png",
+      "semanticName": "icon-a-day-1.1-icon-46",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "46"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 46 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 47",
+      "filename": "raw/Icon-A-Day 1.1 Icon 47.png",
+      "semanticName": "icon-a-day-1.1-icon-47",
+      "tags": [
+        "1.1",
+        "day",
+        "47",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 47 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 48",
+      "filename": "raw/Icon-A-Day 1.1 Icon 48.png",
+      "semanticName": "icon-a-day-1.1-icon-48",
+      "tags": [
+        "1.1",
+        "day",
+        "48",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 48 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 49",
+      "filename": "raw/Icon-A-Day 1.1 Icon 49.png",
+      "semanticName": "icon-a-day-1.1-icon-49",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "49"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 49 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 50",
+      "filename": "raw/Icon-A-Day 1.1 Icon 50.png",
+      "semanticName": "icon-a-day-1.1-icon-50",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "50"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 50 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 51",
+      "filename": "raw/Icon-A-Day 1.1 Icon 51.png",
+      "semanticName": "icon-a-day-1.1-icon-51",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "51"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 51 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 52",
+      "filename": "raw/Icon-A-Day 1.1 Icon 52.png",
+      "semanticName": "icon-a-day-1.1-icon-52",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "52"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 52 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 53",
+      "filename": "raw/Icon-A-Day 1.1 Icon 53.png",
+      "semanticName": "icon-a-day-1.1-icon-53",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "53"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 53 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 54",
+      "filename": "raw/Icon-A-Day 1.1 Icon 54.png",
+      "semanticName": "icon-a-day-1.1-icon-54",
+      "tags": [
+        "54",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 54 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 55",
+      "filename": "raw/Icon-A-Day 1.1 Icon 55.png",
+      "semanticName": "icon-a-day-1.1-icon-55",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "55"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 55 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 56",
+      "filename": "raw/Icon-A-Day 1.1 Icon 56.png",
+      "semanticName": "icon-a-day-1.1-icon-56",
+      "tags": [
+        "1.1",
+        "day",
+        "56",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 56 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 57",
+      "filename": "raw/Icon-A-Day 1.1 Icon 57.png",
+      "semanticName": "icon-a-day-1.1-icon-57",
+      "tags": [
+        "1.1",
+        "57",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 57 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 58",
+      "filename": "raw/Icon-A-Day 1.1 Icon 58.png",
+      "semanticName": "icon-a-day-1.1-icon-58",
+      "tags": [
+        "1.1",
+        "58",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 58 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 59",
+      "filename": "raw/Icon-A-Day 1.1 Icon 59.png",
+      "semanticName": "icon-a-day-1.1-icon-59",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "59"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 59 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 60",
+      "filename": "raw/Icon-A-Day 1.1 Icon 60.png",
+      "semanticName": "icon-a-day-1.1-icon-60",
+      "tags": [
+        "1.1",
+        "day",
+        "60",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 60 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 61",
+      "filename": "raw/Icon-A-Day 1.1 Icon 61.png",
+      "semanticName": "icon-a-day-1.1-icon-61",
+      "tags": [
+        "1.1",
+        "day",
+        "61",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 61 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 62",
+      "filename": "raw/Icon-A-Day 1.1 Icon 62.png",
+      "semanticName": "icon-a-day-1.1-icon-62",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "62",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 62 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 63",
+      "filename": "raw/Icon-A-Day 1.1 Icon 63.png",
+      "semanticName": "icon-a-day-1.1-icon-63",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "63",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 63 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 64",
+      "filename": "raw/Icon-A-Day 1.1 Icon 64.png",
+      "semanticName": "icon-a-day-1.1-icon-64",
+      "tags": [
+        "64",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 64 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 65",
+      "filename": "raw/Icon-A-Day 1.1 Icon 65.png",
+      "semanticName": "icon-a-day-1.1-icon-65",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "65"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 65 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 66",
+      "filename": "raw/Icon-A-Day 1.1 Icon 66.png",
+      "semanticName": "icon-a-day-1.1-icon-66",
+      "tags": [
+        "1.1",
+        "66",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 66 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 67",
+      "filename": "raw/Icon-A-Day 1.1 Icon 67.png",
+      "semanticName": "icon-a-day-1.1-icon-67",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "67",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 67 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 68",
+      "filename": "raw/Icon-A-Day 1.1 Icon 68.png",
+      "semanticName": "icon-a-day-1.1-icon-68",
+      "tags": [
+        "1.1",
+        "68",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 68 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 69",
+      "filename": "raw/Icon-A-Day 1.1 Icon 69.png",
+      "semanticName": "icon-a-day-1.1-icon-69",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "69",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 69 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 70",
+      "filename": "raw/Icon-A-Day 1.1 Icon 70.png",
+      "semanticName": "icon-a-day-1.1-icon-70",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "70"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 70 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 71",
+      "filename": "raw/Icon-A-Day 1.1 Icon 71.png",
+      "semanticName": "icon-a-day-1.1-icon-71",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "71"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 71 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 72",
+      "filename": "raw/Icon-A-Day 1.1 Icon 72.png",
+      "semanticName": "icon-a-day-1.1-icon-72",
+      "tags": [
+        "1.1",
+        "day",
+        "72",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 72 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 73",
+      "filename": "raw/Icon-A-Day 1.1 Icon 73.png",
+      "semanticName": "icon-a-day-1.1-icon-73",
+      "tags": [
+        "73",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 73 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 74",
+      "filename": "raw/Icon-A-Day 1.1 Icon 74.png",
+      "semanticName": "icon-a-day-1.1-icon-74",
+      "tags": [
+        "74",
+        "1.1",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 74 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 75",
+      "filename": "raw/Icon-A-Day 1.1 Icon 75.png",
+      "semanticName": "icon-a-day-1.1-icon-75",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "75"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 75 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 76",
+      "filename": "raw/Icon-A-Day 1.1 Icon 76.png",
+      "semanticName": "icon-a-day-1.1-icon-76",
+      "tags": [
+        "1.1",
+        "76",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 76 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 77",
+      "filename": "raw/Icon-A-Day 1.1 Icon 77.png",
+      "semanticName": "icon-a-day-1.1-icon-77",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "77"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 77 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 78",
+      "filename": "raw/Icon-A-Day 1.1 Icon 78.png",
+      "semanticName": "icon-a-day-1.1-icon-78",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "78"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 78 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 79",
+      "filename": "raw/Icon-A-Day 1.1 Icon 79.png",
+      "semanticName": "icon-a-day-1.1-icon-79",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "79"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 79 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 80",
+      "filename": "raw/Icon-A-Day 1.1 Icon 80.png",
+      "semanticName": "icon-a-day-1.1-icon-80",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "80"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 80 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 81",
+      "filename": "raw/Icon-A-Day 1.1 Icon 81.png",
+      "semanticName": "icon-a-day-1.1-icon-81",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "81"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 81 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 82",
+      "filename": "raw/Icon-A-Day 1.1 Icon 82.png",
+      "semanticName": "icon-a-day-1.1-icon-82",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "82"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 82 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 83",
+      "filename": "raw/Icon-A-Day 1.1 Icon 83.png",
+      "semanticName": "icon-a-day-1.1-icon-83",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "83"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 83 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 84",
+      "filename": "raw/Icon-A-Day 1.1 Icon 84.png",
+      "semanticName": "icon-a-day-1.1-icon-84",
+      "tags": [
+        "1.1",
+        "day",
+        "84",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 84 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 85",
+      "filename": "raw/Icon-A-Day 1.1 Icon 85.png",
+      "semanticName": "icon-a-day-1.1-icon-85",
+      "tags": [
+        "1.1",
+        "day",
+        "85",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 85 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 86",
+      "filename": "raw/Icon-A-Day 1.1 Icon 86.png",
+      "semanticName": "icon-a-day-1.1-icon-86",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "86"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 86 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 87",
+      "filename": "raw/Icon-A-Day 1.1 Icon 87.png",
+      "semanticName": "icon-a-day-1.1-icon-87",
+      "tags": [
+        "1.1",
+        "day",
+        "87",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 87 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 88",
+      "filename": "raw/Icon-A-Day 1.1 Icon 88.png",
+      "semanticName": "icon-a-day-1.1-icon-88",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "88"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 88 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 89",
+      "filename": "raw/Icon-A-Day 1.1 Icon 89.png",
+      "semanticName": "icon-a-day-1.1-icon-89",
+      "tags": [
+        "1.1",
+        "89",
+        "day",
+        "a",
+        "icon"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 89 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 90",
+      "filename": "raw/Icon-A-Day 1.1 Icon 90.png",
+      "semanticName": "icon-a-day-1.1-icon-90",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "90"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 90 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 91",
+      "filename": "raw/Icon-A-Day 1.1 Icon 91.png",
+      "semanticName": "icon-a-day-1.1-icon-91",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "91"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 91 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 92",
+      "filename": "raw/Icon-A-Day 1.1 Icon 92.png",
+      "semanticName": "icon-a-day-1.1-icon-92",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "92"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 92 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 93",
+      "filename": "raw/Icon-A-Day 1.1 Icon 93.png",
+      "semanticName": "icon-a-day-1.1-icon-93",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "93"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 93 icon",
+      "style": "silk",
+      "metaphor": "",
+      "emotional_valence": 0.0,
+      "abstraction_level": 1,
+      "variant_of": "",
+      "enrichment_confidence": 1.0,
+      "usedIn": []
+    },
+    {
+      "id": "Icon-A-Day 1.1 Icon 94",
+      "filename": "raw/Icon-A-Day 1.1 Icon 94.png",
+      "semanticName": "icon-a-day-1.1-icon-94",
+      "tags": [
+        "1.1",
+        "day",
+        "a",
+        "icon",
+        "94"
+      ],
+      "category": "ui",
+      "description": "Icon A Day 1.1 Icon 94 icon",
       "style": "silk",
       "metaphor": "",
       "emotional_valence": 0.0,

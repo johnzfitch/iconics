@@ -107,6 +107,7 @@ The TUI features a 6-panel layout:
 | `Tab` | Cycle focus between panels |
 | `/` | Enter search mode |
 | `Space` | Toggle icon in/out of basket |
+| `y` | Export basket to clipboard (markdown) |
 | `d` | Toggle dedupe panel visibility |
 | `a` | Toggle audit log visibility |
 
@@ -118,6 +119,10 @@ The TUI features a 6-panel layout:
 | `Enter` | Execute search and exit search mode |
 | `Backspace` | Delete character |
 | Any character | Add to search query |
+
+Search supports keyword filtering across name/tags/description/category, plus CLIP-assisted filters:
+
+- `clip:<icon_id>` / `similar:<icon_id>`: filter the grid by CLIP similarity to an existing icon ID
 
 ### Grid Navigation (when focused)
 
@@ -136,7 +141,10 @@ The TUI features a 6-panel layout:
 |-----|--------|
 | `↑` / `k` | Navigate up |
 | `↓` / `j` | Navigate down |
-| `Enter` | Expand/collapse category |
+| `←` / `h` | Collapse (or move to parent) |
+| `→` / `l` | Expand (or move to child) |
+| `Enter` | Toggle expand/collapse |
+| `Esc` | Clear selection + category filter |
 
 ### Dedupe Panel (when focused)
 
@@ -158,46 +166,38 @@ The TUI features a 6-panel layout:
 
 - **Multi-panel layout** with 6 distinct panels
 - **Icon catalog loading** from JSON
-- **CLIP embeddings detection** (metadata only for now)
+- **CLIP embeddings loading** from `icon_embeddings.npy` + `icon_index.json`
+- **CLIP similarity insights**: vector preview + top similar icons (icon-to-icon)
+- **CLIP-assisted filter** via `clip:<icon_id>` / `similar:<icon_id>`
+- **Tree widget** with expand/collapse and selection-driven filtering
 - **Grid view** with dynamic sizing
+- **Grid thumbnails** (cached, rendered with `ratatui-image`)
 - **Image preview** using Kitty graphics protocol
 - **Search functionality** across icon names, tags, descriptions, categories
 - **Basket system** for staging icons
+- **Basket export** to clipboard as markdown (`y`)
 - **Focus management** with Tab cycling
 - **Audit logging** with color-coded entries
-- **Category-based organization** with color coding
+- **Category-based organization** with tree-driven filtering
 
 ### Planned Enhancements
 
 1. **Full CLIP integration**:
-   - Load numpy embedding arrays
-   - Semantic similarity search
+   - Text-to-icon semantic search (query embeddings)
    - Interactive semantic axis navigation
    - Vector-based icon clustering
 
-2. **Tree widget integration**:
-   - Expandable category tree
-   - Subcategory support
-   - Cluster groups within categories
-
-3. **Variant detection**:
+2. **Variant detection**:
    - Automatic variant grouping (sizes)
    - Canonical icon selection
    - Variant management UI
 
-4. **Duplicate detection**:
+3. **Duplicate detection**:
    - Perceptual hash comparison
    - CLIP similarity scoring
    - Interactive merge/keep decisions
 
-5. **Grid image rendering**:
-   - Load and cache grid cell images
-   - Async image loading
-   - Thumbnail generation
-
-6. **Export functionality**:
-   - Export basket to clipboard
-   - Generate markdown snippets
+4. **Export functionality**:
    - Batch export operations
 
 ## Building
@@ -228,11 +228,14 @@ cargo run -- /path/to/icon-catalog.json
 ### Running the TUI
 
 ```bash
-# Use default catalog path (~/.dev/iconics/icon-catalog.json)
+# Run the release binary (full path)
+/home/zack/dev/iconics/tui/target/release/iconics-tui
+
+# Or run from within the repo
 ./target/release/iconics-tui
 
 # Use custom catalog path
-./target/release/iconics-tui /path/to/icon-catalog.json
+/home/zack/dev/iconics/tui/target/release/iconics-tui /path/to/icon-catalog.json
 ```
 
 ### Terminal Requirements
@@ -261,7 +264,10 @@ To enable CLIP features, ensure the embeddings directory exists:
     └── icon_index.json
 ```
 
-The TUI will automatically detect and load the embeddings metadata.
+The TUI will automatically detect and load the embeddings, and will show:
+- Vector preview (first few dimensions) in the Details panel
+- Top similar icons (cosine similarity) in the Similarity section
+- CLIP-assisted filtering via `clip:<icon_id>` / `similar:<icon_id>`
 
 ## Dependencies
 
@@ -269,12 +275,14 @@ Key dependencies:
 - `ratatui` 0.30 - TUI framework
 - `ratatui-image` 10.0 - Image rendering
 - `crossterm` 0.29 - Terminal control
-- `tui-tree-widget` 0.22 - Tree view widget
+- `tui-tree-widget` 0.24 - Tree view widget
 - `tokio` 1.x - Async runtime
 - `image` 0.25 - Image processing
 - `serde_json` - JSON parsing
 - `lru` 0.12 - Image caching
 - `chrono` 0.4 - Timestamp handling
+- `ndarray` / `ndarray-npy` - Numpy `.npy` embedding loading
+- `arboard` - Clipboard integration
 
 ## Performance
 
@@ -350,14 +358,18 @@ This is a personal project. For bug reports or feature suggestions, please coord
   - Image preview (Kitty protocol)
   - Search functionality
   - Basket system
+  - Tree widget navigation and filtering
+  - Grid thumbnail rendering
+  - CLIP embeddings loading + similarity insights
+  - Basket export to clipboard (markdown)
   - Audit logging
   - Focus management
 
 ## Future Roadmap
 
-1. **Q1 2025**: Full CLIP integration with vector search
-2. **Q1 2025**: Tree widget with expandable categories
-3. **Q2 2025**: Variant detection and grouping
+1. **Q1 2025**: Text-to-icon CLIP semantic search
+2. **Q2 2025**: Variant detection and grouping
+3. **Q2 2025**: Duplicate detection (perceptual hash) + merge workflow
 4. **Q2 2025**: Duplicate detection with perceptual hashing
 5. **Q2 2025**: Export functionality
 6. **Q3 2025**: Grid image rendering optimization
