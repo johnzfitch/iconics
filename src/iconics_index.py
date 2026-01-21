@@ -19,8 +19,12 @@ import logging
 from pathlib import Path
 from typing import List, Tuple, Optional
 
-import faiss
 import numpy as np
+
+try:
+    import faiss  # type: ignore
+except ImportError:  # pragma: no cover
+    faiss = None
 
 logger = logging.getLogger(__name__)
 
@@ -95,30 +99,40 @@ class IconicsIndex:
         self.use_projection = use_projection
         self.use_gpu = use_gpu
 
-        # Create FAISS index
-        # IndexFlatIP: Flat index with Inner Product (cosine sim for normalized vecs)
-        self.index = faiss.IndexFlatIP(self.dimension)
-
-        # Optionally move to GPU
-        if use_gpu:
-            try:
-                res = faiss.StandardGpuResources()
-                self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
-                logger.info("FAISS index moved to GPU")
-            except Exception as e:
-                logger.warning(f"Failed to move FAISS to GPU: {e}. Using CPU.")
-                self.use_gpu = False
-
-        # Ensure contiguous array for FAISS
         embeddings_contiguous = np.ascontiguousarray(embeddings)
 
-        # Add embeddings to index
-        self.index.add(embeddings_contiguous)
+        # Create FAISS index when available, otherwise fall back to a pure-numpy search.
+        if faiss is None:
+            self.index = None
+            self._embeddings = embeddings_contiguous
+            if use_gpu:
+                logger.warning("faiss is not installed; ignoring use_gpu=True and using numpy fallback")
+                self.use_gpu = False
+            logger.info(
+                f"Created numpy index with {self.n_icons} icons, "
+                f"dimension={self.dimension}, projected={use_projection}"
+            )
+        else:
+            # IndexFlatIP: Flat index with Inner Product (cosine sim for normalized vecs)
+            self.index = faiss.IndexFlatIP(self.dimension)
 
-        logger.info(
-            f"Created FAISS index with {self.n_icons} icons, "
-            f"dimension={self.dimension}, projected={use_projection}, gpu={self.use_gpu}"
-        )
+            # Optionally move to GPU
+            if use_gpu:
+                try:
+                    res = faiss.StandardGpuResources()
+                    self.index = faiss.index_cpu_to_gpu(res, 0, self.index)
+                    logger.info("FAISS index moved to GPU")
+                except Exception as e:
+                    logger.warning(f"Failed to move FAISS to GPU: {e}. Using CPU.")
+                    self.use_gpu = False
+
+            # Add embeddings to index
+            self.index.add(embeddings_contiguous)
+
+            logger.info(
+                f"Created FAISS index with {self.n_icons} icons, "
+                f"dimension={self.dimension}, projected={use_projection}, gpu={self.use_gpu}"
+            )
 
     def search(
         self,
@@ -163,6 +177,15 @@ class IconicsIndex:
         # Clamp k to available icons
         k = min(k, self.n_icons)
 
+        if self.index is None:
+            scores = (self._embeddings @ query.T).reshape(-1)
+            k = min(k, self.n_icons)
+            if k <= 0:
+                return np.array([], dtype=np.int64), np.array([], dtype=np.float32)
+            top_idx = np.argpartition(-scores, k - 1)[:k]
+            top_idx = top_idx[np.argsort(-scores[top_idx])]
+            return top_idx.astype(np.int64), scores[top_idx].astype(np.float32)
+
         # FAISS search
         scores, indices = self.index.search(query, k)
 
@@ -199,6 +222,24 @@ class IconicsIndex:
         queries = np.ascontiguousarray(queries)
 
         k = min(k, self.n_icons)
+
+        if self.index is None:
+            # scores: (n_queries, n_icons)
+            scores = queries @ self._embeddings.T
+            if k <= 0:
+                return (
+                    np.zeros((scores.shape[0], 0), dtype=np.int64),
+                    np.zeros((scores.shape[0], 0), dtype=np.float32),
+                )
+
+            # Top-k per row (argpartition + argsort for exact ordering)
+            idx_part = np.argpartition(-scores, k - 1, axis=1)[:, :k]
+            row_indices = np.arange(scores.shape[0])[:, None]
+            row_scores = scores[row_indices, idx_part]
+            order = np.argsort(-row_scores, axis=1)
+            idx_sorted = idx_part[row_indices, order]
+            scores_sorted = scores[row_indices, idx_sorted]
+            return idx_sorted.astype(np.int64), scores_sorted.astype(np.float32)
 
         scores, indices = self.index.search(queries, k)
 
@@ -249,6 +290,9 @@ class IconicsIndex:
         Args:
             path: File path for the index (typically .faiss extension)
         """
+        if faiss is None or self.index is None:
+            raise RuntimeError("faiss is not installed; cannot save FAISS index")
+
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -275,6 +319,9 @@ class IconicsIndex:
             FileNotFoundError: If index file doesn't exist
             ValueError: If icon_ids length doesn't match index size
         """
+        if faiss is None:
+            raise RuntimeError("faiss is not installed; cannot load FAISS index")
+
         path = Path(path)
         if not path.exists():
             raise FileNotFoundError(f"Index file not found: {path}")
@@ -347,7 +394,10 @@ def build_index_from_embeddings(
     # Create index
     index = IconicsIndex(embeddings, icon_ids, use_projection=use_projection)
 
-    # Save to disk
-    index.save(str(index_path))
+    # Save to disk (optional; requires faiss)
+    try:
+        index.save(str(index_path))
+    except RuntimeError as e:
+        logger.warning(f"Skipping index save: {e}")
 
     return index

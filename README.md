@@ -3,8 +3,8 @@
 **A semantic icon library with intelligent tagging and discovery**
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
-![Icons](https://img.shields.io/badge/icons-4205-brightgreen.svg)
-![Cataloged](https://img.shields.io/badge/cataloged-4205-brightgreen.svg)
+![Icons](https://img.shields.io/badge/icons-8203-brightgreen.svg)
+![Cataloged](https://img.shields.io/badge/cataloged-8203-brightgreen.svg)
 ![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)
 
 **![book](.github/assets/icons/book.png) [Quick Start](QUICK_START.md) | ![script](.github/assets/icons/script.png) [For AI Assistants](CLAUDE.md)**
@@ -17,12 +17,12 @@ Iconics is a globally-accessible, semantically-tagged icon library designed for 
 
 ### Key Features
 
-- **Global CLI Access:** `icon use lock shield` from anywhere, instantly
+- **Global CLI Access:** `iconics use lock shield` from anywhere, instantly
 - **Smart Project Detection:** Auto-detects project root and exports to correct location
 - **Ready-to-Paste Markdown:** Generates markdown snippets automatically
-- **Context-Aware Suggestions:** `icon suggest authentication` recommends appropriate icons
+- **Context-Aware Suggestions:** `iconics suggest authentication` recommends appropriate icons
 - **Semantic Search:** Find icons by meaning, not filename
-- **4,205 Icons - Fully Cataloged:** All icons tagged, categorized, and ready to use
+- **8,203 Icons - Fully Cataloged:** All icons tagged, categorized, and ready to use
 - **No More Emojis:** Professional, semantic icons for all your projects
 
 ---
@@ -31,16 +31,16 @@ Iconics is a globally-accessible, semantically-tagged icon library designed for 
 
 ### No Installation Required!
 
-Use the icon command directly:
+Use the iconics command directly:
 
 ```bash
-~/iconics/icon search security
-~/iconics/icon use lock shield
+~/dev/iconics/iconics.py search security
+~/dev/iconics/iconics.py use lock shield
 ```
 
-**Reccomended:** Add an alias for convenience:
+**Recommended:** Add an alias for convenience:
 ```bash
-alias icon='~/iconics/icon'
+alias iconics='~/dev/iconics/iconics.py'
 ```
 
 See [SETUP.md](SETUP.md) for shell completion and other optional features.
@@ -48,15 +48,15 @@ See [SETUP.md](SETUP.md) for shell completion and other optional features.
 ### 1. Find Icons
 
 ```bash
-icon search security
+iconics search security
 # or get suggestions
-icon suggest authentication
+iconics suggest authentication
 ```
 
 ### 2. Use Instantly (Exports + Generates Markdown)
 
 ```bash
-icon use lock shield
+iconics use lock shield
 ```
 
 **Output:**
@@ -85,12 +85,12 @@ Your content here...
 
 ---
 
-## Classic Usage (Python Manager)
+## Alternative: Python Manager
 
-You can also use the Python manager directly:
+You can also use the Python manager directly for advanced operations:
 
 ```bash
-cd ~/iconics
+cd ~/dev/iconics
 python3 icon-manager.py search security
 python3 icon-manager.py export ~/dev/my-project lock shield
 ```
@@ -99,20 +99,20 @@ python3 icon-manager.py export ~/dev/my-project lock shield
 
 ## Library Stats
 
-- **Total Icons:** 4,205 PNG files (plus 3,820 64x64 variants)
-- **Cataloged:** 4,205 icons (100% coverage) ![tick](.github/assets/icons/tick.png) **COMPLETE!**
+- **Total Icons:** 8,203 PNG files
+- **Cataloged:** 8,203 icons (100% coverage) ![tick](.github/assets/icons/tick.png) **COMPLETE!**
 - **Categories:** 7 (files, network, security, tools, ui, emoji, development)
-- **Projects Using:** Multiple (tracked via usage analytics)
-- **Archives:** ICO (6.3MB) and GIF (575KB) originals preserved in archives
+- **CLIP Embeddings:** 8,202 icons with 512-dimensional semantic vectors
+- **Projects Using:** 17 projects tracked via usage analytics
 
 ### Category Breakdown
-- **UI Elements:** 3,483 icons (arrows, buttons, controls, indicators, media, numbers, sizes)
-- **Files:** 297 icons (documents, folders, blueprints, file types, bookmarks, archives)
-- **Emoji:** 141 icons (expressions, symbols, yin-yang, faces, characters)
-- **Network:** 93 icons (wifi, cloud, globe, connections, streaming, browsers)
-- **Security:** 80 icons (locks, keys, shields, certificates, safes, protection)
-- **Tools:** 70 icons (hardware, utilities, design tools, devices, instruments)
-- **Development:** 41 icons (console, database, code, terminal, apps, scripts)
+- **UI Elements:** 6,489 icons (arrows, buttons, controls, indicators, media, numbers, sizes)
+- **Files:** 683 icons (documents, folders, blueprints, file types, bookmarks, archives)
+- **Emoji:** 279 icons (expressions, symbols, yin-yang, faces, characters)
+- **Network:** 223 icons (wifi, cloud, globe, connections, streaming, browsers)
+- **Security:** 239 icons (locks, keys, shields, certificates, safes, protection)
+- **Tools:** 205 icons (hardware, utilities, design tools, devices, instruments)
+- **Development:** 85 icons (console, database, code, terminal, apps, scripts)
 
 ---
 
@@ -129,7 +129,8 @@ iconics/
 │   ├── ui/                        # info.png, warning.png
 │   ├── emoji/                     # (to be populated)
 │   └── development/               # database.png
-├── icon-catalog.json              # Master catalog database
+├── iconics.sqlite3                # SQLite catalog database (default runtime source of truth)
+├── icon-catalog.json              # Legacy input for migration (still useful for audits)
 ├── icon-manager.py                # CLI management tool
 └── README.md                      # This file
 ```
@@ -138,30 +139,32 @@ iconics/
 
 ## Global CLI Commands
 
-The `icon` command provides instant access from anywhere. All commands work from any directory and auto-detect your project.
+The `iconics` command provides instant access from anywhere. All commands work from any directory and auto-detect your project.
 
 ### Quick Commands
 
 ```bash
-icon search <query>              # Search for icons
-icon use <name> [name2...]       # Export + generate markdown
-icon suggest <context>           # Get context-aware suggestions
-icon md <name>                   # Generate markdown snippet
-icon cat <category>              # Export whole category
-icon i <name>                    # Show icon information
-icon recent [N]                  # Show recent additions
+iconics search <query>              # Semantic search via CLIP embeddings
+iconics use <name> [name2...]       # Export + generate markdown
+iconics suggest <context>           # Get context-aware suggestions
+iconics info <name>                 # Show icon information
+iconics query <text>                # Direct CLIP embedding query
+iconics recent [N]                  # Show recent additions
+iconics tui                         # Launch interactive terminal UI (TUI2, SQLite-backed)
+iconics db migrate                  # Build/refresh iconics.sqlite3 from icon-catalog.json
+iconics db verify                   # Verify embeddings + catalog sync
 ```
 
 **Example Workflow:**
 ```bash
-icon suggest security
+iconics suggest security
 # → lock, key, shield, certificate, login
 
-icon use lock shield
+iconics use lock shield
 # → Exports icons and generates ready-to-paste markdown
 ```
 
-**Full command reference:** `icon help` or see [QUICK_START.md](QUICK_START.md)
+**Full command reference:** `iconics --help` or see [QUICK_START.md](QUICK_START.md)
 
 ---
 

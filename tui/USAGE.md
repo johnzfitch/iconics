@@ -15,60 +15,85 @@ Or use the full path:
 /home/zack/dev/iconics/tui-rs
 ```
 
-## First Launch
+If you want to run the compiled release binary directly:
+
+```bash
+/home/zack/dev/iconics/tui/target/release/iconics-tui
+```
+
+## First Launch (Layout Overview)
 
 When you launch the TUI, you'll see:
 
 ```
-┌────────────────────────────┬──────────────────────────────────────┐
-│ Icons (4205/4205)          │ Preview                               │
-│ >> [security] shield-se... │                                       │
-│    [files] folder-48x48    │      [Icon displayed here]            │
-│    [development] databa... │                                       │
-│    [ui] arrow-up-48x48     │                                       │
-│    [ui] arrow-down-48x48   │                                       │
-│    ...                     │                                       │
-├────────────────────────────┼──────────────────────────────────────┤
-│                            │ Metadata                              │
-│                            │ ID: shield-security-protection-16x16  │
-│                            │ Category: security                    │
-│                            │ Tags: shield, 16x16, defense, ...     │
-│                            │ Description: Shield security ...      │
-│                            │ Path: raw/shield-security-...         │
-└────────────────────────────┴──────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────┐
+│ ICONICS EXECUTIVE TUI | Mode: Hybrid/Keyword | Protocol: Kitty | Status  │
+├──────────────┬──────────────────────────────────────┬───────────────────┤
+│ Semantic     │ Icon Grid + Thumbnails               │ Details            │
+│ Library      │ (navigate/select)                     │ (preview + CLIP)   │
+│ (Tree)       │                                      │                   │
+├──────────────┼──────────────────────────────────────┴───────────────────┤
+│ Dedupe       │ Audit Log                                               │
+└──────────────┴──────────────────────────────────────────────────────────┘
 ```
 
 ## Basic Navigation
 
+### Global Keys
+
 | Key | Action |
 |-----|--------|
-| `j` | Move down one item |
-| `k` | Move up one item |
-| `↓` | Move down one item (alternative) |
-| `↑` | Move up one item (alternative) |
-| `g` | Jump to the first icon |
-| `G` | Jump to the last icon |
+| `Tab` | Cycle focus between panels |
+| `/` | Enter search mode |
+| `Space` | Toggle selected icon in/out of basket |
+| `y` | Copy basket export to clipboard (markdown) |
+| `d` | Toggle dedupe panel |
+| `a` | Toggle audit log panel |
 | `q` | Quit the application |
+
+### Tree Navigation (Semantic Library)
+
+| Key | Action |
+|-----|--------|
+| `j` / `↓` | Move selection down |
+| `k` / `↑` | Move selection up |
+| `l` / `→` | Expand (or move to child) |
+| `h` / `←` | Collapse (or move to parent) |
+| `Enter` | Toggle expand/collapse |
+| `Esc` | Clear selection and category filter |
+
+Selecting a category filters the Grid to that category. Selecting a leaf (icon) also jumps the Grid selection.
+
+### Grid Navigation (Icon Grid)
+
+| Key | Action |
+|-----|--------|
+| `j` / `↓` | Move down |
+| `k` / `↑` | Move up |
+| `l` / `→` | Move right |
+| `h` / `←` | Move left |
+| `g` | Jump to first icon |
+| `G` | Jump to last icon |
 
 ## Search
 
 1. Press `/` to enter search mode
-2. Type your search query (searches name, tags, category, description)
+2. Type your search query
 3. Press `Enter` to apply the filter
 4. Press `Esc` to cancel search
 5. Use `Backspace` to delete characters while typing
 
 ### Search Examples
 
-- `/security` - Find all security-related icons
-- `/shield` - Find icons tagged with "shield"
-- `/48x48` - Find all 48x48 icons
-- `/folder` - Find folder icons
-- `/arrow` - Find arrow icons
+- `/security` - Filter by keyword match
+- `/48x48` - Filter by size tag/filename
+- `/folder` - Filter by keyword match
+- `/clip:shield-security-protection-16x16` - CLIP similarity filter by icon ID
+- `/similar:folder-48x48` - Same as `clip:` (alias)
 
 ## Category Colors
 
-Icons are color-coded by category in the list:
+Icons are color-coded by category in the UI:
 
 - Red: security
 - Blue: network
@@ -78,12 +103,19 @@ Icons are color-coded by category in the list:
 - Cyan: ui
 - White: other categories
 
+## Basket Export (Clipboard / Markdown)
+
+- Press `Space` to add/remove the selected icon to the Basket.
+- Press `y` to copy a markdown snippet to the clipboard, one line per icon:
+  - `![semantic name](icons/<file>.png)` when `icons/<file>.png` exists
+  - Falls back to the catalog path (typically `raw/<file>.png`)
+
 ## Performance Tips
 
-1. Images are cached - navigating back to a previously viewed icon is instant
-2. The cache holds 100 images in memory (~200MB)
-3. Image loading is async - the UI stays responsive while images load
-4. Search is fast even with 4000+ icons
+1. Images are cached - revisiting icons is fast
+2. The cache holds 200 decoded images by default
+3. Grid thumbnails are lazily loaded for visible cells
+4. Image loading is async - the UI stays responsive while images load
 
 ## Terminal Requirements
 
@@ -131,14 +163,14 @@ Your terminal may be using the halfblock fallback. Check if your terminal suppor
 
 ### Slow performance
 
-Try reducing the cache size by editing `src/main.rs`:
+Try reducing the cache size by editing `/home/zack/dev/iconics/tui/src/app.rs`:
 ```rust
-ImageCache::new(50)  // Instead of 100
+ImageCache::new(100)  // Example: reduce from 200
 ```
 
 Then rebuild:
 ```bash
-cd iconics-tui-rs && cargo build --release
+cd /home/zack/dev/iconics/tui && cargo build --release
 ```
 
 ## Advanced Usage
@@ -159,7 +191,7 @@ RUST_LOG=debug ./tui-rs 2> debug.log
 ### Build from Source
 
 ```bash
-cd iconics-tui-rs
+cd /home/zack/dev/iconics/tui
 cargo build --release
 ```
 
@@ -176,9 +208,9 @@ The binary will be at `target/release/iconics-tui`.
 
 ### Browse by category
 
-1. Press `/`
-2. Type the category name (e.g., `files`, `network`, `ui`)
-3. Press `Enter`
+1. Press `Tab` until the Tree is focused
+2. Use `j`/`k` to select a category
+3. Press `Enter` to expand/collapse, or `l` to expand and select an icon leaf
 
 ### Find icons by size
 
@@ -189,7 +221,7 @@ The binary will be at `target/release/iconics-tui`.
 ## Tips & Tricks
 
 1. Use `g` and `G` to quickly jump to the start or end of the list
-2. Search is incremental - you'll see the count update as you type
+2. Search applies on `Enter` (you can cancel with `Esc`)
 3. Press `Esc` in search mode to go back without filtering
 4. The status bar shows how many icons match your search
 5. Images are automatically resized to fit the preview pane

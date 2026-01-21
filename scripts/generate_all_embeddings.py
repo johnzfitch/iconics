@@ -10,9 +10,10 @@ from iconics_embeddings import load_clip_model, embed_icons, save_embeddings
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+from iconics_config import ICONICS_ROOT as workspace
+
 def main():
     raw_dir = workspace / "raw"
-from iconics_config import ICONICS_ROOT as workspace
     output_dir = workspace / "embeddings"
 
     # Get all PNG files

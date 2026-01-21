@@ -15,15 +15,15 @@ import json
 from pathlib import Path
 import numpy as np
 
-# Add src to path
-sys.path.insert(0, str(Path(__file__).parent / 'src'))
+REPO_ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO_ROOT / "src"))
 
-from iconics_retrieval import IconicsRetriever
+from iconics_catalog import load_catalog, resolve_default_catalog_path
 
 
 def check_files_exist(embeddings_dir: Path) -> bool:
     """Check all required files exist."""
-    print("📁 Checking file existence...")
+    print("Checking file existence...")
 
     required_files = [
         embeddings_dir / "icon_embeddings.npy",
@@ -35,9 +35,9 @@ def check_files_exist(embeddings_dir: Path) -> bool:
     for file_path in required_files:
         if file_path.exists():
             size_mb = file_path.stat().st_size / (1024 * 1024)
-            print(f"   ✓ {file_path.name} ({size_mb:.2f} MB)")
+            print(f"  [OK] {file_path.name} ({size_mb:.2f} MB)")
         else:
-            print(f"   ✗ {file_path.name} MISSING")
+            print(f"  [ERR] {file_path.name} MISSING")
             all_exist = False
 
     return all_exist
@@ -45,33 +45,33 @@ def check_files_exist(embeddings_dir: Path) -> bool:
 
 def check_loadable(embeddings_dir: Path) -> tuple:
     """Check if files are loadable without errors."""
-    print("\n🔍 Checking file integrity...")
+    print("\nChecking file integrity...")
 
     try:
         # Load embeddings
         embeddings = np.load(embeddings_dir / "icon_embeddings.npy")
-        print(f"   ✓ Embeddings loaded: {embeddings.shape} ({embeddings.dtype})")
+        print(f"  [OK] Embeddings loaded: {embeddings.shape} ({embeddings.dtype})")
 
         # Load index
         with open(embeddings_dir / "icon_index.json") as f:
             index = json.load(f)
-        print(f"   ✓ Index loaded: {len(index)} entries")
+        print(f"  [OK] Index loaded: {len(index)} entries")
 
         # Load metadata
         with open(embeddings_dir / "metadata.json") as f:
             metadata = json.load(f)
-        print(f"   ✓ Metadata loaded: {metadata.get('count')} icons, dim={metadata.get('dimension')}")
+        print(f"  [OK] Metadata loaded: {metadata.get('count')} icons, dim={metadata.get('dimension')}")
 
         return embeddings, index, metadata
 
     except Exception as e:
-        print(f"   ✗ Load error: {e}")
+        print(f"  [ERR] Load error: {e}")
         return None, None, None
 
 
 def check_normalization(embeddings: np.ndarray) -> bool:
     """Check if embeddings are L2-normalized."""
-    print("\n📏 Checking normalization...")
+    print("\nChecking normalization...")
 
     norms = np.linalg.norm(embeddings, axis=1)
     mean_norm = np.mean(norms)
@@ -86,17 +86,17 @@ def check_normalization(embeddings: np.ndarray) -> bool:
     is_normalized = np.allclose(norms, 1.0, atol=1e-5)
 
     if is_normalized:
-        print(f"   ✓ Embeddings are properly normalized")
+        print("  [OK] Embeddings are properly normalized")
     else:
         non_normalized = np.sum(~np.isclose(norms, 1.0, atol=1e-5))
-        print(f"   ⚠ {non_normalized} embeddings not normalized")
+        print(f"  [WARN] {non_normalized} embeddings not normalized")
 
     return is_normalized
 
 
 def check_index_consistency(embeddings: np.ndarray, index: dict, metadata: dict) -> bool:
     """Check index consistency with embeddings."""
-    print("\n🔗 Checking index consistency...")
+    print("\nChecking index consistency...")
 
     issues = []
 
@@ -131,52 +131,99 @@ def check_index_consistency(embeddings: np.ndarray, index: dict, metadata: dict)
 
     if issues:
         for issue in issues:
-            print(f"   ✗ {issue}")
+            print(f"  [ERR] {issue}")
         return False
     else:
-        print(f"   ✓ Index is consistent")
+        print("  [OK] Index is consistent")
         return True
 
 
-def check_catalog_sync(catalog_path: Path) -> dict:
-    """Check synchronization with catalog using IconicsRetriever."""
-    print("\n🔄 Checking catalog synchronization...")
+def check_catalog_integrity(repo_root: Path, catalog_path: Path) -> bool:
+    """Check catalog has unique IDs and valid, existing paths."""
+    print("\nChecking catalog integrity...")
 
-    try:
-        retriever = IconicsRetriever(
-            embeddings_path='embeddings',
-            subspace_path='subspace'
+    catalog_data = load_catalog(catalog_path)
+
+    icons = catalog_data.get("icons", [])
+    ids = [icon.get("id") for icon in icons]
+
+    issues = []
+
+    missing_id = sum(1 for icon_id in ids if not icon_id)
+    if missing_id:
+        issues.append(f"{missing_id} catalog entries missing 'id'")
+
+    id_counts = {}
+    for icon_id in ids:
+        if not icon_id:
+            continue
+        id_counts[icon_id] = id_counts.get(icon_id, 0) + 1
+    duplicates = sorted([icon_id for icon_id, count in id_counts.items() if count > 1])
+    if duplicates:
+        issues.append(f"Duplicate icon IDs detected (examples): {duplicates[:5]}")
+
+    missing_paths = []
+    absolute_paths = []
+    for icon in icons:
+        icon_id = icon.get("id", "<missing-id>")
+        path = icon.get("filename") or icon.get("sourceFile")
+        if not path:
+            missing_paths.append(icon_id)
+            continue
+        if str(path).startswith("/"):
+            absolute_paths.append((icon_id, path))
+            continue
+        full_path = repo_root / path
+        if not full_path.exists():
+            missing_paths.append(icon_id)
+
+    if missing_paths:
+        issues.append(f"Missing icon files for {len(missing_paths)} catalog entries (examples): {missing_paths[:5]}")
+    if absolute_paths:
+        issues.append(
+            f"Catalog contains {len(absolute_paths)} absolute paths (examples): {absolute_paths[:3]}"
         )
 
-        sync = retriever.validate_catalog_sync(catalog_path)
+    if issues:
+        for issue in issues:
+            print(f"  [ERR] {issue}")
+        return False
 
-        missing_from_catalog = sync['in_embeddings_not_catalog']
-        missing_from_embeddings = sync['in_catalog_not_embeddings']
+    print("  [OK] Catalog IDs and paths look valid")
+    return True
 
-        print(f"   Icons in embeddings: {len(retriever.icon_ids)}")
 
-        # Load catalog to get total
-        with open(catalog_path) as f:
-            catalog_data = json.load(f)
-        print(f"   Icons in catalog: {len(catalog_data['icons'])}")
+def check_catalog_sync(catalog_path: Path, index: dict) -> dict:
+    """Check synchronization between embeddings index and the catalog (SQLite or JSON)."""
+    print("\nChecking catalog synchronization...")
 
-        if missing_from_catalog:
-            print(f"   ⚠ {len(missing_from_catalog)} icons in embeddings but NOT in catalog")
-            print(f"      Examples: {missing_from_catalog[:5]}")
-        else:
-            print(f"   ✓ All embeddings exist in catalog")
+    catalog_data = load_catalog(catalog_path)
 
-        if missing_from_embeddings:
-            print(f"   ⚠ {len(missing_from_embeddings)} icons in catalog but NOT in embeddings")
-            print(f"      Examples: {missing_from_embeddings[:5]}")
-        else:
-            print(f"   ✓ All catalog icons have embeddings")
+    catalog_ids = set(icon["id"] for icon in catalog_data.get("icons", []) if icon.get("id"))
+    embedding_ids = set(index.keys())
 
-        return sync
+    missing_from_catalog = sorted(embedding_ids - catalog_ids)
+    missing_from_embeddings = sorted(catalog_ids - embedding_ids)
 
-    except Exception as e:
-        print(f"   ✗ Sync check failed: {e}")
-        return None
+    print(f"  Icons in embeddings: {len(embedding_ids)}")
+    print(f"  Icons in catalog: {len(catalog_data.get('icons', []))}")
+
+    if missing_from_catalog:
+        print(f"  [WARN] {len(missing_from_catalog)} icons in embeddings but NOT in catalog")
+        print(f"         Examples: {missing_from_catalog[:5]}")
+    else:
+        print("  [OK] All embeddings exist in catalog")
+
+    if missing_from_embeddings:
+        print(f"  [WARN] {len(missing_from_embeddings)} icons in catalog but NOT in embeddings")
+        print(f"         Examples: {missing_from_embeddings[:5]}")
+    else:
+        print("  [OK] All catalog icons have embeddings")
+
+    return {
+        "in_embeddings_not_catalog": missing_from_catalog,
+        "in_catalog_not_embeddings": missing_from_embeddings,
+    }
 
 
 def main():
@@ -185,47 +232,44 @@ def main():
     print("Iconics Embeddings Verification")
     print("=" * 60)
 
-    workspace = Path(__file__).parent
-    embeddings_dir = workspace / "embeddings"
-    catalog_path = workspace / "icon-catalog.json"
+    embeddings_dir = REPO_ROOT / "embeddings"
+    catalog_path = resolve_default_catalog_path()
 
     # Run checks
     files_ok = check_files_exist(embeddings_dir)
     if not files_ok:
-        print("\n❌ FAILED: Missing required files")
+        print("\nFAILED: Missing required files")
         sys.exit(1)
 
     embeddings, index, metadata = check_loadable(embeddings_dir)
     if embeddings is None:
-        print("\n❌ FAILED: Cannot load files")
+        print("\nFAILED: Cannot load files")
         sys.exit(1)
 
     normalized_ok = check_normalization(embeddings)
     index_ok = check_index_consistency(embeddings, index, metadata)
 
-    sync = check_catalog_sync(catalog_path)
+    catalog_ok = check_catalog_integrity(REPO_ROOT, catalog_path)
+    sync = check_catalog_sync(catalog_path, index)
 
     # Final verdict
     print("\n" + "=" * 60)
 
-    if sync is None:
-        print("❌ VERIFICATION FAILED: Could not check sync")
-        sys.exit(1)
-
     has_issues = (
         not normalized_ok or
         not index_ok or
+        not catalog_ok or
         len(sync['in_embeddings_not_catalog']) > 0 or
         len(sync['in_catalog_not_embeddings']) > 0
     )
 
     if has_issues:
-        print("⚠️  VERIFICATION WARNING: Issues detected")
+        print("VERIFICATION WARNING: Issues detected")
         print("\nRecommended fix:")
         print("  source .venv-vision/bin/activate")
         print("  python3 icon-manager.py embed --force")
     else:
-        print("✅ VERIFICATION PASSED: Embeddings are valid")
+        print("VERIFICATION PASSED: Embeddings are valid")
 
     print("=" * 60)
 

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Iconics TUI2 Launcher (SQLite-backed)
+# Auto-builds if needed, then launches the Rust TUI2
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+TUI_DIR="$SCRIPT_DIR/tui2"
+
+cd "$TUI_DIR"
+
+# Build if binary doesn't exist or source is newer
+if [[ ! -f target/release/iconics-tui2 ]] || [[ src/main.rs -nt target/release/iconics-tui2 ]]; then
+    echo "Building iconics-tui2..."
+    cargo build --release
+fi
+
+exec target/release/iconics-tui2 "$@"
+

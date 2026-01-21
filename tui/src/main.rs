@@ -56,7 +56,7 @@ async fn main() -> Result<()> {
     let mut app = App::new(catalog, base_path, embeddings)?;
 
     // Load first image
-    if let Err(e) = app.load_current_image().await {
+    if let Err(e) = app.refresh_selection().await {
         app.log(LogLevel::System, format!("Error loading image: {}", e));
     }
 
@@ -82,6 +82,13 @@ async fn run_app(
     loop {
         terminal.draw(|f| ui::render(f, app))?;
 
+        if app.grid_needs_refresh {
+            app.grid_needs_refresh = false;
+            if let Err(e) = app.load_visible_grid_images().await {
+                app.log(LogLevel::System, format!("Grid load error: {}", e));
+            }
+        }
+
         if event::poll(std::time::Duration::from_millis(100))? {
             if let Event::Key(key) = event::read()? {
                 if key.kind != KeyEventKind::Press {
@@ -97,7 +104,7 @@ async fn run_app(
                         KeyCode::Enter => {
                             app.search_mode = false;
                             app.filter_icons();
-                            if let Err(e) = app.load_current_image().await {
+                            if let Err(e) = app.refresh_selection().await {
                                 app.log(LogLevel::System, format!("Error loading image: {}", e));
                             }
                         }
@@ -141,6 +148,11 @@ async fn run_app(
                         KeyCode::Char(' ') => {
                             app.toggle_basket();
                         }
+                        KeyCode::Char('y') => {
+                            if let Err(e) = app.export_basket_to_clipboard() {
+                                app.log(LogLevel::System, format!("Export failed: {}", e));
+                            }
+                        }
                         _ => {
                             // Panel-specific keybindings
                             handle_panel_input(app, key.code).await?;
@@ -160,25 +172,25 @@ async fn handle_panel_input(app: &mut App, key_code: KeyCode) -> Result<()> {
             match key_code {
                 KeyCode::Down | KeyCode::Char('j') => {
                     app.grid_next();
-                    if let Err(e) = app.load_current_image().await {
+                    if let Err(e) = app.refresh_selection().await {
                         app.log(LogLevel::System, format!("Error loading image: {}", e));
                     }
                 }
                 KeyCode::Up | KeyCode::Char('k') => {
                     app.grid_previous();
-                    if let Err(e) = app.load_current_image().await {
+                    if let Err(e) = app.refresh_selection().await {
                         app.log(LogLevel::System, format!("Error loading image: {}", e));
                     }
                 }
                 KeyCode::Right | KeyCode::Char('l') => {
                     app.grid_move_right();
-                    if let Err(e) = app.load_current_image().await {
+                    if let Err(e) = app.refresh_selection().await {
                         app.log(LogLevel::System, format!("Error loading image: {}", e));
                     }
                 }
                 KeyCode::Left | KeyCode::Char('h') => {
                     app.grid_move_left();
-                    if let Err(e) = app.load_current_image().await {
+                    if let Err(e) = app.refresh_selection().await {
                         app.log(LogLevel::System, format!("Error loading image: {}", e));
                     }
                 }
@@ -186,7 +198,7 @@ async fn handle_panel_input(app: &mut App, key_code: KeyCode) -> Result<()> {
                     if !app.filtered_icons.is_empty() {
                         app.grid_selected_idx = 0;
                         app.grid_scroll_offset = 0;
-                        if let Err(e) = app.load_current_image().await {
+                        if let Err(e) = app.refresh_selection().await {
                             app.log(LogLevel::System, format!("Error loading image: {}", e));
                         }
                     }
@@ -198,7 +210,7 @@ async fn handle_panel_input(app: &mut App, key_code: KeyCode) -> Result<()> {
                         if app.filtered_icons.len() > visible_items {
                             app.grid_scroll_offset = app.filtered_icons.len() - visible_items;
                         }
-                        if let Err(e) = app.load_current_image().await {
+                        if let Err(e) = app.refresh_selection().await {
                             app.log(LogLevel::System, format!("Error loading image: {}", e));
                         }
                     }
@@ -207,17 +219,36 @@ async fn handle_panel_input(app: &mut App, key_code: KeyCode) -> Result<()> {
             }
         }
         FocusPanel::Tree => {
-            // Tree navigation would go here
-            // For now, just basic navigation
             match key_code {
                 KeyCode::Down | KeyCode::Char('j') => {
-                    // Navigate tree down
+                    if app.tree_state.key_down() {
+                        app.apply_tree_selection().await?;
+                    }
                 }
                 KeyCode::Up | KeyCode::Char('k') => {
-                    // Navigate tree up
+                    if app.tree_state.key_up() {
+                        app.apply_tree_selection().await?;
+                    }
+                }
+                KeyCode::Right | KeyCode::Char('l') => {
+                    if app.tree_state.key_right() {
+                        app.apply_tree_selection().await?;
+                    }
+                }
+                KeyCode::Left | KeyCode::Char('h') => {
+                    if app.tree_state.key_left() {
+                        app.apply_tree_selection().await?;
+                    }
                 }
                 KeyCode::Enter => {
-                    // Expand/collapse or select category
+                    if app.tree_state.toggle_selected() {
+                        app.apply_tree_selection().await?;
+                    }
+                }
+                KeyCode::Esc => {
+                    if app.tree_state.select(Vec::new()) {
+                        app.apply_tree_selection().await?;
+                    }
                 }
                 _ => {}
             }

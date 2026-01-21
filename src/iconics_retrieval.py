@@ -216,9 +216,12 @@ class IconicsRetriever:
         if index_path is not None:
             index_path = Path(index_path)
             if index_path.exists():
-                self.faiss_index = IconicsIndex.load(str(index_path), self.icon_ids)
-                logger.info(f"Loaded FAISS index from {index_path}")
-                return
+                try:
+                    self.faiss_index = IconicsIndex.load(str(index_path), self.icon_ids)
+                    logger.info(f"Loaded FAISS index from {index_path}")
+                    return
+                except Exception as e:
+                    logger.warning(f"Failed to load FAISS index from {index_path}: {e}. Rebuilding index.")
 
         # Build index from embeddings
         self.faiss_index = IconicsIndex(
@@ -810,17 +813,16 @@ class IconicsRetriever:
             ...     print(f"  Tags: {', '.join(cand['tags'])}")
             ...     print(f"  Category: {cand['category']}")
         """
-        # Load catalog with caching (avoid parsing 84K line JSON every call)
+        # Load catalog with caching (avoid repeated disk/parsing per call)
         catalog_path = Path(catalog_path)
         cache_key = str(catalog_path)
-        
+
         if cache_key not in self._catalog_cache:
-            with open(catalog_path) as f:
-                catalog_data = json.load(f)
-            self._catalog_cache[cache_key] = {
-                icon['id']: icon for icon in catalog_data['icons']
-            }
-        
+            from iconics_catalog import load_catalog
+
+            catalog_data = load_catalog(catalog_path)
+            self._catalog_cache[cache_key] = {icon["id"]: icon for icon in catalog_data["icons"]}
+
         catalog_lookup = self._catalog_cache[cache_key]
 
         # Over-request to compensate for potential missing catalog entries
@@ -894,9 +896,10 @@ class IconicsRetriever:
             - 'in_embeddings_not_catalog': Icons in embeddings but missing from catalog
             - 'in_catalog_not_embeddings': Icons in catalog but missing embeddings
         """
+        from iconics_catalog import load_catalog
+
         catalog_path = Path(catalog_path)
-        with open(catalog_path) as f:
-            catalog_data = json.load(f)
+        catalog_data = load_catalog(catalog_path)
         
         catalog_ids = set(icon['id'] for icon in catalog_data['icons'])
         embedding_ids = set(self.icon_ids)
@@ -984,3 +987,137 @@ class IconicsRetriever:
         self._catalog_cache.clear()
         self._warned_missing_icons.clear()
         logger.info("Retriever caches cleared")
+
+    def retrieve_hybrid(
+        self,
+        query: str,
+        k: int = 10,
+        catalog_path: Union[str, Path] = "icon-catalog.json",
+        clip_weight: float = 0.6,
+        metadata_weight: float = 0.4,
+        dedupe: bool = True
+    ) -> List[RetrievalResult]:
+        """
+        Hybrid retrieval combining CLIP similarity with metadata matching.
+
+        This method improves search quality by:
+        1. Getting extra CLIP results for re-ranking headroom
+        2. Boosting scores when query terms match icon metadata
+        3. Deduplicating icon variants (e.g., lock-24x24, lock-32x32 -> lock)
+
+        Args:
+            query: Text query string
+            k: Number of results to return
+            catalog_path: Path to icon-catalog.json
+            clip_weight: Weight for CLIP similarity (0-1)
+            metadata_weight: Weight for metadata matching (0-1)
+            dedupe: If True, group icon variants and return best per base name
+
+        Returns:
+            List of RetrievalResult objects with improved ranking
+        """
+        import re
+
+        # Load catalog (JSON or SQLite)
+        catalog_path = Path(catalog_path)
+        cache_key = str(catalog_path)
+
+        if cache_key not in self._catalog_cache:
+            from iconics_catalog import load_catalog
+
+            catalog_data = load_catalog(catalog_path)
+            self._catalog_cache[cache_key] = {icon["id"]: icon for icon in catalog_data["icons"]}
+
+        catalog_lookup = self._catalog_cache[cache_key]
+
+        # Get more results for re-ranking (3x for deduplication headroom)
+        request_k = k * 3 if dedupe else k * 2
+        request_k = min(request_k, len(self.icon_ids))
+
+        # CLIP retrieval
+        clip_results = self.retrieve(query, k=request_k, mode="projected")
+
+        # Tokenize query for metadata matching
+        query_lower = query.lower()
+        query_terms = set(re.split(r'[\s\-_]+', query_lower))
+        query_terms.discard('')
+
+        # Score and enhance results
+        scored_results = []
+
+        for result in clip_results:
+            icon_id = result.icon_id
+            clip_score = result.score
+
+            # Get metadata
+            meta = catalog_lookup.get(icon_id, {})
+            semantic_name = meta.get('semanticName', icon_id).lower()
+            tags = [t.lower() for t in meta.get('tags', [])]
+            category = meta.get('category', '').lower()
+            description = meta.get('description', '').lower()
+
+            # Calculate metadata match score
+            metadata_score = 0.0
+
+            # Exact name match
+            name_terms = set(re.split(r'[\s\-_]+', semantic_name))
+            name_overlap = len(query_terms & name_terms)
+            if name_overlap > 0:
+                metadata_score += 0.4 * (name_overlap / max(len(query_terms), 1))
+
+            # Tag matches
+            tag_set = set(tags)
+            tag_overlap = len(query_terms & tag_set)
+            if tag_overlap > 0:
+                metadata_score += 0.35 * (tag_overlap / max(len(query_terms), 1))
+
+            # Category match
+            if query_lower in category or category in query_lower:
+                metadata_score += 0.15
+
+            # Description match (partial)
+            desc_matches = sum(1 for term in query_terms if term in description)
+            if desc_matches > 0:
+                metadata_score += 0.1 * min(desc_matches / len(query_terms), 1.0)
+
+            # Combined score
+            combined_score = (clip_weight * clip_score) + (metadata_weight * metadata_score)
+
+            # Extract base name for deduplication (remove size suffix)
+            base_name = re.sub(r'[-_]?\d+x\d+(-\d+x\d+)?$', '', icon_id)
+            base_name = re.sub(r'[-_]?(small|medium|large|xs|sm|md|lg|xl)$', '', base_name, flags=re.I)
+
+            scored_results.append({
+                'icon_id': icon_id,
+                'clip_score': clip_score,
+                'metadata_score': metadata_score,
+                'combined_score': combined_score,
+                'base_name': base_name.lower(),
+                'residual_score': result.residual_score
+            })
+
+        # Sort by combined score
+        scored_results.sort(key=lambda x: x['combined_score'], reverse=True)
+
+        # Deduplicate by base name if requested
+        if dedupe:
+            seen_bases = set()
+            deduped = []
+            for r in scored_results:
+                if r['base_name'] not in seen_bases:
+                    seen_bases.add(r['base_name'])
+                    deduped.append(r)
+                if len(deduped) >= k:
+                    break
+            scored_results = deduped
+
+        # Convert back to RetrievalResult
+        final_results = []
+        for r in scored_results[:k]:
+            final_results.append(RetrievalResult(
+                icon_id=r['icon_id'],
+                score=r['combined_score'],
+                residual_score=r['residual_score']
+            ))
+
+        return final_results

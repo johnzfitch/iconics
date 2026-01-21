@@ -11,7 +11,6 @@ Key Features:
 - Variant Registration (improves CLIP index over time)
 """
 
-import json
 import logging
 from dataclasses import dataclass, asdict
 from pathlib import Path
@@ -33,6 +32,10 @@ except ImportError as e:
 from iconics_output import Output, OutputContext
 
 logger = logging.getLogger(__name__)
+
+
+def _repo_root() -> Path:
+    return Path(__file__).resolve().parent.parent
 
 
 @dataclass
@@ -64,25 +67,45 @@ class FileEvent:
 
 
 class IconCatalog:
-    """Simple catalog manager (wraps icon-catalog.json)."""
+    """
+    Catalog manager that supports JSON or SQLite.
 
-    def __init__(self, catalog_path: Path = Path('icon-catalog.json')):
-        self.catalog_path = catalog_path
+    The public surface area intentionally matches the historical JSON-backed
+    implementation so the rest of the codebase can migrate incrementally.
+    """
+
+    def __init__(self, catalog_path: Optional[Path] = None):
+        if catalog_path is None:
+            from iconics_catalog import resolve_default_catalog_path
+
+            catalog_path = resolve_default_catalog_path()
+        self.catalog_path = Path(catalog_path)
+        self.is_sqlite = self.catalog_path.suffix.lower() in {".sqlite3", ".sqlite", ".db"}
         self._catalog = None
         self._load_catalog()
 
     def _load_catalog(self):
         """Load catalog from disk."""
-        if self.catalog_path.exists():
-            with open(self.catalog_path) as f:
-                self._catalog = json.load(f)
-        else:
+        if not self.catalog_path.exists():
             logger.warning(f"Catalog not found: {self.catalog_path}")
-            self._catalog = {"version": "1.0", "icons": []}
+            self._catalog = {"version": "missing", "icons": []}
+            return
+
+        from iconics_catalog import load_catalog
+
+        self._catalog = load_catalog(self.catalog_path)
 
     def _save_catalog(self):
         """Save catalog to disk."""
-        with open(self.catalog_path, 'w') as f:
+        if self.is_sqlite:
+            raise RuntimeError(
+                "Refusing to write the entire SQLite catalog wholesale; "
+                "use update_entry() / add_new_icon() which perform targeted upserts."
+            )
+
+        import json
+
+        with open(self.catalog_path, "w", encoding="utf-8") as f:
             json.dump(self._catalog, f, indent=2)
 
     def get_entry(self, icon_id: str) -> Optional[Dict]:
@@ -106,7 +129,12 @@ class IconCatalog:
         for i, icon in enumerate(self._catalog.get('icons', [])):
             if icon['id'] == icon_id:
                 self._catalog['icons'][i] = updated_entry
-                self._save_catalog()
+                if self.is_sqlite:
+                    from iconics_catalog import upsert_icon_sqlite
+
+                    upsert_icon_sqlite(self.catalog_path, updated_entry)
+                else:
+                    self._save_catalog()
                 logger.info(f"Updated catalog entry for {icon_id}")
                 return True
         logger.warning(f"Icon {icon_id} not found in catalog for update")
@@ -120,16 +148,35 @@ class IconCatalog:
 
     def add_new_icon(self, path: Path, label_data: Dict):
         """Add newly labeled icon to catalog (VLM path)."""
+        from iconics_catalog import ensure_repo_relative_path
+
+        repo = _repo_root()
+        source_file_rel = ensure_repo_relative_path(path, repo_root=repo)
+
         icon_entry = {
             "id": label_data.get('icon_id', path.stem),
             "semanticName": label_data.get('canonical', path.stem),
             "tags": label_data.get('tags', []),
             "category": label_data.get('category', 'unknown'),
             "description": label_data.get('description', ''),
-            "sourceFile": str(path),
+            "sourceFile": source_file_rel,
         }
-        self._catalog.setdefault('icons', []).append(icon_entry)
-        self._save_catalog()
+
+        # Avoid introducing duplicate IDs in the in-memory view (SQLite enforces uniqueness).
+        icons = self._catalog.setdefault("icons", [])
+        for idx, existing in enumerate(icons):
+            if existing.get("id") == icon_entry["id"]:
+                icons[idx] = icon_entry
+                break
+        else:
+            icons.append(icon_entry)
+
+        if self.is_sqlite:
+            from iconics_catalog import upsert_icon_sqlite
+
+            upsert_icon_sqlite(self.catalog_path, icon_entry)
+        else:
+            self._save_catalog()
         logger.info(f"Added {icon_entry['id']} to catalog")
 
     def get_stats(self) -> Dict:
@@ -165,9 +212,9 @@ class IconicsExecutive:
         bypass_threshold: float = 0.92,
         rag_threshold: float = 0.7,
         drift_threshold: float = 0.80,
-        embeddings_path: Path = Path('embeddings'),
-        subspace_path: Path = Path('subspace'),
-        catalog_path: Path = Path('icon-catalog.json'),
+        embeddings_path: Optional[Path] = None,
+        subspace_path: Optional[Path] = None,
+        catalog_path: Optional[Path] = None,
         output: Optional[Output] = None,
     ):
         """
@@ -185,6 +232,14 @@ class IconicsExecutive:
         self.bypass_threshold = bypass_threshold
         self.rag_threshold = rag_threshold
         self.drift_threshold = drift_threshold
+
+        base_dir = _repo_root()
+        embeddings_path = embeddings_path or (base_dir / "embeddings")
+        subspace_path = subspace_path or (base_dir / "subspace")
+        if catalog_path is None:
+            from iconics_catalog import resolve_default_catalog_path
+
+            catalog_path = resolve_default_catalog_path()
 
         # Initialize sub-agents
         try:
