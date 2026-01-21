@@ -88,8 +88,9 @@ class IconExporter:
 
         source_path = Path(source_file)
         if not source_path.is_absolute():
-            # Try relative to project root
-            source_path = Path.cwd() / source_path
+            # Catalog paths are repo-relative (not cwd-relative)
+            repo_root = Path(__file__).resolve().parent.parent
+            source_path = repo_root / source_path
 
         if not source_path.exists():
             return None
