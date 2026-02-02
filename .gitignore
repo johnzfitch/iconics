@@ -62,6 +62,7 @@ new-icons*.csv
 vision_cache/
 tui/target/
 tui2/target/
+deprecated/tui/tui/target/
 
 # Generated SQLite catalog (derived from icon-catalog.json + embeddings)
 iconics.sqlite3
