@@ -1,0 +1,4 @@
+id,semantic,tags,category,description
+star-24x24,star-24x24,"star,favorite,rating",ui,Sample import entry for star icon
+search-24x24,search-24x24,"search,find,lookup",ui,Sample import entry for search icon
+lock-24x24,lock-24x24,"lock,security,access",security,Sample import entry for lock icon

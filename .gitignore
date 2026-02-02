@@ -36,6 +36,8 @@ thumbnails/
 # History and analytics (local tracking)
 .icon-history.json
 .icon-analytics.json
+icon-usage-history.json
+icon-usage-analytics.json
 
 # CSV batch files (temporary)
 batch*.csv
@@ -70,6 +72,8 @@ iconics.sqlite3-shm
 # History (local)
 .icon-history.json
 .icon-analytics.json
+icon-usage-history.json
+icon-usage-analytics.json
 
 # Temporary files
 *.log

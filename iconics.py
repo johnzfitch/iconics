@@ -8,14 +8,17 @@ Agent-friendly, human-friendly, local-first.
 """
 
 import argparse
+import csv
 import json
 import os
 import re
 import subprocess
 import sys
 import time
+from datetime import datetime
 from pathlib import Path
 import shutil
+from typing import Dict, List, Optional, Tuple
 
 def _detect_subcommand(argv: list[str]) -> str | None:
     """
@@ -182,6 +185,238 @@ def validate_threshold(value: str) -> float:
     return f
 
 
+def _split_csv_values(value: str) -> List[str]:
+    return [item.strip() for item in value.split(",") if item.strip()]
+
+
+def _parse_tags(raw: str) -> List[str]:
+    if raw is None:
+        return []
+    raw = str(raw)
+    items = _split_csv_values(raw)
+    if len(items) == 1 and " " in items[0]:
+        items = [item.strip() for item in re.split(r"\s+", items[0]) if item.strip()]
+    seen = set()
+    deduped: List[str] = []
+    for item in items:
+        if not item:
+            continue
+        if item in seen:
+            continue
+        seen.add(item)
+        deduped.append(item)
+    return deduped
+
+
+def _normalize_category_name(
+    raw: str,
+    allowed: set[str],
+    aliases: Dict[str, str],
+) -> Optional[str]:
+    if raw is None:
+        return None
+    normalized = (
+        str(raw)
+        .strip()
+        .lower()
+        .replace("_", " ")
+        .replace("-", " ")
+    )
+    normalized = re.sub(r"\s+", " ", normalized)
+    normalized = aliases.get(normalized, normalized)
+    if normalized in allowed:
+        return normalized
+    return None
+
+
+def _find_git_root(start_path: Path) -> Optional[Path]:
+    current = start_path.resolve()
+    for parent in [current] + list(current.parents):
+        if (parent / ".git").exists():
+            return parent
+    return None
+
+
+def _ensure_gitignore_entries(git_root: Path, entries: List[str]) -> None:
+    if not entries:
+        return
+    gitignore_path = git_root / ".gitignore"
+    existing_text = ""
+    if gitignore_path.exists():
+        existing_text = gitignore_path.read_text(encoding="utf-8")
+    existing_entries = {
+        line.strip()
+        for line in existing_text.splitlines()
+        if line.strip()
+    }
+    new_entries = [entry for entry in entries if entry not in existing_entries]
+    if not new_entries:
+        return
+    with open(gitignore_path, "a", encoding="utf-8") as handle:
+        if existing_text and not existing_text.endswith("\n"):
+            handle.write("\n")
+        for entry in new_entries:
+            handle.write(f"{entry}\n")
+
+
+def _emoji_to_codepoints(emoji: str) -> str:
+    return " ".join(f"U+{ord(char):04X}" for char in emoji)
+
+
+def _build_icon_id_maps(
+    catalog: Dict,
+) -> Tuple[Dict[str, Dict], Dict[str, str], set[str], Dict[str, str], set[str]]:
+    entries = catalog.get("icons", [])
+    id_lookup: Dict[str, Dict] = {}
+    id_lower: Dict[str, str] = {}
+    id_lower_ambiguous: set[str] = set()
+    semantic_lower: Dict[str, str] = {}
+    semantic_ambiguous: set[str] = set()
+
+    for icon in entries:
+        icon_id = icon.get("id")
+        if not icon_id:
+            continue
+        id_lookup[icon_id] = icon
+
+        lower_id = icon_id.lower()
+        if lower_id in id_lower and id_lower[lower_id] != icon_id:
+            id_lower_ambiguous.add(lower_id)
+        else:
+            id_lower[lower_id] = icon_id
+
+        semantic_name = icon.get("semanticName")
+        if not semantic_name:
+            continue
+        lower_semantic = semantic_name.lower()
+        if lower_semantic in semantic_lower and semantic_lower[lower_semantic] != icon_id:
+            semantic_ambiguous.add(lower_semantic)
+        else:
+            semantic_lower[lower_semantic] = icon_id
+
+    return id_lookup, id_lower, id_lower_ambiguous, semantic_lower, semantic_ambiguous
+
+
+def _resolve_icon_ids(
+    raw_ids: List[str],
+    id_lookup: Dict[str, Dict],
+    id_lower: Dict[str, str],
+    id_lower_ambiguous: set[str],
+    semantic_lower: Dict[str, str],
+    semantic_ambiguous: set[str],
+) -> Tuple[List[str], List[str], List[str]]:
+    resolved: List[str] = []
+    missing: List[str] = []
+    ambiguous: List[str] = []
+
+    for raw in raw_ids:
+        cleaned = raw.strip()
+        if cleaned.endswith(".png"):
+            cleaned = cleaned[:-4]
+        if not cleaned:
+            continue
+
+        if cleaned in id_lookup:
+            resolved.append(cleaned)
+            continue
+
+        lower = cleaned.lower()
+        if lower in id_lower:
+            if lower in id_lower_ambiguous:
+                ambiguous.append(cleaned)
+            else:
+                resolved.append(id_lower[lower])
+            continue
+
+        if lower in semantic_lower:
+            if lower in semantic_ambiguous:
+                ambiguous.append(cleaned)
+            else:
+                resolved.append(semantic_lower[lower])
+            continue
+
+        missing.append(cleaned)
+
+    # Preserve order while deduping
+    unique: List[str] = []
+    seen = set()
+    for item in resolved:
+        if item in seen:
+            continue
+        seen.add(item)
+        unique.append(item)
+
+    return unique, missing, ambiguous
+
+
+def _build_catalog_entry(
+    icon_id: str,
+    semantic_name: str,
+    tags: List[str],
+    category: str,
+    description: str,
+    base_dir: Path,
+    existing: Optional[Dict] = None,
+) -> Dict:
+    entry = {
+        "id": icon_id,
+        "semanticName": semantic_name,
+        "tags": tags,
+        "category": category,
+        "description": description,
+    }
+
+    raw_path = base_dir / "raw" / f"{icon_id}.png"
+    if raw_path.exists():
+        from iconics_catalog import ensure_repo_relative_path
+
+        entry["sourceFile"] = ensure_repo_relative_path(raw_path, repo_root=base_dir)
+        entry["filename"] = entry["sourceFile"]
+
+    if existing:
+        for key in ("sourceFile", "filename", "usedIn", "metaphor", "emotional_valence", "abstraction_level"):
+            if key not in entry and key in existing:
+                entry[key] = existing[key]
+
+    return entry
+
+
+def _upsert_catalog_entry(executive_catalog, entry: Dict) -> str:
+    existing = executive_catalog.get_entry(entry["id"])
+    if existing:
+        executive_catalog.update_entry(entry["id"], entry)
+        return "updated"
+
+    icons = executive_catalog._catalog.setdefault("icons", [])
+    icons.append(entry)
+    if executive_catalog.is_sqlite:
+        from iconics_catalog import upsert_icon_sqlite
+
+        upsert_icon_sqlite(executive_catalog.catalog_path, entry)
+    else:
+        executive_catalog._save_catalog()
+    return "added"
+
+
+def _ensure_catalog_symlink(
+    base_dir: Path,
+    icon_id: str,
+    semantic_name: str,
+    category: str,
+) -> Optional[Path]:
+    raw_path = base_dir / "raw" / f"{icon_id}.png"
+    if not raw_path.exists():
+        return None
+
+    category_dir = base_dir / "catalog" / category
+    category_dir.mkdir(parents=True, exist_ok=True)
+    target = category_dir / f"{semantic_name}.png"
+    if target.exists() or target.is_symlink():
+        target.unlink()
+    target.symlink_to(Path("../../raw") / f"{icon_id}.png")
+    return target
+
+
 def main():
     """Main entry point for iconics CLI."""
 
@@ -263,6 +498,17 @@ Output modes:
     cat_parser.add_argument('category', help='Category to export')
     cat_parser.add_argument('--project', '-p', type=Path,
                            help='Project directory (auto-detected if not specified)')
+    cat_parser.add_argument(
+        '--limit',
+        type=int,
+        default=50,
+        help='Maximum icons to export (default: 50)',
+    )
+    cat_parser.add_argument(
+        '--all',
+        action='store_true',
+        help='Export all icons in the category (no limit)',
+    )
 
     categories_parser = subparsers.add_parser(
         'categories',
@@ -272,6 +518,155 @@ Output modes:
         '--one-line',
         action='store_true',
         help='Print categories as a single comma-separated line',
+    )
+
+    # --- WORKFLOW GROUP ---
+    emoji_parser = subparsers.add_parser(
+        'emoji',
+        help='Scan or convert emojis in project files',
+    )
+    emoji_sub = emoji_parser.add_subparsers(dest='emoji_command', required=True)
+
+    emoji_scan = emoji_sub.add_parser('scan', help='Scan files for emoji usage')
+    emoji_scan.add_argument(
+        'path',
+        nargs='?',
+        default='.',
+        help='File or directory to scan (default: current directory)',
+    )
+    emoji_scan.add_argument(
+        '--extensions',
+        default='md,mdx,tsx,jsx,html,vue,svelte',
+        help='Comma-separated file extensions to scan',
+    )
+    emoji_scan.add_argument(
+        '--no-recursive',
+        action='store_true',
+        help='Disable recursive directory scanning',
+    )
+    emoji_scan.add_argument(
+        '--output',
+        type=Path,
+        help='Write JSON report to file',
+    )
+
+    emoji_convert = emoji_sub.add_parser('convert', help='Convert emojis to icon markdown')
+    emoji_convert.add_argument(
+        'path',
+        nargs='?',
+        default='.',
+        help='File or directory to scan (default: current directory)',
+    )
+    emoji_convert.add_argument(
+        '--icon-path',
+        default='.github/assets/icons',
+        help='Relative icon path for replacements',
+    )
+    emoji_convert.add_argument(
+        '--format',
+        dest='icon_format',
+        default='![{name}]({path})',
+        help='Replacement format string',
+    )
+    emoji_convert.add_argument(
+        '--extensions',
+        default='md,mdx,tsx,jsx,html,vue,svelte',
+        help='Comma-separated file extensions to scan',
+    )
+    emoji_convert.add_argument(
+        '--no-recursive',
+        action='store_true',
+        help='Disable recursive directory scanning',
+    )
+    emoji_convert.add_argument(
+        '--apply',
+        action='store_true',
+        help='Apply changes to files (default: dry-run)',
+    )
+    emoji_convert.add_argument(
+        '--output',
+        type=Path,
+        help='Write JSON report to file',
+    )
+
+    provision_parser = subparsers.add_parser(
+        'provision',
+        help='Provision icons into a project directory',
+    )
+    provision_sub = provision_parser.add_subparsers(dest='provision_command', required=True)
+
+    provision_icons = provision_sub.add_parser('icons', help='Provision specific icons')
+    provision_icons.add_argument('icons', nargs='+', help='Icon IDs or semantic names')
+    provision_icons.add_argument(
+        '--dest',
+        '-d',
+        required=True,
+        help='Destination directory',
+    )
+    provision_icons.add_argument(
+        '--subdir',
+        default='.github/assets/icons',
+        help='Subdirectory within destination (default: .github/assets/icons)',
+    )
+    provision_icons.add_argument(
+        '--no-manifest',
+        action='store_true',
+        help='Do not create/update iconics-manifest.json',
+    )
+
+    provision_query = provision_sub.add_parser('query', help='Provision icons from semantic queries')
+    provision_query.add_argument('queries', nargs='+', help='Query text (space-separated)')
+    provision_query.add_argument(
+        '--dest',
+        '-d',
+        required=True,
+        help='Destination directory',
+    )
+    provision_query.add_argument(
+        '--subdir',
+        default='.github/assets/icons',
+        help='Subdirectory within destination (default: .github/assets/icons)',
+    )
+    provision_query.add_argument(
+        '--k',
+        type=int,
+        default=2,
+        help='Icons per query (default: 2)',
+    )
+    provision_query.add_argument(
+        '--mode',
+        choices=['raw', 'projected', 'weighted'],
+        default='projected',
+        help='Retrieval mode (default: projected)',
+    )
+    provision_query.add_argument(
+        '--no-manifest',
+        action='store_true',
+        help='Do not create/update iconics-manifest.json',
+    )
+
+    provision_manifest = provision_sub.add_parser('manifest', help='Provision icons from a manifest')
+    provision_manifest.add_argument('manifest', type=Path, help='Path to iconics-manifest.json')
+    provision_manifest.add_argument(
+        '--dest',
+        '-d',
+        required=True,
+        help='Destination directory',
+    )
+
+    provision_imports = provision_sub.add_parser('imports', help='Generate framework imports')
+    provision_imports.add_argument('manifest', type=Path, help='Path to iconics-manifest.json')
+    provision_imports.add_argument(
+        '--format',
+        choices=['react', 'vue', 'css', 'typescript'],
+        required=True,
+        help='Target format',
+    )
+    provision_imports.add_argument(
+        '--output',
+        type=Path,
+        required=True,
+        help='Output file path',
     )
 
     # --- AUTO-PIPELINE GROUP ---
@@ -382,6 +777,8 @@ Output modes:
                                          help='Bulk import from CSV')
     import_parser.add_argument('csv_file', type=Path,
                               help='Path to CSV file')
+    import_parser.add_argument('--update-existing', action='store_true',
+                              help='Update existing icons instead of skipping them')
 
     stats_parser = subparsers.add_parser('stats',
                                         help='Show library statistics')
@@ -390,6 +787,24 @@ Output modes:
                                          help='Show recently cataloged icons')
     recent_parser.add_argument('n', type=int, nargs='?', default=10,
                               help='Number of icons to show (default: 10)')
+    recent_parser.add_argument('--limit', '-l', type=int, default=None,
+                              help='Explicit limit (overrides positional n)')
+
+    history_parser = subparsers.add_parser('history',
+                                          help='Show icon usage history from local usage logs')
+    history_parser.add_argument('project', nargs='?', default=None,
+                               help='Project name or path (optional)')
+    history_parser.add_argument('--file', type=Path, default=Path('icon-usage-history.json'),
+                               help='History JSON file (default: icon-usage-history.json)')
+    history_parser.add_argument('--limit', '-l', type=int, default=10,
+                               help='Number of projects to show (default: 10)')
+
+    popular_parser = subparsers.add_parser('popular',
+                                          help='Show most-used icons from usage analytics')
+    popular_parser.add_argument('--file', type=Path, default=Path('icon-usage-analytics.json'),
+                               help='Analytics JSON file (default: icon-usage-analytics.json)')
+    popular_parser.add_argument('--limit', '-l', type=int, default=10,
+                               help='Number of icons to show (default: 10)')
 
     list_parser = subparsers.add_parser('list',
                                        help='List icons in category')
@@ -905,19 +1320,230 @@ Output modes:
 
             # Use the executive to export all icons
             icon_ids = [icon['id'] for icon in matching]
+            limit = None if args.all else args.limit
+            if limit is not None:
+                icon_ids = icon_ids[:limit]
             result = executive.use_icons(
-                query_ids=icon_ids[:50],  # Limit to 50 to avoid overwhelming
+                query_ids=icon_ids,
                 target_dir=args.project,
                 generate_markdown=True
             )
 
             if result['exported']:
                 output.success(f"Exported {len(result['exported'])} icons")
-                if len(matching) > 50:
-                    output.warn(f"Limited to first 50 icons. Category has {len(matching)} total.")
+                if limit is not None and len(matching) > limit:
+                    output.warn(f"Limited to first {limit} icons. Category has {len(matching)} total.")
             else:
                 output.error("Export failed")
                 sys.exit(1)
+
+        elif args.command == 'emoji':
+            from iconics_emoji import EmojiScanner
+
+            scanner = EmojiScanner(retriever=executive.retriever)
+            scan_path = args.path
+            extensions = _split_csv_values(args.extensions)
+            recursive = not args.no_recursive
+
+            report = scanner.scan(scan_path, extensions=extensions, recursive=recursive)
+
+            def _emit_emoji_report(report_data: Dict) -> None:
+                if args.output:
+                    output_path: Path = args.output
+                    if not output_path.is_absolute():
+                        output_path = Path.cwd() / output_path
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    output_path.write_text(json.dumps(report_data, indent=2), encoding="utf-8")
+
+                if output.mode == 'json':
+                    print(json.dumps(report_data, indent=2))
+                    return
+
+                files_scanned = report_data.get("files_scanned", 0)
+                emojis_found = report_data.get("emojis_found", 0)
+                unique_emojis = report_data.get("unique_emojis", 0)
+                output.info(
+                    f"Scanned {files_scanned} file(s), found {emojis_found} emoji occurrence(s) "
+                    f"({unique_emojis} unique)."
+                )
+                if emojis_found == 0:
+                    output.success("No emoji usage detected.")
+                    return
+
+                emoji_counts = report_data.get("emoji_counts", {})
+                suggestions = {}
+                for occ in report_data.get("occurrences", []):
+                    emoji = occ.get("emoji")
+                    if emoji and emoji not in suggestions:
+                        suggestions[emoji] = occ.get("suggested_icons", [])
+
+                sorted_counts = sorted(
+                    emoji_counts.items(),
+                    key=lambda item: item[1],
+                    reverse=True,
+                )
+                output.info("Top emoji occurrences (codepoints -> suggested icon IDs):")
+                for emoji, count in sorted_counts[:20]:
+                    codepoints = _emoji_to_codepoints(emoji)
+                    suggested = suggestions.get(emoji, [])
+                    suggestion_text = ", ".join(suggested[:3]) if suggested else "none"
+                    print(f"  {codepoints} x{count} -> {suggestion_text}")
+
+                if args.output:
+                    output.info(f"Wrote report: {args.output}")
+
+            if args.emoji_command == 'scan':
+                _emit_emoji_report(report)
+                sys.exit(0)
+
+            if args.emoji_command == 'convert':
+                result = scanner.convert(
+                    report=report,
+                    icon_path=args.icon_path,
+                    dry_run=not args.apply,
+                    icon_format=args.icon_format,
+                )
+                payload = {
+                    "report": report,
+                    "conversion": result,
+                }
+                if args.output:
+                    output_path: Path = args.output
+                    if not output_path.is_absolute():
+                        output_path = Path.cwd() / output_path
+                    output_path.parent.mkdir(parents=True, exist_ok=True)
+                    output_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+                if output.mode == 'json':
+                    print(json.dumps(payload, indent=2))
+                    sys.exit(0)
+
+                files_modified = result.get("files_modified", 0)
+                replacements = result.get("replacements_made", 0)
+                output.info(
+                    f"Emoji conversion complete: files={files_modified}, "
+                    f"replacements={replacements}, dry_run={result.get('dry_run', True)}"
+                )
+                if args.apply:
+                    output.success("Changes applied to files.")
+                else:
+                    output.warn("Dry run only. Re-run with --apply to modify files.")
+
+                if args.output:
+                    output.info(f"Wrote report: {args.output}")
+                sys.exit(0)
+
+            output.error("Unknown emoji subcommand")
+            sys.exit(1)
+
+        elif args.command == 'provision':
+            from iconics_catalog import resolve_default_catalog_path, load_catalog
+            from iconics_provision import IconicsProvisioner
+
+            catalog_path = resolve_default_catalog_path()
+            catalog = load_catalog(catalog_path)
+            id_lookup, id_lower, id_lower_ambiguous, semantic_lower, semantic_ambiguous = _build_icon_id_maps(catalog)
+            provisioner = IconicsProvisioner(str(base_dir / "raw"), catalog)
+
+            if args.provision_command == 'icons':
+                resolved, missing, ambiguous = _resolve_icon_ids(
+                    args.icons,
+                    id_lookup,
+                    id_lower,
+                    id_lower_ambiguous,
+                    semantic_lower,
+                    semantic_ambiguous,
+                )
+
+                if ambiguous:
+                    output.warn(
+                        "Ambiguous icon IDs or semantic names (case-insensitive collisions): "
+                        + ", ".join(sorted(set(ambiguous)))
+                    )
+                if missing:
+                    output.warn("Unknown icon IDs or semantic names: " + ", ".join(sorted(set(missing))))
+
+                if not resolved:
+                    output.error("No valid icon IDs to provision.")
+                    sys.exit(1)
+
+                result = provisioner.provision(
+                    resolved,
+                    dest=args.dest,
+                    update_manifest=not args.no_manifest,
+                    icon_subdir=args.subdir,
+                )
+                if missing:
+                    result["missing"].extend(f"{name}.png" for name in missing)
+
+                if output.mode == 'json':
+                    print(json.dumps(result, indent=2))
+                else:
+                    output.success(
+                        f"Provisioned {len(result['copied'])} icon(s), "
+                        f"skipped {len(result['skipped'])}, missing {len(result['missing'])}."
+                    )
+                    if result.get("manifest_path"):
+                        output.info(f"Manifest: {result['manifest_path']}")
+                sys.exit(0)
+
+            if args.provision_command == 'query':
+                result = provisioner.provision_from_query(
+                    args.queries,
+                    dest=args.dest,
+                    k=args.k,
+                    retriever=executive.retriever,
+                    mode=args.mode,
+                    icon_subdir=args.subdir,
+                    update_manifest=not args.no_manifest,
+                )
+
+                if output.mode == 'json':
+                    print(json.dumps(result, indent=2))
+                else:
+                    output.success(
+                        f"Provisioned {len(result['copied'])} icon(s), "
+                        f"skipped {len(result['skipped'])}, missing {len(result['missing'])}."
+                    )
+                    if result.get("query_results"):
+                        output.info("Query results:")
+                        for query, matches in result["query_results"].items():
+                            match_text = ", ".join(matches) if matches else "none"
+                            print(f"  {query}: {match_text}")
+                    if result.get("manifest_path"):
+                        output.info(f"Manifest: {result['manifest_path']}")
+                sys.exit(0)
+
+            if args.provision_command == 'manifest':
+                result = provisioner.provision_from_manifest(
+                    manifest_path=str(args.manifest),
+                    dest=args.dest,
+                )
+                if output.mode == 'json':
+                    print(json.dumps(result, indent=2))
+                else:
+                    output.success(
+                        f"Provisioned {len(result['copied'])} icon(s), "
+                        f"skipped {len(result['skipped'])}, missing {len(result['missing'])}."
+                    )
+                    if result.get("manifest_path"):
+                        output.info(f"Manifest: {result['manifest_path']}")
+                sys.exit(0)
+
+            if args.provision_command == 'imports':
+                content = provisioner.generate_imports(
+                    manifest_path=str(args.manifest),
+                    format=args.format,
+                    output_path=str(args.output),
+                )
+                if output.mode == 'json':
+                    print(json.dumps({"output": str(args.output), "format": args.format}, indent=2))
+                else:
+                    output.success(f"Generated {args.format} imports: {args.output}")
+                sys.exit(0)
+
+            output.error("Unknown provision subcommand")
+            sys.exit(1)
 
         elif args.command == 'stats':
             stats = executive.get_stats()
@@ -969,14 +1595,27 @@ Output modes:
                 sys.exit(1)
 
         elif args.command == 'watch':
-            from iconics_watcher import IconicsWatcher
+            try:
+                from iconics_watcher import IconicsWatcher
+            except ImportError as e:
+                output.error(
+                    "watch command requires watchdog. "
+                    "Install with: uv add watchdog (project) or uv sync --extra watch"
+                )
+                if args.verbose:
+                    output.warn(f"Import detail: {e}")
+                sys.exit(1)
 
             # Create and start watcher
-            watcher = IconicsWatcher(
-                executive=executive,
-                watch_path=args.path,
-                debounce_ms=args.debounce
-            )
+            try:
+                watcher = IconicsWatcher(
+                    executive=executive,
+                    watch_path=args.path,
+                    debounce_ms=args.debounce
+                )
+            except ImportError as e:
+                output.error(str(e))
+                sys.exit(1)
 
             try:
                 watcher.start()
@@ -1119,12 +1758,21 @@ Output modes:
 
 
         elif args.command == 'dedupe':
-            from iconics_dedupe import (
-                find_duplicate_clusters,
-                format_cluster_output,
-                export_clusters_to_json,
-                interactive_dedupe
-            )
+            try:
+                from iconics_dedupe import (
+                    find_duplicate_clusters,
+                    format_cluster_output,
+                    export_clusters_to_json,
+                    interactive_dedupe
+                )
+            except ImportError as e:
+                output.error(
+                    "dedupe command requires scipy. "
+                    "Install with: uv add scipy (project) or uv sync --extra dedupe"
+                )
+                if args.verbose:
+                    output.warn(f"Import detail: {e}")
+                sys.exit(1)
 
             if not executive.retriever:
                 output.error("CLIP retriever not initialized. Check embeddings path.")
@@ -1358,22 +2006,376 @@ Output modes:
                             print(f"  {r.icon_id}")
                 sys.exit(1)
 
+        elif args.command == 'add':
+            from iconics_taxonomy import ALLOWED_CATEGORIES, CATEGORY_ALIASES
+
+            icon_id = args.id.strip()
+            if icon_id.endswith(".png"):
+                icon_id = icon_id[:-4]
+            semantic_name = args.semantic.strip()
+            if not icon_id or not semantic_name:
+                output.error("Both icon ID and semantic name are required.")
+                sys.exit(1)
+
+            tags = _parse_tags(args.tags)
+            if not tags:
+                output.error("At least one tag is required.")
+                sys.exit(1)
+
+            allowed = set(ALLOWED_CATEGORIES)
+            category = _normalize_category_name(args.category, allowed, CATEGORY_ALIASES)
+            if not category:
+                output.error(f"Invalid category '{args.category}'. Allowed: {', '.join(ALLOWED_CATEGORIES)}")
+                sys.exit(1)
+
+            description = (args.desc or "").strip()
+            existing = executive.catalog.get_entry(icon_id)
+            entry = _build_catalog_entry(
+                icon_id=icon_id,
+                semantic_name=semantic_name,
+                tags=tags,
+                category=category,
+                description=description,
+                base_dir=base_dir,
+                existing=existing,
+            )
+            action = _upsert_catalog_entry(executive.catalog, entry)
+            symlink = _ensure_catalog_symlink(base_dir, icon_id, semantic_name, category)
+
+            raw_path = base_dir / "raw" / f"{icon_id}.png"
+            if not raw_path.exists():
+                output.warn(f"Raw icon file not found: {raw_path}")
+
+            payload = {
+                "action": action,
+                "entry": entry,
+            }
+            if symlink:
+                payload["symlink"] = str(symlink)
+
+            if output.mode == 'json':
+                print(json.dumps(payload, indent=2))
+            else:
+                output.success(f"{action.title()} icon: {icon_id} ({semantic_name})")
+                if symlink:
+                    output.info(f"Symlink: {symlink}")
+
+        elif args.command == 'import':
+            from iconics_taxonomy import ALLOWED_CATEGORIES, CATEGORY_ALIASES
+            from iconics_catalog import upsert_icon_sqlite
+            from iconics_export import ICON_USAGE_FILES
+
+            csv_path = args.csv_file
+            if not csv_path.is_absolute():
+                csv_path = Path.cwd() / csv_path
+            if not csv_path.exists():
+                output.error(f"CSV file not found: {csv_path}")
+                sys.exit(1)
+
+            git_root = _find_git_root(Path.cwd())
+            if git_root:
+                _ensure_gitignore_entries(git_root, list(ICON_USAGE_FILES))
+
+            with open(csv_path, "r", encoding="utf-8", newline="") as handle:
+                reader = csv.DictReader(handle)
+                if not reader.fieldnames:
+                    output.error("CSV file has no headers.")
+                    sys.exit(1)
+
+                header_map = {
+                    header.strip().lower(): header
+                    for header in reader.fieldnames
+                    if header
+                }
+
+                def resolve_header(options: List[str]) -> Optional[str]:
+                    for option in options:
+                        if option in header_map:
+                            return header_map[option]
+                    return None
+
+                col_id = resolve_header(["id", "icon_id"])
+                col_semantic = resolve_header(["semantic", "semanticname", "semantic_name"])
+                col_tags = resolve_header(["tags", "tag"])
+                col_category = resolve_header(["category", "cat"])
+                col_description = resolve_header(["description", "desc"])
+
+                missing_headers = [
+                    name for name, col in [
+                        ("id", col_id),
+                        ("semantic", col_semantic),
+                        ("tags", col_tags),
+                        ("category", col_category),
+                    ] if col is None
+                ]
+                if missing_headers:
+                    output.error(
+                        "CSV missing required headers: " + ", ".join(missing_headers)
+                    )
+                    output.info(f"Found headers: {', '.join(reader.fieldnames)}")
+                    sys.exit(1)
+
+                allowed = set(ALLOWED_CATEGORIES)
+                catalog = executive.catalog
+                icons = catalog._catalog.setdefault("icons", [])
+                index = {icon.get("id"): i for i, icon in enumerate(icons) if icon.get("id")}
+
+                added = 0
+                updated = 0
+                skipped = 0
+                errors = 0
+                missing_raw: set[str] = set()
+                row_errors: List[str] = []
+
+                for row_num, row in enumerate(reader, start=2):
+                    icon_id = (row.get(col_id) or "").strip()
+                    if icon_id.endswith(".png"):
+                        icon_id = icon_id[:-4]
+                    semantic_name = (row.get(col_semantic) or "").strip()
+                    tags_raw = row.get(col_tags)
+                    category_raw = (row.get(col_category) or "").strip()
+                    description = (row.get(col_description) or "").strip() if col_description else ""
+
+                    if not icon_id or not semantic_name:
+                        errors += 1
+                        row_errors.append(f"Row {row_num}: missing id or semantic name")
+                        continue
+
+                    tags = _parse_tags(tags_raw)
+                    if not tags:
+                        errors += 1
+                        row_errors.append(f"Row {row_num}: missing tags")
+                        continue
+
+                    category = _normalize_category_name(category_raw, allowed, CATEGORY_ALIASES)
+                    if not category:
+                        errors += 1
+                        row_errors.append(f"Row {row_num}: invalid category '{category_raw}'")
+                        continue
+
+                    existing = catalog.get_entry(icon_id)
+                    if existing and not args.update_existing:
+                        skipped += 1
+                        continue
+
+                    entry = _build_catalog_entry(
+                        icon_id=icon_id,
+                        semantic_name=semantic_name,
+                        tags=tags,
+                        category=category,
+                        description=description,
+                        base_dir=base_dir,
+                        existing=existing,
+                    )
+
+                    if icon_id in index:
+                        icons[index[icon_id]] = entry
+                        action = "updated"
+                    else:
+                        index[icon_id] = len(icons)
+                        icons.append(entry)
+                        action = "added"
+
+                    if catalog.is_sqlite:
+                        upsert_icon_sqlite(catalog.catalog_path, entry)
+
+                    if action == "added":
+                        added += 1
+                    else:
+                        updated += 1
+
+                    symlink = _ensure_catalog_symlink(base_dir, icon_id, semantic_name, category)
+                    if symlink is None:
+                        missing_raw.add(icon_id)
+
+                if not catalog.is_sqlite and (added or updated):
+                    catalog._save_catalog()
+
+            payload = {
+                "file": str(csv_path),
+                "added": added,
+                "updated": updated,
+                "skipped_existing": skipped,
+                "errors": errors,
+                "missing_raw": sorted(missing_raw),
+            }
+
+            if output.mode == 'json':
+                print(json.dumps(payload, indent=2))
+            else:
+                output.success(
+                    f"Import complete: added={added}, updated={updated}, "
+                    f"skipped={skipped}, errors={errors}"
+                )
+                if missing_raw:
+                    output.warn(f"Missing raw files for {len(missing_raw)} icon(s).")
+                if row_errors:
+                    if args.verbose:
+                        output.info("Row issues:")
+                        for err in row_errors[:100]:
+                            print(f"  {err}")
+                    else:
+                        output.warn("Row issues detected. Re-run with --verbose for details.")
+
         elif args.command == 'recent':
             # Show recently cataloged icons (by position in catalog - last N added)
             icons = executive.catalog._catalog.get('icons', [])
-            n = args.n
+            n = args.limit if args.limit is not None else args.n
 
             if not icons:
                 output.warn("No icons in catalog")
                 sys.exit(0)
 
-            recent = icons[-n:][::-1]  # Get last N, reverse for newest first
+            if n <= 0:
+                output.warn("Limit must be a positive integer.")
+                sys.exit(1)
 
-            output.info(f"\nMost recent {len(recent)} icons:\n")
-            for i, icon in enumerate(recent, 1):
-                name = icon.get('semanticName', icon['id'])
-                cat = icon.get('category', 'unknown')
-                print(f"  {i}. {name:30} [{cat}]")
+            recent_icons = icons[::-1]  # newest first
+            output.format_recent(recent_icons, n)
+
+        elif args.command == 'history':
+            history_path = args.file
+            if not history_path.is_absolute():
+                history_path = Path.cwd() / history_path
+
+            if not history_path.exists():
+                output.error(f"History file not found: {history_path}")
+                sys.exit(1)
+
+            try:
+                history_data = json.loads(history_path.read_text(encoding="utf-8"))
+            except Exception as e:
+                output.error(f"Failed to read history file: {e}")
+                sys.exit(1)
+
+            if not history_data:
+                output.warn("History file is empty.")
+                sys.exit(0)
+
+            if args.limit <= 0:
+                output.warn("Limit must be a positive integer.")
+                sys.exit(1)
+
+            def parse_timestamp(value: str) -> Optional[datetime]:
+                try:
+                    return datetime.fromisoformat(value)
+                except Exception:
+                    return None
+
+            if args.project:
+                project_value = args.project
+                project_name = project_value
+                if Path(project_value).exists():
+                    project_name = Path(project_value).resolve().name
+
+                record = history_data.get(project_name)
+                if record is None:
+                    for _, entry in history_data.items():
+                        if entry.get("path") == project_value:
+                            record = entry
+                            break
+
+                if record is None:
+                    output.error(f"No history found for project: {project_value}")
+                    sys.exit(1)
+
+                payload = {
+                    "project": project_name,
+                    "record": record,
+                }
+
+                if output.mode == "json":
+                    print(json.dumps(payload, indent=2))
+                elif output.mode == "quiet":
+                    for icon_id in record.get("icons", []):
+                        print(icon_id)
+                else:
+                    output.info(f"Project: {project_name}")
+                    if record.get("path"):
+                        print(f"Path: {record['path']}")
+                    if record.get("timestamp"):
+                        print(f"Last used: {record['timestamp']}")
+                    icons_used = record.get("icons", [])
+                    icon_text = ", ".join(icons_used) if icons_used else "none"
+                    print(f"Icons: {icon_text}")
+                sys.exit(0)
+
+            entries = []
+            for project_name, record in history_data.items():
+                ts = parse_timestamp(record.get("timestamp", ""))
+                entries.append((project_name, record, ts))
+
+            entries.sort(key=lambda item: item[2] or datetime.min, reverse=True)
+            entries = entries[: args.limit]
+
+            if output.mode == "json":
+                payload = [
+                    {
+                        "project": project,
+                        "record": record,
+                    }
+                    for project, record, _ in entries
+                ]
+                print(json.dumps({"entries": payload}, indent=2))
+            elif output.mode == "quiet":
+                for project, _, _ in entries:
+                    print(project)
+            else:
+                output.info(f"Recent icon usage (showing {len(entries)} project(s)):")
+                for project, record, _ in entries:
+                    icons_used = record.get("icons", [])
+                    icon_summary = ", ".join(icons_used[:8])
+                    if len(icons_used) > 8:
+                        icon_summary = f"{icon_summary} (+{len(icons_used) - 8} more)"
+                    timestamp = record.get("timestamp", "unknown")
+                    print(f"  {project}: {timestamp} | {icon_summary or 'none'}")
+
+        elif args.command == 'popular':
+            analytics_path = args.file
+            if not analytics_path.is_absolute():
+                analytics_path = Path.cwd() / analytics_path
+
+            if not analytics_path.exists():
+                output.error(f"Analytics file not found: {analytics_path}")
+                sys.exit(1)
+
+            try:
+                analytics_data = json.loads(analytics_path.read_text(encoding="utf-8"))
+            except Exception as e:
+                output.error(f"Failed to read analytics file: {e}")
+                sys.exit(1)
+
+            if not analytics_data:
+                output.warn("Analytics file is empty.")
+                sys.exit(0)
+
+            if args.limit <= 0:
+                output.warn("Limit must be a positive integer.")
+                sys.exit(1)
+
+            entries = []
+            for icon_id, record in analytics_data.items():
+                count = int(record.get("count", 0))
+                projects = record.get("projects", [])
+                entries.append({
+                    "icon_id": icon_id,
+                    "count": count,
+                    "projects": projects,
+                })
+
+            entries.sort(key=lambda item: (-item["count"], item["icon_id"]))
+            entries = entries[: args.limit]
+
+            if output.mode == "json":
+                print(json.dumps({"entries": entries}, indent=2))
+            elif output.mode == "quiet":
+                for entry in entries:
+                    print(entry["icon_id"])
+            else:
+                output.info(f"Most used icons (showing {len(entries)}):")
+                for entry in entries:
+                    project_count = len(entry.get("projects", []))
+                    print(f"  {entry['icon_id']}: {entry['count']} use(s) across {project_count} project(s)")
 
         elif args.command == 'list':
             # List icons in a category

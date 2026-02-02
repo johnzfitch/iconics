@@ -171,7 +171,9 @@ class IconicsProvisioner:
         dest: str,
         k: int = 2,
         retriever=None,
-        mode: str = "projected"
+        mode: str = "projected",
+        icon_subdir: str = "",
+        update_manifest: bool = True,
     ) -> Dict:
         """
         Query for icons semantically, then provision top matches.
@@ -230,7 +232,12 @@ class IconicsProvisioner:
                 unique_ids.append(icon_id)
 
         # Provision the icons
-        result = self.provision(unique_ids, dest)
+        result = self.provision(
+            unique_ids,
+            dest,
+            update_manifest=update_manifest,
+            icon_subdir=icon_subdir,
+        )
         result["query_results"] = query_results
 
         return result
