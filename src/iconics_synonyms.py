@@ -13,7 +13,6 @@ dependencies aren't installed.
 
 from __future__ import annotations
 
-import ast
 import json
 import re
 from dataclasses import dataclass
@@ -34,46 +33,35 @@ def _repo_root() -> Path:
     return Path(__file__).resolve().parent.parent
 
 
+def _resolve_synonyms_seed_path(repo_root: Optional[Path] = None) -> Path:
+    """
+    Resolve the canonical local seed file for synonym expansion.
+
+    The seed lives at `config/synonyms.json` under the repository root. Passing
+    a file path is still supported for compatibility, but the default behavior
+    no longer depends on legacy manager scripts.
+    """
+    if repo_root is None:
+        return _repo_root() / "config" / "synonyms.json"
+
+    candidate = Path(repo_root)
+    if candidate.is_file():
+        return candidate
+    if candidate.suffix.lower() == ".json":
+        return candidate
+    if candidate.name == "config":
+        return candidate / "synonyms.json"
+    return candidate / "config" / "synonyms.json"
+
+
 def load_concept_synonyms_seed(repo_root: Optional[Path] = None) -> Dict[str, List[str]]:
     """
-    Load the legacy CONCEPT_SYNONYMS dict from icon-manager.py without importing it.
+    Load the local concept synonym seed from config/synonyms.json.
     """
-    repo = repo_root or _repo_root()
-    path = repo / "icon-manager.py"
-    text = path.read_text(encoding="utf-8")
-
-    m = re.search(r"CONCEPT_SYNONYMS\s*=\s*\{", text)
-    if not m:
-        raise RuntimeError(f"CONCEPT_SYNONYMS not found in {path}")
-
-    start = m.end() - 1
-    level = 0
-    end = None
-    for i, ch in enumerate(text[start:], start=start):
-        if ch == "{":
-            level += 1
-        elif ch == "}":
-            level -= 1
-            if level == 0:
-                end = i + 1
-                break
-
-    if end is None:
-        raise RuntimeError(f"Failed to parse CONCEPT_SYNONYMS dict in {path}")
-
-    literal = text[start:end]
-    data = ast.literal_eval(literal)
-    if not isinstance(data, dict):
-        raise RuntimeError("Parsed CONCEPT_SYNONYMS was not a dict")
-
-    normalized: Dict[str, List[str]] = {}
-    for key, values in data.items():
-        if not isinstance(key, str):
-            continue
-        if not isinstance(values, list):
-            continue
-        normalized[key] = [v for v in values if isinstance(v, str)]
-    return normalize_synonyms_map(normalized)
+    path = _resolve_synonyms_seed_path(repo_root)
+    if not path.exists():
+        raise FileNotFoundError(f"Synonyms seed not found: {path}")
+    return load_synonyms_json(path)
 
 
 def _normalize_token(value: str) -> str:

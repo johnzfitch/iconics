@@ -64,6 +64,7 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "filesystem": "files",
     "folder": "files",
     "folders": "files",
+    "directory": "files",
     "document": "files",
     "documents": "files",
     "storage": "files",
@@ -72,9 +73,12 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "net": "network",
     "networking": "network",
     "internet": "network",
+    "online": "network",
     "wifi": "network",
     "wireless": "network",
     "cloud": "network",
+    "connection": "network",
+    "globe": "network",
 
     # security
     "secure": "security",
@@ -92,6 +96,7 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "utilities": "tools",
     "gear": "tools",
     "wrench": "tools",
+    "hammer": "tools",
 
     # development
     "dev": "development",
@@ -100,6 +105,8 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "programming": "development",
     "terminal": "development",
     "console": "development",
+    "cli": "development",
+    "git": "development",
 
     # emoji
     "emoticon": "emoji",
@@ -110,6 +117,10 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "user interface": "ui",
     "user-interface": "ui",
     "interface": "ui",
+    "controls": "ui",
+    "control": "ui",
+    "widgets": "ui",
+    "widget": "ui",
 
     # communication
     "email": "communication",
@@ -122,15 +133,19 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "comments": "communication",
     "notification": "communication",
     "notifications": "communication",
+    "conversation": "communication",
+    "call": "communication",
 
     # media
     "video": "media",
     "audio": "media",
     "music": "media",
     "image": "media",
+    "picture": "media",
     "photo": "media",
     "camera": "media",
     "play": "media",
+    "film": "media",
 
     # people
     "person": "people",
@@ -138,6 +153,9 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "users": "people",
     "account": "people",
     "profile": "people",
+    "avatar": "people",
+    "member": "people",
+    "contacts": "people",
 
     # commerce
     "money": "commerce",
@@ -145,18 +163,28 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "billing": "commerce",
     "cart": "commerce",
     "shopping": "commerce",
+    "business": "commerce",
+    "office": "commerce",
+    "company": "commerce",
+    "corporate": "commerce",
+    "enterprise": "commerce",
 
     # time
     "clock": "time",
     "calendar": "time",
     "date": "time",
     "timer": "time",
+    "schedule": "time",
+    "alarm": "time",
 
     # system
     "settings": "system",
     "power": "system",
     "battery": "system",
     "hardware": "system",
+    "configuration": "system",
+    "config": "system",
+    "preferences": "system",
     "device": "devices",
 
     # status
@@ -164,6 +192,13 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "error": "status",
     "success": "status",
     "info": "status",
+    "alert": "status",
+    "caution": "status",
+    "critical": "status",
+    "ok": "status",
+    "check": "status",
+    "done": "status",
+    "approved": "status",
 
     # navigation
     "nav": "navigation",
@@ -173,6 +208,9 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "forward": "navigation",
     "next": "navigation",
     "previous": "navigation",
+    "menu": "navigation",
+    "home": "navigation",
+    "direction": "navigation",
 
     # apps
     "app": "apps",
@@ -180,14 +218,26 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "applications": "apps",
     "browser": "apps",
     "client": "apps",
+    "launcher": "apps",
 
     # brands
     "logo": "brands",
     "brand": "brands",
+    "badge": "brands",
 
     # devices
     "devices": "devices",
     "hardware device": "devices",
+    "phone": "devices",
+    "tablet": "devices",
+    "desktop": "devices",
+    "laptop": "devices",
+    "computer": "devices",
+    "monitor": "devices",
+    "printer": "devices",
+    "server": "devices",
+    "watch": "devices",
+    "mobile": "devices",
 
     # data
     "database": "data",
@@ -195,6 +245,9 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "metrics": "data",
     "chart": "data",
     "graph": "data",
+    "data": "data",
+    "csv": "data",
+    "json": "data",
 
     # location
     "map": "location",
@@ -203,6 +256,7 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "marker": "location",
     "gps": "location",
     "location": "location",
+    "compass": "location",
 
     # weather
     "weather": "weather",
@@ -210,6 +264,8 @@ CATEGORY_ALIASES: Dict[str, str] = {
     "cloudy": "weather",
     "rain": "weather",
     "snow": "weather",
+    "storm": "weather",
+    "wind": "weather",
 }
 
 
@@ -255,6 +311,8 @@ def coerce_category(
             "comment",
             "notification",
             "inbox",
+            "conversation",
+            "call",
         }:
             return "communication"
         if tag_tokens & {
@@ -262,10 +320,12 @@ def coerce_category(
             "audio",
             "music",
             "image",
+            "picture",
             "photo",
             "camera",
             "play",
             "pause",
+            "film",
         }:
             return "media"
         if tag_tokens & {
@@ -275,6 +335,9 @@ def coerce_category(
             "profile",
             "person",
             "people",
+            "avatar",
+            "member",
+            "contacts",
             "login",
             "logout",
         }:
@@ -285,6 +348,11 @@ def coerce_category(
             "billing",
             "cart",
             "shopping",
+            "business",
+            "office",
+            "company",
+            "corporate",
+            "enterprise",
             "checkout",
             "coin",
             "dollar",
@@ -298,37 +366,39 @@ def coerce_category(
             "timer",
             "schedule",
             "alarm",
+            "watch",
         }:
             return "time"
-        if tag_tokens & {"settings", "power", "battery", "system"}:
+        if tag_tokens & {"settings", "power", "battery", "system", "configuration", "config", "preferences"}:
             return "system"
-        if tag_tokens & {"warning", "error", "success", "info", "alert", "caution", "critical"}:
+        if tag_tokens & {"warning", "error", "success", "info", "alert", "caution", "critical", "ok", "check", "done", "approved"}:
             return "status"
-        if tag_tokens & {"arrow", "back", "forward", "next", "previous", "home", "menu", "navigation"}:
+        if tag_tokens & {"arrow", "back", "forward", "next", "previous", "home", "menu", "navigation", "direction"}:
             return "navigation"
 
         if tag_tokens & {"folder", "file", "files", "document", "documents", "directory", "archive", "pdf"}:
             return "files"
-        if tag_tokens & {"network", "internet", "wifi", "cloud", "server", "connection", "globe"}:
+        if tag_tokens & {"network", "internet", "wifi", "wireless", "cloud", "server", "connection", "globe", "endpoint"}:
             return "network"
         if tag_tokens & {"security", "secure", "lock", "shield", "key", "certificate", "auth", "password"}:
             return "security"
         if tag_tokens & {"tool", "tools", "gear", "wrench", "hammer", "utility"}:
             return "tools"
-        if tag_tokens & {"dev", "development", "code", "terminal", "console", "git"}:
+        if tag_tokens & {"dev", "development", "code", "terminal", "console", "git", "cli"}:
             return "development"
         if tag_tokens & {"emoji", "emoticon", "smiley", "face"}:
             return "emoji"
 
-        if tag_tokens & {"app", "application", "applications", "browser", "client"}:
+        if tag_tokens & {"app", "application", "applications", "browser", "client", "launcher"}:
             return "apps"
-        if tag_tokens & {"logo", "brand"}:
+        if tag_tokens & {"logo", "brand", "badge"}:
             return "brands"
         if tag_tokens & {
             "device",
             "devices",
             "iphone",
             "ipod",
+            "ipad",
             "phone",
             "tablet",
             "desktop",
@@ -336,9 +406,12 @@ def coerce_category(
             "computer",
             "monitor",
             "printer",
+            "server",
+            "watch",
+            "mobile",
         }:
             return "devices"
-        if tag_tokens & {"data", "database", "db", "chart", "graph", "analytics", "metrics", "report", "table"}:
+        if tag_tokens & {"data", "database", "db", "chart", "graph", "analytics", "metrics", "report", "table", "csv", "json"}:
             return "data"
         if tag_tokens & {"location", "map", "pin", "marker", "gps", "compass"}:
             return "location"

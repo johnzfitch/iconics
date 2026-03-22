@@ -122,6 +122,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent / 'src'))
 
 from iconics_output import Output, OutputContext
 from iconics_executive import IconicsExecutive
+from iconics_config import EMBEDDINGS_DIR, SUBSPACE_DIR
 
 
 def metadata_search(catalog: dict, query: str, limit: int = 10) -> list[dict]:
@@ -167,9 +168,85 @@ def metadata_search(catalog: dict, query: str, limit: int = 10) -> list[dict]:
         if score > 0:
             best_by_id[icon_id] = max(best_by_id.get(icon_id, 0.0), score)
 
-    results = [{"icon_id": icon_id, "score": score, "residual_score": 0.0} for icon_id, score in best_by_id.items()]
+    catalog_lookup = {
+        str(icon.get("id")): icon
+        for icon in icons
+        if isinstance(icon, dict) and icon.get("id")
+    }
+    results = []
+    for icon_id, score in best_by_id.items():
+        icon_meta = catalog_lookup.get(icon_id, {})
+        results.append(
+            {
+                "icon_id": icon_id,
+                "semantic_name": icon_meta.get("semanticName", icon_id),
+                "score": score,
+                "residual_score": 0.0,
+            }
+        )
     results.sort(key=lambda r: r["score"], reverse=True)
     return results[:limit]
+
+
+def _build_catalog_lookup(catalog: Dict) -> Dict[str, Dict]:
+    return {
+        str(icon.get("id")): icon
+        for icon in catalog.get("icons", [])
+        if isinstance(icon, dict) and icon.get("id")
+    }
+
+
+def _result_dicts_with_metadata(results: List, catalog: Dict) -> List[Dict]:
+    catalog_lookup = _build_catalog_lookup(catalog)
+    rows: List[Dict] = []
+
+    for result in results:
+        if isinstance(result, dict):
+            icon_id = str(result.get("icon_id", ""))
+            score = float(result.get("score", 0.0))
+            residual_score = float(result.get("residual_score", 0.0))
+            semantic_name = result.get("semantic_name")
+        else:
+            icon_id = str(result.icon_id)
+            score = float(result.score)
+            residual_score = float(getattr(result, "residual_score", 0.0))
+            semantic_name = None
+
+        meta = catalog_lookup.get(icon_id, {})
+        rows.append(
+            {
+                "icon_id": icon_id,
+                "semantic_name": semantic_name or meta.get("semanticName", icon_id),
+                "score": score,
+                "residual_score": residual_score,
+            }
+        )
+
+    return rows
+
+
+def _warn_and_fallback(output: Output, exc: Exception, *, context: str) -> None:
+    message = str(exc).strip() or exc.__class__.__name__
+    output.warn(f"{context} unavailable: {message}")
+    output.info("Falling back to metadata-only search")
+
+
+def _organized_tree_stats(base_dir: Path) -> Dict[str, int]:
+    catalog_root = base_dir / "catalog"
+    if not catalog_root.exists():
+        return {"symlinks": 0, "broken": 0}
+
+    symlinks = 0
+    broken = 0
+    for path in catalog_root.rglob("*.png"):
+        if not path.is_symlink():
+            continue
+        symlinks += 1
+        try:
+            path.resolve(strict=True)
+        except FileNotFoundError:
+            broken += 1
+    return {"symlinks": symlinks, "broken": broken}
 
 
 def validate_threshold(value: str) -> float:
@@ -396,25 +473,6 @@ def _upsert_catalog_entry(executive_catalog, entry: Dict) -> str:
     else:
         executive_catalog._save_catalog()
     return "added"
-
-
-def _ensure_catalog_symlink(
-    base_dir: Path,
-    icon_id: str,
-    semantic_name: str,
-    category: str,
-) -> Optional[Path]:
-    raw_path = base_dir / "raw" / f"{icon_id}.png"
-    if not raw_path.exists():
-        return None
-
-    category_dir = base_dir / "catalog" / category
-    category_dir.mkdir(parents=True, exist_ok=True)
-    target = category_dir / f"{semantic_name}.png"
-    if target.exists() or target.is_symlink():
-        target.unlink()
-    target.symlink_to(Path("../../raw") / f"{icon_id}.png")
-    return target
 
 
 def main():
@@ -720,6 +778,10 @@ Output modes:
                                help='kNN candidates for retrieval context (default: 10)')
     relabel_parser.add_argument('--cache', action='store_true',
                                help='Use label cache (vision_cache/)')
+    relabel_parser.add_argument('--placeholder-only', action='store_true',
+                               help='Only process placeholder / boilerplate icons within the selected category')
+    relabel_parser.add_argument('--placeholder-threshold', type=float, default=0.55,
+                               help='Threshold for placeholder detection (default: 0.55)')
 
     synonyms_parser = subparsers.add_parser('synonyms',
                                           help='Manage and (optionally) model-expand synonym maps')
@@ -824,12 +886,22 @@ Output modes:
 
     db_verify = db_sub.add_parser('verify', help='Verify embeddings + catalog sync')
     db_verify.add_argument('--catalog', type=Path, default=None, help='Catalog path (SQLite or JSON)')
+    db_export = db_sub.add_parser('export-json', help='Export active catalog to JSON snapshot')
+    db_export.add_argument('--output', type=Path, default=Path('icon-catalog.json'), help='Output JSON path')
 
     # --- EMBEDDINGS GROUP ---
     embed_parser = subparsers.add_parser('embed',
                                         help='Regenerate CLIP embeddings')
     embed_parser.add_argument('--force', action='store_true',
                              help='Force full rebuild (default: incremental)')
+    embed_parser.add_argument('--model', default=None,
+                             help='CLIP model architecture override')
+    embed_parser.add_argument('--pretrained', default=None,
+                             help='OpenCLIP pretrained tag override')
+    embed_parser.add_argument('--device', default=None,
+                             help='Device override (cpu or cuda)')
+    embed_parser.add_argument('--rebuild-subspace', action='store_true',
+                             help='Also rebuild embeddings/subspace artifacts')
 
     query_parser = subparsers.add_parser('query',
                                         help='Direct CLIP embedding query')
@@ -934,8 +1006,8 @@ Output modes:
             sys.exit(create.returncode)
 
     executive = IconicsExecutive(
-        embeddings_path=base_dir / 'embeddings',
-        subspace_path=base_dir / 'subspace',
+        embeddings_path=EMBEDDINGS_DIR,
+        subspace_path=SUBSPACE_DIR,
         catalog_path=default_catalog,
         output=output,
     )
@@ -978,6 +1050,16 @@ Output modes:
                 if proc.returncode != 0:
                     sys.exit(proc.returncode)
                 output.success("Verification passed")
+                sys.exit(0)
+
+            if args.db_command == 'export-json':
+                from iconics_catalog import load_catalog
+
+                output_path = args.output if args.output.is_absolute() else (base_dir / args.output)
+                output_path.parent.mkdir(parents=True, exist_ok=True)
+                data = load_catalog(executive.catalog.catalog_path)
+                output_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+                output.success(f"Exported JSON snapshot: {output_path}")
                 sys.exit(0)
 
         if args.command == 'synonyms':
@@ -1027,8 +1109,8 @@ Output modes:
                         model_name=args.model,
                         device=args.device,
                         quantization=args.quantization,
-                        embeddings_path=str(base_dir / "embeddings"),
-                        subspace_path=str(base_dir / "subspace"),
+                        embeddings_path=str(EMBEDDINGS_DIR),
+                        subspace_path=str(SUBSPACE_DIR),
                         catalog_path=str(executive.catalog.catalog_path),
                     )
                     data, stats = expand_synonyms_with_vision_model(seed, labeler=labeler, limit=int(args.limit))
@@ -1127,9 +1209,8 @@ Output modes:
                         )
                     else:
                         results = executive.retriever.retrieve(query, k=args.limit)
-                except ModuleNotFoundError as e:
-                    output.warn(f"CLIP dependency missing: {e}")
-                    output.info("Falling back to metadata-only search")
+                except Exception as e:
+                    _warn_and_fallback(output, e, context="Semantic retrieval")
 
             if not results:
                 results = metadata_search(executive.catalog._catalog, query, limit=args.limit)
@@ -1139,24 +1220,7 @@ Output modes:
                 sys.exit(0)
 
             # Format and display results
-            result_dicts = []
-            for r in results:
-                if isinstance(r, dict):
-                    result_dicts.append(
-                        {
-                            "icon_id": r.get("icon_id", ""),
-                            "score": r.get("score", 0.0),
-                            "residual_score": r.get("residual_score", 0.0),
-                        }
-                    )
-                else:
-                    result_dicts.append(
-                        {
-                            "icon_id": r.icon_id,
-                            "score": r.score,
-                            "residual_score": getattr(r, "residual_score", 0.0),
-                        }
-                    )
+            result_dicts = _result_dicts_with_metadata(results, executive.catalog._catalog)
             print(output.format_search_results(result_dicts, query, show_scores=args.verbose))
 
         elif args.command == 'ingest':
@@ -1898,8 +1962,8 @@ Output modes:
                             for r in results:
                                 if r.icon_id not in [x['icon_id'] for x in all_results]:
                                     all_results.append({'icon_id': r.icon_id, 'score': r.score, 'term': term})
-                    except ModuleNotFoundError as e:
-                        output.warn(f"CLIP dependency missing: {e}")
+                    except Exception as e:
+                        _warn_and_fallback(output, e, context="Suggestion retrieval")
 
                 if not all_results:
                     # Fallback: metadata-only matching for each term.
@@ -1936,8 +2000,8 @@ Output modes:
                                 print(f"  {i}. {r.icon_id}")
                         else:
                             output.warn(f"No icons found for context '{context}'")
-                    except ModuleNotFoundError as e:
-                        output.warn(f"CLIP dependency missing: {e}")
+                    except Exception as e:
+                        _warn_and_fallback(output, e, context="Suggestion retrieval")
                         results = metadata_search(executive.catalog._catalog, context, limit=args.limit)
                         if results:
                             output.info(f"\nIcon suggestions for '{context}':\n")
@@ -2040,25 +2104,25 @@ Output modes:
                 existing=existing,
             )
             action = _upsert_catalog_entry(executive.catalog, entry)
-            symlink = _ensure_catalog_symlink(base_dir, icon_id, semantic_name, category)
-
             raw_path = base_dir / "raw" / f"{icon_id}.png"
             if not raw_path.exists():
                 output.warn(f"Raw icon file not found: {raw_path}")
+            rebuild_stats = executive.catalog.rebuild_catalog_tree(base_dir)
 
             payload = {
                 "action": action,
                 "entry": entry,
+                "catalog_tree": rebuild_stats,
             }
-            if symlink:
-                payload["symlink"] = str(symlink)
 
             if output.mode == 'json':
                 print(json.dumps(payload, indent=2))
             else:
                 output.success(f"{action.title()} icon: {icon_id} ({semantic_name})")
-                if symlink:
-                    output.info(f"Symlink: {symlink}")
+                output.info(
+                    f"Organized tree rebuilt: created={rebuild_stats['created']}, "
+                    f"missing={rebuild_stats['missing_files']}, blocked={rebuild_stats['blocked']}"
+                )
 
         elif args.command == 'import':
             from iconics_taxonomy import ALLOWED_CATEGORIES, CATEGORY_ALIASES
@@ -2184,12 +2248,12 @@ Output modes:
                     else:
                         updated += 1
 
-                    symlink = _ensure_catalog_symlink(base_dir, icon_id, semantic_name, category)
-                    if symlink is None:
+                    if not (base_dir / "raw" / f"{icon_id}.png").exists():
                         missing_raw.add(icon_id)
 
                 if not catalog.is_sqlite and (added or updated):
                     catalog._save_catalog()
+                rebuild_stats = catalog.rebuild_catalog_tree(base_dir) if (added or updated) else None
 
             payload = {
                 "file": str(csv_path),
@@ -2199,6 +2263,8 @@ Output modes:
                 "errors": errors,
                 "missing_raw": sorted(missing_raw),
             }
+            if rebuild_stats is not None:
+                payload["catalog_tree"] = rebuild_stats
 
             if output.mode == 'json':
                 print(json.dumps(payload, indent=2))
@@ -2209,6 +2275,11 @@ Output modes:
                 )
                 if missing_raw:
                     output.warn(f"Missing raw files for {len(missing_raw)} icon(s).")
+                if rebuild_stats is not None:
+                    output.info(
+                        f"Organized tree rebuilt: created={rebuild_stats['created']}, "
+                        f"missing={rebuild_stats['missing_files']}, blocked={rebuild_stats['blocked']}"
+                    )
                 if row_errors:
                     if args.verbose:
                         output.info("Row issues:")
@@ -2465,6 +2536,14 @@ Output modes:
             if missing_files > 0:
                 issues.append(f"Missing source files (sampled): {missing_files}")
 
+            tree_stats = _organized_tree_stats(base_dir)
+            if tree_stats["broken"] > 0:
+                issues.append(f"Broken organized symlinks: {tree_stats['broken']}")
+            if tree_stats["symlinks"] != len(icons):
+                issues.append(
+                    f"Organized catalog tree count ({tree_stats['symlinks']}) != catalog rows ({len(icons)})"
+                )
+
             # Summary
             if issues:
                 output.warn(f"Found {len(issues)} issues:\n")
@@ -2474,6 +2553,7 @@ Output modes:
                 output.success("Catalog validation passed!")
                 print(f"\n  Total icons: {len(icons)}")
                 print(f"  Categories: {len(set(icon.get('category', 'unknown') for icon in icons))}")
+                print(f"  Organized symlinks: {tree_stats['symlinks']}")
                 if executive.retriever:
                     print(f"  Embeddings: {len(executive.retriever.icon_ids)}")
 
@@ -2523,6 +2603,14 @@ Output modes:
                     print(f"  ... and {len(not_embedded) - 10} more")
                 print()
 
+            tree_stats = _organized_tree_stats(base_dir)
+            if tree_stats["symlinks"] != len(catalog_ids):
+                output.warn(
+                    f"Organized tree mismatch: symlinks={tree_stats['symlinks']} vs catalog={len(catalog_ids)}"
+                )
+            if tree_stats["broken"] > 0:
+                output.warn(f"Broken organized symlinks: {tree_stats['broken']}")
+
             if not args.dry_run:
                 # Actually perform the sync
                 if not_cataloged:
@@ -2534,6 +2622,11 @@ Output modes:
                             if result.status != 'error':
                                 output.debug(f"Ingested: {name}")
                     output.success(f"Ingested {len(not_cataloged)} files")
+                rebuild_stats = executive.catalog.rebuild_catalog_tree(base_dir)
+                output.info(
+                    f"Organized tree rebuilt: created={rebuild_stats['created']}, "
+                    f"missing={rebuild_stats['missing_files']}, blocked={rebuild_stats['blocked']}"
+                )
             else:
                 output.info("[Dry run mode - no changes made]")
 
@@ -2542,6 +2635,7 @@ Output modes:
             from iconics_relabel import (
                 RelabelStats,
                 apply_label_to_icon,
+                iter_placeholder_icons,
                 iter_icons_for_relabel,
                 resolve_icon_path,
             )
@@ -2552,11 +2646,22 @@ Output modes:
                 output.error("--where-category cannot be empty")
                 sys.exit(1)
 
-            icons = list(iter_icons_for_relabel(executive.catalog._catalog, where_category=where_category))
+            if args.placeholder_only:
+                icons = list(
+                    iter_placeholder_icons(
+                        executive.catalog._catalog,
+                        where_category=where_category,
+                        threshold=float(args.placeholder_threshold),
+                    )
+                )
+            else:
+                icons = list(iter_icons_for_relabel(executive.catalog._catalog, where_category=where_category))
             if args.limit and args.limit > 0:
                 icons = icons[: args.limit]
 
             output.info(f"Relabeling {len(icons)} icon(s) where category='{where_category}'")
+            if args.placeholder_only:
+                output.info(f"Filter: placeholder-only (threshold={args.placeholder_threshold:.2f})")
             if args.no_bypass:
                 output.info("Mode: VLM forced (retrieval bypass disabled)")
 
@@ -2573,8 +2678,8 @@ Output modes:
                 model_name=args.model,
                 device=args.device,
                 quantization=args.quantization,
-                embeddings_path=str(repo_root / "embeddings"),
-                subspace_path=str(repo_root / "subspace"),
+                embeddings_path=str(EMBEDDINGS_DIR),
+                subspace_path=str(SUBSPACE_DIR),
                 catalog_path=str(executive.catalog.catalog_path),
                 retrieval_bypass_threshold=bypass_threshold if bypass_threshold is not None else 0.92,
             )
@@ -2642,6 +2747,47 @@ Output modes:
                 f"missing_file={stats.skipped_missing_file}, no_path={stats.skipped_no_path}, "
                 f"errors={stats.errors}, category_changes={changed_categories}"
             )
+            if not args.dry_run and stats.updated:
+                rebuild_stats = executive.catalog.rebuild_catalog_tree(base_dir)
+                output.info(
+                    f"Organized tree rebuilt: created={rebuild_stats['created']}, "
+                    f"missing={rebuild_stats['missing_files']}, blocked={rebuild_stats['blocked']}"
+                )
+
+        elif args.command == 'embed':
+            generate_script = base_dir / "scripts" / "generate_all_embeddings.py"
+            subspace_script = base_dir / "scripts" / "run_subspace_analysis.py"
+
+            if not generate_script.exists():
+                output.error(f"Embedding script not found: {generate_script}")
+                sys.exit(1)
+
+            env = os.environ.copy()
+            if args.model:
+                env["ICONICS_CLIP_MODEL"] = str(args.model)
+            if args.pretrained:
+                env["ICONICS_PRETRAINED"] = str(args.pretrained)
+            if args.device:
+                env["ICONICS_DEVICE"] = str(args.device)
+
+            output.info("Regenerating embeddings...")
+            generate = subprocess.run([sys.executable, str(generate_script)], cwd=str(base_dir), env=env)
+            if generate.returncode != 0:
+                output.error("Embedding generation failed")
+                sys.exit(generate.returncode)
+
+            if args.rebuild_subspace:
+                if not subspace_script.exists():
+                    output.error(f"Subspace analysis script not found: {subspace_script}")
+                    sys.exit(1)
+
+                output.info("Rebuilding subspace artifacts...")
+                subspace_proc = subprocess.run([sys.executable, str(subspace_script)], cwd=str(base_dir), env=env)
+                if subspace_proc.returncode != 0:
+                    output.error("Subspace rebuild failed")
+                    sys.exit(subspace_proc.returncode)
+
+            output.success("Embedding refresh complete")
 
         elif args.command == 'query':
             # Direct CLIP embedding query
@@ -2651,8 +2797,8 @@ Output modes:
             if executive.retriever:
                 try:
                     results = executive.retriever.retrieve(query_text, k=args.limit)
-                except ModuleNotFoundError as e:
-                    output.warn(f"CLIP dependency missing: {e}")
+                except Exception as e:
+                    _warn_and_fallback(output, e, context="Query embedding retrieval")
 
             if not results:
                 results = metadata_search(executive.catalog._catalog, query_text, limit=args.limit)
@@ -2662,24 +2808,7 @@ Output modes:
                 sys.exit(0)
 
             # Format output
-            result_dicts = []
-            for r in results:
-                if isinstance(r, dict):
-                    result_dicts.append(
-                        {
-                            "icon_id": r.get("icon_id", ""),
-                            "score": r.get("score", 0.0),
-                            "residual_score": r.get("residual_score", 0.0),
-                        }
-                    )
-                else:
-                    result_dicts.append(
-                        {
-                            "icon_id": r.icon_id,
-                            "score": r.score,
-                            "residual_score": getattr(r, "residual_score", 0.0),
-                        }
-                    )
+            result_dicts = _result_dicts_with_metadata(results, executive.catalog._catalog)
             print(output.format_search_results(result_dicts, query_text, show_scores=True))
 
         else:

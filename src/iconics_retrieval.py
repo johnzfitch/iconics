@@ -36,6 +36,18 @@ from typing import Callable, Dict, List, Literal, Optional, Tuple, Union
 
 import numpy as np
 
+from iconics_config import (
+    CLIP_MODEL,
+    DEVICE,
+    EMBEDDINGS_ARRAY_FILE,
+    EMBEDDINGS_DIR,
+    EMBEDDINGS_INDEX_FILE,
+    EMBEDDINGS_METADATA_FILE,
+    PRETRAINED,
+    SUBSPACE_DIR,
+)
+from iconics_embeddings import CLIPUnavailableError, load_clip_model, load_embedding_metadata
+
 logger = logging.getLogger(__name__)
 
 
@@ -112,10 +124,12 @@ class IconicsRetriever:
 
     def __init__(
         self,
-        embeddings_path: str,
-        subspace_path: str,
+        embeddings_path: Union[str, Path] = EMBEDDINGS_DIR,
+        subspace_path: Union[str, Path] = SUBSPACE_DIR,
         index_path: Optional[str] = None,
-        model_name: str = "ViT-B-32"
+        model_name: Optional[str] = None,
+        pretrained: Optional[str] = None,
+        metadata_path: Optional[Union[str, Path]] = None,
     ):
         """
         Initialize retriever with embeddings and subspace data.
@@ -131,22 +145,39 @@ class IconicsRetriever:
         """
         embeddings_path = Path(embeddings_path)
         subspace_path = Path(subspace_path)
+        metadata_path = Path(metadata_path) if metadata_path is not None else embeddings_path / EMBEDDINGS_METADATA_FILE.name
 
         # Store paths for incremental updates
         self.embeddings_path = embeddings_path
         self.subspace_path = subspace_path
         self.index_path = index_path
+        self.metadata_path = metadata_path
+        if self.metadata_path.exists():
+            try:
+                with open(self.metadata_path, "r", encoding="utf-8") as handle:
+                    self.embedding_metadata = json.load(handle)
+                    if not isinstance(self.embedding_metadata, dict):
+                        self.embedding_metadata = {}
+            except Exception as exc:
+                logger.warning(f"Failed to read embedding metadata from {self.metadata_path}: {exc}")
+                self.embedding_metadata = {}
+        else:
+            self.embedding_metadata = load_embedding_metadata(self.embeddings_path)
+        self.model_name = model_name or self.embedding_metadata.get("model") or CLIP_MODEL
+        self.pretrained = pretrained or self.embedding_metadata.get("pretrained") or PRETRAINED
+        preferred_device = self.embedding_metadata.get("device")
+        self._preferred_device = preferred_device if isinstance(preferred_device, str) and preferred_device.strip() else DEVICE
 
         # Load embeddings
-        embeddings_file = embeddings_path / "icon_embeddings.npy"
-        index_file = embeddings_path / "icon_index.json"
+        embeddings_file = embeddings_path / EMBEDDINGS_ARRAY_FILE.name
+        index_file = embeddings_path / EMBEDDINGS_INDEX_FILE.name
 
         if not embeddings_file.exists():
             raise FileNotFoundError(f"Embeddings not found: {embeddings_file}")
         if not index_file.exists():
             raise FileNotFoundError(f"Index not found: {index_file}")
 
-        self.embeddings = np.load(embeddings_file).astype(np.float32)
+        self.embeddings = np.load(embeddings_file, allow_pickle=False).astype(np.float32)
         with open(index_file) as f:
             icon_index = json.load(f)
 
@@ -166,6 +197,17 @@ class IconicsRetriever:
             self.embeddings = self.embeddings[sorted_indices]
 
         logger.info(f"Loaded {len(self.icon_ids)} icon embeddings, shape {self.embeddings.shape}")
+        if self.embedding_metadata:
+            meta_count = self.embedding_metadata.get("count")
+            meta_dim = self.embedding_metadata.get("dimension")
+            if isinstance(meta_count, int) and meta_count != self.embeddings.shape[0]:
+                logger.warning(
+                    f"Embedding metadata count ({meta_count}) does not match embeddings rows ({self.embeddings.shape[0]})"
+                )
+            if isinstance(meta_dim, int) and meta_dim != self.embeddings.shape[1]:
+                logger.warning(
+                    f"Embedding metadata dimension ({meta_dim}) does not match embeddings dim ({self.embeddings.shape[1]})"
+                )
 
         # Load subspace
         basis_file = subspace_path / "basis_vectors.npy"
@@ -177,7 +219,7 @@ class IconicsRetriever:
         if not dim_file.exists():
             raise FileNotFoundError(f"Effective dim not found: {dim_file}")
 
-        self.V_k = np.load(basis_file).astype(np.float32)  # Shape (d, k)
+        self.V_k = np.load(basis_file, allow_pickle=False).astype(np.float32)  # Shape (d, k)
         with open(dim_file) as f:
             dim_metadata = json.load(f)
         self.k = dim_metadata["effective_dim"]
@@ -197,7 +239,6 @@ class IconicsRetriever:
         self._build_faiss_index(index_path)
 
         # Lazy-load CLIP model
-        self.model_name = model_name
         self._model = None
         self._preprocess = None
         self._tokenizer = None
@@ -236,15 +277,16 @@ class IconicsRetriever:
         if self._model is not None:
             return
 
-        from iconics_embeddings import load_clip_model
-
         logger.info(f"Loading CLIP model: {self.model_name}")
         self._model, self._preprocess, self._tokenizer = load_clip_model(
-            model_name=self.model_name
+            model_name=self.model_name,
+            pretrained=self.pretrained,
+            device=self._preferred_device,
         )
-
-        import torch
-        self._device = "cuda" if torch.cuda.is_available() else "cpu"
+        try:
+            self._device = next(self._model.parameters()).device.type
+        except Exception:
+            self._device = self._preferred_device
 
     def embed_query(self, query: Union[str, np.ndarray]) -> np.ndarray:
         """
@@ -284,6 +326,7 @@ class IconicsRetriever:
         self._ensure_model_loaded()
 
         from iconics_embeddings import embed_image
+        from iconics_index import IconicsIndex
 
         image_path = Path(image_path)
         embedding = embed_image(image_path, self._model, self._preprocess, self._device)
@@ -381,6 +424,90 @@ class IconicsRetriever:
 
         return float(q_orth_norm / q_norm)
 
+    def _metadata_only_rank(
+        self,
+        query: str,
+        k: int,
+        catalog_path: Optional[Union[str, Path]] = None,
+        dedupe: bool = False,
+    ) -> List[RetrievalResult]:
+        """Rank results using catalog metadata only."""
+        import re
+
+        if catalog_path is None:
+            from iconics_catalog import resolve_default_catalog_path
+
+            catalog_path = resolve_default_catalog_path()
+        catalog_path = Path(catalog_path)
+        cache_key = str(catalog_path)
+
+        if cache_key not in self._catalog_cache:
+            from iconics_catalog import load_catalog
+
+            catalog_data = load_catalog(catalog_path)
+            self._catalog_cache[cache_key] = {icon["id"]: icon for icon in catalog_data["icons"]}
+
+        catalog_lookup = self._catalog_cache[cache_key]
+
+        query_lower = query.lower()
+        query_terms = set(re.split(r"[\s\-_]+", query_lower))
+        query_terms.discard("")
+
+        scored_results = []
+        for icon_id in self.icon_ids:
+            meta = catalog_lookup.get(icon_id, {})
+            semantic_name = meta.get("semanticName", icon_id).lower()
+            tags = [t.lower() for t in meta.get("tags", [])]
+            category = meta.get("category", "").lower()
+            description = meta.get("description", "").lower()
+
+            metadata_score = 0.0
+
+            name_terms = set(re.split(r"[\s\-_]+", semantic_name))
+            name_overlap = len(query_terms & name_terms)
+            if name_overlap > 0:
+                metadata_score += 0.4 * (name_overlap / max(len(query_terms), 1))
+
+            tag_set = set(tags)
+            tag_overlap = len(query_terms & tag_set)
+            if tag_overlap > 0:
+                metadata_score += 0.35 * (tag_overlap / max(len(query_terms), 1))
+
+            if query_lower in category or category in query_lower:
+                metadata_score += 0.15
+
+            desc_matches = sum(1 for term in query_terms if term in description)
+            if desc_matches > 0:
+                metadata_score += 0.1 * min(desc_matches / max(len(query_terms), 1), 1.0)
+
+            base_name = re.sub(r"[-_]?\d+x\d+(-\d+x\d+)?$", "", icon_id)
+            base_name = re.sub(r"[-_]?(small|medium|large|xs|sm|md|lg|xl)$", "", base_name, flags=re.I)
+
+            scored_results.append({
+                "icon_id": icon_id,
+                "score": metadata_score,
+                "base_name": base_name.lower(),
+            })
+
+        scored_results.sort(key=lambda x: x["score"], reverse=True)
+
+        if dedupe:
+            seen_bases = set()
+            deduped = []
+            for r in scored_results:
+                if r["base_name"] not in seen_bases:
+                    seen_bases.add(r["base_name"])
+                    deduped.append(r)
+                if len(deduped) >= k:
+                    break
+            scored_results = deduped
+
+        results = [
+            RetrievalResult(icon_id=r["icon_id"], score=r["score"], residual_score=1.0)
+            for r in scored_results[:k]
+        ]
+        return results
+
     def retrieve(
         self,
         query: Union[str, np.ndarray],
@@ -422,7 +549,13 @@ class IconicsRetriever:
             raise ValueError(f"Invalid mode: {mode}. Must be raw, projected, or weighted.")
 
         # Embed query if needed
-        q = self.embed_query(query)
+        try:
+            q = self.embed_query(query)
+        except CLIPUnavailableError:
+            if isinstance(query, str):
+                logger.warning("CLIP unavailable; using metadata-only fallback for text retrieval")
+                return self._metadata_only_rank(query, k, dedupe=False)
+            raise
 
         # Compute residual score (always needed)
         residual_score = self._compute_residual_score(q)
@@ -772,7 +905,7 @@ class IconicsRetriever:
     def retrieve_for_labeling(
         self,
         icon_embedding: np.ndarray,
-        catalog_path: Union[str, Path],
+        catalog_path: Optional[Union[str, Path]] = None,
         k: int = 10,
         mode: Literal["raw", "projected"] = "projected"
     ) -> List[Dict]:
@@ -814,6 +947,10 @@ class IconicsRetriever:
             ...     print(f"  Category: {cand['category']}")
         """
         # Load catalog with caching (avoid repeated disk/parsing per call)
+        if catalog_path is None:
+            from iconics_catalog import resolve_default_catalog_path
+
+            catalog_path = resolve_default_catalog_path()
         catalog_path = Path(catalog_path)
         cache_key = str(catalog_path)
 
@@ -882,7 +1019,7 @@ class IconicsRetriever:
             f"dim={self.embeddings.shape[1]}, k={self.k})"
         )
 
-    def validate_catalog_sync(self, catalog_path: Union[str, Path]) -> Dict[str, List[str]]:
+    def validate_catalog_sync(self, catalog_path: Optional[Union[str, Path]] = None) -> Dict[str, List[str]]:
         """
         Check for mismatches between embeddings index and catalog.
         
@@ -898,6 +1035,10 @@ class IconicsRetriever:
         """
         from iconics_catalog import load_catalog
 
+        if catalog_path is None:
+            from iconics_catalog import resolve_default_catalog_path
+
+            catalog_path = resolve_default_catalog_path()
         catalog_path = Path(catalog_path)
         catalog_data = load_catalog(catalog_path)
         
@@ -909,7 +1050,7 @@ class IconicsRetriever:
             'in_catalog_not_embeddings': sorted(catalog_ids - embedding_ids)
         }
 
-    def add_incremental_embedding(self, icon_path: Path) -> None:
+    def add_incremental_embedding(self, icon_path: Path, icon_id: Optional[str] = None) -> None:
         """
         Add a single icon embedding without full rebuild.
 
@@ -925,6 +1066,7 @@ class IconicsRetriever:
 
         Args:
             icon_path: Path to icon file
+            icon_id: Optional canonical icon id. Defaults to the file stem.
 
         Example:
             >>> retriever.add_incremental_embedding(Path("raw/new-icon.png"))
@@ -938,7 +1080,7 @@ class IconicsRetriever:
 
         # 1. Embed the new icon
         icon_path = Path(icon_path)
-        icon_id = icon_path.stem
+        icon_id = icon_id or icon_path.stem
 
         try:
             embedding = embed_image(icon_path, self._model, self._preprocess, self._device)
@@ -952,25 +1094,34 @@ class IconicsRetriever:
         if norm > 0:
             embedding = embedding / norm
 
-        # 2. Append to embeddings array
-        self.embeddings = np.vstack([self.embeddings, embedding.reshape(1, -1)])
+        # 2. Insert or replace the canonical icon id row.
+        existing_index = self.icon_index.get(icon_id)
+        if existing_index is None:
+            new_index = len(self.icon_ids)
+            self.embeddings = np.vstack([self.embeddings, embedding.reshape(1, -1)])
+            self.icon_index[icon_id] = new_index
+            self._index_to_icon[new_index] = icon_id
+            self.icon_ids.append(icon_id)
+        else:
+            self.embeddings[existing_index] = embedding
 
-        # 3. Update index mappings
-        new_index = len(self.icon_ids)
-        self.icon_index[icon_id] = new_index
-        self._index_to_icon[new_index] = icon_id
-        self.icon_ids.append(icon_id)
+        # 3. Rebuild the live search index so FAISS and numpy fallback stay in sync.
+        self.faiss_index = IconicsIndex(self.embeddings, self.icon_ids, use_projection=False)
 
-        # 4. Add to FAISS index (fast incremental operation)
-        self.faiss_index.index.add(embedding.reshape(1, -1))
-
-        # 5. Persist to disk
-        embeddings_file = self.embeddings_path / "icon_embeddings.npy"
-        index_file = self.embeddings_path / "icon_index.json"
+        # 4. Persist to disk
+        embeddings_file = self.embeddings_path / EMBEDDINGS_ARRAY_FILE.name
+        index_file = self.embeddings_path / EMBEDDINGS_INDEX_FILE.name
+        metadata_file = self.embeddings_path / EMBEDDINGS_METADATA_FILE.name
 
         np.save(embeddings_file, self.embeddings)
         with open(index_file, 'w') as f:
             json.dump(self.icon_index, f, indent=2)
+        self.embedding_metadata["count"] = len(self.icon_ids)
+        self.embedding_metadata["dimension"] = int(self.embeddings.shape[1])
+        self.embedding_metadata["model"] = self.model_name
+        self.embedding_metadata["pretrained"] = self.pretrained
+        with open(metadata_file, "w", encoding="utf-8") as f:
+            json.dump(self.embedding_metadata, f, indent=2)
 
         # Persist FAISS index if we have a path
         if self.index_path:
@@ -992,7 +1143,7 @@ class IconicsRetriever:
         self,
         query: str,
         k: int = 10,
-        catalog_path: Union[str, Path] = "icon-catalog.json",
+        catalog_path: Optional[Union[str, Path]] = None,
         clip_weight: float = 0.6,
         metadata_weight: float = 0.4,
         dedupe: bool = True
@@ -1016,9 +1167,31 @@ class IconicsRetriever:
         Returns:
             List of RetrievalResult objects with improved ranking
         """
+        if self._model is None:
+            try:
+                self._ensure_model_loaded()
+            except CLIPUnavailableError:
+                logger.warning("CLIP unavailable; using metadata-only fallback for hybrid retrieval")
+                return self._metadata_only_rank(query, k, catalog_path=catalog_path, dedupe=dedupe)
+
+        # Get more results for re-ranking (3x for deduplication headroom)
+        request_k = k * 3 if dedupe else k * 2
+        request_k = min(request_k, len(self.icon_ids))
+
+        # CLIP retrieval
+        try:
+            clip_results = self.retrieve(query, k=request_k, mode="projected")
+        except CLIPUnavailableError:
+            logger.warning("CLIP unavailable; using metadata-only fallback for hybrid retrieval")
+            return self._metadata_only_rank(query, k, catalog_path=catalog_path, dedupe=dedupe)
+
         import re
 
         # Load catalog (JSON or SQLite)
+        if catalog_path is None:
+            from iconics_catalog import resolve_default_catalog_path
+
+            catalog_path = resolve_default_catalog_path()
         catalog_path = Path(catalog_path)
         cache_key = str(catalog_path)
 
@@ -1029,13 +1202,6 @@ class IconicsRetriever:
             self._catalog_cache[cache_key] = {icon["id"]: icon for icon in catalog_data["icons"]}
 
         catalog_lookup = self._catalog_cache[cache_key]
-
-        # Get more results for re-ranking (3x for deduplication headroom)
-        request_k = k * 3 if dedupe else k * 2
-        request_k = min(request_k, len(self.icon_ids))
-
-        # CLIP retrieval
-        clip_results = self.retrieve(query, k=request_k, mode="projected")
 
         # Tokenize query for metadata matching
         query_lower = query.lower()

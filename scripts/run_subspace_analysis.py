@@ -12,7 +12,7 @@ from pathlib import Path
 import numpy as np
 
 # Add src to path
-sys.path.insert(0, str(Path(__file__).parent / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from iconics_subspace import (
     compute_svd,
@@ -28,12 +28,13 @@ from iconics_correlation import (
     identify_semantic_axes,
     save_semantic_mapping
 )
+from iconics_config import CATALOG_FILE, EMBEDDINGS_DIR, SUBSPACE_DIR
 
 
 def main():
-    base_path = Path(__file__).parent
-    embeddings_dir = base_path / "embeddings"
-    subspace_dir = base_path / "subspace"
+    base_path = Path(__file__).resolve().parent.parent
+    embeddings_dir = EMBEDDINGS_DIR
+    subspace_dir = SUBSPACE_DIR
 
     print("=" * 60)
     print("ICONICS SUBSPACE ANALYSIS")
@@ -90,7 +91,7 @@ def main():
 
     # Correlation analysis with metadata
     print("\n[6/6] Running metadata correlation analysis...")
-    catalog_path = base_path / "icon-catalog.json"
+    catalog_path = CATALOG_FILE
 
     try:
         metadata = load_catalog_metadata(catalog_path)

@@ -13,29 +13,30 @@
 
 ## <img src=".github/assets/icons/help-book-3d-24x24.png" width="24" height="24" alt="overview"> Overview
 
-Iconics is a globally accessible, semantically tagged icon library designed for instant use across projects. Use professional icons instead of emojis in documentation, GitHub READMEs, product docs, and UI guides.
+Iconics is a locally managed, semantically tagged icon library designed for instant use across projects. Use professional icons instead of emojis in documentation, GitHub READMEs, product docs, and UI guides.
 
 Core goals:
-- Global CLI access from anywhere
-- Semantic search (CLIP + metadata fallback)
+- SQLite as the runtime catalog authority
+- Semantic search with metadata fallback when CLIP is unavailable
 - One-command export with ready-to-paste markdown
-- Local-first usage tracking (no network telemetry)
+- Local-first usage tracking with no network telemetry
 
 ---
 
 ## <img src=".github/assets/icons/lightning-24x24.png" width="24" height="24" alt="quick-start"> Quick Start
 
-Use the CLI directly:
+Use the CLI directly from the repo:
 
 ```bash
-/home/zack/dev/iconics/iconics.py search security
-/home/zack/dev/iconics/iconics.py use lock-24x24 shield-security-protection-24x24
+cd /home/zack/dev/iconics
+uv run python iconics.py search security
+uv run python iconics.py use lock-24x24 shield-security-protection-24x24
 ```
 
 Recommended convenience alias:
 
 ```bash
-alias iconics='/home/zack/dev/iconics/iconics.py'
+alias iconics='uv run python /home/zack/dev/iconics/iconics.py'
 ```
 
 Example workflow:
@@ -56,8 +57,8 @@ Markdown output example:
 
 ## <img src=".github/assets/icons/list-24x24.png" width="24" height="24" alt="commands"> Command Reference
 
-- `iconics search <query>`: semantic search (CLIP when available)
-- `iconics query <text>`: direct CLIP query
+- `iconics search <query>`: semantic search with metadata fallback
+- `iconics query <text>`: direct CLIP query with metadata fallback
 - `iconics suggest <context>`: context-aware suggestions
 - `iconics info <name>`: icon metadata
 - `iconics use <name...>`: export icons + markdown snippets
@@ -70,6 +71,10 @@ Markdown output example:
 - `iconics stats`: library stats summary
 - `iconics validate`: integrity checks
 - `iconics db migrate|verify`: SQLite catalog operations
+- `iconics provision icons|query|manifest|imports`: copy icons or generate framework imports
+- `iconics emoji scan|convert`: scan and replace emoji usage
+- `iconics sync`: reconcile raw files, catalog entries, and embeddings
+- `iconics relabel`: re-run vision labeling for taxonomy cleanup
 - `iconics tui`: launch the Rust TUI2
 
 ---
@@ -155,11 +160,11 @@ uv sync --extra watch --extra dedupe
 iconics/
 |-- raw/                 # Original icon files
 |-- catalog/             # Categorized symlinks
-|-- embeddings/          # CLIP embeddings
+|-- embeddings/          # CLIP embeddings and subspace artifacts
 |-- iconics.sqlite3      # SQLite catalog (runtime default)
-|-- icon-catalog.json    # Legacy catalog input
+|-- icon-catalog.json    # Export/bootstrap catalog snapshot
 |-- iconics.py           # Unified CLI
-`-- deprecated/          # Legacy tools and archives
+`-- deprecated/          # Archived tools and references
 ```
 
 ---

@@ -28,6 +28,42 @@ except ImportError:  # pragma: no cover
 
 logger = logging.getLogger(__name__)
 
+INDEX_SERIALIZATION_VERSION = 1
+
+
+def _save_numpy_index(
+    path: Path,
+    embeddings: np.ndarray,
+    icon_ids: List[str],
+    use_projection: bool,
+    use_gpu: bool,
+) -> None:
+    """Persist a portable fallback index representation."""
+    payload = {
+        "format_version": np.array([INDEX_SERIALIZATION_VERSION], dtype=np.int32),
+        "embeddings": np.ascontiguousarray(embeddings.astype(np.float32)),
+        "icon_ids": np.array(icon_ids, dtype=str),
+        "use_projection": np.array([1 if use_projection else 0], dtype=np.int8),
+        "use_gpu": np.array([1 if use_gpu else 0], dtype=np.int8),
+    }
+    with open(path, "wb") as handle:
+        np.savez_compressed(handle, **payload)
+
+
+def _load_numpy_index(path: Path) -> Optional[Tuple[np.ndarray, List[str], bool, bool]]:
+    """Load the portable fallback index representation if present."""
+    try:
+        with np.load(path, allow_pickle=False) as data:
+            if "embeddings" not in data or "icon_ids" not in data:
+                return None
+            embeddings = np.asarray(data["embeddings"], dtype=np.float32)
+            icon_ids = [str(value) for value in np.asarray(data["icon_ids"]).tolist()]
+            use_projection = bool(int(np.asarray(data["use_projection"]).reshape(-1)[0])) if "use_projection" in data else False
+            use_gpu = bool(int(np.asarray(data["use_gpu"]).reshape(-1)[0])) if "use_gpu" in data else False
+            return embeddings, icon_ids, use_projection, use_gpu
+    except Exception:
+        return None
+
 
 class IconicsIndex:
     """
@@ -100,11 +136,11 @@ class IconicsIndex:
         self.use_gpu = use_gpu
 
         embeddings_contiguous = np.ascontiguousarray(embeddings)
+        self._embeddings = embeddings_contiguous
 
         # Create FAISS index when available, otherwise fall back to a pure-numpy search.
         if faiss is None:
             self.index = None
-            self._embeddings = embeddings_contiguous
             if use_gpu:
                 logger.warning("faiss is not installed; ignoring use_gpu=True and using numpy fallback")
                 self.use_gpu = False
@@ -128,7 +164,6 @@ class IconicsIndex:
 
             # Add embeddings to index
             self.index.add(embeddings_contiguous)
-
             logger.info(
                 f"Created FAISS index with {self.n_icons} icons, "
                 f"dimension={self.dimension}, projected={use_projection}, gpu={self.use_gpu}"
@@ -282,22 +317,24 @@ class IconicsIndex:
 
     def save(self, path: str) -> None:
         """
-        Save FAISS index to disk.
+        Save the index to disk.
 
-        Saves only the FAISS index binary. Icon IDs must be saved separately
-        and provided when loading.
+        When FAISS is available, the native FAISS binary is written. Otherwise
+        a portable NumPy/NPZ fallback is saved to the requested path.
 
         Args:
             path: File path for the index (typically .faiss extension)
         """
-        if faiss is None or self.index is None:
-            raise RuntimeError("faiss is not installed; cannot save FAISS index")
-
         path = Path(path)
         path.parent.mkdir(parents=True, exist_ok=True)
 
-        faiss.write_index(self.index, str(path))
-        logger.info(f"Saved FAISS index to {path}")
+        if faiss is not None and self.index is not None:
+            faiss.write_index(self.index, str(path))
+            logger.info(f"Saved FAISS index to {path}")
+            return
+
+        _save_numpy_index(path, self._embeddings, self.icon_ids, self.use_projection, self.use_gpu)
+        logger.info(f"Saved portable numpy index to {path}")
 
     @classmethod
     def load(
@@ -306,10 +343,10 @@ class IconicsIndex:
         icon_ids: List[str]
     ) -> "IconicsIndex":
         """
-        Load FAISS index from disk.
+        Load an index from disk.
 
         Args:
-            path: File path to the saved FAISS index
+            path: File path to the saved index
             icon_ids: List of icon IDs in the same order as when index was created
 
         Returns:
@@ -319,12 +356,34 @@ class IconicsIndex:
             FileNotFoundError: If index file doesn't exist
             ValueError: If icon_ids length doesn't match index size
         """
-        if faiss is None:
-            raise RuntimeError("faiss is not installed; cannot load FAISS index")
-
         path = Path(path)
         if not path.exists():
             raise FileNotFoundError(f"Index file not found: {path}")
+
+        numpy_payload = _load_numpy_index(path)
+        if numpy_payload is not None:
+            embeddings, stored_icon_ids, use_projection, use_gpu = numpy_payload
+            if len(stored_icon_ids) != len(icon_ids):
+                raise ValueError(
+                    f"Index size ({len(stored_icon_ids)}) != icon_ids length ({len(icon_ids)})"
+                )
+
+            if stored_icon_ids != list(icon_ids):
+                raise ValueError("Portable index icon_ids do not match provided icon_ids order")
+
+            instance = cls.__new__(cls)
+            instance.index = None
+            instance._embeddings = np.ascontiguousarray(embeddings.astype(np.float32))
+            instance.icon_ids = list(icon_ids)
+            instance.n_icons = len(icon_ids)
+            instance.dimension = embeddings.shape[1]
+            instance.use_projection = use_projection
+            instance.use_gpu = use_gpu
+            logger.info(f"Loaded portable numpy index from {path}: {instance.n_icons} icons")
+            return instance
+
+        if faiss is None:
+            raise RuntimeError("faiss is not installed and the index file is not in portable format")
 
         # Load FAISS index
         index = faiss.read_index(str(path))
@@ -342,6 +401,14 @@ class IconicsIndex:
         instance.n_icons = len(icon_ids)
         instance.dimension = index.d
         instance.use_projection = False  # Unknown from saved index
+        instance.use_gpu = False
+        if hasattr(index, "reconstruct_n"):
+            try:
+                instance._embeddings = np.ascontiguousarray(index.reconstruct_n(0, index.ntotal).astype(np.float32))
+            except Exception:
+                instance._embeddings = np.zeros((instance.n_icons, instance.dimension), dtype=np.float32)
+        else:
+            instance._embeddings = np.zeros((instance.n_icons, instance.dimension), dtype=np.float32)
 
         logger.info(f"Loaded FAISS index from {path}: {instance.n_icons} icons")
 
@@ -388,7 +455,7 @@ def build_index_from_embeddings(
         embeddings = projected_embeddings
         use_projection = True
     else:
-        embeddings = np.load(embeddings_path)
+        embeddings = np.load(embeddings_path, allow_pickle=False)
         use_projection = False
 
     # Create index

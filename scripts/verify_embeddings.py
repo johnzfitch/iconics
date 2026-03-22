@@ -18,26 +18,39 @@ import numpy as np
 REPO_ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
+from iconics_config import (
+    EMBEDDINGS_ARRAY_FILE,
+    EMBEDDINGS_DIR,
+    EMBEDDINGS_INDEX_FILE,
+    EMBEDDINGS_METADATA_FILE,
+    SUBSPACE_BASIS_FILE,
+    SUBSPACE_DIM_FILE,
+    SUBSPACE_DIR,
+    SUBSPACE_SINGULAR_VALUES_FILE,
+)
 from iconics_catalog import load_catalog, resolve_default_catalog_path
 
 
-def check_files_exist(embeddings_dir: Path) -> bool:
+def check_files_exist(embeddings_dir: Path, subspace_dir: Path) -> bool:
     """Check all required files exist."""
     print("Checking file existence...")
 
     required_files = [
-        embeddings_dir / "icon_embeddings.npy",
-        embeddings_dir / "icon_index.json",
-        embeddings_dir / "metadata.json"
+        embeddings_dir / EMBEDDINGS_ARRAY_FILE.name,
+        embeddings_dir / EMBEDDINGS_INDEX_FILE.name,
+        embeddings_dir / EMBEDDINGS_METADATA_FILE.name,
+        subspace_dir / SUBSPACE_BASIS_FILE.name,
+        subspace_dir / SUBSPACE_DIM_FILE.name,
+        subspace_dir / SUBSPACE_SINGULAR_VALUES_FILE.name,
     ]
 
     all_exist = True
     for file_path in required_files:
         if file_path.exists():
             size_mb = file_path.stat().st_size / (1024 * 1024)
-            print(f"  [OK] {file_path.name} ({size_mb:.2f} MB)")
+            print(f"  [OK] {file_path} ({size_mb:.2f} MB)")
         else:
-            print(f"  [ERR] {file_path.name} MISSING")
+            print(f"  [ERR] {file_path} MISSING")
             all_exist = False
 
     return all_exist
@@ -49,24 +62,88 @@ def check_loadable(embeddings_dir: Path) -> tuple:
 
     try:
         # Load embeddings
-        embeddings = np.load(embeddings_dir / "icon_embeddings.npy")
+        embeddings = np.load(embeddings_dir / EMBEDDINGS_ARRAY_FILE.name, allow_pickle=False)
         print(f"  [OK] Embeddings loaded: {embeddings.shape} ({embeddings.dtype})")
 
         # Load index
-        with open(embeddings_dir / "icon_index.json") as f:
+        with open(embeddings_dir / EMBEDDINGS_INDEX_FILE.name, encoding="utf-8") as f:
             index = json.load(f)
         print(f"  [OK] Index loaded: {len(index)} entries")
 
         # Load metadata
-        with open(embeddings_dir / "metadata.json") as f:
+        with open(embeddings_dir / EMBEDDINGS_METADATA_FILE.name, encoding="utf-8") as f:
             metadata = json.load(f)
-        print(f"  [OK] Metadata loaded: {metadata.get('count')} icons, dim={metadata.get('dimension')}")
+        print(
+            f"  [OK] Metadata loaded: {metadata.get('count')} icons, dim={metadata.get('dimension')}, "
+            f"model={metadata.get('model')}, pretrained={metadata.get('pretrained')}"
+        )
+
+        if not metadata.get("model") or not metadata.get("pretrained"):
+            raise ValueError("Embedding metadata missing model or pretrained fields")
 
         return embeddings, index, metadata
-
     except Exception as e:
         print(f"  [ERR] Load error: {e}")
         return None, None, None
+
+
+def check_subspace_integrity(subspace_dir: Path, embedding_dim: int) -> bool:
+    """Check subspace artifacts are present and dimensionally consistent."""
+    print("\nChecking subspace integrity...")
+
+    issues = []
+    basis = subspace_dir / SUBSPACE_BASIS_FILE.name
+    dim_file = subspace_dir / SUBSPACE_DIM_FILE.name
+    sv_file = subspace_dir / SUBSPACE_SINGULAR_VALUES_FILE.name
+
+    try:
+        basis_vectors = np.load(basis, allow_pickle=False)
+        print(f"  [OK] Basis loaded: {basis_vectors.shape}")
+    except Exception as e:
+        issues.append(f"Failed to load basis vectors: {e}")
+        basis_vectors = None
+
+    try:
+        with open(dim_file, encoding="utf-8") as f:
+            dim_metadata = json.load(f)
+        print(
+            f"  [OK] Dim metadata loaded: effective_dim={dim_metadata.get('effective_dim')}, "
+            f"threshold={dim_metadata.get('variance_threshold')}"
+        )
+    except Exception as e:
+        issues.append(f"Failed to load effective_dim.json: {e}")
+        dim_metadata = {}
+
+    try:
+        singular_values = np.load(sv_file, allow_pickle=False)
+        print(f"  [OK] Singular values loaded: {singular_values.shape}")
+    except Exception as e:
+        issues.append(f"Failed to load singular values: {e}")
+
+    if basis_vectors is not None and basis_vectors.shape[0] != embedding_dim:
+        issues.append(
+            f"Subspace basis rows ({basis_vectors.shape[0]}) != embedding dimension ({embedding_dim})"
+        )
+
+    if basis_vectors is not None and isinstance(dim_metadata.get("effective_dim"), int):
+        effective_dim = int(dim_metadata["effective_dim"])
+        if basis_vectors.shape[1] != effective_dim:
+            issues.append(
+                f"Subspace basis columns ({basis_vectors.shape[1]}) != effective_dim ({effective_dim})"
+            )
+
+    if basis_vectors is not None and "singular_values" in locals():
+        if singular_values.shape[0] < basis_vectors.shape[1]:
+            issues.append(
+                f"Singular values length ({singular_values.shape[0]}) < basis width ({basis_vectors.shape[1]})"
+            )
+
+    if issues:
+        for issue in issues:
+            print(f"  [ERR] {issue}")
+        return False
+
+    return True
 
 
 def check_normalization(embeddings: np.ndarray) -> bool:
@@ -232,11 +309,12 @@ def main():
     print("Iconics Embeddings Verification")
     print("=" * 60)
 
-    embeddings_dir = REPO_ROOT / "embeddings"
+    embeddings_dir = EMBEDDINGS_DIR
+    subspace_dir = SUBSPACE_DIR
     catalog_path = resolve_default_catalog_path()
 
     # Run checks
-    files_ok = check_files_exist(embeddings_dir)
+    files_ok = check_files_exist(embeddings_dir, subspace_dir)
     if not files_ok:
         print("\nFAILED: Missing required files")
         sys.exit(1)
@@ -248,6 +326,7 @@ def main():
 
     normalized_ok = check_normalization(embeddings)
     index_ok = check_index_consistency(embeddings, index, metadata)
+    subspace_ok = check_subspace_integrity(subspace_dir, embeddings.shape[1])
 
     catalog_ok = check_catalog_integrity(REPO_ROOT, catalog_path)
     sync = check_catalog_sync(catalog_path, index)
@@ -258,6 +337,7 @@ def main():
     has_issues = (
         not normalized_ok or
         not index_ok or
+        not subspace_ok or
         not catalog_ok or
         len(sync['in_embeddings_not_catalog']) > 0 or
         len(sync['in_catalog_not_embeddings']) > 0
@@ -266,8 +346,7 @@ def main():
     if has_issues:
         print("VERIFICATION WARNING: Issues detected")
         print("\nRecommended fix:")
-        print("  source .venv-vision/bin/activate")
-        print("  python3 icon-manager.py embed --force")
+        print("  uv run python scripts/generate_all_embeddings.py")
     else:
         print("VERIFICATION PASSED: Embeddings are valid")
 
