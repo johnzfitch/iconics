@@ -93,6 +93,14 @@ class OutputFormatter:
         # Compact mode (default)
         return self._format_compact_results(results, query, show_scores)
 
+    @staticmethod
+    def _result_label(result: Dict) -> str:
+        icon_id = result["icon_id"]
+        semantic_name = str(result.get("semantic_name") or "").strip()
+        if semantic_name and semantic_name != icon_id:
+            return f"{icon_id} [{semantic_name}]"
+        return icon_id
+
     def _format_compact_results(
         self,
         results: List[Dict],
@@ -106,12 +114,12 @@ class OutputFormatter:
             lines.append(f"Results for '{query}' ({len(results)} found):")
 
         for i, r in enumerate(results, 1):
-            icon_id = r["icon_id"]
+            label = self._result_label(r)
 
             if show_scores:
-                lines.append(f"  {i}. {icon_id} ({r['score']:.3f})")
+                lines.append(f"  {i}. {label} ({r['score']:.3f})")
             else:
-                lines.append(f"  {i}. {icon_id}")
+                lines.append(f"  {i}. {label}")
 
         return "\n".join(lines)
 
@@ -130,20 +138,20 @@ class OutputFormatter:
 
         # Header
         if show_scores:
-            lines.append("  #  Icon ID                        Score")
-            lines.append("  " + "─" * 50)
+            lines.append("  #  Icon                           Score")
+            lines.append("  " + "─" * 65)
         else:
-            lines.append("  #  Icon ID")
-            lines.append("  " + "─" * 35)
+            lines.append("  #  Icon")
+            lines.append("  " + "─" * 55)
 
         # Results
         for i, r in enumerate(results, 1):
-            icon_id = r["icon_id"]
+            label = self._result_label(r)
 
             if show_scores:
-                lines.append(f"  {i:2d}  {icon_id:30s}  {r['score']:.3f}")
+                lines.append(f"  {i:2d}  {label:45s}  {r['score']:.3f}")
             else:
-                lines.append(f"  {i:2d}  {icon_id}")
+                lines.append(f"  {i:2d}  {label}")
 
         return "\n".join(lines)
 

@@ -27,17 +27,67 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 import numpy as np
-import open_clip
 import torch
 from PIL import Image
 from tqdm import tqdm
 
+from iconics_config import (
+    CLIP_MODEL,
+    DEVICE,
+    EMBEDDINGS_ARRAY_FILE,
+    EMBEDDINGS_DIR,
+    EMBEDDINGS_INDEX_FILE,
+    EMBEDDINGS_METADATA_FILE,
+    PRETRAINED,
+)
+
+try:
+    import open_clip
+except ImportError:  # pragma: no cover
+    class _MissingOpenCLIP:
+        def create_model_and_transforms(self, *args, **kwargs):
+            raise ModuleNotFoundError("open_clip is not installed")
+
+        def get_tokenizer(self, *args, **kwargs):
+            raise ModuleNotFoundError("open_clip is not installed")
+
+    open_clip = _MissingOpenCLIP()
+
 logger = logging.getLogger(__name__)
 
 
+class CLIPUnavailableError(ModuleNotFoundError, RuntimeError):
+    """Raised when CLIP dependencies or weights are unavailable."""
+
+
+def _raise_clip_unavailable(message: str, *, cause: Exception | None = None) -> None:
+    error = CLIPUnavailableError(message)
+    if cause is not None:
+        raise error from cause
+    raise error
+
+
+def load_embedding_metadata(embeddings_dir: Path = EMBEDDINGS_DIR) -> Dict:
+    """Load embedding metadata if present, otherwise return an empty dict."""
+    metadata_path = Path(embeddings_dir) / EMBEDDINGS_METADATA_FILE.name
+    if not metadata_path.exists():
+        return {}
+
+    import json
+
+    try:
+        with open(metadata_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except Exception:
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    return data
+
+
 def load_clip_model(
-    model_name: str = "ViT-B-32",
-    pretrained: str = "laion2b_s34b_b79k",
+    model_name: str = CLIP_MODEL,
+    pretrained: str = PRETRAINED,
     device: Optional[str] = None,
 ) -> Tuple[torch.nn.Module, callable, callable]:
     """
@@ -57,7 +107,10 @@ def load_clip_model(
     """
     # Auto-detect device if not specified
     if device is None:
-        device = "cuda" if torch.cuda.is_available() else "cpu"
+        device = DEVICE if DEVICE in {"cuda", "cpu"} else ("cuda" if torch.cuda.is_available() else "cpu")
+    if device == "cuda" and not torch.cuda.is_available():
+        logger.warning("CUDA requested but unavailable; falling back to CPU")
+        device = "cpu"
 
     logger.info(f"Loading CLIP model: {model_name} ({pretrained}) on {device}")
     start_time = time.time()
@@ -83,7 +136,10 @@ def load_clip_model(
 
     except Exception as e:
         logger.error(f"Failed to load CLIP model: {e}")
-        raise RuntimeError(f"Could not load CLIP model '{model_name}' with pretrained '{pretrained}': {e}")
+        _raise_clip_unavailable(
+            f"Could not load CLIP model '{model_name}' with pretrained '{pretrained}': {e}",
+            cause=e,
+        )
 
 
 def embed_icons(
@@ -334,15 +390,16 @@ def save_embeddings(
     """
     import json
 
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
 
     # Save embeddings
-    embeddings_path = output_dir / "icon_embeddings.npy"
+    embeddings_path = output_dir / EMBEDDINGS_ARRAY_FILE.name
     np.save(embeddings_path, embeddings)
     logger.info(f"Saved embeddings to {embeddings_path}")
 
     # Save index
-    index_path = output_dir / "icon_index.json"
+    index_path = output_dir / EMBEDDINGS_INDEX_FILE.name
     with open(index_path, "w") as f:
         json.dump(index, f, indent=2)
     logger.info(f"Saved index to {index_path}")
@@ -353,13 +410,16 @@ def save_embeddings(
         "count": len(index),
         "dimension": embeddings.shape[1],
         "dtype": str(embeddings.dtype),
+        "model": CLIP_MODEL,
+        "pretrained": PRETRAINED,
+        "device": device_from_metadata(metadata),
     }
 
     if metadata:
         meta.update(metadata)
 
     # Save metadata
-    metadata_path = output_dir / "metadata.json"
+    metadata_path = output_dir / EMBEDDINGS_METADATA_FILE.name
     with open(metadata_path, "w") as f:
         json.dump(meta, f, indent=2)
     logger.info(f"Saved metadata to {metadata_path}")
@@ -388,18 +448,19 @@ def load_embeddings(
     import json
 
     # Check directory exists
+    embeddings_dir = Path(embeddings_dir)
     if not embeddings_dir.exists():
         raise FileNotFoundError(f"Embeddings directory not found: {embeddings_dir}")
 
     # Load embeddings
-    embeddings_path = embeddings_dir / "icon_embeddings.npy"
+    embeddings_path = embeddings_dir / EMBEDDINGS_ARRAY_FILE.name
     if not embeddings_path.exists():
         raise FileNotFoundError(f"Embeddings file not found: {embeddings_path}")
-    embeddings = np.load(embeddings_path)
+    embeddings = np.load(embeddings_path, allow_pickle=False)
     logger.info(f"Loaded embeddings from {embeddings_path}: {embeddings.shape}")
 
     # Load index
-    index_path = embeddings_dir / "icon_index.json"
+    index_path = embeddings_dir / EMBEDDINGS_INDEX_FILE.name
     if not index_path.exists():
         raise FileNotFoundError(f"Index file not found: {index_path}")
     with open(index_path, "r") as f:
@@ -407,7 +468,7 @@ def load_embeddings(
     logger.info(f"Loaded index from {index_path}: {len(index)} entries")
 
     # Load metadata
-    metadata_path = embeddings_dir / "metadata.json"
+    metadata_path = embeddings_dir / EMBEDDINGS_METADATA_FILE.name
     if not metadata_path.exists():
         raise FileNotFoundError(f"Metadata file not found: {metadata_path}")
     with open(metadata_path, "r") as f:
@@ -423,6 +484,16 @@ def load_embeddings(
     return embeddings, index, metadata
 
 
+def device_from_metadata(metadata: Optional[Dict]) -> str:
+    """Resolve a persisted device name if present."""
+    if not isinstance(metadata, dict):
+        return "cuda" if torch.cuda.is_available() else "cpu"
+    device = metadata.get("device")
+    if isinstance(device, str) and device.strip():
+        return device
+    return "cuda" if torch.cuda.is_available() else "cpu"
+
+
 if __name__ == "__main__":
     # Example usage
     logging.basicConfig(
@@ -433,9 +504,7 @@ if __name__ == "__main__":
     # Load model
     model, preprocess, tokenizer = load_clip_model()
 
-    # Get all icon paths
-    from iconics_config import ICONICS_ROOT
-    workspace = ICONICS_ROOT
+    workspace = EMBEDDINGS_DIR.parent
     raw_dir = workspace / "raw"
     icon_paths = sorted(raw_dir.glob("*.png"))
 
@@ -445,10 +514,10 @@ if __name__ == "__main__":
     embeddings, index = embed_icons(icon_paths, model, preprocess)
 
     # Save to disk
-    output_dir = workspace / "embeddings"
+    output_dir = EMBEDDINGS_DIR
     metadata = {
-        "model": "ViT-B-32",
-        "pretrained": "laion2b_s34b_b79k",
+        "model": CLIP_MODEL,
+        "pretrained": PRETRAINED,
         "device": "cuda" if torch.cuda.is_available() else "cpu",
     }
     save_embeddings(embeddings, index, output_dir, metadata)

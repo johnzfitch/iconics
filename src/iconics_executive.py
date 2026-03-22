@@ -12,6 +12,8 @@ Key Features:
 """
 
 import logging
+import os
+import re
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -115,6 +117,149 @@ class IconCatalog:
                 return icon
         return None
 
+    @staticmethod
+    def _semantic_filename(icon: Dict) -> Optional[str]:
+        icon_id = str(icon.get("id") or "").strip()
+        if not icon_id:
+            return None
+
+        semantic_name = str(icon.get("semanticName") or icon_id).strip()
+        semantic_name = re.sub(r"[\\/]+", "-", semantic_name).strip()
+        if not semantic_name:
+            semantic_name = icon_id
+
+        if semantic_name == icon_id:
+            return f"{icon_id}.png"
+        return f"{semantic_name}--{icon_id}.png"
+
+    @staticmethod
+    def _resolve_icon_file(repo_root: Path, icon: Dict) -> Optional[Path]:
+        icon_id = str(icon.get("id") or "").strip()
+
+        candidates: List[Path] = []
+        for key in ("sourceFile", "filename"):
+            value = icon.get(key)
+            if isinstance(value, str) and value.strip():
+                p = Path(value)
+                candidates.append(p if p.is_absolute() else (repo_root / p))
+
+        if icon_id:
+            candidates.append(repo_root / "raw" / f"{icon_id}.png")
+
+        for candidate in candidates:
+            if candidate.exists():
+                return candidate.resolve()
+        return None
+
+    def sync_catalog_entry_symlink(self, icon_id: str, repo_root: Optional[Path] = None) -> Optional[Path]:
+        """
+        Ensure a single organized-tree symlink exists for the specified icon.
+
+        Removes stale symlinks that currently point at the icon's source asset,
+        then recreates the canonical category/semantic symlink.
+        """
+        repo = (repo_root or _repo_root()).resolve()
+        entry = self.get_entry(icon_id)
+        if not entry:
+            return None
+
+        raw_file = self._resolve_icon_file(repo, entry)
+        if raw_file is None:
+            logger.warning(f"Cannot create organized symlink for {icon_id}: source file missing")
+            return None
+
+        catalog_root = repo / "catalog"
+        if catalog_root.exists():
+            for symlink in catalog_root.rglob("*.png"):
+                if not symlink.is_symlink():
+                    continue
+                try:
+                    if symlink.resolve() == raw_file:
+                        symlink.unlink()
+                except FileNotFoundError:
+                    symlink.unlink()
+
+        category = str(entry.get("category") or "unknown").strip() or "unknown"
+        target_name = self._semantic_filename(entry)
+        if target_name is None:
+            return None
+
+        category_dir = catalog_root / category
+        category_dir.mkdir(parents=True, exist_ok=True)
+        target = category_dir / target_name
+        rel_target = Path(os.path.relpath(raw_file, start=category_dir))
+
+        if target.exists() or target.is_symlink():
+            if target.is_symlink():
+                target.unlink()
+            else:
+                logger.warning(f"Refusing to overwrite non-symlink catalog entry: {target}")
+                return None
+
+        target.symlink_to(rel_target)
+        return target
+
+    def rebuild_catalog_tree(self, repo_root: Optional[Path] = None) -> Dict[str, int]:
+        """
+        Rebuild the entire organized catalog tree from the active catalog.
+
+        The organized tree is derived data; rebuilding guarantees one symlink per
+        catalog row and eliminates stale semantic/collision leftovers.
+        """
+        repo = (repo_root or _repo_root()).resolve()
+        catalog_root = repo / "catalog"
+        catalog_root.mkdir(parents=True, exist_ok=True)
+
+        removed = 0
+        for symlink in catalog_root.rglob("*.png"):
+            if symlink.is_symlink():
+                symlink.unlink()
+                removed += 1
+
+        created = 0
+        missing_files = 0
+        blocked = 0
+
+        for icon in self._catalog.get("icons", []):
+            if not isinstance(icon, dict):
+                continue
+            icon_id = str(icon.get("id") or "").strip()
+            if not icon_id:
+                continue
+
+            raw_file = self._resolve_icon_file(repo, icon)
+            if raw_file is None:
+                missing_files += 1
+                continue
+
+            category = str(icon.get("category") or "unknown").strip() or "unknown"
+            filename = self._semantic_filename(icon)
+            if filename is None:
+                continue
+
+            category_dir = catalog_root / category
+            category_dir.mkdir(parents=True, exist_ok=True)
+            target = category_dir / filename
+            rel_target = Path(os.path.relpath(raw_file, start=category_dir))
+
+            if target.exists() or target.is_symlink():
+                if target.is_symlink():
+                    target.unlink()
+                else:
+                    blocked += 1
+                    logger.warning(f"Refusing to overwrite non-symlink catalog entry: {target}")
+                    continue
+
+            target.symlink_to(rel_target)
+            created += 1
+
+        return {
+            "removed": removed,
+            "created": created,
+            "missing_files": missing_files,
+            "blocked": blocked,
+        }
+
     def update_entry(self, icon_id: str, updated_entry: Dict) -> bool:
         """
         Update an existing catalog entry.
@@ -135,6 +280,7 @@ class IconCatalog:
                     upsert_icon_sqlite(self.catalog_path, updated_entry)
                 else:
                     self._save_catalog()
+                self.sync_catalog_entry_symlink(icon_id)
                 logger.info(f"Updated catalog entry for {icon_id}")
                 return True
         logger.warning(f"Icon {icon_id} not found in catalog for update")
@@ -152,14 +298,16 @@ class IconCatalog:
 
         repo = _repo_root()
         source_file_rel = ensure_repo_relative_path(path, repo_root=repo)
+        icon_id = path.stem
 
         icon_entry = {
-            "id": label_data.get('icon_id', path.stem),
-            "semanticName": label_data.get('canonical', path.stem),
+            "id": icon_id,
+            "semanticName": label_data.get('canonical', icon_id),
             "tags": label_data.get('tags', []),
             "category": label_data.get('category', 'unknown'),
             "description": label_data.get('description', ''),
             "sourceFile": source_file_rel,
+            "filename": source_file_rel,
         }
 
         # Avoid introducing duplicate IDs in the in-memory view (SQLite enforces uniqueness).
@@ -177,6 +325,7 @@ class IconCatalog:
             upsert_icon_sqlite(self.catalog_path, icon_entry)
         else:
             self._save_catalog()
+        self.sync_catalog_entry_symlink(icon_id)
         logger.info(f"Added {icon_entry['id']} to catalog")
 
     def get_stats(self) -> Dict:
@@ -234,8 +383,10 @@ class IconicsExecutive:
         self.drift_threshold = drift_threshold
 
         base_dir = _repo_root()
-        embeddings_path = embeddings_path or (base_dir / "embeddings")
-        subspace_path = subspace_path or (base_dir / "subspace")
+        from iconics_config import EMBEDDINGS_DIR, SUBSPACE_DIR
+
+        embeddings_path = embeddings_path or EMBEDDINGS_DIR
+        subspace_path = subspace_path or SUBSPACE_DIR
         if catalog_path is None:
             from iconics_catalog import resolve_default_catalog_path
 
@@ -442,12 +593,6 @@ class IconicsExecutive:
             # Convert IconLabel to dict for processing
             label_data = icon_label.to_dict()
 
-            # Normalize: VLM returns 'canonical' but we need 'icon_id' for catalog
-            # Use canonical as the icon ID (semantic name)
-            if 'canonical' in label_data and 'icon_id' not in label_data:
-                label_data['icon_id'] = label_data['canonical']
-                logger.debug(f"Normalized icon_id to canonical: {label_data['icon_id']}")
-
         except Exception as e:
             logger.error(f"VLM labeling failed: {e}")
             return IngestResult(
@@ -480,7 +625,7 @@ class IconicsExecutive:
         # Incremental embedding update (makes icon immediately searchable)
         if self.retriever:
             try:
-                self.retriever.add_incremental_embedding(path)
+                self.retriever.add_incremental_embedding(path, icon_id=path.stem)
                 logger.debug(f"Added incremental embedding for {path.name}")
             except Exception as e:
                 logger.error(f"Failed to add incremental embedding for {path.name}: {e}")
@@ -488,7 +633,7 @@ class IconicsExecutive:
 
         return IngestResult(
             path=path,
-            icon_id=label_data.get('icon_id', path.stem),
+            icon_id=path.stem,
             status='vlm',
             confidence=label_data.get('confidence', 0.0),
             metadata=label_data,

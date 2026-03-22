@@ -13,6 +13,8 @@ use std::{
     path::{Path, PathBuf},
     process::{Command, Stdio},
     sync::Arc,
+    thread,
+    time::Duration,
 };
 use tokio::sync::Mutex;
 use tui_tree_widget::{TreeItem, TreeState};
@@ -552,66 +554,54 @@ impl App {
     }
 
     fn set_clipboard_text(&mut self, text: &str) -> Result<Vec<&'static str>> {
-        let mut methods = Vec::new();
-
         let is_wayland = std::env::var_os("WAYLAND_DISPLAY").is_some();
 
-        // 1) Wayland clipboard helper (preferred for Omarchy/elephant-clipboard history)
-        // Only set the standard clipboard by default. Primary can be added later if needed.
+        // 1) Wayland clipboard helper (preferred for Wayland sessions).
+        // Stop after the first success so we do not block on secondary helpers
+        // that keep ownership of the clipboard selection alive.
         if is_wayland {
-            if self.try_set_clipboard_with_command("wl-copy", &[], text)? {
-                methods.push("wl-copy");
+            if self.try_set_clipboard_with_command("wl-copy", &[], text, true)? {
+                return Ok(vec!["wl-copy"]);
             }
-        } else if self.try_set_clipboard_with_command("wl-copy", &[], text)? {
-            // Even on non-Wayland sessions this is harmless if wl-copy is configured.
-            methods.push("wl-copy");
         }
 
-        // 3) X11 clipboard helpers
-        if self.try_set_clipboard_with_command("xclip", &["-selection", "clipboard"], text)? {
-            methods.push("xclip");
+        // 2) X11 clipboard helpers
+        if self.try_set_clipboard_with_command("xclip", &["-selection", "clipboard"], text, true)? {
+            return Ok(vec!["xclip"]);
         }
-        if self.try_set_clipboard_with_command("xclip", &["-selection", "primary"], text)? {
-            methods.push("xclip --primary");
+        if self.try_set_clipboard_with_command("xsel", &["--clipboard", "--input"], text, true)? {
+            return Ok(vec!["xsel"]);
         }
-        if self.try_set_clipboard_with_command("xsel", &["--clipboard", "--input"], text)? {
-            methods.push("xsel");
-        }
-        if self.try_set_clipboard_with_command("xsel", &["--primary", "--input"], text)? {
-            methods.push("xsel --primary");
+        if !is_wayland && self.try_set_clipboard_with_command("wl-copy", &[], text, true)? {
+            // Some X11 sessions still have a functional Wayland clipboard bridge.
+            return Ok(vec!["wl-copy"]);
         }
 
-        // 4) macOS helper (no-op on Linux; harmless if missing)
-        if self.try_set_clipboard_with_command("pbcopy", &[], text)? {
-            methods.push("pbcopy");
+        // 3) macOS helper (no-op on Linux; harmless if missing)
+        if self.try_set_clipboard_with_command("pbcopy", &[], text, false)? {
+            return Ok(vec!["pbcopy"]);
         }
 
-        // 5) arboard (portable fallback, but can be ephemeral depending on platform/backend)
-        if methods.is_empty() {
-            if self.clipboard.is_none() {
-                match Clipboard::new() {
-                    Ok(cb) => self.clipboard = Some(cb),
-                    Err(err) => {
-                        self.log(LogLevel::System, format!("Clipboard init failed (arboard): {err}"));
-                    }
-                }
-            }
-
-            if let Some(cb) = self.clipboard.as_mut() {
-                match cb.set_text(text.to_string()) {
-                    Ok(()) => methods.push("arboard"),
-                    Err(err) => {
-                        self.log(LogLevel::System, format!("Clipboard set failed (arboard): {err}"));
-                    }
+        // 4) arboard (portable fallback, but can be ephemeral depending on platform/backend)
+        if self.clipboard.is_none() {
+            match Clipboard::new() {
+                Ok(cb) => self.clipboard = Some(cb),
+                Err(err) => {
+                    self.log(LogLevel::System, format!("Clipboard init failed (arboard): {err}"));
                 }
             }
         }
 
-        if methods.is_empty() {
-            bail!("Failed to copy to clipboard (no working clipboard backend detected)");
+        if let Some(cb) = self.clipboard.as_mut() {
+            match cb.set_text(text.to_string()) {
+                Ok(()) => return Ok(vec!["arboard"]),
+                Err(err) => {
+                    self.log(LogLevel::System, format!("Clipboard set failed (arboard): {err}"));
+                }
+            }
         }
 
-        Ok(methods)
+        bail!("Failed to copy to clipboard (no working clipboard backend detected)");
     }
 
     fn try_set_clipboard_with_command(
@@ -619,6 +609,7 @@ impl App {
         program: &str,
         args: &[&str],
         text: &str,
+        can_stay_resident: bool,
     ) -> Result<bool> {
         let mut child = match Command::new(program)
             .args(args)
@@ -638,9 +629,27 @@ impl App {
                 .with_context(|| format!("Failed to write to {program} stdin"))?;
         }
 
-        let output = child
-            .wait_with_output()
-            .with_context(|| format!("Failed to wait for {program}"))?;
+        if can_stay_resident {
+            thread::sleep(Duration::from_millis(25));
+            if let Some(status) = child
+                .try_wait()
+                .with_context(|| format!("Failed to poll {program}"))?
+            {
+                if status.success() {
+                    return Ok(true);
+                }
+                self.log(LogLevel::System, format!("{program} failed with exit {status}"));
+                return Ok(false);
+            }
+
+            self.log(
+                LogLevel::System,
+                format!("{program} is serving clipboard ownership in the background"),
+            );
+            return Ok(true);
+        }
+
+        let output = child.wait_with_output().with_context(|| format!("Failed to wait for {program}"))?;
 
         if !output.status.success() {
             let stderr = String::from_utf8_lossy(&output.stderr);
