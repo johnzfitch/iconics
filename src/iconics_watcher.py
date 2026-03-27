@@ -111,7 +111,7 @@ class IconicsWatcher:
         if not WATCHDOG_AVAILABLE:
             raise ImportError(
                 "watchdog package required for file watching. "
-                "Install with: pip install watchdog"
+                "Install with: uv add watchdog (project) or uv sync --extra watch"
             )
 
         self.executive = executive
