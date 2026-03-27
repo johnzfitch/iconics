@@ -1,0 +1,31 @@
+{
+  "name": "iconics",
+  "version": "1.0.0",
+  "description": "A semantic icon library with intelligent tagging and discovery",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples",
+    "test": "tests"
+  },
+  "scripts": {
+    "token:count": "node scripts/token_cost.mjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnzfitch/iconics.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "private": true,
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/johnzfitch/iconics/issues"
+  },
+  "homepage": "https://github.com/johnzfitch/iconics#readme",
+  "dependencies": {
+    "gpt-tokenizer": "^3.4.0"
+  }
+}

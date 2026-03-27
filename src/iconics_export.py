@@ -15,6 +15,12 @@ from typing import List, Dict, Optional
 from iconics_output import OutputContext
 
 
+ICON_USAGE_FILES = (
+    'icon-usage-history.json',
+    'icon-usage-analytics.json',
+)
+
+
 class IconExporter:
     """
     Handles icon export operations for the Iconics system.
@@ -66,6 +72,32 @@ class IconExporter:
 
         # Fallback: use current directory
         return current / "icons"
+
+    def _find_git_root(self, start_path: Path) -> Optional[Path]:
+        current = start_path.resolve()
+        for parent in [current] + list(current.parents):
+            if (parent / '.git').exists():
+                return parent
+        return None
+
+    def _ensure_gitignore_entries(self, project_root: Path, entries: List[str]) -> None:
+        gitignore_path = project_root / '.gitignore'
+        existing_text = ''
+        if gitignore_path.exists():
+            existing_text = gitignore_path.read_text()
+        existing_entries = {
+            line.strip()
+            for line in existing_text.splitlines()
+            if line.strip()
+        }
+        new_entries = [entry for entry in entries if entry not in existing_entries]
+        if not new_entries:
+            return
+        with open(gitignore_path, 'a') as handle:
+            if existing_text and not existing_text.endswith('\n'):
+                handle.write('\n')
+            for entry in new_entries:
+                handle.write(f"{entry}\n")
 
     def resolve_icon_path(self, icon_id: str) -> Optional[tuple[Dict, Path]]:
         """
@@ -180,6 +212,10 @@ class IconExporter:
             project_path: Project directory path
             icon_ids: List of icon IDs used
         """
+        git_root = self._find_git_root(Path.cwd())
+        if git_root:
+            self._ensure_gitignore_entries(git_root, list(ICON_USAGE_FILES))
+
         project_name = project_path.name
         timestamp = datetime.now().isoformat()
 

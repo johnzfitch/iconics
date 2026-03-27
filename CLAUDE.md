@@ -6,509 +6,151 @@
 
 ## What Is This?
 
-Iconics is a globally-accessible icon library with 7,996 PNG icons designed to replace emojis in documentation, GitHub READMEs, and technical writing.
+Iconics is a globally accessible icon library designed to replace emojis in documentation, GitHub READMEs, and technical writing.
 
-**Features:**
-- Global `icon` command + `/iconics` skill for agents
-- Smart project detection, instant markdown generation
-- CLIP-powered semantic search (512-dim vectors)
+Key points:
+- Global `iconics` CLI (path or alias)
+- Smart project detection and markdown generation
+- CLIP-powered semantic search with metadata fallback
+- Local-first usage tracking (no network telemetry)
 
 **Location:** `/home/zack/dev/iconics`
-**Status:** 7,996 icons (100%), fully embedded & tagged
 
 ---
 
 ## Why Use Iconics?
 
-### Replace This (Emojis):
+Replace emoji placeholders with iconics markdown:
+
 ```markdown
-## 🔒 Security Features
-### 🛡️ Encryption
-### 🔑 Authentication
+## [emoji] Security Features
+### [emoji] Encryption
+### [emoji] Authentication
 ```
 
-### With This (Professional Icons):
+With this:
+
 ```markdown
-## ![lock](.github/assets/icons/lock.png) Security Features
-### ![shield](.github/assets/icons/shield.png) Encryption
-### ![key](.github/assets/icons/key.png) Authentication
+## ![lock](.github/assets/icons/lock-24x24.png) Security Features
+### ![shield](.github/assets/icons/shield-security-protection-24x24.png) Encryption
+### ![handshake](.github/assets/icons/handshake-24x24.png) Authentication
 ```
 
-**Benefits:**
+Benefits:
 - Professional appearance
-- Semantic meaning (lock = security, not just a visual)
-- Consistent across platforms
+- Semantic meaning instead of decorative symbols
+- Consistent rendering across platforms
 - Git-tracked assets
-- No emoji rendering issues
 
 ---
 
-## The Standard Workflow
+## Standard Workflow
 
-### 1. User Asks for Documentation/Features
-
-**User:** "Add security documentation to the README"
-
-### 2. Get Icon Suggestions
+1. Get icon suggestions.
 
 ```bash
 iconics suggest security
 ```
 
-**Output:**
-```
-Icon suggestions for 'security':
-  lock, shield, key, protection, certificate
-```
-
-### 3. Export Icons + Generate Markdown
+2. Export icons and generate markdown.
 
 ```bash
-iconics use lock shield
+iconics use lock-24x24 shield-security-protection-24x24
 ```
 
-**Output:**
-```
-Exporting to: /home/zack/dev/project
-✓ Exported lock.png
-✓ Exported shield.png
-
-Markdown snippets:
-  ![lock](.github/assets/icons/lock.png)
-  ![shield](.github/assets/icons/shield.png)
-```
-
-### 4. Use the Generated Markdown
-
-Copy the markdown snippets directly into your response:
-
-```markdown
-## ![lock](.github/assets/icons/lock.png) Security Features
-
-This project implements several security measures:
-
-### ![shield](.github/assets/icons/shield.png) TLS Encryption
-All network traffic is encrypted using TLS 1.3...
-```
-
----
-
-## Built-In Context Suggestions
-
-Use `iconics suggest <context>` for these common scenarios:
-
-| Context | Suggested Icons |
-|---------|-----------------|
-| `authentication` / `auth` / `login` | lock, key, shield, certificate, login |
-| `security` / `secure` | shield, lock, key, protection, certificate |
-| `network` / `api` / `server` | network, cloud, globe, wifi, connect |
-| `data` / `database` / `storage` | database, folder, save-file, cloud, documents |
-| `error` / `warning` / `alert` | warning, error, alert, caution, danger |
-| `success` / `complete` / `done` | checkbox, checkmark, success, done |
-| `info` / `information` / `help` | info, help, question, about |
-| `settings` / `config` / `options` | settings, options, control-panel, toolbox |
-| `navigation` / `menu` / `ui` | home, menu, arrows, close |
-| `files` / `documents` / `docs` | folder, document, pdf, file |
-| `code` / `development` / `programming` | console, script, database, terminal |
-| `search` / `find` / `lookup` | search, find, magnifying-glass, lookup |
-| `user` / `account` / `profile` | login, logout, user, account, profile |
+3. Paste the markdown snippet into the document.
 
 ---
 
 ## Quick Command Reference
 
-### Most Used Commands
-
-```bash
-# Get suggestions for a context
-iconics suggest authentication
-
-# Export icons and get markdown (most common)
-iconics use lock shield key
-
-# Just generate markdown (icons already exported)
-iconics md database network
-
-# Search for icons by keyword
-iconics search security
-
-# Show icon details
-iconics info lock
-
-# Export entire category
-iconics cat security
-```
-
-### Shortcuts
-
-All commands have short aliases:
-- `icon s <query>` → search
-- `icon u <names>` → use (export + markdown)
-- `icon sug <context>` → suggest
-- `iconics md <names>` → markdown only
-- `iconics info <name>` → info
-- `icon r` → recent
-- `iconics cat <category>` → export category
+- `iconics search <query>`: semantic search
+- `iconics suggest <context>`: context-aware suggestions
+- `iconics use <name...>`: export icons + markdown
+- `iconics md <name...>`: markdown only
+- `iconics info <name>`: icon metadata
+- `iconics cat <category>`: export an entire category
+- `iconics recent --limit N`: recent catalog additions
+- `iconics history [project]`: usage history from local logs
+- `iconics popular --limit N`: most-used icons from local analytics
+- `iconics emoji scan|convert`: emoji detection and replacement
 
 ---
 
-## When to Use Iconics
+## Context Suggestions
 
-### Use Icons For:
+Use `iconics suggest <context>` for common scenarios:
 
-1. **Section Headers in READMEs**
-   ```markdown
-   ## ![network](.github/assets/icons/network.png) API Architecture
-   ```
-
-2. **Feature Documentation**
-   ```markdown
-   ### ![shield](.github/assets/icons/shield.png) Security
-   ### ![database](.github/assets/icons/database.png) Data Storage
-   ```
-
-3. **Technical Guides**
-   ```markdown
-   ## ![warning](.github/assets/icons/warning.png) Important Security Notice
-   ```
-
-4. **Project Organization**
-   ```markdown
-   - ![folder](.github/assets/icons/folder.png) **Documentation**: See docs/
-   - ![code](.github/assets/icons/console.png) **Development**: See CONTRIBUTING.md
-   ```
-
-### Don't Overuse:
-
-- **Not every line** - Use for headers and key points, not inline text
-- **Not in code** - Only in markdown/documentation
-- **Not when unnecessary** - If the text is already clear, skip the icon
-- **Not for decorative purposes** - Each icon should add semantic meaning
-
----
-
-## Example Workflows
-
-### Example 1: Adding API Documentation
-
-**User Request:** "Document the API endpoints"
-
-**Your Actions:**
-```bash
-iconics suggest api
-# → network, cloud, globe, server, database
-
-iconics use network database
-```
-
-**Your Response:**
-```markdown
-## ![network](.github/assets/icons/network.png) API Documentation
-
-### ![database](.github/assets/icons/database.png) Data Endpoints
-
-GET /api/v1/data
-...
-```
-
-### Example 2: Security Features
-
-**User Request:** "Add security section to README"
-
-**Your Actions:**
-```bash
-iconics suggest security
-# → lock, shield, key, protection, certificate
-
-iconics use lock shield key
-```
-
-**Your Response:**
-```markdown
-## ![lock](.github/assets/icons/lock.png) Security
-
-### ![shield](.github/assets/icons/shield.png) Encrypted Communication
-All traffic uses TLS 1.3...
-
-### ![key](.github/assets/icons/key.png) Authentication
-JWT-based authentication with...
-```
-
-### Example 3: Project Setup Instructions
-
-**User Request:** "Create installation documentation"
-
-**Your Actions:**
-```bash
-iconics suggest settings
-# → settings, options, control-panel, toolbox
-
-iconics use toolbox settings
-```
-
-**Your Response:**
-```markdown
-## ![toolbox](.github/assets/icons/toolbox.png) Installation
-
-### ![settings](.github/assets/icons/settings.png) Configuration
-
-1. Clone the repository
-2. Install dependencies
-...
-```
+| Context | Suggested Icons |
+|---------|-----------------|
+| `authentication` / `login` | lock, handshake, shield, certificate |
+| `security` / `secure` | shield, lock, protection |
+| `network` / `api` | network, cloud, globe, server |
+| `data` / `database` | database, folder, save-file |
+| `error` / `warning` | warning, error, alert |
+| `success` / `complete` | checkmark, accept, done |
+| `info` / `help` | question, help, about |
+| `settings` / `config` | gear, settings, toolbox |
+| `navigation` / `menu` | list, close, down |
+| `files` / `documents` | closed-folder, downloads-folder |
+| `search` / `lookup` | search, find |
 
 ---
 
 ## Best Practices
 
-### 1. Be Proactive
-
-When creating or modifying documentation, automatically use icons without waiting for the user to ask.
-
-**Good:**
-```
-User: "Add a security section"
-Assistant: [Runs: iconics suggest security]
-Assistant: [Runs: iconics use lock shield]
-Assistant: "I've added a security section with professional icons."
-```
-
-### 2. Choose Semantic Icons
-
-Pick icons that match the **meaning** of the content, not just the visual:
-- **Security** → lock, shield, key (not padlock emoji)
-- **Network** → network, cloud, globe (not wifi emoji)
-- **Error** → warning, error (not ⚠️)
-
-### 3. Consistent Usage
-
-Within a project, use consistent icon styles:
-- Use icons for all major sections, or none
-- Don't mix emojis and icons
-- Keep icon density consistent (e.g., one per h2 header)
-
-### 4. Generate Markdown Immediately
-
-Always run `iconics use` to get ready-to-paste markdown. Don't manually type paths:
-
-**Bad:**
-```markdown
-![lock](path/to/icon.png)  # Manual, error-prone
-```
-
-**Good:**
-```bash
-iconics use lock
-# Copy the generated: ![lock](.github/assets/icons/lock.png)
-```
-
-### 5. Verify Icon Availability
-
-If a suggested icon isn't cataloged, search or suggest alternatives:
-
-```bash
-iconics search authentication
-# Shows all authentication-related icons
-```
+1. Be proactive: use icons for headers and key sections without waiting for the user to ask.
+2. Choose semantic icons: match meaning, not just appearance.
+3. Be consistent: use one icon per header, avoid mixing styles.
+4. Always generate markdown via `iconics use` to avoid path mistakes.
 
 ---
 
 ## Troubleshooting
 
-### Icon Not Found
+Icon not found:
 
 ```bash
-# Search for alternatives
 iconics search <keyword>
-
-# Check what's available
-iconics recent
-icon stats
+iconics suggest <context>
 ```
 
-### Need Icon Information
+Need icon details:
 
 ```bash
-# Get details about an icon
 iconics info <name>
-
-# Shows: tags, description, file status, projects using it
 ```
 
-### Wrong Project Detected
+Wrong project detected:
 
-The `iconics use` command auto-detects project root via:
-1. Git root (`git rev-parse --show-toplevel`)
-2. Nearest README.md
-3. Current directory
-
-If wrong, manually specify:
 ```bash
-cd /path/to/correct/project
-iconics use lock shield
+cd /path/to/project
+iconics use lock-24x24 shield-security-protection-24x24
 ```
 
 ---
 
 ## Categories Available
 
-Browse by category:
-
-- **ui** (4,252 icons) - info, warning, arrows, buttons, controls, home, menu, close, delete, checkbox (+ all sizes)
-- **files** (539 icons) - folder, document, pdf, photo, video, archive, new-document, open-file, save-file (+ sizes)
-- **emoji** (269 icons) - happy, sad, smile, expressions, characters (+ sizes)
-- **network** (197 icons) - network, cloud, globe, wifi, network-radar, global-network, connect, disconnect (+ sizes)
-- **security** (171 icons) - lock, shield, key, certificate, keychain, protection, unlock, open-lock, eye, hide, show (+ sizes)
-- **tools** (184 icons) - search, toolbox, settings, options, control-panel, print, export, import, battery, power (+ sizes)
-- **development** (85 icons) - database, console, application, script, plugin, error, login, logout, update (+ sizes)
-
-Export entire categories:
-```bash
-iconics cat security
-# Exports all 80 security icons
-```
-
----
-
-## Advanced Features
-
-### Batch Operations
-
-Export multiple icons at once:
-```bash
-iconics use lock shield key certificate database network
-```
-
-### Markdown Only (No Export)
-
-If icons already exist in project:
-```bash
-iconics md lock shield
-# Just generates markdown, no export
-```
-
-### Show Recent Additions
-
-See what's newly cataloged:
-```bash
-iconics recent 10
-# Shows last 10 added icons
-```
-
-### Explore Icons
-
-```bash
-# Search by keyword
-iconics search <keyword>
-
-# List category contents
-icon list security
-
-# Show library statistics
-icon stats
-```
-
----
-
-## Integration Examples
-
-### In README.md Updates
-
-**Before:**
-```markdown
-## Features
-- Security
-- API Access
-- Data Storage
-```
-
-**After:**
-```markdown
-## Features
-- ![lock](.github/assets/icons/lock.png) **Security**: End-to-end encryption
-- ![network](.github/assets/icons/network.png) **API Access**: RESTful API
-- ![database](.github/assets/icons/database.png) **Data Storage**: PostgreSQL database
-```
-
-### In Documentation Files
-
-```markdown
-# Project Documentation
-
-## ![info](.github/assets/icons/info.png) Overview
-...
-
-## ![toolbox](.github/assets/icons/toolbox.png) Installation
-...
-
-## ![settings](.github/assets/icons/settings.png) Configuration
-...
-```
-
----
-
-## Performance Notes
-
-- All commands run in **< 1 second**
-- No network requests required
-- Works offline
-- Zero dependencies (Python 3 standard library only)
-
----
-
-## Remember
-
-1. **Always prefer icons over emojis** in professional documentation
-2. **Use `iconics suggest` first** to get appropriate recommendations
-3. **Run `iconics use`** to export and generate markdown in one command
-4. **Copy-paste the generated markdown** - don't type paths manually
-5. **Be proactive** - add icons when creating/updating docs without being asked
-
----
-
-## Quick Start Summary
-
-```bash
-# 1. Get suggestions
-iconics suggest <context>
-
-# 2. Export and get markdown
-iconics use <icon1> <icon2> <icon3>
-
-# 3. Paste the generated markdown into documentation
-
-# That's it!
-```
-
----
-
-## Files and Locations
-
-- **Library:** `/home/zack/dev/iconics/`
-- **Catalog:** `/home/zack/dev/iconics/icon-catalog.json`
-- **Raw Icons:** `/home/zack/dev/iconics/raw/`
-
----
-
-## For Future Development
-
-If the user asks to catalog more icons:
-
-```bash
-# Auto-generate suggestions from uncataloged icons
-cd /home/zack/dev/iconics
-python3 icon-manager.py generate-csv batch.csv --limit 100
-
-# Review and edit the CSV, then import
-python3 icon-manager.py import-csv batch.csv
-```
-
-See the main README.md for full cataloging workflows.
-
----
-
-**Remember:** Iconics exists to replace emojis with professional, semantic icons. Use it proactively in all documentation work.
-
----
-
-**Updated:** 2026-01-06 | **v4.1** | 8,203 icons | 8,202 CLIP vectors | Full semantic embeddings
+- files
+- network
+- security
+- tools
+- ui
+- emoji
+- development
+- communication
+- media
+- people
+- commerce
+- time
+- system
+- status
+- navigation
+- apps
+- brands
+- devices
+- data
+- location
+- weather
+- misc
